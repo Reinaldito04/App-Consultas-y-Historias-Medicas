@@ -70,7 +70,8 @@ class IngresoUsuario(QMainWindow):
                 if (horaActual >= datetime.time(18, 0, 0)) and (horaActual <= datetime.time(5, 0, 0)):
                    
                    textForMenu = f"Buenas noches {nombre} \n¿Que deseas hacer hoy?"
-                
+                else :
+                     textForMenu = f"Hola {nombre} \n¿Que deseas hacer hoy?"
                     
                
                 id_user = usuario[2]
@@ -336,6 +337,8 @@ class CitasMenu(QMainWindow):
             if (horaActual >= datetime.time(18, 0, 0)) and (horaActual <= datetime.time(5, 0, 0)):
                    
                 textForMenu = f"Buenas noches {nombre_usuario} \n¿Que deseas hacer hoy?"
+            else :
+                    textForMenu = f"Hola {nombre_usuario} \n¿Que deseas hacer hoy?"
             menu_principal.lb_nombre.setText(textForMenu)
             menu_principal.show()
             self.hide()
@@ -874,6 +877,8 @@ class placasMenu(QMainWindow):
                    
                 textForMenu = f"Buenas noches {nombre_usuario} \n¿Que deseas hacer hoy?"
                 
+            else :
+                textForMenu = f"Hola {nombre_usuario} \n¿Que deseas hacer hoy?"
             menu_principal.lb_nombre.setText(textForMenu)
             menu_principal.show()
             self.hide()
@@ -1105,6 +1110,8 @@ class historiaMenu(QMainWindow):
                    
                 textForMenu = f"Buenas noches {nombre_usuario} \n¿Que deseas hacer hoy?"
                 
+            else :
+                    textForMenu = f"Hola {nombre_usuario} \n¿Que deseas hacer hoy?"
             menu_principal.lb_nombre.setText(textForMenu)
             menu_principal.show()
             self.hide()
