@@ -1,0 +1,256 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>872</width>
+    <height>793</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>MainWindow</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <widget class="QFrame" name="frame">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>10</y>
+      <width>851</width>
+      <height>771</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color:rgb(14, 33, 160);
+border-radius:25px;</string>
+    </property>
+    <property name="frameShape">
+     <enum>QFrame::StyledPanel</enum>
+    </property>
+    <property name="frameShadow">
+     <enum>QFrame::Raised</enum>
+    </property>
+    <widget class="QLabel" name="label">
+     <property name="geometry">
+      <rect>
+       <x>270</x>
+       <y>60</y>
+       <width>321</width>
+       <height>41</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">color:rgb(236, 83, 176);
+font-size:30px;</string>
+     </property>
+     <property name="text">
+      <string>Registro de Usuario</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_2">
+     <property name="geometry">
+      <rect>
+       <x>90</x>
+       <y>190</y>
+       <width>221</width>
+       <height>51</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">color:rgb(157, 68, 192);
+font-size:28px;
+font: 28px &quot;Hack Nerd Font&quot;;</string>
+     </property>
+     <property name="text">
+      <string>Username</string>
+     </property>
+    </widget>
+    <widget class="QLineEdit" name="txt_user">
+     <property name="geometry">
+      <rect>
+       <x>460</x>
+       <y>200</y>
+       <width>241</width>
+       <height>41</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background-color:rgba(0,0,0,0.5);
+border-radius:15px;
+color:rgb(157, 68, 192);
+font-size:15px;</string>
+     </property>
+     <property name="maxLength">
+      <number>20</number>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_3">
+     <property name="geometry">
+      <rect>
+       <x>90</x>
+       <y>300</y>
+       <width>136</width>
+       <height>33</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">color:rgb(157, 68, 192);
+font-size:28px;
+font: 28px &quot;Hack Nerd Font&quot;;</string>
+     </property>
+     <property name="text">
+      <string>Password</string>
+     </property>
+    </widget>
+    <widget class="QLineEdit" name="txt_password">
+     <property name="geometry">
+      <rect>
+       <x>460</x>
+       <y>300</y>
+       <width>241</width>
+       <height>41</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background-color:rgba(0,0,0,0.5);
+border-radius:15px;
+color:rgb(157, 68, 192);
+font-size:15px;</string>
+     </property>
+     <property name="maxLength">
+      <number>20</number>
+     </property>
+     <property name="echoMode">
+      <enum>QLineEdit::Password</enum>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_4">
+     <property name="geometry">
+      <rect>
+       <x>90</x>
+       <y>400</y>
+       <width>271</width>
+       <height>33</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">color:rgb(157, 68, 192);
+font-size:28px;
+font: 28px &quot;Hack Nerd Font&quot;;</string>
+     </property>
+     <property name="text">
+      <string>Repeat Password</string>
+     </property>
+    </widget>
+    <widget class="QLineEdit" name="txt_password_repeat">
+     <property name="geometry">
+      <rect>
+       <x>460</x>
+       <y>400</y>
+       <width>241</width>
+       <height>41</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background-color:rgba(0,0,0,0.5);
+border-radius:15px;
+color:rgb(157, 68, 192);
+font-size:15px;</string>
+     </property>
+     <property name="maxLength">
+      <number>20</number>
+     </property>
+     <property name="echoMode">
+      <enum>QLineEdit::Password</enum>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="bt_register">
+     <property name="geometry">
+      <rect>
+       <x>80</x>
+       <y>630</y>
+       <width>231</width>
+       <height>71</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">QPushButton{
+font-size:20px;
+color:rgb(157, 68, 192);
+background-color:rgb(77, 45, 183);
+border-radius:25px;
+
+
+}
+QPushButton:hover{
+color:white;
+font-size:22px;
+}</string>
+     </property>
+     <property name="text">
+      <string>Register</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="bt_back">
+     <property name="geometry">
+      <rect>
+       <x>480</x>
+       <y>630</y>
+       <width>231</width>
+       <height>71</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">QPushButton{
+font-size:20px;
+color:rgb(157, 68, 192);
+background-color:rgb(77, 45, 183);
+border-radius:25px;
+
+}
+QPushButton:hover{
+color:white;
+font-size:22px;
+}</string>
+     </property>
+     <property name="text">
+      <string>Back</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="bt_end">
+     <property name="geometry">
+      <rect>
+       <x>600</x>
+       <y>20</y>
+       <width>231</width>
+       <height>71</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">QPushButton{
+font-size:20px;
+color:rgb(157, 68, 192);
+background-color:rgb(236, 83, 176);
+border-radius:25px;
+
+
+}
+QPushButton:hover{
+color:white;
+font-size:22px;
+}</string>
+     </property>
+     <property name="text">
+      <string>SALIR</string>
+     </property>
+    </widget>
+   </widget>
+  </widget>
+  <widget class="QStatusBar" name="statusbar"/>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
