@@ -236,7 +236,7 @@ class MenuPrincipal(QMainWindow):
             widget.addWidget(CitasView)
             widget.setCurrentIndex(widget.currentIndex()+1)
             widget.setFixedHeight(700)
-            widget.setFixedWidth(900)
+            widget.setFixedWidth(1100)
             self.hide()
     def passwordView(self):
         reply = QMessageBox.question(
@@ -294,248 +294,248 @@ class CitasMenu(QMainWindow):
     def __init__(self,id_user):
         super(CitasMenu, self).__init__()
         self.id_user = id_user
-        loadUi("interfaces\citas.ui", self)
-        self.btn_citas.clicked.connect(self.mostrarCitas)
-        self.btn_agg_cita.clicked.connect(self.mostrarFormularioAgendarCita)
-        self.btn_borrar.clicked.connect(self.mostrarFormularioEliminarCita)
-        self.btn_back.clicked.connect(self.volverAlMenu)
-        self.btn_refresh.clicked.connect(self.buscarCitas)
-        self.btn_buscar_2.clicked.connect(self.buscarPacienteParaCita)
-        self.btn_edit.clicked.connect(self.editarCita)
-        self.btn_agg.clicked.connect(self.agendarCita)
-        self.btn_buscar_3.clicked.connect(self.buscarCitaParaEliminar)
-        self.btn_delete.clicked.connect(self.eliminarCita)
+        loadUi("interfaces\citas(nuevo).ui", self)
+#         self.btn_citas.clicked.connect(self.mostrarCitas)
+#         self.btn_agg_cita.clicked.connect(self.mostrarFormularioAgendarCita)
+#         self.btn_borrar.clicked.connect(self.mostrarFormularioEliminarCita)
+#         self.btn_back.clicked.connect(self.volverAlMenu)
+#         self.btn_refresh.clicked.connect(self.buscarCitas)
+#         self.btn_buscar_2.clicked.connect(self.buscarPacienteParaCita)
+#         self.btn_edit.clicked.connect(self.editarCita)
+#         self.btn_agg.clicked.connect(self.agendarCita)
+#         self.btn_buscar_3.clicked.connect(self.buscarCitaParaEliminar)
+#         self.btn_delete.clicked.connect(self.eliminarCita)
 
-    def mostrarCitas(self):
-        self.stackedWidget.setCurrentWidget(self.tabla_citas)
+#     def mostrarCitas(self):
+#         self.stackedWidget.setCurrentWidget(self.tabla_citas)
         
- # Función para mostrar el formulario de agendar cita
-    def mostrarFormularioAgendarCita(self):
-        self.stackedWidget.setCurrentWidget(self.agg_cita)
+#  # Función para mostrar el formulario de agendar cita
+#     def mostrarFormularioAgendarCita(self):
+#         self.stackedWidget.setCurrentWidget(self.agg_cita)
 
-    # Función para mostrar el formulario de eliminar cita
-    def mostrarFormularioEliminarCita(self):
-        self.stackedWidget.setCurrentWidget(self.delete_cita)
+#     # Función para mostrar el formulario de eliminar cita
+#     def mostrarFormularioEliminarCita(self):
+#         self.stackedWidget.setCurrentWidget(self.delete_cita)
 
-    # Función para volver al menú principal
-    def volverAlMenu(self):
-        print("Volviendo al menú principal")
-        menu_principal = MenuPrincipal(self.id_user)
-        conexion =sqlite3.connect('interfaces/database.db')
-        cursor= conexion.cursor()
-        cursor.execute("SELECT Username FROM Users WHERE ID = ?", (self.id_user,))
+#     # Función para volver al menú principal
+#     def volverAlMenu(self):
+#         print("Volviendo al menú principal")
+#         menu_principal = MenuPrincipal(self.id_user)
+#         conexion =sqlite3.connect('interfaces/database.db')
+#         cursor= conexion.cursor()
+#         cursor.execute("SELECT Username FROM Users WHERE ID = ?", (self.id_user,))
         
-        resultado= cursor.fetchone()
-        if resultado :
-            nombre_usuario= resultado[0]
-            horaActual = datetime.datetime.now().time()
+#         resultado= cursor.fetchone()
+#         if resultado :
+#             nombre_usuario= resultado[0]
+#             horaActual = datetime.datetime.now().time()
             
-            if (horaActual >= datetime.time(5, 0, 0)) and (horaActual <= datetime.time(12, 0, 0)):
+#             if (horaActual >= datetime.time(5, 0, 0)) and (horaActual <= datetime.time(12, 0, 0)):
                    
-                textForMenu = f"Buenos dias {nombre_usuario} \n¿Que deseas hacer hoy?"
+#                 textForMenu = f"Buenos dias {nombre_usuario} \n¿Que deseas hacer hoy?"
     
-            if (horaActual >= datetime.time(12, 0, 0)) and (horaActual <= datetime.time(18, 0, 0)):
+#             if (horaActual >= datetime.time(12, 0, 0)) and (horaActual <= datetime.time(18, 0, 0)):
                    
-                textForMenu = f"Buenas tardes {nombre_usuario} \n¿Que deseas hacer hoy?"
+#                 textForMenu = f"Buenas tardes {nombre_usuario} \n¿Que deseas hacer hoy?"
                    
-            if (horaActual >= datetime.time(18, 0, 0)) and (horaActual <= datetime.time(5, 0, 0)):
+#             if (horaActual >= datetime.time(18, 0, 0)) and (horaActual <= datetime.time(5, 0, 0)):
                    
-                textForMenu = f"Buenas noches {nombre_usuario} \n¿Que deseas hacer hoy?"
-            else :
-                    textForMenu = f"Hola {nombre_usuario} \n¿Que deseas hacer hoy?"
-            menu_principal.lb_nombre.setText(textForMenu)
-            menu_principal.show()
-            self.hide()
-        pass
- # Función para buscar citas
-    def buscarCitas(self):
-        try:
-            conexion = sqlite3.connect('interfaces/database.db')
-            cursor = conexion.cursor()
-            idUser = self.id_user
+#                 textForMenu = f"Buenas noches {nombre_usuario} \n¿Que deseas hacer hoy?"
+#             else :
+#                     textForMenu = f"Hola {nombre_usuario} \n¿Que deseas hacer hoy?"
+#             menu_principal.lb_nombre.setText(textForMenu)
+#             menu_principal.show()
+#             self.hide()
+#         pass
+#  # Función para buscar citas
+#     def buscarCitas(self):
+#         try:
+#             conexion = sqlite3.connect('interfaces/database.db')
+#             cursor = conexion.cursor()
+#             idUser = self.id_user
 
-            # Ejecuta una consulta para obtener los datos de los pacientes y ordenar por Fecha_Cita descendente
-            cursor.execute("SELECT Cedula, Nombre, Apellido, Edad, Direccion, Sexo, Fecha_Cita, Hora_Cita FROM Pacientes WHERE ID_user = ? ORDER BY Fecha_Cita ASC, Hora_Cita ASC ", (idUser,))
-            tabla_cita = cursor.fetchall()
-            conexion.close()
+#             # Ejecuta una consulta para obtener los datos de los pacientes y ordenar por Fecha_Cita descendente
+#             cursor.execute("SELECT Cedula, Nombre, Apellido, Edad, Direccion, Sexo, Fecha_Cita, Hora_Cita FROM Pacientes WHERE ID_user = ? ORDER BY Fecha_Cita ASC, Hora_Cita ASC ", (idUser,))
+#             tabla_cita = cursor.fetchall()
+#             conexion.close()
 
-            # Filtrar las filas que no contengan ningún valor 'None'
-            filas_filtradas = [paciente for paciente in tabla_cita if None not in paciente]
+#             # Filtrar las filas que no contengan ningún valor 'None'
+#             filas_filtradas = [paciente for paciente in tabla_cita if None not in paciente]
 
-            # Limpiar la tabla existente si es necesario
-            self.tabla_cita.clearContents()
+#             # Limpiar la tabla existente si es necesario
+#             self.tabla_cita.clearContents()
 
-            # Establecer el número de filas y columnas en la tabla
-            self.tabla_cita.setRowCount(len(filas_filtradas))
-            self.tabla_cita.setColumnCount(len(filas_filtradas[0]))
+#             # Establecer el número de filas y columnas en la tabla
+#             self.tabla_cita.setRowCount(len(filas_filtradas))
+#             self.tabla_cita.setColumnCount(len(filas_filtradas[0]))
 
-            # Agregar los datos a la tabla
-            for row, paciente in enumerate(filas_filtradas):
-                for column, value in enumerate(paciente):
-                    item = QTableWidgetItem(str(value))
-                    self.tabla_cita.setItem(row, column, item)
-        except:
-            QMessageBox.critical(self, "Error", "No hay citas actualmente.")
+#             # Agregar los datos a la tabla
+#             for row, paciente in enumerate(filas_filtradas):
+#                 for column, value in enumerate(paciente):
+#                     item = QTableWidgetItem(str(value))
+#                     self.tabla_cita.setItem(row, column, item)
+#         except:
+#             QMessageBox.critical(self, "Error", "No hay citas actualmente.")
 
-    # Función para buscar paciente para asignar cita
-    def buscarPacienteParaCita(self):
-        idUser = self.id_user
-        cedula =self.in_busqueda_2.text()
-        if len(cedula) <=0:
-            QMessageBox.warning(self,"Error","Ingrese una cedula")
-        else:
-            name = self.in_name.text()
-            apellido = self.in_apell.text()
-            try:
-                conexion = sqlite3.connect('interfaces\database.db')
-                cursor = conexion.cursor()
-                cursor.execute("SELECT Nombre , Apellido FROM Pacientes WHERE Cedula = ? AND ID_user = ?",(cedula, idUser))
-                resultado = cursor.fetchone()
-                conexion.close()
-                if resultado :
-                    nombre_paciente ,apellido_paciente = resultado
-                    self.in_name.setText(nombre_paciente)
-                    self.in_apell.setText(apellido_paciente)
-                else:
-                    QMessageBox.critical(self,"Error","El paciente no fue encontrado")
-            except sqlite3.Error as error:
-                QMessageBox.critical(self, "Error", f"Error al buscar paciente: {str(error)}")
+#     # Función para buscar paciente para asignar cita
+#     def buscarPacienteParaCita(self):
+#         idUser = self.id_user
+#         cedula =self.in_busqueda_2.text()
+#         if len(cedula) <=0:
+#             QMessageBox.warning(self,"Error","Ingrese una cedula")
+#         else:
+#             name = self.in_name.text()
+#             apellido = self.in_apell.text()
+#             try:
+#                 conexion = sqlite3.connect('interfaces\database.db')
+#                 cursor = conexion.cursor()
+#                 cursor.execute("SELECT Nombre , Apellido FROM Pacientes WHERE Cedula = ? AND ID_user = ?",(cedula, idUser))
+#                 resultado = cursor.fetchone()
+#                 conexion.close()
+#                 if resultado :
+#                     nombre_paciente ,apellido_paciente = resultado
+#                     self.in_name.setText(nombre_paciente)
+#                     self.in_apell.setText(apellido_paciente)
+#                 else:
+#                     QMessageBox.critical(self,"Error","El paciente no fue encontrado")
+#             except sqlite3.Error as error:
+#                 QMessageBox.critical(self, "Error", f"Error al buscar paciente: {str(error)}")
 
-    # Función para editar una cita
-    def editarCita(self):
-        idUser = self.id_user
-        cedula = self.in_busqueda_2.text()
+#     # Función para editar una cita
+#     def editarCita(self):
+#         idUser = self.id_user
+#         cedula = self.in_busqueda_2.text()
         
-        fecha = self.fecha.selectedDate()
-        fechaToString = fecha.toString('yyyy-MM-dd')
+#         fecha = self.fecha.selectedDate()
+#         fechaToString = fecha.toString('yyyy-MM-dd')
             
-        hora = self.hora.time()
-        horaToString = hora.toString('hh:mmm:ss')
+#         hora = self.hora.time()
+#         horaToString = hora.toString('hh:mmm:ss')
         
-        try:
-            conexion = sqlite3.connect('interfaces/database.db')
-            cursor = conexion.cursor()
+#         try:
+#             conexion = sqlite3.connect('interfaces/database.db')
+#             cursor = conexion.cursor()
             
-            # Verificar si existe un paciente con la cédula proporcionada
-            cursor.execute("SELECT COUNT(*) FROM Pacientes WHERE Cedula = ?", (cedula,))
-            existe_paciente = cursor.fetchone()[0] > 0
+#             # Verificar si existe un paciente con la cédula proporcionada
+#             cursor.execute("SELECT COUNT(*) FROM Pacientes WHERE Cedula = ?", (cedula,))
+#             existe_paciente = cursor.fetchone()[0] > 0
             
-            if existe_paciente:
-                # Si el paciente existe, proceder a actualizar la cita
-                cursor.execute("UPDATE Pacientes SET Fecha_Cita = ?, Hora_Cita = ? WHERE Cedula = ?",
-                            (fechaToString, horaToString, cedula))
+#             if existe_paciente:
+#                 # Si el paciente existe, proceder a actualizar la cita
+#                 cursor.execute("UPDATE Pacientes SET Fecha_Cita = ?, Hora_Cita = ? WHERE Cedula = ?",
+#                             (fechaToString, horaToString, cedula))
                 
-                # Guardar los cambios en la base de datos
-                conexion.commit()
+#                 # Guardar los cambios en la base de datos
+#                 conexion.commit()
                 
-                # Mostrar un mensaje de éxito
-                QMessageBox.information(self, "Información", "Cita actualizada con éxito.")
-            else:
-                # Si el paciente no existe, mostrar un mensaje de error
-                QMessageBox.warning(self, "Advertencia", "No se encontró un paciente con la cédula proporcionada.")
+#                 # Mostrar un mensaje de éxito
+#                 QMessageBox.information(self, "Información", "Cita actualizada con éxito.")
+#             else:
+#                 # Si el paciente no existe, mostrar un mensaje de error
+#                 QMessageBox.warning(self, "Advertencia", "No se encontró un paciente con la cédula proporcionada.")
             
-            # Cerrar la conexión con la base de datos
-            conexion.close()
+#             # Cerrar la conexión con la base de datos
+#             conexion.close()
             
-        except sqlite3.Error as error:
-            # En caso de error, mostrar un mensaje de error
-            QMessageBox.critical(self, "Error", f"Error al actualizar la cita: {str(error)}")
+#         except sqlite3.Error as error:
+#             # En caso de error, mostrar un mensaje de error
+#             QMessageBox.critical(self, "Error", f"Error al actualizar la cita: {str(error)}")
 
-    # Función para agendar una cita
-    def agendarCita(self):
-        idUser = self.id_user
-        cedula = self.in_busqueda_2.text()
+#     # Función para agendar una cita
+#     def agendarCita(self):
+#         idUser = self.id_user
+#         cedula = self.in_busqueda_2.text()
         
-        fecha = self.fecha.selectedDate()
-        fechaToString = fecha.toString('yyyy-MM-dd')
+#         fecha = self.fecha.selectedDate()
+#         fechaToString = fecha.toString('yyyy-MM-dd')
             
-        hora = self.hora.time()
-        horaToString = hora.toString('hh:mmm:ss')
+#         hora = self.hora.time()
+#         horaToString = hora.toString('hh:mmm:ss')
         
-        try:
-            conexion = sqlite3.connect('interfaces/database.db')
-            cursor = conexion.cursor()
+#         try:
+#             conexion = sqlite3.connect('interfaces/database.db')
+#             cursor = conexion.cursor()
             
-            # Verificar si existe un paciente con la cédula proporcionada
-            cursor.execute("SELECT COUNT(*) FROM Pacientes WHERE Cedula = ?", (cedula,))
-            existe_paciente = cursor.fetchone()[0] > 0
+#             # Verificar si existe un paciente con la cédula proporcionada
+#             cursor.execute("SELECT COUNT(*) FROM Pacientes WHERE Cedula = ?", (cedula,))
+#             existe_paciente = cursor.fetchone()[0] > 0
             
-            if existe_paciente:
-                # Si el paciente existe, proceder a actualizar la cita
-                cursor.execute("UPDATE Pacientes SET Fecha_Cita = ?, Hora_Cita = ? WHERE Cedula = ?",
-                            (fechaToString, horaToString, cedula))
+#             if existe_paciente:
+#                 # Si el paciente existe, proceder a actualizar la cita
+#                 cursor.execute("UPDATE Pacientes SET Fecha_Cita = ?, Hora_Cita = ? WHERE Cedula = ?",
+#                             (fechaToString, horaToString, cedula))
                 
-                # Guardar los cambios en la base de datos
-                conexion.commit()
+#                 # Guardar los cambios en la base de datos
+#                 conexion.commit()
                 
-                # Mostrar un mensaje de éxito
-                QMessageBox.information(self, "Información", "Cita guardada con éxito.")
-            else:
-                # Si el paciente no existe, mostrar un mensaje de error
-                QMessageBox.warning(self, "Advertencia", "No se encontró un paciente con la cédula proporcionada.")
+#                 # Mostrar un mensaje de éxito
+#                 QMessageBox.information(self, "Información", "Cita guardada con éxito.")
+#             else:
+#                 # Si el paciente no existe, mostrar un mensaje de error
+#                 QMessageBox.warning(self, "Advertencia", "No se encontró un paciente con la cédula proporcionada.")
             
-            # Cerrar la conexión con la base de datos
-            conexion.close()
+#             # Cerrar la conexión con la base de datos
+#             conexion.close()
             
-        except sqlite3.Error as error:
-            # En caso de error, mostrar un mensaje de error
-            QMessageBox.critical(self, "Error", f"Error al guardar la cita: {str(error)}")
+#         except sqlite3.Error as error:
+#             # En caso de error, mostrar un mensaje de error
+#             QMessageBox.critical(self, "Error", f"Error al guardar la cita: {str(error)}")
         
         
 
-    # Función para buscar una cita para eliminar
-    def buscarCitaParaEliminar(self):
-        try:
-            conexion = sqlite3.connect('interfaces/database.db')
-            cursor = conexion.cursor()
-            idUser = self.id_user
-            cedula = self.in_busqueda_3.text()
-            # Ejecuta una consulta para obtener los datos de los pacientes
-            cursor.execute("SELECT Cedula, Nombre, Apellido, Edad, Direccion , Sexo, Fecha_Cita, Hora_Cita  FROM Pacientes WHERE Cedula = ? AND ID_user = ?", (cedula , idUser) )
+    # # Función para buscar una cita para eliminar
+    # def buscarCitaParaEliminar(self):
+    #     try:
+    #         conexion = sqlite3.connect('interfaces/database.db')
+    #         cursor = conexion.cursor()
+    #         idUser = self.id_user
+    #         cedula = self.in_busqueda_3.text()
+    #         # Ejecuta una consulta para obtener los datos de los pacientes
+    #         cursor.execute("SELECT Cedula, Nombre, Apellido, Edad, Direccion , Sexo, Fecha_Cita, Hora_Cita  FROM Pacientes WHERE Cedula = ? AND ID_user = ?", (cedula , idUser) )
             
            
-            tabla_citas_delete = cursor.fetchall()
-            conexion.close()
+    #         tabla_citas_delete = cursor.fetchall()
+    #         conexion.close()
 
-            # Limpiar la tabla existente si es necesario
-            self.tabla_citas_delete.clearContents()
+    #         # Limpiar la tabla existente si es necesario
+    #         self.tabla_citas_delete.clearContents()
 
-            # Establecer el número de filas y columnas en la tabla
-            self.tabla_citas_delete.setRowCount(len(tabla_citas_delete))
-            self.tabla_citas_delete.setColumnCount(len(tabla_citas_delete[0]))
+    #         # Establecer el número de filas y columnas en la tabla
+    #         self.tabla_citas_delete.setRowCount(len(tabla_citas_delete))
+    #         self.tabla_citas_delete.setColumnCount(len(tabla_citas_delete[0]))
 
-            # Agregar los datos a la tabla
-            for row, paciente in enumerate(tabla_citas_delete):
-                for column, value in enumerate(paciente):
-                    item = QTableWidgetItem(str(value))
-                    self.tabla_citas_delete.setItem(row, column, item)
-        except:
-            QMessageBox.critical(self, "Error", "No hay ningún paciente con esa cedula.")
+    #         # Agregar los datos a la tabla
+    #         for row, paciente in enumerate(tabla_citas_delete):
+    #             for column, value in enumerate(paciente):
+    #                 item = QTableWidgetItem(str(value))
+    #                 self.tabla_citas_delete.setItem(row, column, item)
+    #     except:
+    #         QMessageBox.critical(self, "Error", "No hay ningún paciente con esa cedula.")
 
-    # Función para eliminar una cita
-    def eliminarCita(self):
-        try:
-            cedula = self.in_busqueda_3.text()
+    # # Función para eliminar una cita
+    # def eliminarCita(self):
+    #     try:
+    #         cedula = self.in_busqueda_3.text()
     
-            if len(cedula) == 0:
-                QMessageBox.critical(self, "Error", "Ingrese una cédula")
-            else:
-                citaNull = None
-                horaNull = None
-                conexion = sqlite3.connect('interfaces/database.db')
-                cursor = conexion.cursor()
-                cursor.execute("UPDATE Pacientes SET Fecha_Cita = ?, Hora_Cita = ? WHERE Cedula = ?",
-                        (citaNull, horaNull, cedula))
-                conexion.commit()
-                conexion.close()
+    #         if len(cedula) == 0:
+    #             QMessageBox.critical(self, "Error", "Ingrese una cédula")
+    #         else:
+    #             citaNull = None
+    #             horaNull = None
+    #             conexion = sqlite3.connect('interfaces/database.db')
+    #             cursor = conexion.cursor()
+    #             cursor.execute("UPDATE Pacientes SET Fecha_Cita = ?, Hora_Cita = ? WHERE Cedula = ?",
+    #                     (citaNull, horaNull, cedula))
+    #             conexion.commit()
+    #             conexion.close()
         
-        # Eliminación exitosa, muestra un mensaje y realiza otras acciones si es necesario
-                QMessageBox.information(self, "Realizado", "La cita ha sido eliminada correctamente")
-                self.tabla_citas_delete.clearContents()
-                self.in_busqueda_3.clear()
-        except sqlite3.Error as e:
-            QMessageBox.critical(self, "Error", "Error al eliminar la cita  de la base de datos: " + str(e))
-        pass
+    #     # Eliminación exitosa, muestra un mensaje y realiza otras acciones si es necesario
+    #             QMessageBox.information(self, "Realizado", "La cita ha sido eliminada correctamente")
+    #             self.tabla_citas_delete.clearContents()
+    #             self.in_busqueda_3.clear()
+    #     except sqlite3.Error as e:
+    #         QMessageBox.critical(self, "Error", "Error al eliminar la cita  de la base de datos: " + str(e))
+    #     pass
 
         
 class PasswordMenu(QMainWindow):
@@ -896,6 +896,10 @@ class historiaMenu(QMainWindow):
         loadUi("interfaces\History.ui", self)
         self.id_user = id_user
         self.btn_buscar.clicked.connect(self.Searchdata)
+        self.btn_agg.clicked.connect(self.AddPacient)
+        self.btn_clear.clicked.connect(self.clearInputs)
+        self.btn_edit.clicked.connect(self.UpdateData)
+        self.btn_delete.clicked.connect(self.DeletaData)
     #     self.btn_back.clicked.connect(self.back_menu)
     #     self.btn_refresh.clicked.connect(self.cargarDatosPacientes)
     #     self.btn_registrar.clicked.connect(self.addPacients)
@@ -903,123 +907,209 @@ class historiaMenu(QMainWindow):
     #     self.btn_borrar.clicked.connect(self.DeletaData)
     #     self.btn_buscar.clicked.connect(self.SearchDataForUpdate)
     #     self.btn_act.clicked.connect(self.UpdateData)
-       
+     
+    def clearInputs(self):
+        self.in_cedula.clear()
+        self.in_name.clear()
+        self.in_apell.clear()
+        self.in_age.clear()
+        self.in_mail.clear()
+        self.in_number.clear()
+        self.in_dir.clear()
+        self.btn_m.setChecked(False)
+        self.btn_f.setChecked(False)
+    def  AddPacient(self): 
+        idUser = self.id_user
+        cedula = self.in_cedula.text()
+        nombre = self.in_name.text()
+        apellido = self.in_apell.text()
+        edad = self.in_age.text()
+        mail = self.in_mail.text()
+        if self.btn_m.isChecked():
+            valor_sexo = "Masculino"
+        if self.btn_f.isChecked():
+            valor_sexo = "Femenino"
+        telefono = self.in_number.text()
+        direccion = self.in_dir.text()
+        
+
+        if not cedula or not nombre or not apellido or not edad or not valor_sexo or not mail  or not telefono or not direccion:
+            QMessageBox.critical(self, "Error", "Por favor, complete todos los campos.")
+            return
+
+        try:
+            conexion = sqlite3.connect('interfaces/database.db')
+            cursor = conexion.cursor()
+
+            # Verificar si ya existe un paciente con la misma cédula
+            cursor.execute("SELECT COUNT(*) FROM Pacientes WHERE Cedula = ?", (cedula,))
+            existe_paciente = cursor.fetchone()[0]
+
+            if existe_paciente > 0:
+                QMessageBox.critical(self, "Error", "Ya existe un paciente con la misma cédula.")
+                
+                #limpia los campos luego de denegar el ingreso
+                self.in_cedula.clear()
+                self.in_name.clear()
+                self.in_apell.clear()
+                self.in_age.clear()
+                self.in_mail.clear()
+                self.in_number.clear()
+                self.btn_m.setChecked(False)
+                self.btn_f.setChecked(False)
+                self.in_dir.clear()
+                return
+
+            # Si no existe un paciente con la misma cédula, ejecutar la consulta de inserción
+            cursor.execute("INSERT INTO Pacientes (Cedula, Nombre, Apellido, Edad, Sexo ,Direccion , ID_user ,Telefono, Mail) VALUES (?, ?, ?, ?, ?, ?, ? , ? ,?)",
+                        (cedula, nombre, apellido, edad, valor_sexo , direccion , idUser ,telefono , mail))
+
+            # Confirmar los cambios en la base de datos
+            conexion.commit()
+
+            QMessageBox.information(self, "Éxito", "Paciente registrado correctamente.")
+
+            # Limpia los campos después de agregar el paciente
+            self.in_cedula.clear()
+            self.in_name.clear()
+            self.in_apell.clear()
+            self.in_age.clear()
+            self.in_mail.clear()
+            self.in_number.clear()
+            self.btn_m.setChecked(False)
+            self.btn_f.setChecked(False)
+            self.in_dir.clear()
+            # Cierra la conexión con la base de datos
+            conexion.close()
+
+        except sqlite3.Error as error:
+            QMessageBox.critical(self, "Error", f"Error al registrar el paciente: {str(error)}")
+               
+           
     def Searchdata(self):
         try:
             conexion = sqlite3.connect('interfaces/database.db')
             cursor = conexion.cursor()  
             idUser = self.id_user
             busqueda = self.in_busqueda.text()
-            cursor.execute("SELECT Cedula, Nombre, Apellido, Edad, Direccion  , Sexo ,Telefono,Mail FROM Pacientes WHERE Cedula = ? AND ID_user = ?", (busqueda , idUser) )
+            cursor.execute("SELECT Cedula, Nombre, Apellido, Edad, Direccion, Sexo, Telefono, Mail FROM Pacientes WHERE Cedula = ? AND ID_user = ?", (busqueda, idUser))
             resultado = cursor.fetchone()
+            
             if resultado:
-                Cedula , Nombre , Apellido , Edad, Direccion , Sexo ,Telefono,Mail = resultado
+                Cedula, Nombre, Apellido, Edad, Direccion, Sexo, Telefono, Mail = resultado
+                
                 self.in_cedula.setText(Cedula)
                 self.in_name.setText(Nombre)
                 self.in_apell.setText(Apellido)
-                self.in_age.setText(Edad)
-                if Sexo ==  "Masculino":
-                    self.btn_m.isChecked()
-                else:
-                     self.btn_f.isChecked()
-                self.in_mail.setText(Mail)#correo
+                self.in_age.setText(Edad)  
+                self.in_mail.setText(Mail)  # Correo
                 self.in_dir.setText(Direccion)
-                self.in_number.setText(Telefono) #Prueba##
+                self.in_number.setText(Telefono)  # Prueba##
+
+                # Manejar los botones de radio según el valor de Sexo
+                if Sexo == "Masculino":
+                    self.btn_m.setChecked(True)
+                if Sexo == "Femenino":
+                    self.btn_f.setChecked(True)
+                self.tabla_pacientes.clearContents()
+                self.tabla_pacientes.setRowCount(1)
+                self.tabla_pacientes.setColumnCount(8)
+                data = [Cedula, Nombre, Apellido, Edad, Sexo, Direccion, Telefono, Mail]
+                for column, value in enumerate(data):
+                    item = QTableWidgetItem(value)
+                    self.tabla_pacientes.setItem(0, column, item)
             else:
-                QMessageBox.warning(self,"Advertencia","No se ha encontrado algun registro")
-               
+                # Limpiar la tabla existente si no se encuentra ningún registro
+                self.tabla_pacientes.clearContents()
+                QMessageBox.warning(self, "Advertencia", "No se ha encontrado ningún registro")
+
+            conexion.close()
+
         except sqlite3.Error as e:
-            QMessageBox.critical(self, "Error", "Error al consultar la base de datos: " + str(e)) 
-    # def UpdateData(self):
-    #     try:
-    #         cedula = self.txt_id_2.text()
-    #         nombre = self.txt_name_2.text()
-    #         apellido = self.txt_apell_2.text()
-    #         edad = self.txt_age_2.text()
-    #         direccion = self.txt_dir_2.text()
-    #         sexo = self.txt_gen_2.text()
+            QMessageBox.critical(self, "Error", "Error al consultar la base de datos: " + str(e))
+    def UpdateData(self):
+        try:
+            cedula = self.in_cedula.text()
+            nombre = self.in_name.text()
+            apellido = self.in_apell.text()
+            edad = self.in_age.text()
+            direccion = self.in_dir.text()
+            telefono = self.in_number.text()
+            mail = self.in_mail.text()
+            if self.btn_m.isChecked():
+                valor_sexo = "Masculino"
+            if self.btn_f.isChecked():
+                valor_sexo = "Femenino"
 
-    #         conexion = sqlite3.connect('interfaces/database.db')
-    #         cursor = conexion.cursor()
+            conexion = sqlite3.connect('interfaces/database.db')
+            cursor = conexion.cursor()
     
-    #     # Actualizar los registros en la base de datos
-    #         cursor.execute("UPDATE Pacientes SET Nombre=?, Apellido=?, Edad=?, Direccion=?, Sexo=? WHERE Cedula=?", (nombre, apellido, edad, direccion, sexo, cedula))
-    #         conexion.commit()
+        # Actualizar los registros en la base de datos
+            cursor.execute("UPDATE Pacientes SET Nombre=?, Apellido=?, Edad=?, Direccion=?, Sexo=? ,Telefono=? ,Mail =? WHERE Cedula=?", (nombre, apellido, edad, direccion, valor_sexo, telefono ,mail, cedula))
+            conexion.commit()
             
-    #         QMessageBox.information(self, "Información", "Los datos se actualizaron correctamente")
+            QMessageBox.information(self, "Información", "Los datos se actualizaron correctamente")
 
-    #         conexion.close()
-    #     except sqlite3.Error as e:
-    #         QMessageBox.critical(self, "Error", "Error al actualizar los datos en la base de datos: " + str(e))
-    # def SearchDataForUpdate(self):
-    #     try:
-    #         idUser = self.id_user
-    #         cedula = self.in_busqueda_edit.text()
-    #         conexion = sqlite3.connect('interfaces/database.db')
-    #         cursor=conexion.cursor()
-    #         cursor.execute("SELECT Cedula ,Nombre, Apellido , Edad , Direccion , Sexo FROM Pacientes WHERE Cedula = ? AND ID_user = ? ", (cedula,idUser))
-    #         resultado = cursor.fetchone()
-    #         if resultado :
-    #             Cedula ,Nombre , Apellido , Edad , Direccion , Sexo = resultado
-    #             self.txt_id_2.setReadOnly(True)
-    #             self.txt_id_2.setText(Cedula)
-    #             self.txt_name_2.setText(Nombre)
-    #             self.txt_apell_2.setText(Apellido)
-    #             self.txt_age_2.setText(Edad)
-    #             self.txt_dir_2.setText(Direccion)
-    #             self.txt_gen_2.setText(Sexo)
-    #         else:
-    #             QMessageBox.warning(self,"Advertencia","No se encontraron registros con esa cedula")            
-    #         conexion.close()
-    #     except sqlite3.Error as e:
-    #         QMessageBox.critical(self, "Error", "Error al consultar la base de datos: " + str(e))
-    # def searchDataForDelete(self):
-    #     try:
-    #         conexion = sqlite3.connect('interfaces/database.db')
-    #         cursor = conexion.cursor()
-    #         idUser = self.id_user
-    #         cedula = self.in_busqueda_delete.text()
-    #         # Ejecuta una consulta para obtener los datos de los pacientes
-    #         cursor.execute("SELECT Cedula, Nombre, Apellido, Edad, Direccion , Sexo  FROM Pacientes WHERE Cedula = ? AND ID_user = ?", (cedula , idUser) )
+            conexion.close()
+        except sqlite3.Error as e:
+            QMessageBox.critical(self, "Error", "Error al actualizar los datos en la base de datos: " + str(e))
+    def searchDataForDelete(self):
+        try:
+            conexion = sqlite3.connect('interfaces/database.db')
+            cursor = conexion.cursor()
+            idUser = self.id_user
+            cedula = self.in_busqueda_delete.text()
+            # Ejecuta una consulta para obtener los datos de los pacientes
+            cursor.execute("SELECT Cedula, Nombre, Apellido, Edad, Direccion , Sexo  FROM Pacientes WHERE Cedula = ? AND ID_user = ?", (cedula , idUser) )
             
            
-    #         tabla_pacientes = cursor.fetchall()
-    #         conexion.close()
+            tabla_pacientes = cursor.fetchall()
+            conexion.close()
 
-    #         # Limpiar la tabla existente si es necesario
-    #         self.tabla_borrar.clearContents()
+            # Limpiar la tabla existente si es necesario
+            self.tabla_pacientes.clearContents()
 
-    #         # Establecer el número de filas y columnas en la tabla
-    #         self.tabla_borrar.setRowCount(len(tabla_pacientes))
-    #         self.tabla_borrar.setColumnCount(len(tabla_pacientes[0]))
+            # Establecer el número de filas y columnas en la tabla
+            self.tabla_pacientes.setRowCount(len(tabla_pacientes))
+            self.tabla_pacientes.setColumnCount(len(tabla_pacientes[0]))
 
-    #         # Agregar los datos a la tabla
-    #         for row, paciente in enumerate(tabla_pacientes):
-    #             for column, value in enumerate(paciente):
-    #                 item = QTableWidgetItem(str(value))
-    #                 self.tabla_borrar.setItem(row, column, item)
-    #     except:
-    #          QMessageBox.critical(self, "Error", "No hay ningún paciente con esa cedula.")
-    # def DeletaData(self):
+            # Agregar los datos a la tabla
+            for row, paciente in enumerate(tabla_pacientes):
+                for column, value in enumerate(paciente):
+                    item = QTableWidgetItem(str(value))
+                    self.tabla_pacientes.setItem(row, column, item)
+        except:
+             QMessageBox.critical(self, "Error", "No hay ningún paciente con esa cedula.")
+    def DeletaData(self):
         
-    #     try:
-    #         cedula = self.in_busqueda_delete.text()
+        try:
+            cedula = self.in_busqueda.text()
     
-    #         if len(cedula) == 0:
-    #             QMessageBox.critical(self, "Error", "Ingrese una cédula")
-    #         else:
-    #             conexion = sqlite3.connect('interfaces/database.db')
-    #             cursor = conexion.cursor()
-    #             cursor.execute("DELETE FROM Pacientes WHERE Cedula = ?", (cedula,))
-    #             conexion.commit()
-    #             conexion.close()
+            if len(cedula) == 0:
+                QMessageBox.critical(self, "Error", "Ingrese una cédula")
+            else:
+                conexion = sqlite3.connect('interfaces/database.db')
+                cursor = conexion.cursor()
+                cursor.execute("DELETE FROM Pacientes WHERE Cedula = ?", (cedula,))
+                conexion.commit()
+                conexion.close()
         
-    #     # Eliminación exitosa, muestra un mensaje y realiza otras acciones si es necesario
-    #             QMessageBox.information(self, "Realizado", "Los datos han sido eliminados correctamente")
-    #             self.tabla_borrar.clearContents()
-    #             self.in_busqueda_delete.clear()
-    #     except sqlite3.Error as e:
-    #         QMessageBox.critical(self, "Error", "Error al eliminar los datos de la base de datos: " + str(e))
+        # Eliminación exitosa, muestra un mensaje y realiza otras acciones si es necesario
+                QMessageBox.information(self, "Realizado", "Los datos han sido eliminados correctamente")
+                self.tabla_pacientes.clearContents()
+                self.in_busqueda.clear()
+                self.in_cedula.clear()
+                self.in_name.clear()
+                self.in_apell.clear()
+                self.in_age.clear()
+                self.in_mail.clear()
+                self.btn_m.setChecked(False)
+                self.btn_f.setChecked(False)
+                self.in_number.clear()
+                self.in_dir.clear()
+                
+        except sqlite3.Error as e:
+            QMessageBox.critical(self, "Error", "Error al eliminar los datos de la base de datos: " + str(e))
     
     # def addPacients(self):
     #     idUser = self.id_user
