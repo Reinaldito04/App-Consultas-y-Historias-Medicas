@@ -910,16 +910,21 @@ class historiaMenu(QMainWindow):
             cursor = conexion.cursor()  
             idUser = self.id_user
             busqueda = self.in_busqueda.text()
-            cursor.execute("SELECT Cedula, Nombre, Apellido, Edad, Direccion , Sexo  FROM Pacientes WHERE Cedula = ? AND ID_user = ?", (busqueda , idUser) )
+            cursor.execute("SELECT Cedula, Nombre, Apellido, Edad, Direccion  , Sexo ,Telefono,Mail FROM Pacientes WHERE Cedula = ? AND ID_user = ?", (busqueda , idUser) )
             resultado = cursor.fetchone()
             if resultado:
-                Cedula , Nombre , Apellido , Edad, Direccion , Sexo = resultado
+                Cedula , Nombre , Apellido , Edad, Direccion , Sexo ,Telefono,Mail = resultado
                 self.in_cedula.setText(Cedula)
                 self.in_name.setText(Nombre)
                 self.in_apell.setText(Apellido)
                 self.in_age.setText(Edad)
+                if Sexo ==  "Masculino":
+                    self.btn_m.isChecked()
+                else:
+                     self.btn_f.isChecked()
+                self.in_mail.setText(Mail)
                 self.in_dir.setText(Direccion)
-                self.in_number.setText(Sexo) #Prueba##
+                self.in_number.setText(Telefono) #Prueba##
             else:
                 QMessageBox.warning(self,"Advertencia","No se ha encontrado algun registro")
                
