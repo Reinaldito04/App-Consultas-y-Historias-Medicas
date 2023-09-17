@@ -922,7 +922,7 @@ class historiaMenu(QMainWindow):
                     self.btn_m.isChecked()
                 else:
                      self.btn_f.isChecked()
-                self.in_mail.setText(Mail)
+                self.in_mail.setText(Mail)#correo
                 self.in_dir.setText(Direccion)
                 self.in_number.setText(Telefono) #Prueba##
             else:
