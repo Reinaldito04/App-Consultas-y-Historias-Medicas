@@ -59,19 +59,14 @@ class IngresoUsuario(QMainWindow):
             if contrasenia_cifrada_ingresada == contrasenia_cifrada_almacenada:         
                 horaActual = datetime.datetime.now().time()
             
-                if (horaActual >= datetime.time(5, 0, 0)) and (horaActual <= datetime.time(12, 0, 0)):
-                   
-                   textForMenu = f"Buenos dias {nombre} \n¿Que deseas hacer hoy?"
-    
-                if (horaActual >= datetime.time(12, 0, 0)) and (horaActual <= datetime.time(18, 0, 0)):
-                   
-                   textForMenu = f"Buenas tardes {nombre} \n¿Que deseas hacer hoy?"
-                   
-                if (horaActual >= datetime.time(18, 0, 0)) and (horaActual <= datetime.time(5, 0, 0)):
-                   
-                   textForMenu = f"Buenas noches {nombre} \n¿Que deseas hacer hoy?"
-                else :
-                     textForMenu = f"Hola {nombre} \n¿Que deseas hacer hoy?"
+                if datetime.time(5, 0, 0) <= horaActual < datetime.time(12, 0, 0):
+                    textForMenu = f"Buenos días {nombre}\n¿Qué deseas hacer hoy?"
+                elif datetime.time(12, 0, 0) <= horaActual < datetime.time(18, 0, 0):
+                    textForMenu = f"Buenas tardes {nombre}\n¿Qué deseas hacer hoy?"
+                elif datetime.time(18, 0, 0) <= horaActual or horaActual < datetime.time(5, 0, 0):
+                    textForMenu = f"Buenas noches {nombre}\n¿Qué deseas hacer hoy?"
+                else:
+                    textForMenu = f"Hola {nombre}\n¿Qué deseas hacer hoy?"
                     
                
                 id_user = usuario[2]
@@ -869,20 +864,14 @@ class placasMenu(QMainWindow):
             nombre_usuario = resultado[0]
             horaActual = datetime.datetime.now().time()
             
-            if (horaActual >= datetime.time(5, 0, 0)) and (horaActual <= datetime.time(12, 0, 0)):
-                   
-                textForMenu = f"Buenos dias {nombre_usuario} \n¿Que deseas hacer hoy?"
-    
-            if (horaActual >= datetime.time(13, 0, 0)) and (horaActual <= datetime.time(18, 0, 0)):
-                   
-                textForMenu = f"Buenas tardes {nombre_usuario} \n¿Que deseas hacer hoy?"
-                   
-            if (horaActual >= datetime.time(18, 0, 0)) and (horaActual <= datetime.time(5, 0, 0)):
-                   
-                textForMenu = f"Buenas noches {nombre_usuario} \n¿Que deseas hacer hoy?"
-                
-            else :
-                textForMenu = f"Hola {nombre_usuario} \n¿Que deseas hacer hoy?"
+            if datetime.time(5, 0, 0) <= horaActual < datetime.time(12, 0, 0):
+                textForMenu = f"Buenos días {nombre_usuario}\n¿Qué deseas hacer hoy?"
+            elif datetime.time(12, 0, 0) <= horaActual < datetime.time(18, 0, 0):
+                textForMenu = f"Buenas tardes {nombre_usuario}\n¿Qué deseas hacer hoy?"
+            elif datetime.time(18, 0, 0) <= horaActual or horaActual < datetime.time(5, 0, 0):
+                textForMenu = f"Buenas noches {nombre_usuario}\n¿Qué deseas hacer hoy?"
+            else:
+                textForMenu = f"Hola {nombre_usuario}\n¿Qué deseas hacer hoy?"
             menu_principal.lb_nombre.setText(textForMenu)
             menu_principal.show()
             self.hide()
@@ -899,7 +888,9 @@ class historiaMenu(QMainWindow):
         self.btn_agg.clicked.connect(self.AddPacient)
         self.btn_clear.clicked.connect(self.clearInputs)
         self.btn_edit.clicked.connect(self.UpdateData)
+        self.actionSalir.triggered.connect(self.salir)
         self.btn_delete.clicked.connect(self.DeletaData)
+        self.actionVolver_al_menu_principal.triggered.connect(self.back_menu)
     #     self.btn_back.clicked.connect(self.back_menu)
     #     self.btn_refresh.clicked.connect(self.cargarDatosPacientes)
     #     self.btn_registrar.clicked.connect(self.addPacients)
@@ -907,7 +898,8 @@ class historiaMenu(QMainWindow):
     #     self.btn_borrar.clicked.connect(self.DeletaData)
     #     self.btn_buscar.clicked.connect(self.SearchDataForUpdate)
     #     self.btn_act.clicked.connect(self.UpdateData)
-     
+    def salir(self):
+        QApplication.quit()
     def clearInputs(self):
         self.in_cedula.clear()
         self.in_name.clear()
@@ -1111,127 +1103,30 @@ class historiaMenu(QMainWindow):
         except sqlite3.Error as e:
             QMessageBox.critical(self, "Error", "Error al eliminar los datos de la base de datos: " + str(e))
     
-    # def addPacients(self):
-    #     idUser = self.id_user
-    #     cedula = self.txt_cedula.text()
-    #     nombre = self.txt_name.text()
-    #     apellido = self.txt_apellido.text()
-    #     edad = self.txt_age.text()
-    #     sexo = self.txt_sex.text()
-    #     direccion = self.txt_dir.text()
         
-
-    #     if not cedula or not nombre or not apellido or not edad or not sexo or not direccion:
-    #         QMessageBox.critical(self, "Error", "Por favor, complete todos los campos.")
-    #         return
-
-    #     try:
-    #         conexion = sqlite3.connect('interfaces/database.db')
-    #         cursor = conexion.cursor()
-
-    #         # Verificar si ya existe un paciente con la misma cédula
-    #         cursor.execute("SELECT COUNT(*) FROM Pacientes WHERE Cedula = ?", (cedula,))
-    #         existe_paciente = cursor.fetchone()[0]
-
-    #         if existe_paciente > 0:
-    #             QMessageBox.critical(self, "Error", "Ya existe un paciente con la misma cédula.")
-                
-    #             #limpia los campos luego de denegar el ingreso
-    #             self.txt_cedula.clear()
-    #             self.txt_name.clear()
-    #             self.txt_apellido.clear()
-    #             self.txt_age.clear()
-    #             self.txt_sex.clear()
-    #             self.txt_dir.clear()
-    #             return
-
-    #         # Si no existe un paciente con la misma cédula, ejecutar la consulta de inserción
-    #         cursor.execute("INSERT INTO Pacientes (Cedula, Nombre, Apellido, Edad, Sexo ,Direccion , ID_user) VALUES (?, ?, ?, ?, ?, ?, ?)",
-    #                     (cedula, nombre, apellido, edad, sexo , direccion , idUser))
-
-    #         # Confirmar los cambios en la base de datos
-    #         conexion.commit()
-
-    #         QMessageBox.information(self, "Éxito", "Paciente registrado correctamente.")
-
-    #         # Limpia los campos después de agregar el paciente
-    #         self.txt_cedula.clear()
-    #         self.txt_name.clear()
-    #         self.txt_apellido.clear()
-    #         self.txt_age.clear()
-    #         self.txt_sex.clear()
-    #         self.txt_dir.clear()
-    #         # Cierra la conexión con la base de datos
-    #         conexion.close()
-
-    #     except sqlite3.Error as error:
-    #         QMessageBox.critical(self, "Error", f"Error al registrar el paciente: {str(error)}")
-
-    
-    # def cargarDatosPacientes(self):
-    #     try:
-    #         conexion = sqlite3.connect('interfaces/database.db')
-    #         cursor = conexion.cursor()
-    #         idUser = self.id_user
-
-    #         # Ejecuta una consulta para obtener los datos de los pacientes
-    #         cursor.execute("SELECT Cedula, Nombre, Apellido, Edad, Direccion, Sexo FROM Pacientes WHERE ID_user = ?", (idUser,))
-    #         tabla_pacientes = cursor.fetchall()
-
-    #         # Cerrar la conexión con la base de datos
-    #         conexion.close()
-
-    #         # Limpiar la tabla existente si es necesario
-    #         self.tabla_pacientes.clearContents()
-
-    #         if tabla_pacientes:
-    #             # Establecer el número de filas y columnas en la tabla
-    #             self.tabla_pacientes.setRowCount(len(tabla_pacientes))
-    #             self.tabla_pacientes.setColumnCount(len(tabla_pacientes[0]))
-
-    #             # Agregar los datos a la tabla
-    #             for row, paciente in enumerate(tabla_pacientes):
-    #                 for column, value in enumerate(paciente):
-    #                     item = QTableWidgetItem(str(value))
-    #                     self.tabla_pacientes.setItem(row, column, item)
-    #         else:
-    #             # Si no hay datos, puedes mostrar un mensaje o realizar otra acción apropiada
-    #             QMessageBox.information(self, "Información", "No se encontraron datos de pacientes.")
-
-    #     except sqlite3.Error as error:
-    #         QMessageBox.critical(self, "Error", f"Error al cargar los datos de pacientes: {str(error)}")
+        
+    def back_menu(self):
+        menu_principal = MenuPrincipal(self.id_user)
+        conexion = sqlite3.connect('interfaces/database.db')
+        cursor= conexion.cursor()
+        cursor.execute("SELECT Username FROM Users WHERE ID = ?", (self.id_user,))
+        
+        resultado = cursor.fetchone()
+        if resultado :
+            nombre_usuario = resultado[0]
+            horaActual = datetime.datetime.now().time()
             
-        
-        
-        
-    # def back_menu(self):
-    #     menu_principal = MenuPrincipal(self.id_user)
-    #     conexion = sqlite3.connect('interfaces/database.db')
-    #     cursor= conexion.cursor()
-    #     cursor.execute("SELECT Username FROM Users WHERE ID = ?", (self.id_user,))
-        
-    #     resultado = cursor.fetchone()
-    #     if resultado :
-    #         nombre_usuario = resultado[0]
-    #         horaActual = datetime.datetime.now().time()
-            
-    #         if (horaActual >= datetime.time(5, 0, 0)) and (horaActual <= datetime.time(12, 0, 0)):
-                   
-    #             textForMenu = f"Buenos dias {nombre_usuario} \n¿Que deseas hacer hoy?"
-    
-    #         if (horaActual >= datetime.time(13, 0, 0)) and (horaActual <= datetime.time(18, 0, 0)):
-                   
-    #             textForMenu = f"Buenas tardes {nombre_usuario} \n¿Que deseas hacer hoy?"
-                   
-    #         if (horaActual >= datetime.time(18, 0, 0)) and (horaActual <= datetime.time(5, 0, 0)):
-                   
-    #             textForMenu = f"Buenas noches {nombre_usuario} \n¿Que deseas hacer hoy?"
-                
-    #         else :
-    #                 textForMenu = f"Hola {nombre_usuario} \n¿Que deseas hacer hoy?"
-    #         menu_principal.lb_nombre.setText(textForMenu)
-    #         menu_principal.show()
-    #         self.hide()
+            if datetime.time(5, 0, 0) <= horaActual < datetime.time(12, 0, 0):
+                textForMenu = f"Buenos días {nombre_usuario}\n¿Qué deseas hacer hoy?"
+            elif datetime.time(12, 0, 0) <= horaActual < datetime.time(18, 0, 0):
+                textForMenu = f"Buenas tardes {nombre_usuario}\n¿Qué deseas hacer hoy?"
+            elif datetime.time(18, 0, 0) <= horaActual or horaActual < datetime.time(5, 0, 0):
+                textForMenu = f"Buenas noches {nombre_usuario}\n¿Qué deseas hacer hoy?"
+            else:
+                textForMenu = f"Hola {nombre_usuario}\n¿Qué deseas hacer hoy?"
+            menu_principal.lb_nombre.setText(textForMenu)
+            menu_principal.show()
+            self.hide()
        
             
 
