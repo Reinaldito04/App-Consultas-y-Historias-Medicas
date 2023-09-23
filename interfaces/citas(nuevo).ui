@@ -279,7 +279,7 @@ QPushButton:hover{
                          </widget>
                         </item>
                         <item>
-                         <widget class="QLineEdit" name="lineEdit">
+                         <widget class="QLineEdit" name="txt_name">
                           <property name="minimumSize">
                            <size>
                             <width>200</width>
@@ -312,7 +312,7 @@ QPushButton:hover{
                          </widget>
                         </item>
                         <item>
-                         <widget class="QLineEdit" name="lineEdit_2">
+                         <widget class="QLineEdit" name="txt_apell">
                           <property name="minimumSize">
                            <size>
                             <width>200</width>
@@ -479,7 +479,7 @@ QPushButton:hover{
                          </spacer>
                         </item>
                         <item>
-                         <widget class="QTimeEdit" name="timeEdit">
+                         <widget class="QTimeEdit" name="hora">
                           <property name="minimumSize">
                            <size>
                             <width>120</width>
@@ -745,11 +745,6 @@ border-radius:20px;
                    <attribute name="horizontalHeaderDefaultSectionSize">
                     <number>140</number>
                    </attribute>
-                   <column>
-                    <property name="text">
-                     <string>ID_cita</string>
-                    </property>
-                   </column>
                    <column>
                     <property name="text">
                      <string>Cedula_P</string>
