@@ -26,8 +26,8 @@ class IngresoUsuario(QMainWindow):
         registro = Registro()
         widget.addWidget(registro)
         widget.setCurrentIndex(widget.currentIndex()+1)
-        widget.setFixedHeight(1000)
-        widget.setFixedWidth(1000)
+        widget.setFixedHeight(578)
+        widget.setFixedWidth(879)
 
     def cifrar_contrasenia(self, contrasenia):
         # Cifrar la contraseña usando un algoritmo de hash (SHA-256 en este caso)
@@ -88,15 +88,40 @@ class IngresoUsuario(QMainWindow):
    
 class Registro(QMainWindow):
     def __init__(self):
-        super(Registro , self). __init__()
-        loadUi("./interfaces/register.ui", self)
-        self.bt_end.clicked.connect(self.close)
-        self.bt_register.clicked.connect(self.registrarUsuario)
-        self.bt_back.clicked.connect(self.ingresoLogin)
+        super(Registro, self).__init__()
+        loadUi("interfaces\dogtores.ui", self)
+        self.btn_agg.clicked.connect(self.registrarUsuario)
+        self.btn_clear.clicked.connect(self.clearInputs)
+        self.actionLogin.triggered.connect(self.ingresoLogin)
+        self.actionSalir.triggered.connect(self.close)
+        self.bt_photo.clicked.connect(self.addPhoto)
         
     
+    def addPhoto(self):
+        filenames, _ = QFileDialog.getOpenFileNames(self, "Seleccionar imágenes", "", "Archivos de imagen (*.png *.jpg *.bmp)")
         
+        if len(filenames) >= 1:
+            pixmap1 = QPixmap(filenames[0])
+            self.foto.setPixmap(pixmap1)
+            
+        else:
+            QMessageBox.information(self,"Imagenes","Por favor,Selecciona una imagen")      
+    def clearInputs(self):
+        self.in_cedula.clear()
+        self.in_name.clear()
+        self.in_apell.clear()
+        self.in_age.clear()
+        self.in_mail.clear()
+        self.in_number.clear()
+        self.in_dir.clear()
+        self.btn_m.setChecked(False)
+        self.btn_f.setChecked(False)
+        self.in_espec.clear()
         
+        self.in_user.clear()
+        self.in_password.clear()
+        self.in_valid_password.clear()    
+        self.foto.clear()
     def cifrar_contrasenia(self, contrasenia):
         # Cifrar la contraseña usando un algoritmo de hash (SHA-256 en este caso)
         cifrado = hashlib.sha256()
@@ -125,21 +150,38 @@ class Registro(QMainWindow):
         IngresoUsuario.show()
         
     def registrarUsuario(self):
+        cedula = self.in_cedula.text()
+        nombre = self.in_name.text()
+        apellido = self.in_apell.text()
+        edad = self.in_age.text()
+        mail = self.in_mail.text()
+        valor_sexo = ""
+        foto = self.foto.pixmap()
+        if self.btn_m.isChecked():
+            valor_sexo = "Masculino"
+        elif self.btn_f.isChecked():
+            valor_sexo = "Femenino"
         conexion = sqlite3.connect('interfaces\database.db')
-        nombre = self.txt_user.text()
-        password = self.txt_password.text()
-        passwordRepeat = self.txt_password_repeat.text()
-        
-        if len(nombre and password and passwordRepeat) <=0:
-            QMessageBox.critical(self,"Error","Ningun campo ha sido llenado")
+        username = self.in_user.text()
+        password = self.in_password.text()
+        passwordRepeat = self.in_valid_password.text()
+        telefono = self.in_number.text()
+        direccion = self.in_dir.text()
+        especialidad = self.in_espec.text()
+        if not cedula or not username or not nombre or not apellido or not edad or not valor_sexo or not mail or not telefono or not direccion or not especialidad:
+            QMessageBox.critical(self, "Error", "Por favor, complete todos los campos.")
             return
         if len( password or passwordRepeat) <=0:
             QMessageBox.critical(self,"Error","Digite su contraseña")
             return
+        if foto is None :
+            QMessageBox.warning(self,"Advertencia","Debes importar una imagen antes de guardar")
+            return
         else :
         
-            
-            if len(nombre) < 6:
+           
+           
+            if len(username) < 6:
                 QMessageBox.critical(self, "Error", "El nombre de usuario debe tener minimo 6 caracteres.")
                 return
         
@@ -152,10 +194,17 @@ class Registro(QMainWindow):
         
          
         if password == passwordRepeat:
-            if self.usuario_existe(nombre):
+            if self.usuario_existe(username):
                 QMessageBox.warning(self, "Error", "El nombre de usuario ya existe. \nIngrese uno distinto")
                 return
             else:
+                foto_image = foto.toImage()  
+                foto_bytes = QByteArray()
+                buffer = QBuffer(foto_bytes)  
+                buffer.open(QIODevice.WriteOnly)
+                foto_image.save(buffer, "PNG")
+                foto_bytes = buffer.data()
+                buffer.close()
                 # Conectar a la base de datos
                 contrasenia_cifrada = self.cifrar_contrasenia(password)
                 conexion = sqlite3.connect('interfaces/database.db')
@@ -164,7 +213,8 @@ class Registro(QMainWindow):
                 cursor = conexion.cursor()
 
                 # Insertar datos en la base de datos
-                cursor.execute('INSERT INTO Users (Username, Password) VALUES (?, ?)', (nombre, contrasenia_cifrada))
+                cursor.execute('INSERT INTO Users (Username, Password ,Cedula ,Nombres, Apellidos, Sexo , Edad , Direccion , Telefono , Mail , Especialidad , Imagen) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? , ?)', 
+                               (username , contrasenia_cifrada , cedula ,nombre, apellido , valor_sexo , edad , direccion ,telefono , mail ,especialidad , foto_bytes ))
 
                 # Confirmar los cambios en la base de datos y cerrar la conexión
                 conexion.commit()
