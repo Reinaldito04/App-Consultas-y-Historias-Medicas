@@ -223,9 +223,7 @@ class Registro(QMainWindow):
                 QMessageBox.information(self, "Éxito", "Registro exitoso")
         else:
             QMessageBox.warning(self, "Error", "Las contraseñas no coinciden")
-            self.txt_user.clear()
-            self.txt_password.clear()
-            self.txt_password_repeat.clear()
+            self.clearInputs()
        
 
         
