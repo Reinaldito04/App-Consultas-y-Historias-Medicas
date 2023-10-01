@@ -603,6 +603,9 @@ border-radius:20px;
                           <property name="text">
                            <string>Foto</string>
                           </property>
+                          <property name="scaledContents">
+                           <bool>true</bool>
+                          </property>
                           <property name="alignment">
                            <set>Qt::AlignCenter</set>
                           </property>
@@ -611,6 +614,19 @@ border-radius:20px;
                        </layout>
                       </item>
                      </layout>
+                    </item>
+                    <item>
+                     <widget class="QPushButton" name="bt_photo">
+                      <property name="minimumSize">
+                       <size>
+                        <width>80</width>
+                        <height>50</height>
+                       </size>
+                      </property>
+                      <property name="text">
+                       <string>Importar</string>
+                      </property>
+                     </widget>
                     </item>
                     <item>
                      <spacer name="horizontalSpacer">
@@ -795,12 +811,18 @@ border:0px;
      <string>Menu Principal</string>
     </property>
     <addaction name="actionSalir"/>
+    <addaction name="actionLogin"/>
    </widget>
    <addaction name="menuMenu_Principal"/>
   </widget>
   <action name="actionSalir">
    <property name="text">
     <string>Salir</string>
+   </property>
+  </action>
+  <action name="actionLogin">
+   <property name="text">
+    <string>Login</string>
    </property>
   </action>
  </widget>
