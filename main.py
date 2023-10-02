@@ -164,7 +164,7 @@ class Registro(QMainWindow):
         conexion = sqlite3.connect('interfaces\database.db')
         username = self.in_user.text()
         password = self.in_password.text()
-        passwordRepeat = self.in_valid_password.text()
+        passwordRepeat = self.in_password_2.text()
         telefono = self.in_number.text()
         direccion = self.in_dir.text()
         especialidad = self.in_espec.text()
@@ -239,7 +239,7 @@ class MenuPrincipal(QMainWindow):
         loadUi("./interfaces/menu.ui", self)
         self.frame_opciones.hide()
         self.id_user  = id_user
-        self.bt_info.clicked.connect(self.passwordView)
+        self.bt_info.clicked.connect(self.informacionView)
         self.bt_menu.clicked.connect(self.toggle_sidebar)
         self.bt_salir.clicked.connect(self.close)
         self.bt_home.clicked.connect(lambda : self.stackedWidget.setCurrentWidget(self.page_home) )
@@ -281,17 +281,38 @@ class MenuPrincipal(QMainWindow):
             widget.setFixedHeight(700)
             widget.setFixedWidth(1100)
             self.hide()
-    def passwordView(self):
+    def informacionView(self):
         reply = QMessageBox.question(
             self,
             'Confirmación',
-            '¿Deseas ir al formulario de cambio de contraseña?',
+            '¿Deseas ir al formulario de cambiar data?',
             QMessageBox.Yes | QMessageBox.No,
             QMessageBox.Yes
         )
         if reply ==QMessageBox.Yes:
-            contraseñaView = PasswordMenu(self.id_user)
-            widget.addWidget(contraseñaView)
+            doctorView = EditDoctor(self.id_user)
+            conexion = sqlite3.connect('interfaces/database.db')
+            cursor = conexion.cursor()
+            cursor.execute("SELECT Cedula,Especialidad,Nombres,Apellidos,Sexo,Edad,Direccion,Telefono,Mail , Imagen FROM Users WHERE ID = ?", (self.id_user,))
+            resultado = cursor.fetchone()
+            if resultado :
+                doctorView.in_cedula_2.setText(resultado[0])
+                doctorView.in_espec_2.setText(resultado[1])
+                doctorView.in_name_2.setText(resultado[2])
+                doctorView.in_apell_2.setText(resultado[3])
+                doctorView.in_age_2.setText(resultado[5])
+                doctorView.in_dir_2.setText(resultado[6])
+                doctorView.in_number_2.setText(resultado[7])
+                doctorView.in_mail_2.setText(resultado[8])
+                sexo = resultado[4]
+                if sexo == "Masculino":
+                    doctorView.btn_m_2.setChecked(True)
+                if sexo == "Femenino":
+                    doctorView.btn_f_2.setChecked(True)
+                pixmap1 = QPixmap()
+                pixmap1.loadFromData(resultado[9])
+                doctorView.foto_2.setPixmap(pixmap1)
+            widget.addWidget(doctorView)
             widget.setCurrentIndex(widget.currentIndex()+1)
             widget.setFixedHeight(620)
             widget.setFixedWidth(800)
@@ -333,6 +354,53 @@ class MenuPrincipal(QMainWindow):
    
     def close(self):
        QApplication.quit()
+       
+class EditDoctor(QMainWindow):
+    def __init__(self,id_user):
+        super(EditDoctor, self).__init__()
+        self.id_user = id_user
+        loadUi("interfaces\edicion.ui", self)
+        self.btn_passwordChange.clicked.connect(self.PasswordView)
+        self.bt_delete.clicked.connect(self.eliminarInfo)
+    def eliminarInfo(self):
+        reply = QMessageBox.question(
+            self,
+            'Confirmación',
+            '¿Deseas eliminar toda tu informacion?\n (Pacientes y datos de acceso)',
+            QMessageBox.Yes | QMessageBox.No,
+            QMessageBox.Yes
+        )
+        if reply == QMessageBox.Yes:
+            conexion = sqlite3.connect('interfaces/database.db')
+            cursor = conexion.cursor()
+            cursor.execute('BEGIN TRANSACTION;')
+            cursor.execute("DELETE FROM Users WHERE ID =?",(self.id_user,))
+            cursor.execute('DELETE FROM Pacientes WHERE ID_user = ?', (self.id_user,))
+            conexion.commit()
+            QMessageBox.information(self,"Finalizado","Tus datos han sido borrados exitosamente")
+            conexion.close()
+            registro = Registro()
+            widget.addWidget(registro)
+            widget.setCurrentIndex(widget.currentIndex()+1)
+            widget.setFixedHeight(578)
+            widget.setFixedWidth(879)
+            
+    def PasswordView(self):
+        reply = QMessageBox.question(
+            self,
+            'Confirmación',
+            '¿Deseas cambiar tu contraseña?',
+            QMessageBox.Yes | QMessageBox.No,
+            QMessageBox.Yes
+        )
+        if reply ==QMessageBox.Yes:
+            passwordview = PasswordMenu(self.id_user)
+           
+            widget.addWidget(passwordview)
+            widget.setCurrentIndex(widget.currentIndex()+1)
+            widget.setFixedHeight(700)
+            widget.setFixedWidth(1100)
+            self.hide()
 class CitasMenu(QMainWindow):
     def __init__(self,id_user):
         super(CitasMenu, self).__init__()

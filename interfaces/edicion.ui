@@ -146,41 +146,6 @@ QPushButton:hover{
                   </property>
                  </spacer>
                 </item>
-                <item>
-                 <widget class="QLineEdit" name="in_query">
-                  <property name="minimumSize">
-                   <size>
-                    <width>300</width>
-                    <height>40</height>
-                   </size>
-                  </property>
-                  <property name="maximumSize">
-                   <size>
-                    <width>300</width>
-                    <height>40</height>
-                   </size>
-                  </property>
-                 </widget>
-                </item>
-                <item>
-                 <widget class="QPushButton" name="btn_query">
-                  <property name="minimumSize">
-                   <size>
-                    <width>150</width>
-                    <height>50</height>
-                   </size>
-                  </property>
-                  <property name="maximumSize">
-                   <size>
-                    <width>150</width>
-                    <height>50</height>
-                   </size>
-                  </property>
-                  <property name="text">
-                   <string>Buscar</string>
-                  </property>
-                 </widget>
-                </item>
                </layout>
               </item>
               <item>
@@ -497,98 +462,7 @@ QPushButton:hover{
                     <item>
                      <layout class="QHBoxLayout" name="horizontalLayout_8">
                       <item>
-                       <layout class="QVBoxLayout" name="verticalLayout_14">
-                        <item>
-                         <widget class="QLabel" name="lbl_user_2">
-                          <property name="minimumSize">
-                           <size>
-                            <width>50</width>
-                            <height>0</height>
-                           </size>
-                          </property>
-                          <property name="text">
-                           <string>Usuario:</string>
-                          </property>
-                         </widget>
-                        </item>
-                        <item>
-                         <widget class="QLineEdit" name="in_user_2">
-                          <property name="minimumSize">
-                           <size>
-                            <width>200</width>
-                            <height>40</height>
-                           </size>
-                          </property>
-                          <property name="maximumSize">
-                           <size>
-                            <width>200</width>
-                            <height>16777215</height>
-                           </size>
-                          </property>
-                         </widget>
-                        </item>
-                        <item>
-                         <widget class="QLabel" name="lbl_password_3">
-                          <property name="minimumSize">
-                           <size>
-                            <width>50</width>
-                            <height>0</height>
-                           </size>
-                          </property>
-                          <property name="text">
-                           <string>Contraseña:</string>
-                          </property>
-                         </widget>
-                        </item>
-                        <item>
-                         <widget class="QLineEdit" name="in_password_3">
-                          <property name="minimumSize">
-                           <size>
-                            <width>200</width>
-                            <height>40</height>
-                           </size>
-                          </property>
-                          <property name="maximumSize">
-                           <size>
-                            <width>200</width>
-                            <height>16777215</height>
-                           </size>
-                          </property>
-                         </widget>
-                        </item>
-                        <item>
-                         <widget class="QLabel" name="lbl_password_4">
-                          <property name="minimumSize">
-                           <size>
-                            <width>50</width>
-                            <height>0</height>
-                           </size>
-                          </property>
-                          <property name="text">
-                           <string>Confirme su contraseña:</string>
-                          </property>
-                          <property name="alignment">
-                           <set>Qt::AlignCenter</set>
-                          </property>
-                         </widget>
-                        </item>
-                        <item>
-                         <widget class="QLineEdit" name="in_password_4">
-                          <property name="minimumSize">
-                           <size>
-                            <width>200</width>
-                            <height>40</height>
-                           </size>
-                          </property>
-                          <property name="maximumSize">
-                           <size>
-                            <width>200</width>
-                            <height>40</height>
-                           </size>
-                          </property>
-                         </widget>
-                        </item>
-                       </layout>
+                       <layout class="QVBoxLayout" name="verticalLayout_14"/>
                       </item>
                       <item>
                        <layout class="QHBoxLayout" name="horizontalLayout_7">
@@ -606,48 +480,43 @@ QPushButton:hover{
                          </spacer>
                         </item>
                         <item>
-                         <layout class="QVBoxLayout" name="verticalLayout_19">
-                          <item>
-                           <widget class="QLabel" name="lbl_foto_2">
-                            <property name="text">
-                             <string>Cargue una foto del Doctor</string>
-                            </property>
-                           </widget>
-                          </item>
-                          <item>
-                           <widget class="QLabel" name="foto_2">
-                            <property name="minimumSize">
-                             <size>
-                              <width>200</width>
-                              <height>200</height>
-                             </size>
-                            </property>
-                            <property name="maximumSize">
-                             <size>
-                              <width>200</width>
-                              <height>200</height>
-                             </size>
-                            </property>
-                            <property name="styleSheet">
-                             <string notr="true">QFrame{
-	background-color: rgb(255, 255, 255);
-border: 3px solid rgb(0, 0, 0);
-border-radius:20px;
-}</string>
-                            </property>
-                            <property name="text">
-                             <string>Foto</string>
-                            </property>
-                            <property name="alignment">
-                             <set>Qt::AlignCenter</set>
-                            </property>
-                           </widget>
-                          </item>
-                         </layout>
+                         <layout class="QVBoxLayout" name="verticalLayout_19"/>
                         </item>
                        </layout>
                       </item>
                      </layout>
+                    </item>
+                    <item>
+                     <widget class="QLabel" name="foto_2">
+                      <property name="minimumSize">
+                       <size>
+                        <width>200</width>
+                        <height>200</height>
+                       </size>
+                      </property>
+                      <property name="maximumSize">
+                       <size>
+                        <width>200</width>
+                        <height>200</height>
+                       </size>
+                      </property>
+                      <property name="styleSheet">
+                       <string notr="true">QFrame{
+	background-color: rgb(255, 255, 255);
+border: 3px solid rgb(0, 0, 0);
+border-radius:20px;
+}</string>
+                      </property>
+                      <property name="text">
+                       <string>Foto</string>
+                      </property>
+                      <property name="scaledContents">
+                       <bool>true</bool>
+                      </property>
+                      <property name="alignment">
+                       <set>Qt::AlignCenter</set>
+                      </property>
+                     </widget>
                     </item>
                     <item>
                      <spacer name="horizontalSpacer_7">
@@ -732,7 +601,7 @@ border:0px;
                      </spacer>
                     </item>
                     <item>
-                     <widget class="QPushButton" name="btn_clear_2">
+                     <widget class="QPushButton" name="btn_passwordChange">
                       <property name="minimumSize">
                        <size>
                         <width>150</width>
@@ -746,7 +615,7 @@ border:0px;
                        </size>
                       </property>
                       <property name="text">
-                       <string>Limpiar</string>
+                       <string>Cambiar Contraseña</string>
                       </property>
                      </widget>
                     </item>
@@ -764,6 +633,19 @@ border:0px;
                      </spacer>
                     </item>
                    </layout>
+                  </item>
+                  <item>
+                   <widget class="QPushButton" name="bt_delete">
+                    <property name="minimumSize">
+                     <size>
+                      <width>150</width>
+                      <height>50</height>
+                     </size>
+                    </property>
+                    <property name="text">
+                     <string>Eliminar</string>
+                    </property>
+                   </widget>
                   </item>
                   <item>
                    <spacer name="verticalSpacer_7">
