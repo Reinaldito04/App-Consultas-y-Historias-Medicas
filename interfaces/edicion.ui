@@ -146,6 +146,25 @@ QPushButton:hover{
                   </property>
                  </spacer>
                 </item>
+                <item>
+                 <widget class="QPushButton" name="btn_back">
+                  <property name="minimumSize">
+                   <size>
+                    <width>150</width>
+                    <height>50</height>
+                   </size>
+                  </property>
+                  <property name="text">
+                   <string>Volver</string>
+                  </property>
+                  <property name="iconSize">
+                   <size>
+                    <width>100</width>
+                    <height>50</height>
+                   </size>
+                  </property>
+                 </widget>
+                </item>
                </layout>
               </item>
               <item>
@@ -583,7 +602,7 @@ border:0px;
                        </size>
                       </property>
                       <property name="text">
-                       <string>Guardar</string>
+                       <string>Modificar</string>
                       </property>
                      </widget>
                     </item>

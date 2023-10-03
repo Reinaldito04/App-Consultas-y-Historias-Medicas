@@ -362,6 +362,65 @@ class EditDoctor(QMainWindow):
         loadUi("interfaces\edicion.ui", self)
         self.btn_passwordChange.clicked.connect(self.PasswordView)
         self.bt_delete.clicked.connect(self.eliminarInfo)
+        self.btn_save.clicked.connect(self.modifyInfo)
+        self.btn_back.clicked.connect(self.backMenu)
+     
+    def backMenu(self):   
+        menu_principal = MenuPrincipal(self.id_user)
+        conexion = sqlite3.connect('interfaces/database.db')
+        cursor= conexion.cursor()
+        cursor.execute("SELECT Username FROM Users WHERE ID = ?", (self.id_user,))
+        
+        resultado = cursor.fetchone()
+        if resultado :
+            nombre_usuario = resultado[0]
+            horaActual = datetime.datetime.now().time()
+            
+            if datetime.time(5, 0, 0) <= horaActual < datetime.time(12, 0, 0):
+                textForMenu = f"Buenos días {nombre_usuario}\n¿Qué deseas hacer hoy?"
+            elif datetime.time(12, 0, 0) <= horaActual < datetime.time(18, 0, 0):
+                textForMenu = f"Buenas tardes {nombre_usuario}\n¿Qué deseas hacer hoy?"
+            elif datetime.time(18, 0, 0) <= horaActual or horaActual < datetime.time(5, 0, 0):
+                textForMenu = f"Buenas noches {nombre_usuario}\n¿Qué deseas hacer hoy?"
+            else:
+                textForMenu = f"Hola {nombre_usuario}\n¿Qué deseas hacer hoy?"
+            menu_principal.lb_nombre.setText(textForMenu)
+            menu_principal.show()
+            self.hide()
+    def modifyInfo(self):
+        reply = QMessageBox.question(
+            self,
+            'Confirmación',
+            'Deseas cambiar tu información personal?',
+            QMessageBox.Yes | QMessageBox.No,
+            QMessageBox.Yes
+        )
+            
+           
+        if self.btn_m_2.isChecked():
+               sexo = "Masculino"
+        if self.btn_f_2.isChecked():
+                sexo = "Femenino"
+        if reply == QMessageBox.Yes:
+           conexion = sqlite3.connect('interfaces/database.db')
+           cursor = conexion.cursor()
+           cedula = self.in_cedula_2.text()
+           especialidad = self.in_espec_2.text()
+           nombre = self.in_name_2.text()
+           apellido = self.in_apell_2.text()
+           direccion = self.in_dir_2.text()
+           telefono  = self.in_number_2.text()
+           edad = self.in_age_2.text()
+           mail = self.in_mail_2.text()
+           
+           
+           cursor.execute("UPDATE Users SET Cedula = ?, Especialidad = ?, Nombres = ?, Apellidos = ?, Direccion = ?, Telefono = ?, Mail = ?, Sexo = ?, Edad = ? WHERE ID = ?", (cedula, especialidad, nombre, apellido, direccion, telefono, mail, sexo, edad, self.id_user))
+           QMessageBox.information(self,"Realizado","Los cambios han sido guardados correctamente")
+           conexion.commit()    
+           conexion.close()
+        
+        
+           
     def eliminarInfo(self):
         reply = QMessageBox.question(
             self,
