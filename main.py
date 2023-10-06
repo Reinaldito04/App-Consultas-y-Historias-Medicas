@@ -120,7 +120,7 @@ class Registro(QMainWindow):
         
         self.in_user.clear()
         self.in_password.clear()
-        self.in_valid_password.clear()    
+        self.in_password_2.clear()    
         self.foto.clear()
     def cifrar_contrasenia(self, contrasenia):
         # Cifrar la contraseña usando un algoritmo de hash (SHA-256 en este caso)
@@ -422,27 +422,35 @@ class EditDoctor(QMainWindow):
         
            
     def eliminarInfo(self):
-        reply = QMessageBox.question(
-            self,
-            'Confirmación',
-            '¿Deseas eliminar toda tu informacion?\n (Pacientes y datos de acceso)',
-            QMessageBox.Yes | QMessageBox.No,
-            QMessageBox.Yes
-        )
-        if reply == QMessageBox.Yes:
-            conexion = sqlite3.connect('interfaces/database.db')
-            cursor = conexion.cursor()
-            cursor.execute('BEGIN TRANSACTION;')
-            cursor.execute("DELETE FROM Users WHERE ID =?",(self.id_user,))
-            cursor.execute('DELETE FROM Pacientes WHERE ID_user = ?', (self.id_user,))
-            conexion.commit()
-            QMessageBox.information(self,"Finalizado","Tus datos han sido borrados exitosamente")
-            conexion.close()
-            registro = Registro()
-            widget.addWidget(registro)
-            widget.setCurrentIndex(widget.currentIndex()+1)
-            widget.setFixedHeight(578)
-            widget.setFixedWidth(879)
+        eliminarData = DeleteAllData(self.id_user)
+        widget.addWidget(eliminarData)
+        widget.setCurrentIndex(widget.currentIndex()+1)
+        widget.setFixedHeight(500)
+        widget.setFixedWidth(500)
+        self.hide()
+        
+        # reply = QMessageBox.question(
+        #     self,
+        #     'Confirmación',
+        #     '¿Deseas eliminar toda tu informacion?\n (Pacientes y datos de acceso)',
+        #     QMessageBox.Yes | QMessageBox.No,
+        #     QMessageBox.Yes
+        # )
+        # if reply == QMessageBox.Yes:
+        #     conexion = sqlite3.connect('interfaces/database.db')
+        #     cursor = conexion.cursor()
+        #     cursor.execute('BEGIN TRANSACTION;')
+        #     cursor.execute("DELETE FROM Users WHERE ID =?",(self.id_user,))
+        #     cursor.execute('DELETE FROM Pacientes WHERE ID_user = ?', (self.id_user,))
+        #     conexion.commit()
+        #     QMessageBox.information(self,"Finalizado","Tus datos han sido borrados exitosamente")
+        #     conexion.close()
+        #     registro = Registro()
+        #     widget.addWidget(registro)
+        #     widget.setCurrentIndex(widget.currentIndex()+1)
+        #     widget.setFixedHeight(578)
+        #     widget.setFixedWidth(879)
+     
             
     def PasswordView(self):
         reply = QMessageBox.question(
@@ -460,6 +468,89 @@ class EditDoctor(QMainWindow):
             widget.setFixedHeight(700)
             widget.setFixedWidth(1100)
             self.hide()
+            
+class DeleteAllData(QMainWindow):
+    def __init__(self,id_user):
+        super(DeleteAllData , self).__init__()
+        self.id_user = id_user
+        loadUi("interfaces\eliminarData.ui", self)
+        self.bt_back.clicked.connect(self.back)
+        self.bt_delete.clicked.connect(self.deleteData)
+        
+    def cifrar_contrasenia(self, contrasenia):
+        # Cifrar la contraseña usando un algoritmo de hash (SHA-256 en este caso)
+        cifrado = hashlib.sha256()
+        cifrado.update(contrasenia.encode('utf-8'))
+        return cifrado.hexdigest()
+    def deleteData(self):
+        contraseniaaAntigua = self.ln_password.text()
+        contraseniaRepeat = self.ln_repeatPassword.text()
+        iduser=self.id_user
+        conexion = sqlite3.connect('interfaces/database.db')
+        cursor = conexion.cursor()
+        reply = QMessageBox.question(
+            self,
+            'Confirmación',
+            '¿Estas seguro de eliminar tu información?',
+            QMessageBox.Yes | QMessageBox.No,
+            QMessageBox.Yes
+        )
+        if reply == QMessageBox.Yes :
+            try:
+                cursor.execute("SELECT Password, Username From Users WHERE ID =? ", (iduser,))
+                resultado = cursor.fetchone()
+                if resultado and resultado[0] ==  self.cifrar_contrasenia(contraseniaaAntigua):
+                    if contraseniaaAntigua  == contraseniaRepeat :
+                       
+                        nombre = resultado[1]
+                        cursor.execute('BEGIN TRANSACTION;')
+                        cursor.execute("DELETE FROM Users WHERE ID =?",(self.id_user,))
+                        cursor.execute('DELETE FROM Pacientes WHERE ID_user = ?', (self.id_user,))
+                        conexion.commit()
+                        QMessageBox.information(self,'Exito',f'Felicidades {nombre} tus datos han sido eliminado correctamente')
+                        registro = Registro()
+                        widget.addWidget(registro)
+                        widget.setCurrentIndex(widget.currentIndex()+1)
+                        widget.setFixedHeight(578)
+                        widget.setFixedWidth(879) 
+                    else:
+                        QMessageBox.information(self,'Error','Las contraseñas no coinciden.')
+                else:
+                    QMessageBox.information(self,'Error','La contraseña es incorrecta.')
+            except sqlite3.Error as e:
+                print(f"Error de base de datos: {e}")
+            finally:
+                conexion.close()
+         
+    def back(self):
+            doctorView = EditDoctor(self.id_user)
+            conexion = sqlite3.connect('interfaces/database.db')
+            cursor = conexion.cursor()
+            cursor.execute("SELECT Cedula,Especialidad,Nombres,Apellidos,Sexo,Edad,Direccion,Telefono,Mail , Imagen FROM Users WHERE ID = ?", (self.id_user,))
+            resultado = cursor.fetchone()
+            if resultado :
+                doctorView.in_cedula_2.setText(resultado[0])
+                doctorView.in_espec_2.setText(resultado[1])
+                doctorView.in_name_2.setText(resultado[2])
+                doctorView.in_apell_2.setText(resultado[3])
+                doctorView.in_age_2.setText(resultado[5])
+                doctorView.in_dir_2.setText(resultado[6])
+                doctorView.in_number_2.setText(resultado[7])
+                doctorView.in_mail_2.setText(resultado[8])
+                sexo = resultado[4]
+                if sexo == "Masculino":
+                    doctorView.btn_m_2.setChecked(True)
+                if sexo == "Femenino":
+                    doctorView.btn_f_2.setChecked(True)
+                pixmap1 = QPixmap()
+                pixmap1.loadFromData(resultado[9])
+                doctorView.foto_2.setPixmap(pixmap1)
+            widget.addWidget(doctorView)
+            widget.setCurrentIndex(widget.currentIndex()+1)
+            widget.setFixedHeight(620)
+            widget.setFixedWidth(800)
+            self.hide()
+        
 class CitasMenu(QMainWindow):
     def __init__(self,id_user):
         super(CitasMenu, self).__init__()
@@ -956,17 +1047,33 @@ class PasswordMenu(QMainWindow):
             finally:
                 conexion.close()
     def returnMenu(self):
-        conexion = sqlite3.connect('interfaces/database.db')
-        cursor = conexion.cursor()
-        cursor.execute("SELECT Username From Users WHERE ID =? ", (self.id_user,))
-        resultado = cursor.fetchone()
-        nombre = resultado[0]
-        textForMenu = f"¿Que deseas hacer {nombre}?"
-        menu_principal = MenuPrincipal(self.id_user)
-        menu_principal.show()
-        menu_principal.lb_nombre.setText(textForMenu)
-        
-        self.hide()
+            doctorView = EditDoctor(self.id_user)
+            conexion = sqlite3.connect('interfaces/database.db')
+            cursor = conexion.cursor()
+            cursor.execute("SELECT Cedula,Especialidad,Nombres,Apellidos,Sexo,Edad,Direccion,Telefono,Mail , Imagen FROM Users WHERE ID = ?", (self.id_user,))
+            resultado = cursor.fetchone()
+            if resultado :
+                doctorView.in_cedula_2.setText(resultado[0])
+                doctorView.in_espec_2.setText(resultado[1])
+                doctorView.in_name_2.setText(resultado[2])
+                doctorView.in_apell_2.setText(resultado[3])
+                doctorView.in_age_2.setText(resultado[5])
+                doctorView.in_dir_2.setText(resultado[6])
+                doctorView.in_number_2.setText(resultado[7])
+                doctorView.in_mail_2.setText(resultado[8])
+                sexo = resultado[4]
+                if sexo == "Masculino":
+                    doctorView.btn_m_2.setChecked(True)
+                if sexo == "Femenino":
+                    doctorView.btn_f_2.setChecked(True)
+                pixmap1 = QPixmap()
+                pixmap1.loadFromData(resultado[9])
+                doctorView.foto_2.setPixmap(pixmap1)
+            widget.addWidget(doctorView)
+            widget.setCurrentIndex(widget.currentIndex()+1)
+            widget.setFixedHeight(620)
+            widget.setFixedWidth(800)
+            self.hide()
         
  
 class placasMenu(QMainWindow):
