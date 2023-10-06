@@ -521,6 +521,9 @@ QPushButton:hover{
                             <height>16777215</height>
                            </size>
                           </property>
+                          <property name="echoMode">
+                           <enum>QLineEdit::Password</enum>
+                          </property>
                          </widget>
                         </item>
                         <item>
@@ -552,6 +555,9 @@ QPushButton:hover{
                             <width>200</width>
                             <height>40</height>
                            </size>
+                          </property>
+                          <property name="echoMode">
+                           <enum>QLineEdit::Password</enum>
                           </property>
                          </widget>
                         </item>
