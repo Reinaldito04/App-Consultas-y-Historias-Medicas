@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>1151</width>
-    <height>802</height>
+    <height>743</height>
    </rect>
   </property>
   <property name="minimumSize">
@@ -80,7 +80,7 @@ background-color:gray;
           <enum>QTabWidget::Rounded</enum>
          </property>
          <property name="currentIndex">
-          <number>4</number>
+          <number>3</number>
          </property>
          <property name="iconSize">
           <size>
@@ -1783,7 +1783,7 @@ border:2px solid rgb(0,0,0);
                        </spacer>
                       </item>
                       <item>
-                       <widget class="QDateTimeEdit" name="dateTimeEdit">
+                       <widget class="QDateTimeEdit" name="fecha_hora">
                         <property name="minimumSize">
                          <size>
                           <width>130</width>
@@ -1875,6 +1875,18 @@ border:2px solid rgb(0,0,0);
                        <layout class="QVBoxLayout" name="verticalLayout_21">
                         <item>
                          <widget class="QLabel" name="lbl_33">
+                          <property name="minimumSize">
+                           <size>
+                            <width>0</width>
+                            <height>40</height>
+                           </size>
+                          </property>
+                          <property name="maximumSize">
+                           <size>
+                            <width>16777215</width>
+                            <height>40</height>
+                           </size>
+                          </property>
                           <property name="text">
                            <string>Diagnostico del paciente</string>
                           </property>
@@ -1884,17 +1896,17 @@ border:2px solid rgb(0,0,0);
                          </widget>
                         </item>
                         <item>
-                         <widget class="QTextEdit" name="textEdit_5">
+                         <widget class="QTextEdit" name="diag">
                           <property name="minimumSize">
                            <size>
                             <width>560</width>
-                            <height>130</height>
+                            <height>160</height>
                            </size>
                           </property>
                           <property name="maximumSize">
                            <size>
                             <width>400</width>
-                            <height>130</height>
+                            <height>160</height>
                            </size>
                           </property>
                          </widget>
@@ -1947,7 +1959,7 @@ border:2px solid rgb(0,0,0);
                             <number>0</number>
                            </property>
                            <item>
-                            <widget class="QTableWidget" name="tableWidget">
+                            <widget class="QTableWidget" name="tabla_diag">
                              <property name="minimumSize">
                               <size>
                                <width>0</width>
@@ -2486,7 +2498,7 @@ border:2px solid rgb(0,0,0);
                    <item>
                     <layout class="QVBoxLayout" name="verticalLayout_65">
                      <item>
-                      <widget class="QComboBox" name="comboBox">
+                      <widget class="QComboBox" name="t1">
                        <property name="minimumSize">
                         <size>
                          <width>520</width>
@@ -2638,7 +2650,7 @@ border:2px solid rgb(0,0,0);
                           </spacer>
                          </item>
                          <item>
-                          <widget class="QLineEdit" name="lineEdit">
+                          <widget class="QLineEdit" name="montobs_t1">
                            <property name="minimumSize">
                             <size>
                              <width>150</width>
@@ -2673,7 +2685,7 @@ border:2px solid rgb(0,0,0);
                           </spacer>
                          </item>
                          <item>
-                          <widget class="QLineEdit" name="lineEdit_2">
+                          <widget class="QLineEdit" name="montodola_t1">
                            <property name="minimumSize">
                             <size>
                              <width>150</width>
@@ -2729,7 +2741,7 @@ border:2px solid rgb(0,0,0);
                    <item>
                     <layout class="QVBoxLayout" name="verticalLayout_66">
                      <item>
-                      <widget class="QComboBox" name="comboBox_2">
+                      <widget class="QComboBox" name="t2">
                        <property name="minimumSize">
                         <size>
                          <width>520</width>
@@ -2881,7 +2893,7 @@ border:2px solid rgb(0,0,0);
                           </spacer>
                          </item>
                          <item>
-                          <widget class="QLineEdit" name="lineEdit_3">
+                          <widget class="QLineEdit" name="montobs_t2">
                            <property name="minimumSize">
                             <size>
                              <width>150</width>
@@ -2916,7 +2928,7 @@ border:2px solid rgb(0,0,0);
                           </spacer>
                          </item>
                          <item>
-                          <widget class="QLineEdit" name="lineEdit_4">
+                          <widget class="QLineEdit" name="montodola_t2">
                            <property name="minimumSize">
                             <size>
                              <width>150</width>
@@ -2972,7 +2984,7 @@ border:2px solid rgb(0,0,0);
                    <item>
                     <layout class="QVBoxLayout" name="verticalLayout_69">
                      <item>
-                      <widget class="QComboBox" name="comboBox_3">
+                      <widget class="QComboBox" name="t3">
                        <property name="minimumSize">
                         <size>
                          <width>520</width>
@@ -3124,7 +3136,7 @@ border:2px solid rgb(0,0,0);
                           </spacer>
                          </item>
                          <item>
-                          <widget class="QLineEdit" name="lineEdit_5">
+                          <widget class="QLineEdit" name="montobs_t3">
                            <property name="minimumSize">
                             <size>
                              <width>150</width>
@@ -3159,7 +3171,7 @@ border:2px solid rgb(0,0,0);
                           </spacer>
                          </item>
                          <item>
-                          <widget class="QLineEdit" name="lineEdit_6">
+                          <widget class="QLineEdit" name="montodola_t3">
                            <property name="minimumSize">
                             <size>
                              <width>150</width>
@@ -3254,7 +3266,7 @@ border:2px solid rgb(0,0,0);
                         </spacer>
                        </item>
                        <item>
-                        <widget class="QLineEdit" name="lineEdit_19">
+                        <widget class="QLineEdit" name="totalBs">
                          <property name="minimumSize">
                           <size>
                            <width>150</width>
@@ -3289,7 +3301,7 @@ border:2px solid rgb(0,0,0);
                         </spacer>
                        </item>
                        <item>
-                        <widget class="QLineEdit" name="lineEdit_20">
+                        <widget class="QLineEdit" name="totaldola">
                          <property name="minimumSize">
                           <size>
                            <width>150</width>
