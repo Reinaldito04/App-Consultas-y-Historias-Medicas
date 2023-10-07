@@ -80,7 +80,7 @@ background-color:gray;
           <enum>QTabWidget::Rounded</enum>
          </property>
          <property name="currentIndex">
-          <number>3</number>
+          <number>1</number>
          </property>
          <property name="iconSize">
           <size>
@@ -1467,7 +1467,7 @@ border:0px;
                    </spacer>
                   </item>
                   <item>
-                   <widget class="QPushButton" name="btn_agg_3">
+                   <widget class="QPushButton" name="btn_agg_2">
                     <property name="minimumSize">
                      <size>
                       <width>150</width>
@@ -1499,7 +1499,7 @@ border:0px;
                    </spacer>
                   </item>
                   <item>
-                   <widget class="QPushButton" name="btn_edit_3">
+                   <widget class="QPushButton" name="btn_edit_2">
                     <property name="minimumSize">
                      <size>
                       <width>150</width>
@@ -1531,7 +1531,7 @@ border:0px;
                    </spacer>
                   </item>
                   <item>
-                   <widget class="QPushButton" name="btn_clear_3">
+                   <widget class="QPushButton" name="btn_clear_2">
                     <property name="minimumSize">
                      <size>
                       <width>150</width>
@@ -2097,7 +2097,7 @@ border:0px;
                      </spacer>
                     </item>
                     <item>
-                     <widget class="QPushButton" name="btn_agg_4">
+                     <widget class="QPushButton" name="btn_agg_3">
                       <property name="minimumSize">
                        <size>
                         <width>150</width>
@@ -2129,7 +2129,7 @@ border:0px;
                      </spacer>
                     </item>
                     <item>
-                     <widget class="QPushButton" name="btn_edit_4">
+                     <widget class="QPushButton" name="btn_edit_3">
                       <property name="minimumSize">
                        <size>
                         <width>150</width>
@@ -2161,7 +2161,7 @@ border:0px;
                      </spacer>
                     </item>
                     <item>
-                     <widget class="QPushButton" name="btn_clear_4">
+                     <widget class="QPushButton" name="btn_clear_3">
                       <property name="minimumSize">
                        <size>
                         <width>150</width>
@@ -3405,7 +3405,7 @@ border:0px;
                    </spacer>
                   </item>
                   <item>
-                   <widget class="QPushButton" name="btn_agg_5">
+                   <widget class="QPushButton" name="btn_agg_4">
                     <property name="minimumSize">
                      <size>
                       <width>150</width>
@@ -3437,7 +3437,7 @@ border:0px;
                    </spacer>
                   </item>
                   <item>
-                   <widget class="QPushButton" name="btn_edit_5">
+                   <widget class="QPushButton" name="btn_edit_4">
                     <property name="minimumSize">
                      <size>
                       <width>150</width>
@@ -3469,7 +3469,7 @@ border:0px;
                    </spacer>
                   </item>
                   <item>
-                   <widget class="QPushButton" name="btn_clear_5">
+                   <widget class="QPushButton" name="btn_clear_4">
                     <property name="minimumSize">
                      <size>
                       <width>150</width>
