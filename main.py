@@ -1371,6 +1371,9 @@ class historiaMenu(QMainWindow):
         self.actionSalir.triggered.connect(self.salir)
         self.btn_delete.clicked.connect(self.DeletaData)
         self.actionVolver_al_menu_principal.triggered.connect(self.back_menu)
+        self.btn_agg_3.clicked.connect(self.addInformation)
+        self.btn_clear_3.clicked.connect(self.clearData)
+        self.btn_edit_3.clicked.connect(self.addInformation)
     #     self.btn_back.clicked.connect(self.back_menu)
     #     self.btn_refresh.clicked.connect(self.cargarDatosPacientes)
     #     self.btn_registrar.clicked.connect(self.addPacients)
@@ -1378,8 +1381,68 @@ class historiaMenu(QMainWindow):
     #     self.btn_borrar.clicked.connect(self.DeletaData)
     #     self.btn_buscar.clicked.connect(self.SearchDataForUpdate)
     #     self.btn_act.clicked.connect(self.UpdateData)
+    def clearData(self):
+        self.hiper_control.clear()
+        self.diabetes_control.clear()
+        self.coagualcion_control.clear()
+        self.ln_data.clear()
+        self.btn_si.setChecked(False)
+        self.btn_si_4.setChecked(False)
+        self.btn_no_4.setChecked(False)
+        self.btn_si_3.setChecked(False)
+        self.btn_no_3.setChecked(False)
+        self.btn_no.setChecked(False)
+        self.ln_alergias.clear()
     def salir(self):
         QApplication.quit()
+    def addInformation(self):
+        hipertenso = None
+        diabetes = None
+        coagulacion = None
+        cedula = self.in_busqueda.text()
+        hipertenso_control = self.hiper_control.toPlainText()
+        diabetes_control = self.diabetes_control.toPlainText()
+        coagualcion_control= self.coagualcion_control.toPlainText()
+        if self.btn_si.isChecked():
+            hipertenso = "Si"
+        if self.btn_no.isChecked():
+            hipertenso = "No"
+        
+        if self.btn_si_4.isChecked():
+            diabetes = "Si"
+        if self.btn_no_4.isChecked():
+            diabetes = "No"
+            
+        if self.btn_si_3.isChecked():
+            coagulacion = "Si"
+        if self.btn_no_3.isChecked():
+            coagulacion = "No"
+        Otros = self.ln_data.toPlainText()
+        alergias = self.ln_alergias.toPlainText()
+        if not cedula :
+            QMessageBox.warning(self,"Error","Por favor ingrese la cedula en el menu de registro ")
+            return
+        if not Otros:
+            Otros = None
+        if not alergias:
+            alergias =None
+            
+        try:
+            conexion = sqlite3.connect('interfaces/database.db')
+            cursor = conexion.cursor()
+            cursor.execute("UPDATE Pacientes SET Hipertension=?, Diabates=?, Coagualcion=?, Otros=? ,Alergias=? , diabate_Data=?,hipertension_Data=?,Coagualcion_Data=?  WHERE Cedula=?", (
+                hipertenso, diabetes, coagulacion, Otros, alergias,diabetes_control,hipertenso_control,coagualcion_control, cedula ))
+            conexion.commit()
+            QMessageBox.information(self, "Éxito", "Informacion registrada correctamente.")
+
+          
+            # Cierra la conexión con la base de datos
+            conexion.close()
+    
+        # Actualizar los registros en la base de datos
+        except sqlite3.Error as error:
+            QMessageBox.critical(self, "Error", f"Error al registrar el paciente: {str(error)}")
+
     def clearInputs(self):
         self.in_cedula.clear()
         self.in_name.clear()
@@ -1397,15 +1460,20 @@ class historiaMenu(QMainWindow):
         apellido = self.in_apell.text()
         edad = self.in_age.text()
         mail = self.in_mail.text()
+        valor_sexo = None
         if self.btn_m.isChecked():
             valor_sexo = "Masculino"
         if self.btn_f.isChecked():
             valor_sexo = "Femenino"
         telefono = self.in_number.text()
         direccion = self.in_dir.text()
+        contexto = self.motivo.toPlainText()
         
+        if valor_sexo is None:
+            QMessageBox.critical(self,"Error","Por favor seleccione su sexo")
+            return
 
-        if not cedula or not nombre or not apellido or not edad or not valor_sexo or not mail  or not telefono or not direccion:
+        if not cedula or not nombre or not apellido or not edad or not valor_sexo or not mail  or not telefono or not direccion or not contexto:
             QMessageBox.critical(self, "Error", "Por favor, complete todos los campos.")
             return
 
@@ -1430,27 +1498,19 @@ class historiaMenu(QMainWindow):
                 self.btn_m.setChecked(False)
                 self.btn_f.setChecked(False)
                 self.in_dir.clear()
+                self.motivo.clear()
                 return
 
             # Si no existe un paciente con la misma cédula, ejecutar la consulta de inserción
-            cursor.execute("INSERT INTO Pacientes (Cedula, Nombre, Apellido, Edad, Sexo ,Direccion , ID_user ,Telefono, Mail) VALUES (?, ?, ?, ?, ?, ?, ? , ? ,?)",
-                        (cedula, nombre, apellido, edad, valor_sexo , direccion , idUser ,telefono , mail))
+            cursor.execute("INSERT INTO Pacientes (Cedula, Nombre, Apellido, Edad, Sexo ,Direccion , ID_user ,Telefono, Mail ,Context) VALUES (?, ?, ?, ?, ?, ?, ? , ? ,? , ?)",
+                        (cedula, nombre, apellido, edad, valor_sexo , direccion , idUser ,telefono , mail , contexto))
 
             # Confirmar los cambios en la base de datos
             conexion.commit()
 
             QMessageBox.information(self, "Éxito", "Paciente registrado correctamente.")
 
-            # Limpia los campos después de agregar el paciente
-            self.in_cedula.clear()
-            self.in_name.clear()
-            self.in_apell.clear()
-            self.in_age.clear()
-            self.in_mail.clear()
-            self.in_number.clear()
-            self.btn_m.setChecked(False)
-            self.btn_f.setChecked(False)
-            self.in_dir.clear()
+          
             # Cierra la conexión con la base de datos
             conexion.close()
 
@@ -1464,11 +1524,11 @@ class historiaMenu(QMainWindow):
             cursor = conexion.cursor()  
             idUser = self.id_user
             busqueda = self.in_busqueda.text()
-            cursor.execute("SELECT Cedula, Nombre, Apellido, Edad, Direccion, Sexo, Telefono, Mail FROM Pacientes WHERE Cedula = ? AND ID_user = ?", (busqueda, idUser))
+            cursor.execute("SELECT Cedula, Nombre, Apellido, Edad, Direccion, Sexo, Telefono, Mail,Context,Hipertension,Diabates,Coagualcion,Otros,Alergias,diabate_Data,hipertension_Data,Coagualcion_Data FROM Pacientes WHERE Cedula = ? AND ID_user = ?", (busqueda, idUser))
             resultado = cursor.fetchone()
             
             if resultado:
-                Cedula, Nombre, Apellido, Edad, Direccion, Sexo, Telefono, Mail = resultado
+                Cedula, Nombre, Apellido, Edad, Direccion, Sexo, Telefono, Mail, Context ,Hipertension, Diabates, Coagualcion,Otros,Alergias, diabate_Data , hipertension_Data ,Coagualcion_Data = resultado
                 
                 self.in_cedula.setText(Cedula)
                 self.in_name.setText(Nombre)
@@ -1477,7 +1537,24 @@ class historiaMenu(QMainWindow):
                 self.in_mail.setText(Mail)  # Correo
                 self.in_dir.setText(Direccion)
                 self.in_number.setText(Telefono)  # Prueba##
-
+                self.motivo.setText(Context)
+                self.hiper_control.setText(hipertension_Data)
+                self.diabetes_control.setText(diabate_Data)
+                self.coagualcion_control.setText(Coagualcion_Data)
+                self.ln_data.setText(Otros)
+                self.ln_alergias.setText(Alergias)
+                if Hipertension == "Si":
+                    self.btn_si.setChecked(True)
+                else:
+                    self.btn_no.setChecked(True)
+                if Diabates =="Si":
+                    self.btn_si_4.setChecked(True)
+                else:
+                    self.btn_no_4.setChecked(True)
+                if Coagualcion =="Si":
+                    self.btn_si_3.setChecked(True)
+                else:
+                    self.btn_no_3.setChecked(True)
                 # Manejar los botones de radio según el valor de Sexo
                 if Sexo == "Masculino":
                     self.btn_m.setChecked(True)
@@ -1512,12 +1589,13 @@ class historiaMenu(QMainWindow):
                 valor_sexo = "Masculino"
             if self.btn_f.isChecked():
                 valor_sexo = "Femenino"
+            context = self.motivo.text()
 
             conexion = sqlite3.connect('interfaces/database.db')
             cursor = conexion.cursor()
     
         # Actualizar los registros en la base de datos
-            cursor.execute("UPDATE Pacientes SET Nombre=?, Apellido=?, Edad=?, Direccion=?, Sexo=? ,Telefono=? ,Mail =? WHERE Cedula=?", (nombre, apellido, edad, direccion, valor_sexo, telefono ,mail, cedula))
+            cursor.execute("UPDATE Pacientes SET Nombre=?, Apellido=?, Edad=?, Direccion=?, Sexo=? ,Telefono=? ,Mail =? , Context=? WHERE Cedula=?", (nombre, apellido, edad, direccion, valor_sexo, telefono ,mail, cedula , context))
             conexion.commit()
             
             QMessageBox.information(self, "Información", "Los datos se actualizaron correctamente")
@@ -1579,7 +1657,7 @@ class historiaMenu(QMainWindow):
                 self.btn_f.setChecked(False)
                 self.in_number.clear()
                 self.in_dir.clear()
-                
+                self.motivo.clear()
         except sqlite3.Error as e:
             QMessageBox.critical(self, "Error", "Error al eliminar los datos de la base de datos: " + str(e))
     

@@ -74,7 +74,7 @@ background-color:gray;
        <item>
         <widget class="QTabWidget" name="tabWidget">
          <property name="currentIndex">
-          <number>4</number>
+          <number>1</number>
          </property>
          <widget class="QWidget" name="tab_pacientes">
           <attribute name="title">
@@ -1037,32 +1037,69 @@ border-radius:20px;
                      </widget>
                     </item>
                     <item>
-                     <widget class="QRadioButton" name="btn_si">
-                      <property name="font">
-                       <font>
-                        <family>Microsoft Sans Serif</family>
-                        <pointsize>12</pointsize>
-                       </font>
+                     <widget class="QGroupBox" name="groupBox">
+                      <property name="enabled">
+                       <bool>true</bool>
+                      </property>
+                      <property name="minimumSize">
+                       <size>
+                        <width>150</width>
+                        <height>20</height>
+                       </size>
+                      </property>
+                      <property name="baseSize">
+                       <size>
+                        <width>50</width>
+                        <height>50</height>
+                       </size>
                       </property>
                       <property name="styleSheet">
-                       <string notr="true"/>
+                       <string notr="true">border:none;</string>
                       </property>
-                      <property name="text">
-                       <string>Si</string>
+                      <property name="title">
+                       <string/>
                       </property>
-                     </widget>
-                    </item>
-                    <item>
-                     <widget class="QRadioButton" name="btn_no">
-                      <property name="font">
-                       <font>
-                        <family>Microsoft Sans Serif</family>
-                        <pointsize>12</pointsize>
-                       </font>
-                      </property>
-                      <property name="text">
-                       <string>No</string>
-                      </property>
+                      <widget class="QRadioButton" name="btn_no">
+                       <property name="geometry">
+                        <rect>
+                         <x>50</x>
+                         <y>0</y>
+                         <width>43</width>
+                         <height>24</height>
+                        </rect>
+                       </property>
+                       <property name="font">
+                        <font>
+                         <family>Microsoft Sans Serif</family>
+                         <pointsize>12</pointsize>
+                        </font>
+                       </property>
+                       <property name="text">
+                        <string>No</string>
+                       </property>
+                      </widget>
+                      <widget class="QRadioButton" name="btn_si">
+                       <property name="geometry">
+                        <rect>
+                         <x>10</x>
+                         <y>0</y>
+                         <width>37</width>
+                         <height>24</height>
+                        </rect>
+                       </property>
+                       <property name="font">
+                        <font>
+                         <family>Microsoft Sans Serif</family>
+                         <pointsize>12</pointsize>
+                        </font>
+                       </property>
+                       <property name="styleSheet">
+                        <string notr="true"/>
+                       </property>
+                       <property name="text">
+                        <string>Si</string>
+                       </property>
+                      </widget>
                      </widget>
                     </item>
                     <item>
@@ -1090,7 +1127,7 @@ border-radius:20px;
                      </widget>
                     </item>
                     <item>
-                     <widget class="QTextEdit" name="motivo_3">
+                     <widget class="QTextEdit" name="hiper_control">
                       <property name="minimumSize">
                        <size>
                         <width>350</width>
@@ -1124,32 +1161,60 @@ border-radius:20px;
                      </widget>
                     </item>
                     <item>
-                     <widget class="QRadioButton" name="btn_si_4">
-                      <property name="font">
-                       <font>
-                        <family>Microsoft Sans Serif</family>
-                        <pointsize>12</pointsize>
-                       </font>
+                     <widget class="QGroupBox" name="groupBox_2">
+                      <property name="minimumSize">
+                       <size>
+                        <width>150</width>
+                        <height>20</height>
+                       </size>
                       </property>
                       <property name="styleSheet">
-                       <string notr="true"/>
+                       <string notr="true">border:none;</string>
                       </property>
-                      <property name="text">
-                       <string>Si</string>
+                      <property name="title">
+                       <string/>
                       </property>
-                     </widget>
-                    </item>
-                    <item>
-                     <widget class="QRadioButton" name="btn_no_4">
-                      <property name="font">
-                       <font>
-                        <family>Microsoft Sans Serif</family>
-                        <pointsize>12</pointsize>
-                       </font>
-                      </property>
-                      <property name="text">
-                       <string>No</string>
-                      </property>
+                      <widget class="QRadioButton" name="btn_si_4">
+                       <property name="geometry">
+                        <rect>
+                         <x>10</x>
+                         <y>0</y>
+                         <width>37</width>
+                         <height>24</height>
+                        </rect>
+                       </property>
+                       <property name="font">
+                        <font>
+                         <family>Microsoft Sans Serif</family>
+                         <pointsize>12</pointsize>
+                        </font>
+                       </property>
+                       <property name="styleSheet">
+                        <string notr="true"/>
+                       </property>
+                       <property name="text">
+                        <string>Si</string>
+                       </property>
+                      </widget>
+                      <widget class="QRadioButton" name="btn_no_4">
+                       <property name="geometry">
+                        <rect>
+                         <x>60</x>
+                         <y>0</y>
+                         <width>43</width>
+                         <height>24</height>
+                        </rect>
+                       </property>
+                       <property name="font">
+                        <font>
+                         <family>Microsoft Sans Serif</family>
+                         <pointsize>12</pointsize>
+                        </font>
+                       </property>
+                       <property name="text">
+                        <string>No</string>
+                       </property>
+                      </widget>
                      </widget>
                     </item>
                     <item>
@@ -1177,7 +1242,7 @@ border-radius:20px;
                      </widget>
                     </item>
                     <item>
-                     <widget class="QTextEdit" name="motivo_4">
+                     <widget class="QTextEdit" name="diabetes_control">
                       <property name="minimumSize">
                        <size>
                         <width>350</width>
@@ -1211,32 +1276,60 @@ border-radius:20px;
                      </widget>
                     </item>
                     <item>
-                     <widget class="QRadioButton" name="btn_si_3">
-                      <property name="font">
-                       <font>
-                        <family>Microsoft Sans Serif</family>
-                        <pointsize>12</pointsize>
-                       </font>
+                     <widget class="QGroupBox" name="groupBox_3">
+                      <property name="minimumSize">
+                       <size>
+                        <width>150</width>
+                        <height>0</height>
+                       </size>
                       </property>
                       <property name="styleSheet">
-                       <string notr="true"/>
+                       <string notr="true">border:none;</string>
                       </property>
-                      <property name="text">
-                       <string>Si</string>
+                      <property name="title">
+                       <string/>
                       </property>
-                     </widget>
-                    </item>
-                    <item>
-                     <widget class="QRadioButton" name="btn_no_3">
-                      <property name="font">
-                       <font>
-                        <family>Microsoft Sans Serif</family>
-                        <pointsize>12</pointsize>
-                       </font>
-                      </property>
-                      <property name="text">
-                       <string>No</string>
-                      </property>
+                      <widget class="QRadioButton" name="btn_si_3">
+                       <property name="geometry">
+                        <rect>
+                         <x>10</x>
+                         <y>0</y>
+                         <width>37</width>
+                         <height>24</height>
+                        </rect>
+                       </property>
+                       <property name="font">
+                        <font>
+                         <family>Microsoft Sans Serif</family>
+                         <pointsize>12</pointsize>
+                        </font>
+                       </property>
+                       <property name="styleSheet">
+                        <string notr="true"/>
+                       </property>
+                       <property name="text">
+                        <string>Si</string>
+                       </property>
+                      </widget>
+                      <widget class="QRadioButton" name="btn_no_3">
+                       <property name="geometry">
+                        <rect>
+                         <x>60</x>
+                         <y>0</y>
+                         <width>43</width>
+                         <height>24</height>
+                        </rect>
+                       </property>
+                       <property name="font">
+                        <font>
+                         <family>Microsoft Sans Serif</family>
+                         <pointsize>12</pointsize>
+                        </font>
+                       </property>
+                       <property name="text">
+                        <string>No</string>
+                       </property>
+                      </widget>
                      </widget>
                     </item>
                     <item>
@@ -1264,7 +1357,7 @@ border-radius:20px;
                      </widget>
                     </item>
                     <item>
-                     <widget class="QTextEdit" name="motivo_5">
+                     <widget class="QTextEdit" name="coagualcion_control">
                       <property name="minimumSize">
                        <size>
                         <width>350</width>
@@ -1321,7 +1414,7 @@ border-radius:20px;
                        </widget>
                       </item>
                       <item>
-                       <widget class="QTextEdit" name="textEdit">
+                       <widget class="QTextEdit" name="ln_data">
                         <property name="minimumSize">
                          <size>
                           <width>500</width>
@@ -1350,7 +1443,7 @@ border-radius:20px;
                          </widget>
                         </item>
                         <item>
-                         <widget class="QTextEdit" name="textEdit_2">
+                         <widget class="QTextEdit" name="ln_alergias">
                           <property name="minimumSize">
                            <size>
                             <width>400</width>
