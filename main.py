@@ -1371,9 +1371,9 @@ class historiaMenu(QMainWindow):
         self.actionSalir.triggered.connect(self.salir)
         self.btn_delete.clicked.connect(self.DeletaData)
         self.actionVolver_al_menu_principal.triggered.connect(self.back_menu)
-        self.btn_agg_3.clicked.connect(self.addInformation)
-        self.btn_clear_3.clicked.connect(self.clearData)
-        self.btn_edit_3.clicked.connect(self.addInformation)
+        self.btn_agg_2.clicked.connect(self.addInformation)
+        self.btn_clear_2.clicked.connect(self.clearData)
+        self.btn_edit_2.clicked.connect(self.addInformation)
     #     self.btn_back.clicked.connect(self.back_menu)
     #     self.btn_refresh.clicked.connect(self.cargarDatosPacientes)
     #     self.btn_registrar.clicked.connect(self.addPacients)
@@ -1453,6 +1453,7 @@ class historiaMenu(QMainWindow):
         self.in_dir.clear()
         self.btn_m.setChecked(False)
         self.btn_f.setChecked(False)
+        self.motivo.clear()
     def  AddPacient(self): 
         idUser = self.id_user
         cedula = self.in_cedula.text()
