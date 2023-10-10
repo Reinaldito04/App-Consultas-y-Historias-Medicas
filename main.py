@@ -1490,16 +1490,8 @@ class historiaMenu(QMainWindow):
                 QMessageBox.critical(self, "Error", "Ya existe un paciente con la misma cédula.")
                 
                 #limpia los campos luego de denegar el ingreso
-                self.in_cedula.clear()
-                self.in_name.clear()
-                self.in_apell.clear()
-                self.in_age.clear()
-                self.in_mail.clear()
-                self.in_number.clear()
-                self.btn_m.setChecked(False)
-                self.btn_f.setChecked(False)
-                self.in_dir.clear()
-                self.motivo.clear()
+                self.clearInputs()
+                self.clearData()
                 return
 
             # Si no existe un paciente con la misma cédula, ejecutar la consulta de inserción
@@ -1647,18 +1639,8 @@ class historiaMenu(QMainWindow):
         
         # Eliminación exitosa, muestra un mensaje y realiza otras acciones si es necesario
                 QMessageBox.information(self, "Realizado", "Los datos han sido eliminados correctamente")
-                self.tabla_pacientes.clearContents()
-                self.in_busqueda.clear()
-                self.in_cedula.clear()
-                self.in_name.clear()
-                self.in_apell.clear()
-                self.in_age.clear()
-                self.in_mail.clear()
-                self.btn_m.setChecked(False)
-                self.btn_f.setChecked(False)
-                self.in_number.clear()
-                self.in_dir.clear()
-                self.motivo.clear()
+                self.clearInputs()
+                self.clearData()
         except sqlite3.Error as e:
             QMessageBox.critical(self, "Error", "Error al eliminar los datos de la base de datos: " + str(e))
     
