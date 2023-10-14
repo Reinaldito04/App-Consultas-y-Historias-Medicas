@@ -1373,7 +1373,10 @@ class historiaMenu(QMainWindow):
         self.actionVolver_al_menu_principal.triggered.connect(self.back_menu)
         self.btn_agg_2.clicked.connect(self.addInformation)
         self.btn_clear_2.clicked.connect(self.clearData)
+        self.btn_agg_3.clicked.connect(self.addDiagnostico)
         self.btn_edit_2.clicked.connect(self.addInformation)
+        self.btn_edit_3.clicked.connect(self.addDiagnostico)
+        self.btn_clear_3.clicked.connect(self.clearDiag)
     #     self.btn_back.clicked.connect(self.back_menu)
     #     self.btn_refresh.clicked.connect(self.cargarDatosPacientes)
     #     self.btn_registrar.clicked.connect(self.addPacients)
@@ -1381,6 +1384,37 @@ class historiaMenu(QMainWindow):
     #     self.btn_borrar.clicked.connect(self.DeletaData)
     #     self.btn_buscar.clicked.connect(self.SearchDataForUpdate)
     #     self.btn_act.clicked.connect(self.UpdateData)
+    def clearDiag(self):
+        self.in_name_3.clear()
+        self.in_apell_3.clear()
+        self.diag.clear()
+    def addDiagnostico(self):
+        cedula = self.in_busqueda.text()
+        diag = self.diag.toPlainText()
+        fecha = self.fecha.date()
+        hora = self.hora.time()
+        fechaToString = fecha.toString('yyyy-MM-dd')
+        horatoString = hora.toString('hh:mm:ss')
+        print (fechaToString)
+        print (horatoString)
+        if not cedula :
+            QMessageBox.warning(self,"Error","Por favor ingrese la cedula en el menu de registro ")
+            return
+        try:
+            conexion = sqlite3.connect('interfaces/database.db')
+            cursor = conexion.cursor()
+            cursor.execute("UPDATE Pacientes SET Diagnotico=?, Fecha_Diagnotico=?, Hora_Diagnostico=?  WHERE Cedula=?", (
+                diag,fechaToString,horatoString, cedula ))
+            conexion.commit()
+            QMessageBox.information(self, "Éxito", "Informacion registrada correctamente.")
+
+          
+            # Cierra la conexión con la base de datos
+            conexion.close()
+    
+        # Actualizar los registros en la base de datos
+        except sqlite3.Error as error:
+            QMessageBox.critical(self, "Error", f"Error al registrar el paciente: {str(error)}")
     def clearData(self):
         self.hiper_control.clear()
         self.diabetes_control.clear()
@@ -1517,11 +1551,13 @@ class historiaMenu(QMainWindow):
             cursor = conexion.cursor()  
             idUser = self.id_user
             busqueda = self.in_busqueda.text()
-            cursor.execute("SELECT Cedula, Nombre, Apellido, Edad, Direccion, Sexo, Telefono, Mail,Context,Hipertension,Diabates,Coagualcion,Otros,Alergias,diabate_Data,hipertension_Data,Coagualcion_Data FROM Pacientes WHERE Cedula = ? AND ID_user = ?", (busqueda, idUser))
+            cursor.execute("SELECT Cedula, Nombre, Apellido, Edad, Direccion, Sexo, Telefono, Mail,Context,Hipertension,Diabates,Coagualcion,Otros,Alergias,diabate_Data,hipertension_Data,Coagualcion_Data,Diagnotico FROM Pacientes WHERE Cedula = ? AND ID_user = ?", (busqueda, idUser))
             resultado = cursor.fetchone()
             
             if resultado:
-                Cedula, Nombre, Apellido, Edad, Direccion, Sexo, Telefono, Mail, Context ,Hipertension, Diabates, Coagualcion,Otros,Alergias, diabate_Data , hipertension_Data ,Coagualcion_Data = resultado
+                (Cedula, Nombre, Apellido, Edad, Direccion, Sexo, 
+                    Telefono, Mail, Context ,Hipertension, Diabates, Coagualcion,Otros,Alergias, 
+                    diabate_Data , hipertension_Data ,Coagualcion_Data,Diagnotico ) = resultado
                 
                 self.in_cedula.setText(Cedula)
                 self.in_name.setText(Nombre)
@@ -1536,6 +1572,13 @@ class historiaMenu(QMainWindow):
                 self.coagualcion_control.setText(Coagualcion_Data)
                 self.ln_data.setText(Otros)
                 self.ln_alergias.setText(Alergias)
+                self.in_name_3.setText(Nombre)
+                self.in_apell_3.setText(Apellido)
+                self.diag.setText(Diagnotico)
+                # horaDb = Hora_Diagnostico
+                # fechaDb = Fecha_Diagnotico
+                # self.fecha.setDateTime(fechaDb)
+                # self.hora.setTime(horaDb) Para despues 
                 if Hipertension == "Si":
                     self.btn_si.setChecked(True)
                 else:
