@@ -2260,54 +2260,6 @@ border:2px solid rgb(0,0,0);
                   </property>
                  </spacer>
                 </item>
-                <item>
-                 <widget class="QLineEdit" name="in_busqueda_3">
-                  <property name="minimumSize">
-                   <size>
-                    <width>200</width>
-                    <height>40</height>
-                   </size>
-                  </property>
-                  <property name="maximumSize">
-                   <size>
-                    <width>200</width>
-                    <height>16777215</height>
-                   </size>
-                  </property>
-                 </widget>
-                </item>
-                <item>
-                 <widget class="QPushButton" name="btn_buscar_3">
-                  <property name="minimumSize">
-                   <size>
-                    <width>80</width>
-                    <height>40</height>
-                   </size>
-                  </property>
-                  <property name="maximumSize">
-                   <size>
-                    <width>80</width>
-                    <height>16777215</height>
-                   </size>
-                  </property>
-                  <property name="styleSheet">
-                   <string notr="true"/>
-                  </property>
-                  <property name="text">
-                   <string/>
-                  </property>
-                  <property name="icon">
-                   <iconset>
-                    <normaloff>../../../../.designer/backup/ELEMENTOS GRAFICOS/buscar.png</normaloff>../../../../.designer/backup/ELEMENTOS GRAFICOS/buscar.png</iconset>
-                  </property>
-                  <property name="iconSize">
-                   <size>
-                    <width>30</width>
-                    <height>30</height>
-                   </size>
-                  </property>
-                 </widget>
-                </item>
                </layout>
               </item>
               <item>

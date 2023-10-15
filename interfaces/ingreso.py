@@ -54,35 +54,35 @@ class IngresoUsuario(QMainWindow):
         
         
    
-    # def cifrar_contrasenia(self, contrasenia):
-    #     # Cifrar la contraseña usando un algoritmo de hash (SHA-256 en este caso)
-    #     cifrado = hashlib.sha256()
-    #     cifrado.update(contrasenia.encode('utf-8'))
-    #     return cifrado.hexdigest()
+    def cifrar_contrasenia(self, contrasenia):
+        # Cifrar la contraseña usando un algoritmo de hash (SHA-256 en este caso)
+        cifrado = hashlib.sha256()
+        cifrado.update(contrasenia.encode('utf-8'))
+        return cifrado.hexdigest()
        
-    # def ingreso(self):
-    #     nombre = self.txt_username.text()
-    #     password = self.txt_password.text()
+    def ingreso(self):
+        nombre = self.txt_username.text()
+        password = self.txt_password.text()
 
-    #     conexion = sqlite3.connect('interfaces/database.db')
-    #     cursor = conexion.cursor()
-    #     cursor.execute("SELECT * FROM Users WHERE Username = ?", (nombre,))
-    #     usuario = cursor.fetchone()
+        conexion = sqlite3.connect('interfaces/database.db')
+        cursor = conexion.cursor()
+        cursor.execute("SELECT * FROM Users WHERE Username = ?", (nombre,))
+        usuario = cursor.fetchone()
 
-    #     if usuario:
-    #         contrasenia_cifrada_ingresada = self.cifrar_contrasenia(password)
-    #         contrasenia_cifrada_almacenada = usuario[1]  # Suponiendo que el hash se almacena en el segundo campo de la tabla
-    #         if contrasenia_cifrada_ingresada == contrasenia_cifrada_almacenada:
-    #         # Autenticación exitosa
-    #             print("Inicio de sesión exitoso.")
-    #         # Aquí puedes agregar código para abrir una nueva ventana o realizar acciones adicionales
-    #         else:
-    #         # Contraseña incorrecta
-    #             print("Contraseña incorrecta.")
-    #     else:
-    #         print("Nombre de usuario no encontrado.")
+        if usuario:
+            contrasenia_cifrada_ingresada = self.cifrar_contrasenia(password)
+            contrasenia_cifrada_almacenada = usuario[1]  # Suponiendo que el hash se almacena en el segundo campo de la tabla
+            if contrasenia_cifrada_ingresada == contrasenia_cifrada_almacenada:
+            # Autenticación exitosa
+                print("Inicio de sesión exitoso.")
+            # Aquí puedes agregar código para abrir una nueva ventana o realizar acciones adicionales
+            else:
+            # Contraseña incorrecta
+                print("Contraseña incorrecta.")
+        else:
+            print("Nombre de usuario no encontrado.")
     
-    #     conexion.close()
+        conexion.close()
         
    
 

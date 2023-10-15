@@ -11,6 +11,8 @@ import hashlib
 import sqlite3
 import os
 import datetime
+from bs4 import BeautifulSoup
+import requests
 from PyQt5.QtCore import Qt
 class IngresoUsuario(QMainWindow):
     def __init__(self):
@@ -1377,6 +1379,46 @@ class historiaMenu(QMainWindow):
         self.btn_edit_2.clicked.connect(self.addInformation)
         self.btn_edit_3.clicked.connect(self.addDiagnostico)
         self.btn_clear_3.clicked.connect(self.clearDiag)
+        
+        
+        self.t0 = self.findChild(QtWidgets.QComboBox, "t0")
+        self.t0.addItem("Seleccione el tipo de honorario")
+        self.t0.addItems(["Triaje", "Periodoncia", "Blanqueamiento", "Operatoria", "Endodoncia", "Radiografias Periaciales", "Cirugias", "Protesis", "Protesis removibles metalicas y/o acrilicas", "Protesis totales", "Implantes dentales"])
+        self.t0.currentIndexChanged.connect(self.actualizar_cb_tratamiento)
+
+        self.t1 = self.findChild(QtWidgets.QComboBox, "t1")
+        self.t2 = self.findChild(QtWidgets.QComboBox, "t2")
+        self.t3 = self.findChild(QtWidgets.QComboBox, "t3")
+        self.t1.currentIndexChanged.connect(self.actualizar_costo_t1)
+        self.t2.currentIndexChanged.connect(self.actualizar_costo_t2)
+        self.t3.currentIndexChanged.connect(self.actualizar_costo_t3)
+        
+        
+        # Define el diccionario de tratamientos
+        self.tratamientos = {
+            "Triaje": ["Consulta e Historia Clinica sin informe", "Consulta e Historia Clinica con informe"],
+            "Periodoncia": ["Tartectomia y pulido simple (1 sesión)", "Tartectomia y pulido simple (2-3 sesiones)","Aplicación tópica de fluór","Cirguia periodontal (por cuadrante)"],
+            "Blanqueamiento": ["Blanqueamiento intrapulpar", "Blanquemaineto maxilar superior e inferioir (2 sesiones de 20 min c/u)"],
+            "Operatoria": ["Obturaciones provisionales","Obturaciones con Amalgama","Obturaciones con vidrio ionomerico pequeña","Obturaciones con vidrio ionomerico grande","Obturaciones con resina fotocurada"],
+            "Endodoncia": ["Pulpotomías formocreasoladas","Emergencias Endodontica","Tratamiento endodontico monoradicular","Tratamiento endodontico biradicular","Tratamiento endodontico multiradicular","Desobturación conductos"],
+            "Radiografias Periaciales": ["Adultos e infantes"],
+            "Cirugias": ["Exodoncia simple","Exodoncia quirurgica","Exodoncia de dientes temporales","Exodoncia de corales erupcionadas/incluidas"],
+            "Protesis": ["Coronas provisionales por unidad","Muñon artificial monoradicular","Muñon artificial multiradicular","Incrustacion resina/metálica","Unidad de corona meta-porcelana","Cementado de protesis fija"],
+            "Protesis removibles metalicas y/o acrilicas": ["1 a 3 unidades","4 a 6 unidades","7 a 12 unidades","Unidadad adicional","Ganchos contorneados retentativas acrilicas c/u","Reparaciones protesis acrilicas y/oo agregar un diente a la protesis"],
+            "Protesis totales": ["Dentadura superior o inferior (incluye controles post-inatalción) c/u"],
+            "Implantes dentales": ["Honorarios cirujano por implante","Implante y aditamientos","Injertos óseos (1cc)","PRF (incluye bionalista y extraccion de sangre + centrifugado)","Corona metal porcelana sobre implante","DPR acrilica"],
+        }
+        self.valores_monto = {
+            "Consulta e Historia Clinica sin informe": 2,
+            "Consulta e Historia Clinica con informe": 5,
+            "Tartectomia y pulido simple (1 sesión)" : 10,
+            "Tartectomia y pulido simple (2-3 sesiones)":20,
+            "Aplicación tópica de fluór" : 30,
+            "Cirguia periodontal (por cuadrante)" : 10
+            
+            
+            # Agrega más selecciones y valores de monto según tus necesidades
+        }
     #     self.btn_back.clicked.connect(self.back_menu)
     #     self.btn_refresh.clicked.connect(self.cargarDatosPacientes)
     #     self.btn_registrar.clicked.connect(self.addPacients)
@@ -1384,6 +1426,123 @@ class historiaMenu(QMainWindow):
     #     self.btn_borrar.clicked.connect(self.DeletaData)
     #     self.btn_buscar.clicked.connect(self.SearchDataForUpdate)
     #     self.btn_act.clicked.connect(self.UpdateData)
+    def calcularDivisa(self, dolar):
+        url = 'https://www.bcv.org.ve'
+        response = requests.get(url)
+
+        soup = BeautifulSoup(response.text, 'html.parser')
+
+        div_dolar = soup.find('div', id='dolar')
+
+        divisa = div_dolar.find('strong').text
+
+        # Eliminar espacios en blanco y comas
+        divisa_limpia = divisa.replace(' ', '').replace(',', '.')
+
+        # Convertir la cadena limpia en un número decimal
+        valor_numerico = float(divisa_limpia)
+
+        # Obtener la cantidad de dólares del QLineEdit en tu interfaz gráfica
+        operacion = float(dolar)
+
+        # Calcular la suma
+        bolivares = operacion * valor_numerico
+        suma_formateada = "{:.2f}".format(bolivares).replace(".", ",")
+
+        # Retorna el valor calculado
+        return suma_formateada, operacion
+
+    def actualizar_costo_t1(self):
+        seleccion_t1 = self.t1.currentText()
+
+        # Define un diccionario para asignar los valores de monto a cada selección
+       
+
+        if seleccion_t1 in self.valores_monto:
+            monto = self.valores_monto[seleccion_t1]
+            bolivares, operacion = self.calcularDivisa(monto)  # Captura los valores retornados
+            self.montobs_t1.setText(str(bolivares))  # Convierte a cadena y establece en el QLineEdit
+            self.montodola_t1.setText(str(monto))
+            print(f"Seleccionaste {seleccion_t1}")
+            self.totalPrecio()
+    def actualizar_costo_t2(self):
+        seleccion_t1 = self.t2.currentText()
+
+        # Define un diccionario para asignar los valores de monto a cada selección
+       
+
+        if seleccion_t1 in self.valores_monto:
+            monto = self.valores_monto[seleccion_t1]
+            bolivares, operacion = self.calcularDivisa(monto)  # Captura los valores retornados
+            self.montobs_t2.setText(str(bolivares))  # Convierte a cadena y establece en el QLineEdit
+            self.montodola_t2.setText(str(monto))
+            print(f"Seleccionaste {seleccion_t1}")
+            self.totalPrecio()
+    def actualizar_costo_t3(self):
+        seleccion_t1 = self.t3.currentText()
+
+        # Define un diccionario para asignar los valores de monto a cada selección
+       
+
+        if seleccion_t1 in self.valores_monto:
+            monto = self.valores_monto[seleccion_t1]
+            bolivares, operacion = self.calcularDivisa(monto)  # Captura los valores retornados
+            self.montobs_t3.setText(str(bolivares))  # Convierte a cadena y establece en el QLineEdit
+            self.montodola_t3.setText(str(monto))
+            print(f"Seleccionaste {seleccion_t1}")
+            self.totalPrecio()
+           
+    def totalPrecio(self):
+        # Calcula el total sumando los valores flotantes de los QLineEdits
+        totalBs = 0.0
+        totalUsd= 0.0
+
+        # Asegúrate de manejar las conversiones a flotante correctamente y verifica que las cadenas no estén vacías
+        if self.montobs_t1.text():
+            totalBs += float(self.montobs_t1.text().replace(',', '.'))
+
+        if self.montobs_t2.text():
+            totalBs += float(self.montobs_t2.text().replace(',', '.'))
+
+        if self.montobs_t3.text():
+            totalBs += float(self.montobs_t3.text().replace(',', '.'))
+
+        if self.montodola_t1.text():
+            totalUsd += float(self.montodola_t1.text().replace(',', '.'))
+
+        if self.montodola_t2.text():
+            totalUsd += float(self.montodola_t2.text().replace(',', '.'))
+
+        if self.montodola_t3.text():
+            totalUsd += float(self.montodola_t3.text().replace(',', '.'))
+
+        # Formatea el número con dos decimales
+        totalBs_formateado = f'{totalBs:.2f}'
+        totalUsd_formateado = f'{totalUsd:.2f}'
+        
+
+        # Asigna el valor formateado al QLineEdit
+        self.totalBs.setText(totalBs_formateado)
+        self.totaldola.setText(totalUsd_formateado)
+    def actualizar_cb_tratamiento(self):
+        # Obtiene la selección en t0
+        seleccion_t0 = self.t0.currentText()
+         
+        # Limpia las ComboBox t1, t2, t3
+        self.t1.clear()
+        self.t2.clear()
+        self.t3.clear()
+       
+        # Obtiene las opciones de tratamiento según la selección en t0
+        opciones_tratamiento = self.tratamientos.get(seleccion_t0, [])
+
+        # Agrega las opciones a las ComboBox correspondientes
+        self.t1.addItems(opciones_tratamiento)
+        self.t2.addItems(opciones_tratamiento)
+        self.t3.addItems(opciones_tratamiento)
+
+        
+
     def clearDiag(self):
         self.in_name_3.clear()
         self.in_apell_3.clear()
@@ -1575,6 +1734,8 @@ class historiaMenu(QMainWindow):
                 self.in_name_3.setText(Nombre)
                 self.in_apell_3.setText(Apellido)
                 self.diag.setText(Diagnotico)
+                self.in_name_4.setText(Nombre)
+                self.in_apell_4.setText(Apellido)
                 # horaDb = Hora_Diagnostico
                 # fechaDb = Fecha_Diagnotico
                 # self.fecha.setDateTime(fechaDb)
