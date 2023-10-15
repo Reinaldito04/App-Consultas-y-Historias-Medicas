@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1151</width>
-    <height>868</height>
+    <width>1050</width>
+    <height>872</height>
    </rect>
   </property>
   <property name="minimumSize">
@@ -2469,9 +2469,6 @@ border:2px solid rgb(0,0,0);
                      <property name="maxVisibleItems">
                       <number>20</number>
                      </property>
-                     <property name="placeholderText">
-                      <string notr="true">Seleccione una opcion</string>
-                     </property>
                     </widget>
                    </item>
                    <item>
@@ -3307,7 +3304,7 @@ QPushButton:hover{
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1151</width>
+     <width>1050</width>
      <height>21</height>
     </rect>
    </property>

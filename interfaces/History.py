@@ -8,12 +8,13 @@ class historiaMenu(QMainWindow):
     
     def __init__(self):
         super(historiaMenu, self).__init__()
-        loadUi("interfaces\History.ui", self)
+        loadUi("interfaces/History.ui", self)
         self.btn_buscar.clicked.connect(self.Searchdata)
         self.actionSalir.triggered.connect(self.salir)
-        
+
         self.t0 = self.findChild(QtWidgets.QComboBox, "t0")
-        self.t0.addItems(["Seleccionar", "Triaje", "Periodoncia", "Blanqueamiento","Operatoria", "Endodoncia", "Radiografias Periaciales", "Cirugias","Protesis","Protesis removibles metalicas y/o acrilicas","Protesis totales","Implantes dentales"])
+        self.t0.addItem("Seleccione el tipo de honorario")
+        self.t0.addItems(["Triaje", "Periodoncia", "Blanqueamiento", "Operatoria", "Endodoncia", "Radiografias Periaciales", "Cirugias", "Protesis", "Protesis removibles metalicas y/o acrilicas", "Protesis totales", "Implantes dentales"])
         self.t0.currentIndexChanged.connect(self.actualizar_cb_tratamiento)
 
         self.t1 = self.findChild(QtWidgets.QComboBox, "t1")
@@ -23,15 +24,16 @@ class historiaMenu(QMainWindow):
         # Define el diccionario de tratamientos
         self.tratamientos = {
             "Triaje": ["Consulta e Hisotia Clinica sin informe", "Consulta e Hisotia Clinica con informe"],
-            "Periodoncia": ["Tartectomia y pulido simple (01 sesión)", "Tartectomia y pulido simple (2-3 sesiones)","Aplicación tópica de fluór","Cirguia periodontal (por cuadrante)"],
+            "Periodoncia": ["Tartectomia y pulido simple (1 sesión)", "Tartectomia y pulido simple (2-3 sesiones)","Aplicación tópica de fluór","Cirguia periodontal (por cuadrante)"],
             "Blanqueamiento": ["Blanqueamiento intrapulpar", "Blanquemaineto maxilar superior e inferioir (2 sesiones de 20 min c/u)"],
             "Operatoria": ["Obturaciones provisionales","Obturaciones con Amalgama","Obturaciones con vidrio ionomerico pequeña","Obturaciones con vidrio ionomerico grande","Obturaciones con resina fotocurada"],
-            "Endodoncia": [""],
-            "Cirugias": [""],
-            "Protesis": [""],
-            "Protesis removibles metalicas y/o acrilicas": [""],
-            "Protesis totales": [""],
-            "Implantes dentales": [""],
+            "Endodoncia": ["Pulpotomías formocreasoladas","Emergencias Endodontica","Tratamiento endodontico monoradicular","Tratamiento endodontico biradicular","Tratamiento endodontico multiradicular","Desobturación conductos"],
+            "Radiografias Periaciales": ["Adultos e infantes"],
+            "Cirugias": ["Exodoncia simple","Exodoncia quirurgica","Exodoncia de dientes temporales","Exodoncia de corales erupcionadas/incluidas"],
+            "Protesis": ["Coronas provisionales por unidad","Muñon artificial monoradicular","Muñon artificial multiradicular","Incrustacion resina/metálica","Unidad de corona meta-porcelana","Cementado de protesis fija"],
+            "Protesis removibles metalicas y/o acrilicas": ["1 a 3 unidades","4 a 6 unidades","7 a 12 unidades","Unidadad adicional","Ganchos contorneados retentativas acrilicas c/u","Reparaciones protesis acrilicas y/oo agregar un diente a la protesis"],
+            "Protesis totales": ["Dentadura superior o inferior (incluye controles post-inatalción) c/u"],
+            "Implantes dentales": ["Honorarios cirujano por implante","Implante y aditamientos","Injertos óseos (1cc)","PRF (incluye bionalista y extraccion de sangre + centrifugado)","Corona metal porcelana sobre implante","DPR acrilica"],
         }
         
     def salir(self):
