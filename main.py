@@ -1409,15 +1409,15 @@ class historiaMenu(QMainWindow):
             "Implantes dentales": ["Honorarios cirujano por implante","Implante y aditamientos","Injertos óseos (1cc)","PRF (incluye bionalista y extraccion de sangre + centrifugado)","Corona metal porcelana sobre implante","DPR acrilica"],
         }
         self.valores_monto = {
-            "Consulta e Historia Clinica sin informe": 2,
-            "Consulta e Historia Clinica con informe": 5,
-            "Tartectomia y pulido simple (1 sesión)" : 10,
-            "Tartectomia y pulido simple (2-3 sesiones)":20,
+            "Consulta e Historia Clinica sin informe": 20,
+            "Consulta e Historia Clinica con informe": 25,
+            "Tartectomia y pulido simple (1 sesión)" : 40,
+            "Tartectomia y pulido simple (2-3 sesiones)":60,
             "Aplicación tópica de fluór" : 30,
-            "Cirguia periodontal (por cuadrante)" : 10
-            
-            
-            # Agrega más selecciones y valores de monto según tus necesidades
+            "Cirguia periodontal (por cuadrante)" : 60,
+            "Blanqueamiento intrapulpar": 110,
+            "Blanqueamiento maxilar superior e inferioir (2 sesiones de 20 min c/u)":180,
+        
         }
     #     self.btn_back.clicked.connect(self.back_menu)
     #     self.btn_refresh.clicked.connect(self.cargarDatosPacientes)
