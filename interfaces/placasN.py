@@ -112,9 +112,9 @@ class Ui_placas(QMainWindow):
                     pixmap2 = QPixmap(filenames[1])
                     pixmap3 = QPixmap(filenames[2])
                     
-                    self.foto.setPixmap(pixmap1)    
-                    self.foto.setPixmap(pixmap2)
-                    self.foto.setPixmap(pixmap3)
+                    self.img1.setPixmap(pixmap1)    
+                    self.img2.setPixmap(pixmap2)
+                    self.img3.setPixmap(pixmap3)
             else:
                     QMessageBox.information(self,"Imagenes","Por favor,Selecciona una imagen")    
     
@@ -252,7 +252,7 @@ class Ui_placas(QMainWindow):
             
     def DeletePlaca(self):
         try:
-            cedula = self.in_busqueda_3.text()
+            cedula = self.in_busqueda.text()
     
             if len(cedula) == 0:
                 QMessageBox.critical(self, "Error", "Ingrese una cédula")

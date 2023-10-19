@@ -1323,7 +1323,7 @@ class placasMenu(QMainWindow):
             except sqlite3.Error as error:
                 QMessageBox.critical(self, "Error", f"Error al buscar paciente: {str(error)}")
     def addPhotos(self):
-        filenames, _ = QFileDialog.getOpenFileNames(self, "Seleccionar imágenes", "", "Archivos de imagen (*.png *.jpg *.bmp)")
+        filenames, _ = QFileDialog.getOpenFileNames(self, "Seleccionar imágenes", "", "Archivos de imagen (*.png *.jpg *.bmp *.jpeg *.JFIF)")
         
         if len(filenames) >= 3:
             pixmap1 = QPixmap(filenames[0])

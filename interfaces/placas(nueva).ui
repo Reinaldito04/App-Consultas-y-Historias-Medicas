@@ -326,7 +326,7 @@ QPushButton:hover{
                      </spacer>
                     </item>
                     <item>
-                     <widget class="QLabel" name="foto1_image">
+                     <widget class="QLabel" name="img1">
                       <property name="minimumSize">
                        <size>
                         <width>250</width>
@@ -359,27 +359,7 @@ border-radius:20px;
                      </spacer>
                     </item>
                     <item>
-                     <widget class="QLabel" name="foto2_image">
-                      <property name="minimumSize">
-                       <size>
-                        <width>250</width>
-                        <height>250</height>
-                       </size>
-                      </property>
-                      <property name="styleSheet">
-                       <string notr="true">QLabel{
-background-color: rgb(255, 255, 255);
-border: 2px solid  rgb(0,0,0);
-border-radius:20px;
-}</string>
-                      </property>
-                      <property name="text">
-                       <string>TextLabel</string>
-                      </property>
-                     </widget>
-                    </item>
-                    <item>
-                     <widget class="QLabel" name="foto3_image">
+                     <widget class="QLabel" name="img2">
                       <property name="minimumSize">
                        <size>
                         <width>250</width>
@@ -410,6 +390,26 @@ border-radius:20px;
                        </size>
                       </property>
                      </spacer>
+                    </item>
+                    <item>
+                     <widget class="QLabel" name="img3">
+                      <property name="minimumSize">
+                       <size>
+                        <width>250</width>
+                        <height>250</height>
+                       </size>
+                      </property>
+                      <property name="styleSheet">
+                       <string notr="true">QLabel{
+background-color: rgb(255, 255, 255);
+border: 2px solid  rgb(0,0,0);
+border-radius:20px;
+}</string>
+                      </property>
+                      <property name="text">
+                       <string>TextLabel</string>
+                      </property>
+                     </widget>
                     </item>
                     <item>
                      <spacer name="horizontalSpacer_24">
