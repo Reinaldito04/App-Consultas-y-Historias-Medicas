@@ -213,7 +213,7 @@ QPushButton:hover{
                      </widget>
                     </item>
                     <item>
-                     <widget class="QLineEdit" name="lineEdit_5">
+                     <widget class="QLineEdit" name="in_name">
                       <property name="minimumSize">
                        <size>
                         <width>200</width>
@@ -259,7 +259,7 @@ QPushButton:hover{
                      </widget>
                     </item>
                     <item>
-                     <widget class="QLineEdit" name="lineEdit_6">
+                     <widget class="QLineEdit" name="in_apell">
                       <property name="minimumSize">
                        <size>
                         <width>200</width>
@@ -326,7 +326,7 @@ QPushButton:hover{
                      </spacer>
                     </item>
                     <item>
-                     <widget class="QLabel" name="label_10">
+                     <widget class="QLabel" name="foto1_image">
                       <property name="minimumSize">
                        <size>
                         <width>250</width>
@@ -359,7 +359,27 @@ border-radius:20px;
                      </spacer>
                     </item>
                     <item>
-                     <widget class="QLabel" name="label_11">
+                     <widget class="QLabel" name="foto2_image">
+                      <property name="minimumSize">
+                       <size>
+                        <width>250</width>
+                        <height>250</height>
+                       </size>
+                      </property>
+                      <property name="styleSheet">
+                       <string notr="true">QLabel{
+background-color: rgb(255, 255, 255);
+border: 2px solid  rgb(0,0,0);
+border-radius:20px;
+}</string>
+                      </property>
+                      <property name="text">
+                       <string>TextLabel</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item>
+                     <widget class="QLabel" name="foto3_image">
                       <property name="minimumSize">
                        <size>
                         <width>250</width>
@@ -390,26 +410,6 @@ border-radius:20px;
                        </size>
                       </property>
                      </spacer>
-                    </item>
-                    <item>
-                     <widget class="QLabel" name="label_12">
-                      <property name="minimumSize">
-                       <size>
-                        <width>250</width>
-                        <height>250</height>
-                       </size>
-                      </property>
-                      <property name="styleSheet">
-                       <string notr="true">QLabel{
-background-color: rgb(255, 255, 255);
-border: 2px solid  rgb(0,0,0);
-border-radius:20px;
-}</string>
-                      </property>
-                      <property name="text">
-                       <string>TextLabel</string>
-                      </property>
-                     </widget>
                     </item>
                     <item>
                      <spacer name="horizontalSpacer_24">
@@ -956,7 +956,7 @@ QPushButton:hover{
                      </widget>
                     </item>
                     <item>
-                     <widget class="QLineEdit" name="lineEdit_3">
+                     <widget class="QLineEdit" name="in_name_2">
                       <property name="minimumSize">
                        <size>
                         <width>200</width>
@@ -1002,7 +1002,7 @@ QPushButton:hover{
                      </widget>
                     </item>
                     <item>
-                     <widget class="QLineEdit" name="lineEdit_4">
+                     <widget class="QLineEdit" name="in_apell_2">
                       <property name="minimumSize">
                        <size>
                         <width>200</width>
@@ -1065,7 +1065,7 @@ QPushButton:hover{
                  </spacer>
                 </item>
                 <item>
-                 <widget class="QLabel" name="label_3">
+                 <widget class="QLabel" name="img4">
                   <property name="minimumSize">
                    <size>
                     <width>250</width>
@@ -1098,7 +1098,7 @@ border-radius:20px;
                  </spacer>
                 </item>
                 <item>
-                 <widget class="QLabel" name="label_5">
+                 <widget class="QLabel" name="img5">
                   <property name="minimumSize">
                    <size>
                     <width>250</width>
@@ -1131,7 +1131,7 @@ border-radius:20px;
                  </spacer>
                 </item>
                 <item>
-                 <widget class="QLabel" name="label_7">
+                 <widget class="QLabel" name="img6">
                   <property name="minimumSize">
                    <size>
                     <width>250</width>

@@ -30,11 +30,9 @@ class Ui_placas(QMainWindow):
        
     def clearInputs(self):
         self.in_busqueda.clear()
-        self.in_busqueda_2.clear()
         self.in_name.clear()
         self.in_apell.clear()
-        self.in_name2.clear()
-        self.in_apell2.clear()
+        
         
     def addplacas(self):
         cedula = self.in_busqueda.text()
@@ -107,16 +105,16 @@ class Ui_placas(QMainWindow):
                 QMessageBox.critical(self, "Error", f"Error al buscar paciente: {str(error)}")
 
     def addPhoto(self):
-            filenames, _ = QFileDialog.getOpenFileNames(self, "Seleccionar imágenes", "", "Archivos de imagen (*.png *.jpg *.bmp *.jpeg)")
+            filenames, _ = QFileDialog.getOpenFileNames(self, "Seleccionar imágenes", "", "Archivos de imagen (*.png *.jpg *.bmp *.jpeg *.JFIF)")
                 
             if len(filenames) >= 3:
                     pixmap1 = QPixmap(filenames[0])
                     pixmap2 = QPixmap(filenames[1])
                     pixmap3 = QPixmap(filenames[2])
-                        
+                    
+                    self.foto.setPixmap(pixmap1)    
                     self.foto.setPixmap(pixmap2)
                     self.foto.setPixmap(pixmap3)
-                    self.foto.setPixmap(pixmap1)
             else:
                     QMessageBox.information(self,"Imagenes","Por favor,Selecciona una imagen")    
     
