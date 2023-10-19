@@ -277,6 +277,6 @@ class Ui_placas(QMainWindow):
 if __name__ == "__main__":
     import sys
     app = QtWidgets.QApplication(sys.argv)
-    placa= Ui_placas()
+    placa= Ui_placas() 
     placa.show()
     sys.exit(app.exec_())
