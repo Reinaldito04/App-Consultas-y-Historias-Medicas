@@ -32,6 +32,9 @@ class Ui_placas(QMainWindow):
         self.in_busqueda.clear()
         self.in_name.clear()
         self.in_apell.clear()
+        self.img1.clear()
+        self.img2.clear()
+        self.img3.clear()
         
         
     def addplacas(self):
