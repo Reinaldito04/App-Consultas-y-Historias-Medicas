@@ -17,6 +17,7 @@ class Ui_placas(QMainWindow):
         self.btn_agg.clicked.connect(self.addplacas)
         self.btn_buscar.clicked.connect(self.searchData)
         self.btn_clear.clicked.connect(self.clearInputs)
+        self.btn_clear_2.clicked.connect(self.clearInputs_2)
         self.actionSalir.triggered.connect(self.salir)
         self.btn_import.clicked.connect(self.addPhoto)
 
@@ -35,7 +36,14 @@ class Ui_placas(QMainWindow):
         self.img1.clear()
         self.img2.clear()
         self.img3.clear()
-        
+    
+    def clearInputs_2(self):
+        self.in_busqueda_2.clear()
+        self.in_apell_2.clear()
+        self.in_name_2.clear()
+        self.img4.clear()
+        self.img5.clear()
+        self.img6.clear()
         
     def addplacas(self):
         cedula = self.in_busqueda.text()
