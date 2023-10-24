@@ -1398,7 +1398,7 @@ class historiaMenu(QMainWindow):
         self.tratamientos = {
             "Triaje": ["Consulta e Historia Clinica sin informe", "Consulta e Historia Clinica con informe"],
             "Periodoncia": ["Tartectomia y pulido simple (1 sesión)", "Tartectomia y pulido simple (2-3 sesiones)","Aplicación tópica de fluór","Cirguia periodontal (por cuadrante)"],
-            "Blanqueamiento": ["Blanqueamiento intrapulpar", "Blanquemaineto maxilar superior e inferioir (2 sesiones de 20 min c/u)"],
+            "Blanqueamiento": ["Blanqueamiento intrapulpar", "Blanquemaineto maxilar superior e inferior (2 sesiones de 20 min c/u)"],
             "Operatoria": ["Obturaciones provisionales","Obturaciones con Amalgama","Obturaciones con vidrio ionomerico pequeña","Obturaciones con vidrio ionomerico grande","Obturaciones con resina fotocurada"],
             "Endodoncia": ["Pulpotomías formocreasoladas","Emergencias Endodontica","Tratamiento endodontico monoradicular","Tratamiento endodontico biradicular","Tratamiento endodontico multiradicular","Desobturación conductos"],
             "Radiografias Periaciales": ["Adultos e infantes"],
@@ -1416,7 +1416,7 @@ class historiaMenu(QMainWindow):
             "Aplicación tópica de fluór" : 30,
             "Cirguia periodontal (por cuadrante)" : 60,
             "Blanqueamiento intrapulpar": 110,
-            "Blanqueamiento maxilar superior e inferioir (2 sesiones de 20 min c/u)":180,
+            "Blanqueamiento maxilar superior e inferior (2 sesiones de 20 min c/u)":180,
         
         }
     #     self.btn_back.clicked.connect(self.back_menu)
