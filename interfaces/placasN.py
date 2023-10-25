@@ -7,10 +7,11 @@ from PyQt5.QtWidgets import QFileDialog
 from PyQt5.QtWidgets import QWidget ,QApplication ,QMainWindow,QGraphicsDropShadowEffect, QCalendarWidget , QBoxLayout
 from PyQt5.QtWidgets import QMessageBox,QLabel,QTableWidgetItem
 import sqlite3
+from PyQt5.QtWidgets import QDialog
 from PyQt5.QtCore import Qt
 import os 
 
-class ImagePopup(QWidget):
+class ImagePopup(QDialog):
     def __init__(self):
         super().__init__()
 
@@ -22,21 +23,19 @@ class ImagePopup(QWidget):
         layout.addWidget(self.image_label)
         self.setLayout(layout)
 
-        self.setGeometry(0, 0, 800, 600)
-
         self.setWindowTitle('Vista completa de la imagen')
         self.center()
 
     def show_image(self, pixmap):
         self.image_label.setPixmap(pixmap)
-        self.show()
+        self.exec_()  # Muestra la ventana emergente como modal
 
     def center(self):
         qr = self.frameGeometry()
         cp = QtWidgets.QDesktopWidget().availableGeometry().center()
         qr.moveCenter(cp)
         self.move(qr.topLeft())
-        
+
 class Ui_placas(QMainWindow):
     def __init__(self):
         super(Ui_placas, self).__init__()
@@ -47,27 +46,30 @@ class Ui_placas(QMainWindow):
         self.btn_clear_2.clicked.connect(self.clearInputs_2)
         self.actionSalir.triggered.connect(self.salir)
         self.btn_import.clicked.connect(self.addPhoto)
-        self.image_popup = ImagePopup()
-        self.tabla_delete.cellEntered.connect(self.show_image_pop)
-
+        
         self.btn_buscar_2.clicked.connect(self.buscarDatos)
         self.btn_buscar_2.clicked.connect(self.searchAll)
         self.btn_buscar_2.clicked.connect(self.searchForDelete)
-        self.btn_delete.clicked.connect(self.DeletePlaca)
-
-
-
-    def show_image_popup(self, row, col):
-        # Verifica si la celda que se ingresó contiene una imagen
-        if col in [3, 4, 5]:  # Supongamos que las columnas 3, 4 y 5 contienen las rutas de las imágenes
-            item = self.tabla_delete.item(row, col)
-            if item is not None:
-                if item.data(Qt.DecorationRole).value() is not None:
-                    # Obtiene la imagen de la celda
-                    pixmap = item.data(Qt.DecorationRole)
-                    # Muestra la imagen en la ventana emergente
-                    self.image_popup.show_image(pixmap)
+        self.img1.mousePressEvent = lambda event: self.show_image_popup(self.img1.pixmap())
+        self.img2.mousePressEvent = lambda event: self.show_image_popup(self.img2.pixmap())
+        self.img3.mousePressEvent = lambda event: self.show_image_popup(self.img3.pixmap())
         
+
+
+    def show_image_popup(self, pixmap):
+        if pixmap:
+            
+            # Crea una nueva ventana emergente y muestra la imagen
+            image_popup = ImagePopup()
+            image_popup.show_image(pixmap)
+
+            # Conecta la señal accepted de la ventana emergente para habilitar la ventana principal nuevamente
+            image_popup.accepted.connect(self.enable_main_window)
+
+    def enable_main_window(self):
+        # Habilita la ventana principal cuando se cierra la ventana emergente
+        self.setEnabled(True)
+            
     def salir(self):
        QApplication.quit()
        

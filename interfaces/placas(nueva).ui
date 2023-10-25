@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>1063</width>
-    <height>702</height>
+    <height>582</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -62,7 +62,7 @@ background-color:gray;
        <item>
         <widget class="QTabWidget" name="tabWidget">
          <property name="currentIndex">
-          <number>1</number>
+          <number>0</number>
          </property>
          <widget class="QWidget" name="tab">
           <attribute name="title">
@@ -627,182 +627,6 @@ border:0px;
                  </layout>
                 </item>
                </layout>
-              </item>
-              <item>
-               <layout class="QHBoxLayout" name="horizontalLayout_24">
-                <item>
-                 <widget class="QLabel" name="label_9">
-                  <property name="text">
-                   <string>Por favor, cargue las placas dnetales del paciente</string>
-                  </property>
-                 </widget>
-                </item>
-               </layout>
-              </item>
-              <item>
-               <widget class="QFrame" name="frame_9">
-                <property name="styleSheet">
-                 <string notr="true">QFrame{
-background-color:white;
-border-radius:20px;
-}</string>
-                </property>
-                <property name="frameShape">
-                 <enum>QFrame::StyledPanel</enum>
-                </property>
-                <property name="frameShadow">
-                 <enum>QFrame::Raised</enum>
-                </property>
-                <layout class="QHBoxLayout" name="horizontalLayout_27">
-                 <item>
-                  <widget class="QTableWidget" name="tableWidget_3">
-                   <property name="minimumSize">
-                    <size>
-                     <width>800</width>
-                     <height>0</height>
-                    </size>
-                   </property>
-                   <property name="maximumSize">
-                    <size>
-                     <width>800</width>
-                     <height>16777215</height>
-                    </size>
-                   </property>
-                   <attribute name="horizontalHeaderVisible">
-                    <bool>false</bool>
-                   </attribute>
-                   <attribute name="horizontalHeaderCascadingSectionResizes">
-                    <bool>false</bool>
-                   </attribute>
-                   <attribute name="horizontalHeaderDefaultSectionSize">
-                    <number>111</number>
-                   </attribute>
-                   <column>
-                    <property name="text">
-                     <string>ID_Placa</string>
-                    </property>
-                   </column>
-                   <column>
-                    <property name="text">
-                     <string>Cedula_P</string>
-                    </property>
-                   </column>
-                   <column>
-                    <property name="text">
-                     <string>Nombre_P</string>
-                    </property>
-                   </column>
-                   <column>
-                    <property name="text">
-                     <string>Apellido_P</string>
-                    </property>
-                   </column>
-                   <column>
-                    <property name="text">
-                     <string>Placa 1</string>
-                    </property>
-                   </column>
-                   <column>
-                    <property name="text">
-                     <string>Placa 2</string>
-                    </property>
-                   </column>
-                   <column>
-                    <property name="text">
-                     <string>PLaca 3</string>
-                    </property>
-                   </column>
-                  </widget>
-                 </item>
-                 <item>
-                  <spacer name="horizontalSpacer_25">
-                   <property name="orientation">
-                    <enum>Qt::Horizontal</enum>
-                   </property>
-                   <property name="sizeHint" stdset="0">
-                    <size>
-                     <width>40</width>
-                     <height>20</height>
-                    </size>
-                   </property>
-                  </spacer>
-                 </item>
-                 <item>
-                  <widget class="QFrame" name="frame_10">
-                   <property name="minimumSize">
-                    <size>
-                     <width>205</width>
-                     <height>0</height>
-                    </size>
-                   </property>
-                   <property name="styleSheet">
-                    <string notr="true">QFrame{
-background-color:gray;
-border-radius: 0px;
-border: 2px solid rgb(0,0,0);
-}</string>
-                   </property>
-                   <property name="frameShape">
-                    <enum>QFrame::StyledPanel</enum>
-                   </property>
-                   <property name="frameShadow">
-                    <enum>QFrame::Raised</enum>
-                   </property>
-                   <layout class="QVBoxLayout" name="verticalLayout_28">
-                    <item>
-                     <layout class="QVBoxLayout" name="verticalLayout_29">
-                      <item>
-                       <spacer name="verticalSpacer_21">
-                        <property name="orientation">
-                         <enum>Qt::Vertical</enum>
-                        </property>
-                        <property name="sizeHint" stdset="0">
-                         <size>
-                          <width>173</width>
-                          <height>30</height>
-                         </size>
-                        </property>
-                       </spacer>
-                      </item>
-                      <item>
-                       <widget class="QPushButton" name="btn_delete">
-                        <property name="minimumSize">
-                         <size>
-                          <width>180</width>
-                          <height>50</height>
-                         </size>
-                        </property>
-                        <property name="maximumSize">
-                         <size>
-                          <width>180</width>
-                          <height>50</height>
-                         </size>
-                        </property>
-                        <property name="text">
-                         <string>Eliminar</string>
-                        </property>
-                       </widget>
-                      </item>
-                      <item>
-                       <spacer name="verticalSpacer_22">
-                        <property name="orientation">
-                         <enum>Qt::Vertical</enum>
-                        </property>
-                        <property name="sizeHint" stdset="0">
-                         <size>
-                          <width>173</width>
-                          <height>31</height>
-                         </size>
-                        </property>
-                       </spacer>
-                      </item>
-                     </layout>
-                    </item>
-                   </layout>
-                  </widget>
-                 </item>
-                </layout>
-               </widget>
               </item>
              </layout>
             </widget>
