@@ -265,9 +265,9 @@ class MenuPrincipal(QMainWindow):
             widget.addWidget(placa_view)
             widget.setCurrentIndex(widget.currentIndex()+1)
             widget.setFixedHeight(700)
-            widget.setFixedWidth(900)
+            widget.setFixedWidth(1200)
             self.hide()
-            
+    
             
     def CitasView(self):
         reply = QMessageBox.question(
@@ -1116,6 +1116,7 @@ class Ui_placas(QMainWindow):
         self.btn_clear_2.clicked.connect(self.clearInputs_2)
         self.actionSalir.triggered.connect(self.salir)
         self.btn_import.clicked.connect(self.addPhoto)
+        self.actionVolver_al_menu_principal.triggered.connect(self.back_menu)
         
         self.btn_buscar_2.clicked.connect(self.buscarDatos)
         self.btn_buscar_2.clicked.connect(self.searchAll)
@@ -1124,7 +1125,28 @@ class Ui_placas(QMainWindow):
         self.img2.mousePressEvent = lambda event: self.show_image_popup(self.img2.pixmap())
         self.img3.mousePressEvent = lambda event: self.show_image_popup(self.img3.pixmap())
         
-
+    def back_menu(self):
+        menu_principal = MenuPrincipal(self.id_user)
+        conexion = sqlite3.connect('interfaces/database.db')
+        cursor= conexion.cursor()
+        cursor.execute("SELECT Username FROM Users WHERE ID = ?", (self.id_user,))
+        
+        resultado = cursor.fetchone()
+        if resultado :
+            nombre_usuario = resultado[0]
+            horaActual = datetime.datetime.now().time()
+            
+            if datetime.time(5, 0, 0) <= horaActual < datetime.time(12, 0, 0):
+                textForMenu = f"Buenos días {nombre_usuario}\n¿Qué deseas hacer hoy?"
+            elif datetime.time(12, 0, 0) <= horaActual < datetime.time(18, 0, 0):
+                textForMenu = f"Buenas tardes {nombre_usuario}\n¿Qué deseas hacer hoy?"
+            elif datetime.time(18, 0, 0) <= horaActual or horaActual < datetime.time(5, 0, 0):
+                textForMenu = f"Buenas noches {nombre_usuario}\n¿Qué deseas hacer hoy?"
+            else:
+                textForMenu = f"Hola {nombre_usuario}\n¿Qué deseas hacer hoy?"
+            menu_principal.lb_nombre.setText(textForMenu)
+            menu_principal.show()
+            self.hide()
 
     def show_image_popup(self, pixmap):
         if pixmap:

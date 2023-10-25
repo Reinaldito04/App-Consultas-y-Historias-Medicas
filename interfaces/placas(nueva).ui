@@ -1108,12 +1108,18 @@ border-radius:20px;
      <string>Menu</string>
     </property>
     <addaction name="actionSalir"/>
+    <addaction name="actionVolver_al_menu_principal"/>
    </widget>
    <addaction name="menuMenu"/>
   </widget>
   <action name="actionSalir">
    <property name="text">
     <string>Salir</string>
+   </property>
+  </action>
+  <action name="actionVolver_al_menu_principal">
+   <property name="text">
+    <string>Volver al menu principal</string>
    </property>
   </action>
  </widget>

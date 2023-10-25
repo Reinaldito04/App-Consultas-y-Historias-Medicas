@@ -71,6 +71,12 @@ border-radius:25px;
            <layout class="QHBoxLayout" name="horizontalLayout_2">
             <item>
              <widget class="QPushButton" name="bt_menu">
+              <property name="minimumSize">
+               <size>
+                <width>50</width>
+                <height>50</height>
+               </size>
+              </property>
               <property name="styleSheet">
                <string notr="true">QPushButton{
 border-radius:25px;
@@ -112,7 +118,36 @@ background-color:rgb(145, 200, 228);
              </spacer>
             </item>
             <item>
+             <widget class="QLabel" name="label_10">
+              <property name="styleSheet">
+               <string notr="true">font: 26pt &quot;MS Reference Sans Serif&quot;;</string>
+              </property>
+              <property name="text">
+               <string>Menu principal</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <spacer name="horizontalSpacer_2">
+              <property name="orientation">
+               <enum>Qt::Horizontal</enum>
+              </property>
+              <property name="sizeHint" stdset="0">
+               <size>
+                <width>40</width>
+                <height>20</height>
+               </size>
+              </property>
+             </spacer>
+            </item>
+            <item>
              <widget class="QPushButton" name="bt_info">
+              <property name="minimumSize">
+               <size>
+                <width>50</width>
+                <height>50</height>
+               </size>
+              </property>
               <property name="styleSheet">
                <string notr="true">QPushButton{
 border-radius:25px;
@@ -142,6 +177,12 @@ background-color:rgb(145, 200, 228);
             </item>
             <item>
              <widget class="QPushButton" name="bt_salir">
+              <property name="minimumSize">
+               <size>
+                <width>50</width>
+                <height>50</height>
+               </size>
+              </property>
               <property name="styleSheet">
                <string notr="true">QPushButton{
 border-radius:25px;
@@ -241,6 +282,12 @@ QLabel{
                </item>
                <item>
                 <widget class="QPushButton" name="bt_home">
+                 <property name="minimumSize">
+                  <size>
+                   <width>50</width>
+                   <height>50</height>
+                  </size>
+                 </property>
                  <property name="styleSheet">
                   <string notr="true">QPushButton{
 border-radius:25px;
@@ -292,6 +339,12 @@ background-color:rgb(145, 200, 228);
                </item>
                <item>
                 <widget class="QPushButton" name="bt_registro">
+                 <property name="minimumSize">
+                  <size>
+                   <width>50</width>
+                   <height>50</height>
+                  </size>
+                 </property>
                  <property name="styleSheet">
                   <string notr="true">QPushButton{
 border-radius:25px;
@@ -344,6 +397,12 @@ background-color:rgb(145, 200, 228);
                </item>
                <item>
                 <widget class="QPushButton" name="bt_paciente">
+                 <property name="minimumSize">
+                  <size>
+                   <width>50</width>
+                   <height>50</height>
+                  </size>
+                 </property>
                  <property name="styleSheet">
                   <string notr="true">QPushButton{
 border-radius:25px;
@@ -397,6 +456,12 @@ background-color:rgb(145, 200, 228);
                </item>
                <item>
                 <widget class="QPushButton" name="bt_citas">
+                 <property name="minimumSize">
+                  <size>
+                   <width>50</width>
+                   <height>50</height>
+                  </size>
+                 </property>
                  <property name="styleSheet">
                   <string notr="true">QPushButton{
 border-radius:25px;
@@ -449,6 +514,12 @@ background-color:rgb(145, 200, 228);
                </item>
                <item>
                 <widget class="QPushButton" name="bt_historial">
+                 <property name="minimumSize">
+                  <size>
+                   <width>50</width>
+                   <height>50</height>
+                  </size>
+                 </property>
                  <property name="styleSheet">
                   <string notr="true">QPushButton{
 border-radius:25px;
@@ -498,9 +569,7 @@ background-color:rgb(145, 200, 228);
           <item>
            <widget class="QFrame" name="frame_paginas">
             <property name="styleSheet">
-             <string notr="true">QFrame{
-background-color:;
-}</string>
+             <string notr="true"/>
             </property>
             <property name="frameShape">
              <enum>QFrame::StyledPanel</enum>
@@ -524,7 +593,7 @@ background-color:;
              <item>
               <widget class="QStackedWidget" name="stackedWidget">
                <property name="currentIndex">
-                <number>1</number>
+                <number>0</number>
                </property>
                <widget class="QWidget" name="page_home">
                 <widget class="QLabel" name="lb_nombre">
