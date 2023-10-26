@@ -1121,8 +1121,8 @@ class Ui_placas(QMainWindow):
         self.actionVolver_al_menu_principal.triggered.connect(self.back_menu)
         
         self.btn_buscar_2.clicked.connect(self.buscarDatos)
-        self.btn_buscar_2.clicked.connect(self.searchAll)
-        self.btn_buscar_2.clicked.connect(self.searchForDelete)
+        # self.btn_buscar_2.clicked.connect(self.searchAll)
+        # self.btn_buscar_2.clicked.connect(self.searchForDelete)
         self.img1.mousePressEvent = lambda event: self.show_image_popup(self.img1.pixmap())
         self.img2.mousePressEvent = lambda event: self.show_image_popup(self.img2.pixmap())
         self.img3.mousePressEvent = lambda event: self.show_image_popup(self.img3.pixmap())
@@ -1241,7 +1241,7 @@ class Ui_placas(QMainWindow):
         else:
             
             try:
-                conexion = sqlite3.connect('interfaces\database.db')
+                conexion = sqlite3.connect('./interfaces/database.db')
                 cursor = conexion.cursor()
                 cursor.execute("SELECT Nombre , Apellido FROM Pacientes WHERE Cedula = ? AND ID_user = ?",(cedula, idUser))
                 resultado = cursor.fetchone()
@@ -1276,7 +1276,7 @@ class Ui_placas(QMainWindow):
          QMessageBox.warning(self,"Advertencia","Ingrese una Cédula")
         else:
             try:
-                conexion = sqlite3.connect('interfaces\database.db')
+                conexion = sqlite3.connect('./interfaces/database.db')
                 cursor =conexion.cursor()
                 cursor.execute("SELECT Nombre , Apellido , Placa1, Placa2, Placa3 FROM Pacientes WHERE Cedula = ? AND ID_user = ?",(cedula, idUser))
                 resultado = cursor.fetchone()
@@ -1296,7 +1296,8 @@ class Ui_placas(QMainWindow):
                     pixmap3.loadFromData(placa3)
                     self.img6.setPixmap(pixmap3)
                 else:
-                    QMessageBox.information("self","Error","No se encuentra datos")
+                    QMessageBox.information(self,"Eror","No se encuentra datos")
+                    return
             except sqlite3.Error as e:
                 QMessageBox.critical(self, "Error", "Error al actualizar los datos en la base de datos: " + str(e))                   
     def searchAll(self):
