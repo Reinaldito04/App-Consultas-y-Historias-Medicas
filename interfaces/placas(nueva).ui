@@ -343,6 +343,9 @@ border-radius:20px;
                       <property name="text">
                        <string>Placa</string>
                       </property>
+                      <property name="scaledContents">
+                       <bool>true</bool>
+                      </property>
                       <property name="alignment">
                        <set>Qt::AlignCenter</set>
                       </property>
@@ -379,6 +382,9 @@ border-radius:20px;
                       <property name="text">
                        <string>Placa</string>
                       </property>
+                      <property name="scaledContents">
+                       <bool>true</bool>
+                      </property>
                       <property name="alignment">
                        <set>Qt::AlignCenter</set>
                       </property>
@@ -414,6 +420,9 @@ border-radius:20px;
                       </property>
                       <property name="text">
                        <string>Placa</string>
+                      </property>
+                      <property name="scaledContents">
+                       <bool>true</bool>
                       </property>
                       <property name="alignment">
                        <set>Qt::AlignCenter</set>
@@ -915,6 +924,9 @@ border-radius:20px;
                   <property name="text">
                    <string>Placa</string>
                   </property>
+                  <property name="scaledContents">
+                   <bool>true</bool>
+                  </property>
                   <property name="alignment">
                    <set>Qt::AlignCenter</set>
                   </property>
@@ -951,6 +963,9 @@ border-radius:20px;
                   <property name="text">
                    <string>Placa</string>
                   </property>
+                  <property name="scaledContents">
+                   <bool>true</bool>
+                  </property>
                   <property name="alignment">
                    <set>Qt::AlignCenter</set>
                   </property>
@@ -986,6 +1001,9 @@ border-radius:20px;
                   </property>
                   <property name="text">
                    <string>Placa</string>
+                  </property>
+                  <property name="scaledContents">
+                   <bool>true</bool>
                   </property>
                   <property name="alignment">
                    <set>Qt::AlignCenter</set>

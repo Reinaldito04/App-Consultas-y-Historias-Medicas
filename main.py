@@ -31,7 +31,7 @@ class IngresoUsuario(QMainWindow):
         widget.setCurrentIndex(widget.currentIndex()+1)
         widget.setFixedHeight(578)
         widget.setFixedWidth(879)
-
+        self.hide()
     def cifrar_contrasenia(self, contrasenia):
         # Cifrar la contraseña usando un algoritmo de hash (SHA-256 en este caso)
         cifrado = hashlib.sha256()
@@ -44,6 +44,7 @@ class IngresoUsuario(QMainWindow):
         widget.setCurrentIndex(widget.currentIndex()+1)
         widget.setFixedHeight(1000)
         widget.setFixedWidth(1000)  
+        self.hide()
          
     def ingreso(self):
         nombre = self.txt_username.text()
@@ -150,9 +151,9 @@ class Registro(QMainWindow):
         return resultado > 0
     
     def ingresoLogin(self):
-        self.hide()
-        IngresoUsuario.show()
         
+        IngresoUsuario.show()
+        self.hide()
     def registrarUsuario(self):
         cedula = self.in_cedula.text()
         nombre = self.in_name.text()
@@ -262,10 +263,8 @@ class MenuPrincipal(QMainWindow):
         )
         if reply ==QMessageBox.Yes:
             placa_view = Ui_placas(self.id_user) 
-            widget.addWidget(placa_view)
-            widget.setCurrentIndex(widget.currentIndex()+1)
-            widget.setFixedHeight(700)
-            widget.setFixedWidth(1200)
+            placa_view.show()
+        
             self.hide()
     
             
@@ -278,12 +277,12 @@ class MenuPrincipal(QMainWindow):
             QMessageBox.Yes
         )
         if reply ==QMessageBox.Yes:
-            CitasView = CitasMenu(self.id_user)
-           
-            widget.addWidget(CitasView)
+            citas = CitasMenu(self.id_user)
+            widget.addWidget(citas)
             widget.setCurrentIndex(widget.currentIndex()+1)
             widget.setFixedHeight(700)
-            widget.setFixedWidth(1100)
+            widget.setFixedWidth(1050)
+            citas.show()
             self.hide()
     def informacionView(self):
         reply = QMessageBox.question(
@@ -754,8 +753,9 @@ class CitasMenu(QMainWindow):
             else:
                 textForMenu = f"Hola {nombre_usuario}\n¿Qué deseas hacer hoy?"
             menu_principal.lb_nombre.setText(textForMenu)
+            self.close()
             menu_principal.show()
-            self.hide()
+            
     def salir(self):
         QApplication.quit()
 #         self.btn_citas.clicked.connect(self.mostrarCitas)
@@ -1094,9 +1094,11 @@ class ImagePopup(QDialog):
 
         self.setWindowTitle('Vista completa de la imagen')
         self.center()
-
+        self.setFixedSize(800, 600)
+        
     def show_image(self, pixmap):
         self.image_label.setPixmap(pixmap)
+        self.image_label.setScaledContents(True)
         self.exec_()  # Muestra la ventana emergente como modal
 
     def center(self):
@@ -1124,7 +1126,9 @@ class Ui_placas(QMainWindow):
         self.img1.mousePressEvent = lambda event: self.show_image_popup(self.img1.pixmap())
         self.img2.mousePressEvent = lambda event: self.show_image_popup(self.img2.pixmap())
         self.img3.mousePressEvent = lambda event: self.show_image_popup(self.img3.pixmap())
-        
+        self.img4.mousePressEvent = lambda event: self.show_image_popup(self.img4.pixmap())
+        self.img5.mousePressEvent = lambda event: self.show_image_popup(self.img5.pixmap())
+        self.img6.mousePressEvent = lambda event: self.show_image_popup(self.img6.pixmap())
     def back_menu(self):
         menu_principal = MenuPrincipal(self.id_user)
         conexion = sqlite3.connect('interfaces/database.db')
@@ -1291,6 +1295,8 @@ class Ui_placas(QMainWindow):
                     pixmap3 = QPixmap()
                     pixmap3.loadFromData(placa3)
                     self.img6.setPixmap(pixmap3)
+                else:
+                    QMessageBox.information("self","Error","No se encuentra datos")
             except sqlite3.Error as e:
                 QMessageBox.critical(self, "Error", "Error al actualizar los datos en la base de datos: " + str(e))                   
     def searchAll(self):
@@ -2016,8 +2022,7 @@ widget.addWidget(IngresoUsuario)
 widget.move(200, 80)
 widget.setFixedHeight(580)
 widget.setFixedWidth(750)
-widget.setWindowFlag(QtCore.Qt.FramelessWindowHint)
-widget.setAttribute(QtCore.Qt.WA_TranslucentBackground)
+
 widget.show()
 
 
