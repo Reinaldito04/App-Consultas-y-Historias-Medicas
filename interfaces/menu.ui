@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>899</width>
-    <height>701</height>
+    <width>911</width>
+    <height>722</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -33,8 +33,24 @@
     <item>
      <widget class="QFrame" name="frame">
       <property name="styleSheet">
-       <string notr="true">background-color:rgb(70, 130, 169);
-</string>
+       <string notr="true">QFrame{
+background-color:rgb(70, 130, 169);
+
+}
+QTableWidget{
+color:rgb(0,0,0);
+gridline-color:rgb(0,206,151);
+font-size:12pt;
+}
+QHeaderView::section{
+background-color:rgb(0,206,151);
+border:1px solid rgb(0,0,0);
+font-size:12pt;
+}
+QTbaleWidget QTableCornerButton::section{
+background-color:rgb(0,0,0);
+border:1px solid  rgb(0,206,151);
+}</string>
       </property>
       <property name="frameShape">
        <enum>QFrame::StyledPanel</enum>
@@ -51,7 +67,13 @@
          <property name="minimumSize">
           <size>
            <width>0</width>
-           <height>42</height>
+           <height>65</height>
+          </size>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>16777215</width>
+           <height>65</height>
           </size>
          </property>
          <property name="styleSheet">
@@ -613,7 +635,7 @@ font: 75 italic 18px &quot;Hack Nerd Font&quot;;
                <enum>QTabWidget::North</enum>
               </property>
               <property name="currentIndex">
-               <number>0</number>
+               <number>1</number>
               </property>
               <property name="usesScrollButtons">
                <bool>true</bool>
@@ -653,7 +675,9 @@ font: 75 italic 18px &quot;Hack Nerd Font&quot;;
                 <item>
                  <widget class="QFrame" name="frmae_fondo">
                   <property name="styleSheet">
-                   <string notr="true">QFrame{
+                   <string notr="true">QLabel{
+	font: 12pt &quot;MS Reference Sans Serif&quot;;
+}QFrame{
 	background-color: rgb(27, 127, 112);
 }</string>
                   </property>
@@ -664,6 +688,12 @@ font: 75 italic 18px &quot;Hack Nerd Font&quot;;
                    <enum>QFrame::Raised</enum>
                   </property>
                   <layout class="QVBoxLayout" name="verticalLayout_12">
+                   <property name="leftMargin">
+                    <number>0</number>
+                   </property>
+                   <property name="rightMargin">
+                    <number>0</number>
+                   </property>
                    <item>
                     <widget class="Line" name="line_2">
                      <property name="orientation">
@@ -714,88 +744,120 @@ font: 75 italic 18px &quot;Hack Nerd Font&quot;;
                     </widget>
                    </item>
                    <item>
-                    <layout class="QHBoxLayout" name="horizontalLayout_4">
-                     <item>
-                      <layout class="QVBoxLayout" name="verticalLayout_11">
-                       <item>
-                        <widget class="QLabel" name="label_4">
-                         <property name="text">
-                          <string>Direccion</string>
-                         </property>
-                        </widget>
-                       </item>
-                       <item>
-                        <widget class="QLabel" name="label_12">
-                         <property name="text">
-                          <string>Direccion</string>
-                         </property>
-                        </widget>
-                       </item>
-                      </layout>
-                     </item>
-                     <item>
-                      <spacer name="horizontalSpacer_3">
-                       <property name="orientation">
-                        <enum>Qt::Horizontal</enum>
-                       </property>
-                       <property name="sizeHint" stdset="0">
-                        <size>
-                         <width>40</width>
-                         <height>20</height>
-                        </size>
-                       </property>
-                      </spacer>
-                     </item>
-                     <item>
-                      <layout class="QVBoxLayout" name="verticalLayout_10">
-                       <item>
-                        <widget class="QLabel" name="label_5">
-                         <property name="text">
-                          <string>Numero de contacto</string>
-                         </property>
-                        </widget>
-                       </item>
-                       <item>
-                        <widget class="QLabel" name="label_13">
-                         <property name="text">
-                          <string>Numero de contacto</string>
-                         </property>
-                        </widget>
-                       </item>
-                      </layout>
-                     </item>
-                     <item>
-                      <spacer name="horizontalSpacer_4">
-                       <property name="orientation">
-                        <enum>Qt::Horizontal</enum>
-                       </property>
-                       <property name="sizeHint" stdset="0">
-                        <size>
-                         <width>40</width>
-                         <height>20</height>
-                        </size>
-                       </property>
-                      </spacer>
-                     </item>
-                     <item>
-                      <layout class="QVBoxLayout" name="verticalLayout_6">
-                       <item>
-                        <widget class="QLabel" name="label_11">
-                         <property name="text">
-                          <string>X</string>
-                         </property>
-                        </widget>
-                       </item>
-                       <item>
-                        <widget class="QLabel" name="label_14">
-                         <property name="text">
-                          <string>X</string>
-                         </property>
-                        </widget>
-                       </item>
-                      </layout>
-                     </item>
-                    </layout>
+                    <widget class="QFrame" name="frame_2">
+                     <property name="styleSheet">
+                      <string notr="true">QFrame{
+background-color:white;
+}</string>
+                     </property>
+                     <property name="frameShape">
+                      <enum>QFrame::StyledPanel</enum>
+                     </property>
+                     <property name="frameShadow">
+                      <enum>QFrame::Raised</enum>
+                     </property>
+                     <layout class="QHBoxLayout" name="horizontalLayout_6">
+                      <property name="spacing">
+                       <number>0</number>
+                      </property>
+                      <property name="leftMargin">
+                       <number>0</number>
+                      </property>
+                      <property name="topMargin">
+                       <number>0</number>
+                      </property>
+                      <property name="rightMargin">
+                       <number>0</number>
+                      </property>
+                      <property name="bottomMargin">
+                       <number>0</number>
+                      </property>
+                      <item>
+                       <layout class="QHBoxLayout" name="horizontalLayout_4">
+                        <item>
+                         <layout class="QVBoxLayout" name="verticalLayout_11">
+                          <item>
+                           <widget class="QLabel" name="label_4">
+                            <property name="text">
+                             <string>Direccion</string>
+                            </property>
+                           </widget>
+                          </item>
+                          <item>
+                           <widget class="QLabel" name="label_12">
+                            <property name="text">
+                             <string>Direccion</string>
+                            </property>
+                           </widget>
+                          </item>
+                         </layout>
+                        </item>
+                        <item>
+                         <spacer name="horizontalSpacer_3">
+                          <property name="orientation">
+                           <enum>Qt::Horizontal</enum>
+                          </property>
+                          <property name="sizeHint" stdset="0">
+                           <size>
+                            <width>40</width>
+                            <height>20</height>
+                           </size>
+                          </property>
+                         </spacer>
+                        </item>
+                        <item>
+                         <layout class="QVBoxLayout" name="verticalLayout_10">
+                          <item>
+                           <widget class="QLabel" name="label_5">
+                            <property name="text">
+                             <string>Numero de contacto</string>
+                            </property>
+                           </widget>
+                          </item>
+                          <item>
+                           <widget class="QLabel" name="label_13">
+                            <property name="text">
+                             <string>Numero de contacto</string>
+                            </property>
+                           </widget>
+                          </item>
+                         </layout>
+                        </item>
+                        <item>
+                         <spacer name="horizontalSpacer_4">
+                          <property name="orientation">
+                           <enum>Qt::Horizontal</enum>
+                          </property>
+                          <property name="sizeHint" stdset="0">
+                           <size>
+                            <width>40</width>
+                            <height>20</height>
+                           </size>
+                          </property>
+                         </spacer>
+                        </item>
+                        <item>
+                         <layout class="QVBoxLayout" name="verticalLayout_6">
+                          <item>
+                           <widget class="QLabel" name="label_11">
+                            <property name="text">
+                             <string>X</string>
+                            </property>
+                           </widget>
+                          </item>
+                          <item>
+                           <widget class="QLabel" name="label_14">
+                            <property name="text">
+                             <string>X</string>
+                            </property>
+                           </widget>
+                          </item>
+                         </layout>
+                        </item>
+                       </layout>
+                      </item>
+                     </layout>
+                    </widget>
                    </item>
                    <item>
                     <widget class="Line" name="line">
@@ -832,7 +894,10 @@ font: 75 italic 18px &quot;Hack Nerd Font&quot;;
                 <item>
                  <widget class="QFrame" name="frame_fondo">
                   <property name="styleSheet">
-                   <string notr="true">QFrame{
+                   <string notr="true">QLabel{
+	font: 12pt &quot;MS Reference Sans Serif&quot;;
+}
+QFrame{
 	background-color: rgb(27, 127, 112);
 }</string>
                   </property>
@@ -843,6 +908,12 @@ font: 75 italic 18px &quot;Hack Nerd Font&quot;;
                    <enum>QFrame::Raised</enum>
                   </property>
                   <layout class="QVBoxLayout" name="verticalLayout_13">
+                   <property name="leftMargin">
+                    <number>0</number>
+                   </property>
+                   <property name="rightMargin">
+                    <number>0</number>
+                   </property>
                    <item>
                     <widget class="Line" name="line_3">
                      <property name="orientation">
@@ -853,72 +924,16 @@ font: 75 italic 18px &quot;Hack Nerd Font&quot;;
                    <item>
                     <layout class="QHBoxLayout" name="horizontalLayout_5">
                      <item>
-                      <spacer name="horizontalSpacer_5">
-                       <property name="orientation">
-                        <enum>Qt::Horizontal</enum>
-                       </property>
-                       <property name="sizeHint" stdset="0">
-                        <size>
-                         <width>40</width>
-                         <height>20</height>
-                        </size>
-                       </property>
-                      </spacer>
-                     </item>
-                     <item>
-                      <widget class="QDateTimeEdit" name="dateTimeEdit">
-                       <property name="enabled">
-                        <bool>true</bool>
-                       </property>
-                       <property name="tabletTracking">
-                        <bool>false</bool>
-                       </property>
-                       <property name="acceptDrops">
-                        <bool>false</bool>
-                       </property>
-                       <property name="autoFillBackground">
-                        <bool>false</bool>
-                       </property>
-                       <property name="wrapping">
-                        <bool>false</bool>
-                       </property>
-                       <property name="frame">
-                        <bool>false</bool>
+                      <widget class="QLabel" name="label_2">
+                       <property name="text">
+                        <string>Pacientes con citas más cercanas</string>
                        </property>
                        <property name="alignment">
                         <set>Qt::AlignCenter</set>
                        </property>
-                       <property name="readOnly">
-                        <bool>true</bool>
-                       </property>
-                       <property name="buttonSymbols">
-                        <enum>QAbstractSpinBox::NoButtons</enum>
-                       </property>
-                       <property name="specialValueText">
-                        <string/>
-                       </property>
-                       <property name="accelerated">
-                        <bool>false</bool>
-                       </property>
-                       <property name="correctionMode">
-                        <enum>QAbstractSpinBox::CorrectToPreviousValue</enum>
-                       </property>
-                       <property name="showGroupSeparator" stdset="0">
-                        <bool>false</bool>
-                       </property>
-                       <property name="calendarPopup">
-                        <bool>false</bool>
-                       </property>
                       </widget>
                      </item>
                     </layout>
-                   </item>
-                   <item>
-                    <widget class="QLabel" name="label_2">
-                     <property name="text">
-                      <string>Pacientes con citas más cercanas</string>
-                     </property>
-                    </widget>
                    </item>
                    <item>
                     <widget class="Line" name="line_5">
@@ -957,7 +972,39 @@ font: 75 italic 18px &quot;Hack Nerd Font&quot;;
                        <number>0</number>
                       </property>
                       <item>
-                       <widget class="QTableWidget" name="tableWidget"/>
+                       <widget class="QTableWidget" name="tableWidget">
+                        <attribute name="horizontalHeaderDefaultSectionSize">
+                         <number>237</number>
+                        </attribute>
+                        <attribute name="horizontalHeaderStretchLastSection">
+                         <bool>false</bool>
+                        </attribute>
+                        <column>
+                         <property name="text">
+                          <string>Cedula_P</string>
+                         </property>
+                        </column>
+                        <column>
+                         <property name="text">
+                          <string>Nombre_P</string>
+                         </property>
+                        </column>
+                        <column>
+                         <property name="text">
+                          <string>Apellido_P</string>
+                         </property>
+                        </column>
+                        <column>
+                         <property name="text">
+                          <string>Fecha</string>
+                         </property>
+                        </column>
+                        <column>
+                         <property name="text">
+                          <string>Hora</string>
+                         </property>
+                        </column>
+                       </widget>
                       </item>
                      </layout>
                     </widget>
