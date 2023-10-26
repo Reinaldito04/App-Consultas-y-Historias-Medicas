@@ -247,11 +247,13 @@ class MenuPrincipal(QMainWindow):
         self.bt_info.clicked.connect(self.informacionView)
         self.bt_menu.clicked.connect(self.toggle_sidebar)
         self.bt_salir.clicked.connect(self.close)
-        self.bt_home.clicked.connect(lambda : self.stackedWidget.setCurrentWidget(self.page_home) )
+        self.bt_home.clicked.connect(lambda: self.tabWidget.setCurrentWidget(self.principal_tab))
         self.bt_registro.clicked.connect(self.Historyviews)
         self.bt_paciente.clicked.connect(self.PlacasView )
         self.bt_citas.clicked.connect(self.CitasView)
         self.bt_historial.clicked.connect(lambda : self.stackedWidget.setCurrentWidget(self.page_historial) )
+        self.setWindowTitle("MenuPrincipal")
+        self.showMaximized()
     
     def PlacasView(self):
         reply = QMessageBox.question(

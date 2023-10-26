@@ -6,27 +6,15 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1050</width>
-    <height>872</height>
+    <width>1104</width>
+    <height>763</height>
    </rect>
-  </property>
-  <property name="minimumSize">
-   <size>
-    <width>1050</width>
-    <height>0</height>
-   </size>
-  </property>
-  <property name="maximumSize">
-   <size>
-    <width>1200</width>
-    <height>16777215</height>
-   </size>
   </property>
   <property name="windowTitle">
    <string>MainWindow</string>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <layout class="QVBoxLayout" name="verticalLayout_59">
+   <layout class="QVBoxLayout" name="verticalLayout_53">
     <property name="spacing">
      <number>0</number>
     </property>
@@ -80,7 +68,7 @@ background-color:gray;
           <enum>QTabWidget::Rounded</enum>
          </property>
          <property name="currentIndex">
-          <number>2</number>
+          <number>0</number>
          </property>
          <property name="iconSize">
           <size>
@@ -3256,11 +3244,11 @@ QPushButton:hover{
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1050</width>
+     <width>1104</width>
      <height>21</height>
     </rect>
    </property>
-   <widget class="QMenu" name="menuMenu_pincipal">
+   <widget class="QMenu" name="menuVolver_al_menu_principal">
     <property name="title">
      <string>Menu principal</string>
     </property>
@@ -3269,8 +3257,13 @@ QPushButton:hover{
     <addaction name="actionImportar_Placas"/>
     <addaction name="actionSalir"/>
    </widget>
-   <addaction name="menuMenu_pincipal"/>
+   <addaction name="menuVolver_al_menu_principal"/>
   </widget>
+  <action name="actionVolver_al_menu_principal">
+   <property name="text">
+    <string>Volver al menu principal</string>
+   </property>
+  </action>
   <action name="actionAgendar_citas">
    <property name="text">
     <string>Agendar citas</string>
@@ -3284,11 +3277,6 @@ QPushButton:hover{
   <action name="actionSalir">
    <property name="text">
     <string>Salir</string>
-   </property>
-  </action>
-  <action name="actionVolver_al_menu_principal">
-   <property name="text">
-    <string>Volver al menu principal</string>
    </property>
   </action>
  </widget>
