@@ -29,8 +29,8 @@ class IngresoUsuario(QMainWindow):
         registro = Registro()
         widget.addWidget(registro)
         widget.setCurrentIndex(widget.currentIndex()+1)
-        widget.setFixedHeight(578)
-        widget.setFixedWidth(879)
+        widget.setFixedHeight(800)
+        widget.setFixedWidth(900)
         self.hide()
     def cifrar_contrasenia(self, contrasenia):
         # Cifrar la contraseña usando un algoritmo de hash (SHA-256 en este caso)
