@@ -251,7 +251,6 @@ class MenuPrincipal(QMainWindow):
         self.bt_registro.clicked.connect(self.Historyviews)
         self.bt_paciente.clicked.connect(self.PlacasView )
         self.bt_citas.clicked.connect(self.CitasView)
-        self.bt_historial.clicked.connect(lambda : self.stackedWidget.setCurrentWidget(self.page_historial) )
         self.setWindowTitle("MenuPrincipal")
         self.showMaximized()
     
