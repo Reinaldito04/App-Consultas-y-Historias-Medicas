@@ -369,6 +369,7 @@ class EditDoctor(QMainWindow):
         self.bt_delete.clicked.connect(self.eliminarInfo)
         self.btn_save.clicked.connect(self.modifyInfo)
         self.btn_back.clicked.connect(self.backMenu)
+
      
     def backMenu(self):   
         menu_principal = MenuPrincipal(self.id_user)

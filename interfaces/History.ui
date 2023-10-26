@@ -2,14 +2,6 @@
 <ui version="4.0">
  <class>Paciente_Historias</class>
  <widget class="QMainWindow" name="Paciente_Historias">
-  <property name="geometry">
-   <rect>
-    <x>0</x>
-    <y>0</y>
-    <width>1104</width>
-    <height>763</height>
-   </rect>
-  </property>
   <property name="windowTitle">
    <string>MainWindow</string>
   </property>
@@ -3244,7 +3236,7 @@ QPushButton:hover{
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1104</width>
+     <width>1139</width>
      <height>21</height>
     </rect>
    </property>

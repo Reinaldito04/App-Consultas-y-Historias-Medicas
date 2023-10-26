@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>891</width>
+    <width>899</width>
     <height>701</height>
    </rect>
   </property>
@@ -613,7 +613,7 @@ font: 75 italic 18px &quot;Hack Nerd Font&quot;;
                <enum>QTabWidget::North</enum>
               </property>
               <property name="currentIndex">
-               <number>1</number>
+               <number>0</number>
               </property>
               <property name="usesScrollButtons">
                <bool>true</bool>
