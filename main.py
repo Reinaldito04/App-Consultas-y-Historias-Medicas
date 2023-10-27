@@ -22,8 +22,14 @@ class IngresoUsuario(QMainWindow):
         self.btn_login.clicked.connect(self.ingreso)
         self.btn_adduser.clicked.connect(self.ingresoRegistro)
         self.bt_salir.clicked.connect(lambda : QApplication.quit())
-        
+        self.setWindowTitle("IngresoUsuario")
+        self.showMaximized()
 
+    def ingresoLogin(self):
+        ingreso = IngresoUsuario
+        widget.addWidget(ingreso)
+        widget.setCurrentIndex(widget.currentIndex()+1)
+        self.hide()
         
     def ingresoRegistro(self):
         registro = Registro()
@@ -32,6 +38,7 @@ class IngresoUsuario(QMainWindow):
         widget.setFixedHeight(800)
         widget.setFixedWidth(900)
         self.hide()
+        
     def cifrar_contrasenia(self, contrasenia):
         # Cifrar la contraseña usando un algoritmo de hash (SHA-256 en este caso)
         cifrado = hashlib.sha256()
@@ -150,10 +157,7 @@ class Registro(QMainWindow):
         # Si resultado es mayor que 0, significa que el usuario ya existe
         return resultado > 0
     
-    def ingresoLogin(self):
-        
-        IngresoUsuario.show()
-        self.hide()
+
     def registrarUsuario(self):
         cedula = self.in_cedula.text()
         nombre = self.in_name.text()
@@ -337,7 +341,7 @@ class MenuPrincipal(QMainWindow):
             widget.addWidget(histori)
             widget.setCurrentIndex(widget.currentIndex()+1)
             widget.setFixedHeight(700)
-            widget.setFixedWidth(1050)
+            widget.setFixedWidth(1100)
             histori.show()
             self.hide()
             # widget.addWidget(histori)
