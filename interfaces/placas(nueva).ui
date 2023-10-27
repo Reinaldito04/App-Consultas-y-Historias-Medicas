@@ -333,6 +333,12 @@ QPushButton:hover{
                         <height>250</height>
                        </size>
                       </property>
+                      <property name="maximumSize">
+                       <size>
+                        <width>250</width>
+                        <height>250</height>
+                       </size>
+                      </property>
                       <property name="styleSheet">
                        <string notr="true">QLabel{
 background-color: rgb(255, 255, 255);
@@ -372,6 +378,12 @@ border-radius:20px;
                         <height>250</height>
                        </size>
                       </property>
+                      <property name="maximumSize">
+                       <size>
+                        <width>250</width>
+                        <height>250</height>
+                       </size>
+                      </property>
                       <property name="styleSheet">
                        <string notr="true">QLabel{
 background-color: rgb(255, 255, 255);
@@ -406,6 +418,12 @@ border-radius:20px;
                     <item>
                      <widget class="QLabel" name="img3">
                       <property name="minimumSize">
+                       <size>
+                        <width>250</width>
+                        <height>250</height>
+                       </size>
+                      </property>
+                      <property name="maximumSize">
                        <size>
                         <width>250</width>
                         <height>250</height>
@@ -914,6 +932,12 @@ QPushButton:hover{
                     <height>250</height>
                    </size>
                   </property>
+                  <property name="maximumSize">
+                   <size>
+                    <width>250</width>
+                    <height>250</height>
+                   </size>
+                  </property>
                   <property name="styleSheet">
                    <string notr="true">QLabel{
 background-color: rgb(255, 255, 255);
@@ -953,6 +977,12 @@ border-radius:20px;
                     <height>250</height>
                    </size>
                   </property>
+                  <property name="maximumSize">
+                   <size>
+                    <width>250</width>
+                    <height>250</height>
+                   </size>
+                  </property>
                   <property name="styleSheet">
                    <string notr="true">QLabel{
 background-color: rgb(255, 255, 255);
@@ -987,6 +1017,12 @@ border-radius:20px;
                 <item>
                  <widget class="QLabel" name="img6">
                   <property name="minimumSize">
+                   <size>
+                    <width>250</width>
+                    <height>250</height>
+                   </size>
+                  </property>
+                  <property name="maximumSize">
                    <size>
                     <width>250</width>
                     <height>250</height>

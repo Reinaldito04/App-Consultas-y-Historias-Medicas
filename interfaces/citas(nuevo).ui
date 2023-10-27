@@ -1,26 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>citas</class>
- <widget class="QMainWindow" name="citas">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1100</width>
-    <height>674</height>
+    <width>1331</width>
+    <height>690</height>
    </rect>
-  </property>
-  <property name="minimumSize">
-   <size>
-    <width>1050</width>
-    <height>0</height>
-   </size>
-  </property>
-  <property name="maximumSize">
-   <size>
-    <width>1113</width>
-    <height>16777215</height>
-   </size>
   </property>
   <property name="windowTitle">
    <string>MainWindow</string>
@@ -138,9 +126,9 @@ QPushButton:hover{
              <property name="frameShadow">
               <enum>QFrame::Raised</enum>
              </property>
-             <layout class="QVBoxLayout" name="verticalLayout_13">
+             <layout class="QVBoxLayout" name="verticalLayout_12">
               <item>
-               <layout class="QHBoxLayout" name="horizontalLayout_4">
+               <layout class="QHBoxLayout" name="horizontalLayout_2">
                 <item>
                  <widget class="QLabel" name="title">
                   <property name="text">
@@ -219,28 +207,11 @@ QPushButton:hover{
                </spacer>
               </item>
               <item>
-               <layout class="QHBoxLayout" name="horizontalLayout_5">
-                <item>
-                 <widget class="QLabel" name="label_5">
-                  <property name="text">
-                   <string>Para agendar una cita, primero ingrese el ID del paciente en la barra de busqueda y luego seleccione la fecha y hora para la cita</string>
-                  </property>
-                 </widget>
-                </item>
-                <item>
-                 <spacer name="horizontalSpacer_2">
-                  <property name="orientation">
-                   <enum>Qt::Horizontal</enum>
-                  </property>
-                  <property name="sizeHint" stdset="0">
-                   <size>
-                    <width>40</width>
-                    <height>20</height>
-                   </size>
-                  </property>
-                 </spacer>
-                </item>
-               </layout>
+               <widget class="QLabel" name="label_5">
+                <property name="text">
+                 <string>Para agendar una cita, primero ingrese el ID del paciente en la barra de busqueda y luego seleccione la fecha y hora para la cita</string>
+                </property>
+               </widget>
               </item>
               <item>
                <spacer name="verticalSpacer_11">
@@ -256,15 +227,15 @@ QPushButton:hover{
                </spacer>
               </item>
               <item>
-               <layout class="QHBoxLayout" name="horizontalLayout_10">
+               <layout class="QHBoxLayout" name="horizontalLayout_9">
                 <item>
-                 <layout class="QVBoxLayout" name="verticalLayout_10">
+                 <layout class="QVBoxLayout" name="verticalLayout_9">
                   <item>
                    <layout class="QHBoxLayout" name="horizontalLayout_8">
                     <item>
-                     <layout class="QVBoxLayout" name="verticalLayout_7">
+                     <layout class="QHBoxLayout" name="horizontalLayout_5">
                       <item>
-                       <layout class="QHBoxLayout" name="horizontalLayout_2">
+                       <layout class="QHBoxLayout" name="horizontalLayout_4">
                         <item>
                          <widget class="QLabel" name="lbl_name">
                           <property name="minimumSize">
@@ -332,7 +303,7 @@ QPushButton:hover{
                      </layout>
                     </item>
                     <item>
-                     <spacer name="horizontalSpacer_7">
+                     <spacer name="horizontalSpacer_5">
                       <property name="orientation">
                        <enum>Qt::Horizontal</enum>
                       </property>
@@ -347,7 +318,7 @@ QPushButton:hover{
                    </layout>
                   </item>
                   <item>
-                   <spacer name="verticalSpacer_4">
+                   <spacer name="verticalSpacer_6">
                     <property name="orientation">
                      <enum>Qt::Vertical</enum>
                     </property>
@@ -362,11 +333,14 @@ QPushButton:hover{
                   <item>
                    <layout class="QHBoxLayout" name="horizontalLayout_7">
                     <item>
-                     <layout class="QVBoxLayout" name="verticalLayout_8">
+                     <layout class="QVBoxLayout" name="verticalLayout_7">
                       <item>
                        <widget class="QLabel" name="label_4">
                         <property name="text">
                          <string>Por favor, seleccione la fecha para la cita</string>
+                        </property>
+                        <property name="alignment">
+                         <set>Qt::AlignCenter</set>
                         </property>
                        </widget>
                       </item>
@@ -375,13 +349,13 @@ QPushButton:hover{
                         <property name="minimumSize">
                          <size>
                           <width>500</width>
-                          <height>250</height>
+                          <height>300</height>
                          </size>
                         </property>
                         <property name="maximumSize">
                          <size>
                           <width>500</width>
-                          <height>250</height>
+                          <height>300</height>
                          </size>
                         </property>
                         <property name="styleSheet">
@@ -416,13 +390,13 @@ QPushButton:hover{
                            <property name="minimumSize">
                             <size>
                              <width>450</width>
-                             <height>250</height>
+                             <height>300</height>
                             </size>
                            </property>
                            <property name="maximumSize">
                             <size>
                              <width>16777215</width>
-                             <height>250</height>
+                             <height>300</height>
                             </size>
                            </property>
                            <property name="gridVisible">
@@ -442,70 +416,87 @@ QPushButton:hover{
                      </layout>
                     </item>
                     <item>
-                     <spacer name="horizontalSpacer_3">
-                      <property name="orientation">
-                       <enum>Qt::Horizontal</enum>
-                      </property>
-                      <property name="sizeHint" stdset="0">
-                       <size>
-                        <width>13</width>
-                        <height>17</height>
-                       </size>
-                      </property>
-                     </spacer>
-                    </item>
-                    <item>
-                     <layout class="QVBoxLayout" name="verticalLayout_9">
+                     <layout class="QVBoxLayout" name="verticalLayout_8">
                       <item>
-                       <widget class="QLabel" name="label_6">
-                        <property name="text">
-                         <string>Por favor, seleccione la hora para la cita</string>
-                        </property>
-                       </widget>
-                      </item>
-                      <item>
-                       <layout class="QHBoxLayout" name="horizontalLayout_6">
+                       <layout class="QVBoxLayout" name="verticalLayout_5">
                         <item>
-                         <spacer name="horizontalSpacer_5">
-                          <property name="orientation">
-                           <enum>Qt::Horizontal</enum>
+                         <widget class="QLabel" name="label_6">
+                          <property name="text">
+                           <string>Por favor, seleccione la hora para la cita</string>
                           </property>
-                          <property name="sizeHint" stdset="0">
-                           <size>
-                            <width>40</width>
-                            <height>20</height>
-                           </size>
-                          </property>
-                         </spacer>
-                        </item>
-                        <item>
-                         <widget class="QTimeEdit" name="hora">
-                          <property name="minimumSize">
-                           <size>
-                            <width>120</width>
-                            <height>60</height>
-                           </size>
-                          </property>
-                          <property name="maximumSize">
-                           <size>
-                            <width>120</width>
-                            <height>60</height>
-                           </size>
+                          <property name="alignment">
+                           <set>Qt::AlignCenter</set>
                           </property>
                          </widget>
                         </item>
                         <item>
-                         <spacer name="horizontalSpacer_6">
-                          <property name="orientation">
-                           <enum>Qt::Horizontal</enum>
-                          </property>
-                          <property name="sizeHint" stdset="0">
-                           <size>
-                            <width>40</width>
-                            <height>20</height>
-                           </size>
-                          </property>
-                         </spacer>
+                         <layout class="QHBoxLayout" name="horizontalLayout_6">
+                          <item>
+                           <spacer name="horizontalSpacer_2">
+                            <property name="orientation">
+                             <enum>Qt::Horizontal</enum>
+                            </property>
+                            <property name="sizeHint" stdset="0">
+                             <size>
+                              <width>40</width>
+                              <height>20</height>
+                             </size>
+                            </property>
+                           </spacer>
+                          </item>
+                          <item>
+                           <widget class="QTimeEdit" name="hora">
+                            <property name="minimumSize">
+                             <size>
+                              <width>200</width>
+                              <height>40</height>
+                             </size>
+                            </property>
+                            <property name="maximumSize">
+                             <size>
+                              <width>200</width>
+                              <height>40</height>
+                             </size>
+                            </property>
+                            <property name="contextMenuPolicy">
+                             <enum>Qt::DefaultContextMenu</enum>
+                            </property>
+                            <property name="styleSheet">
+                             <string notr="true">QTimeEdit{
+	font: 14pt &quot;MS Shell Dlg 2&quot;;
+}</string>
+                            </property>
+                            <property name="alignment">
+                             <set>Qt::AlignCenter</set>
+                            </property>
+                            <property name="buttonSymbols">
+                             <enum>QAbstractSpinBox::PlusMinus</enum>
+                            </property>
+                            <property name="accelerated">
+                             <bool>true</bool>
+                            </property>
+                            <property name="showGroupSeparator" stdset="0">
+                             <bool>false</bool>
+                            </property>
+                            <property name="calendarPopup">
+                             <bool>false</bool>
+                            </property>
+                           </widget>
+                          </item>
+                          <item>
+                           <spacer name="horizontalSpacer_3">
+                            <property name="orientation">
+                             <enum>Qt::Horizontal</enum>
+                            </property>
+                            <property name="sizeHint" stdset="0">
+                             <size>
+                              <width>40</width>
+                              <height>20</height>
+                             </size>
+                            </property>
+                           </spacer>
+                          </item>
+                         </layout>
                         </item>
                        </layout>
                       </item>
@@ -529,180 +520,156 @@ QPushButton:hover{
                  </layout>
                 </item>
                 <item>
-                 <layout class="QHBoxLayout" name="horizontalLayout_9">
+                 <layout class="QVBoxLayout" name="verticalLayout_4">
                   <item>
-                   <spacer name="horizontalSpacer_8">
+                   <widget class="QLabel" name="label">
+                    <property name="minimumSize">
+                     <size>
+                      <width>100</width>
+                      <height>20</height>
+                     </size>
+                    </property>
+                    <property name="maximumSize">
+                     <size>
+                      <width>250</width>
+                      <height>20</height>
+                     </size>
+                    </property>
+                    <property name="styleSheet">
+                     <string notr="true">QLabel{
+border:0px;
+}</string>
+                    </property>
+                    <property name="text">
+                     <string>Controles</string>
+                    </property>
+                    <property name="alignment">
+                     <set>Qt::AlignCenter</set>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <spacer name="verticalSpacer_8">
                     <property name="orientation">
-                     <enum>Qt::Horizontal</enum>
+                     <enum>Qt::Vertical</enum>
                     </property>
                     <property name="sizeHint" stdset="0">
                      <size>
-                      <width>40</width>
-                      <height>20</height>
+                      <width>20</width>
+                      <height>40</height>
                      </size>
                     </property>
                    </spacer>
                   </item>
                   <item>
-                   <layout class="QVBoxLayout" name="verticalLayout_5">
-                    <property name="leftMargin">
-                     <number>0</number>
+                   <widget class="QPushButton" name="btn_agg">
+                    <property name="minimumSize">
+                     <size>
+                      <width>150</width>
+                      <height>50</height>
+                     </size>
                     </property>
-                    <item>
-                     <widget class="QLabel" name="label">
-                      <property name="minimumSize">
-                       <size>
-                        <width>100</width>
-                        <height>20</height>
-                       </size>
-                      </property>
-                      <property name="maximumSize">
-                       <size>
-                        <width>250</width>
-                        <height>20</height>
-                       </size>
-                      </property>
-                      <property name="styleSheet">
-                       <string notr="true">QLabel{
-border:0px;
-}</string>
-                      </property>
-                      <property name="text">
-                       <string>Controles</string>
-                      </property>
-                      <property name="alignment">
-                       <set>Qt::AlignCenter</set>
-                      </property>
-                     </widget>
-                    </item>
-                    <item>
-                     <layout class="QVBoxLayout" name="verticalLayout_4">
-                      <item>
-                       <spacer name="verticalSpacer_8">
-                        <property name="orientation">
-                         <enum>Qt::Vertical</enum>
-                        </property>
-                        <property name="sizeHint" stdset="0">
-                         <size>
-                          <width>20</width>
-                          <height>40</height>
-                         </size>
-                        </property>
-                       </spacer>
-                      </item>
-                      <item>
-                       <widget class="QPushButton" name="btn_agg">
-                        <property name="minimumSize">
-                         <size>
-                          <width>150</width>
-                          <height>50</height>
-                         </size>
-                        </property>
-                        <property name="maximumSize">
-                         <size>
-                          <width>150</width>
-                          <height>50</height>
-                         </size>
-                        </property>
-                        <property name="text">
-                         <string>Agendar</string>
-                        </property>
-                       </widget>
-                      </item>
-                      <item>
-                       <spacer name="verticalSpacer_5">
-                        <property name="orientation">
-                         <enum>Qt::Vertical</enum>
-                        </property>
-                        <property name="sizeHint" stdset="0">
-                         <size>
-                          <width>20</width>
-                          <height>40</height>
-                         </size>
-                        </property>
-                       </spacer>
-                      </item>
-                      <item>
-                       <widget class="QPushButton" name="btn_edit">
-                        <property name="minimumSize">
-                         <size>
-                          <width>150</width>
-                          <height>50</height>
-                         </size>
-                        </property>
-                        <property name="maximumSize">
-                         <size>
-                          <width>150</width>
-                          <height>50</height>
-                         </size>
-                        </property>
-                        <property name="text">
-                         <string>Editar</string>
-                        </property>
-                       </widget>
-                      </item>
-                      <item>
-                       <spacer name="verticalSpacer_7">
-                        <property name="orientation">
-                         <enum>Qt::Vertical</enum>
-                        </property>
-                        <property name="sizeHint" stdset="0">
-                         <size>
-                          <width>20</width>
-                          <height>40</height>
-                         </size>
-                        </property>
-                       </spacer>
-                      </item>
-                      <item>
-                       <widget class="QPushButton" name="btn_clear">
-                        <property name="minimumSize">
-                         <size>
-                          <width>150</width>
-                          <height>50</height>
-                         </size>
-                        </property>
-                        <property name="maximumSize">
-                         <size>
-                          <width>150</width>
-                          <height>50</height>
-                         </size>
-                        </property>
-                        <property name="text">
-                         <string>Limpiar</string>
-                        </property>
-                       </widget>
-                      </item>
-                      <item>
-                       <spacer name="verticalSpacer_9">
-                        <property name="orientation">
-                         <enum>Qt::Vertical</enum>
-                        </property>
-                        <property name="sizeHint" stdset="0">
-                         <size>
-                          <width>20</width>
-                          <height>40</height>
-                         </size>
-                        </property>
-                       </spacer>
-                      </item>
-                     </layout>
-                    </item>
-                   </layout>
+                    <property name="maximumSize">
+                     <size>
+                      <width>150</width>
+                      <height>50</height>
+                     </size>
+                    </property>
+                    <property name="text">
+                     <string>Agendar</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <spacer name="verticalSpacer_5">
+                    <property name="orientation">
+                     <enum>Qt::Vertical</enum>
+                    </property>
+                    <property name="sizeHint" stdset="0">
+                     <size>
+                      <width>20</width>
+                      <height>40</height>
+                     </size>
+                    </property>
+                   </spacer>
+                  </item>
+                  <item>
+                   <widget class="QPushButton" name="btn_edit">
+                    <property name="minimumSize">
+                     <size>
+                      <width>150</width>
+                      <height>50</height>
+                     </size>
+                    </property>
+                    <property name="maximumSize">
+                     <size>
+                      <width>150</width>
+                      <height>50</height>
+                     </size>
+                    </property>
+                    <property name="text">
+                     <string>Editar</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <spacer name="verticalSpacer_7">
+                    <property name="orientation">
+                     <enum>Qt::Vertical</enum>
+                    </property>
+                    <property name="sizeHint" stdset="0">
+                     <size>
+                      <width>20</width>
+                      <height>40</height>
+                     </size>
+                    </property>
+                   </spacer>
+                  </item>
+                  <item>
+                   <widget class="QPushButton" name="btn_clear">
+                    <property name="minimumSize">
+                     <size>
+                      <width>150</width>
+                      <height>50</height>
+                     </size>
+                    </property>
+                    <property name="maximumSize">
+                     <size>
+                      <width>150</width>
+                      <height>50</height>
+                     </size>
+                    </property>
+                    <property name="text">
+                     <string>Limpiar</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <spacer name="verticalSpacer_9">
+                    <property name="orientation">
+                     <enum>Qt::Vertical</enum>
+                    </property>
+                    <property name="sizeHint" stdset="0">
+                     <size>
+                      <width>20</width>
+                      <height>40</height>
+                     </size>
+                    </property>
+                   </spacer>
                   </item>
                  </layout>
                 </item>
                </layout>
               </item>
               <item>
-               <spacer name="verticalSpacer_6">
+               <spacer name="verticalSpacer_4">
                 <property name="orientation">
                  <enum>Qt::Vertical</enum>
                 </property>
                 <property name="sizeHint" stdset="0">
                  <size>
                   <width>20</width>
-                  <height>40</height>
+                  <height>38</height>
                  </size>
                 </property>
                </spacer>
@@ -711,8 +678,8 @@ border:0px;
                <widget class="QFrame" name="frame_3">
                 <property name="styleSheet">
                  <string notr="true">QFrame{
-background-color:white;
-border-radius:20px;
+	background-color: rgb(255, 255, 255);
+border-radius:25px;
 }</string>
                 </property>
                 <property name="frameShape">
@@ -722,17 +689,32 @@ border-radius:20px;
                  <enum>QFrame::Raised</enum>
                 </property>
                 <layout class="QHBoxLayout" name="horizontalLayout">
+                 <property name="spacing">
+                  <number>8</number>
+                 </property>
+                 <property name="leftMargin">
+                  <number>2</number>
+                 </property>
+                 <property name="topMargin">
+                  <number>0</number>
+                 </property>
+                 <property name="rightMargin">
+                  <number>0</number>
+                 </property>
+                 <property name="bottomMargin">
+                  <number>0</number>
+                 </property>
                  <item>
                   <widget class="QTableWidget" name="tableWidget">
                    <property name="minimumSize">
                     <size>
-                     <width>850</width>
+                     <width>1100</width>
                      <height>0</height>
                     </size>
                    </property>
                    <property name="maximumSize">
                     <size>
-                     <width>850</width>
+                     <width>1100</width>
                      <height>16777215</height>
                     </size>
                    </property>
@@ -743,7 +725,10 @@ border-radius:20px;
                     <bool>false</bool>
                    </attribute>
                    <attribute name="horizontalHeaderDefaultSectionSize">
-                    <number>140</number>
+                    <number>170</number>
+                   </attribute>
+                   <attribute name="horizontalHeaderStretchLastSection">
+                    <bool>true</bool>
                    </attribute>
                    <column>
                     <property name="text">
@@ -773,31 +758,10 @@ border-radius:20px;
                   </widget>
                  </item>
                  <item>
-                  <spacer name="horizontalSpacer_4">
-                   <property name="orientation">
-                    <enum>Qt::Horizontal</enum>
-                   </property>
-                   <property name="sizeHint" stdset="0">
-                    <size>
-                     <width>53</width>
-                     <height>20</height>
-                    </size>
-                   </property>
-                  </spacer>
-                 </item>
-                 <item>
-                  <widget class="QFrame" name="frame_4">
-                   <property name="minimumSize">
-                    <size>
-                     <width>205</width>
-                     <height>0</height>
-                    </size>
-                   </property>
+                  <widget class="QFrame" name="frame_6">
                    <property name="styleSheet">
                     <string notr="true">QFrame{
-background-color:gray;
-border-radius: 0px;
-border: 2px solid rgb(0,0,0);
+border:none;
 }</string>
                    </property>
                    <property name="frameShape">
@@ -806,55 +770,131 @@ border: 2px solid rgb(0,0,0);
                    <property name="frameShadow">
                     <enum>QFrame::Raised</enum>
                    </property>
-                   <layout class="QVBoxLayout" name="verticalLayout_12">
+                   <layout class="QVBoxLayout" name="verticalLayout_10">
+                    <property name="spacing">
+                     <number>0</number>
+                    </property>
+                    <property name="leftMargin">
+                     <number>0</number>
+                    </property>
+                    <property name="topMargin">
+                     <number>0</number>
+                    </property>
+                    <property name="rightMargin">
+                     <number>0</number>
+                    </property>
+                    <property name="bottomMargin">
+                     <number>0</number>
+                    </property>
                     <item>
-                     <layout class="QVBoxLayout" name="verticalLayout_11">
-                      <item>
-                       <spacer name="verticalSpacer_2">
-                        <property name="orientation">
-                         <enum>Qt::Vertical</enum>
-                        </property>
-                        <property name="sizeHint" stdset="0">
-                         <size>
-                          <width>173</width>
-                          <height>30</height>
-                         </size>
-                        </property>
-                       </spacer>
-                      </item>
-                      <item>
-                       <widget class="QPushButton" name="btn_delete">
-                        <property name="minimumSize">
-                         <size>
-                          <width>180</width>
-                          <height>50</height>
-                         </size>
-                        </property>
-                        <property name="maximumSize">
-                         <size>
-                          <width>180</width>
-                          <height>50</height>
-                         </size>
-                        </property>
-                        <property name="text">
-                         <string>Eliminar</string>
-                        </property>
-                       </widget>
-                      </item>
-                      <item>
-                       <spacer name="verticalSpacer_3">
-                        <property name="orientation">
-                         <enum>Qt::Vertical</enum>
-                        </property>
-                        <property name="sizeHint" stdset="0">
-                         <size>
-                          <width>173</width>
-                          <height>31</height>
-                         </size>
-                        </property>
-                       </spacer>
-                      </item>
-                     </layout>
+                     <widget class="QFrame" name="frame_4">
+                      <property name="styleSheet">
+                       <string notr="true">QFrame{
+background-color:gray;
+border-radius: 0px;
+border: 2px solid rgb(0,0,0);
+}</string>
+                      </property>
+                      <property name="frameShape">
+                       <enum>QFrame::StyledPanel</enum>
+                      </property>
+                      <property name="frameShadow">
+                       <enum>QFrame::Raised</enum>
+                      </property>
+                      <layout class="QVBoxLayout" name="verticalLayout_13">
+                       <property name="leftMargin">
+                        <number>0</number>
+                       </property>
+                       <property name="topMargin">
+                        <number>0</number>
+                       </property>
+                       <property name="rightMargin">
+                        <number>0</number>
+                       </property>
+                       <property name="bottomMargin">
+                        <number>0</number>
+                       </property>
+                       <item>
+                        <layout class="QVBoxLayout" name="verticalLayout_11">
+                         <item>
+                          <spacer name="verticalSpacer_2">
+                           <property name="orientation">
+                            <enum>Qt::Vertical</enum>
+                           </property>
+                           <property name="sizeHint" stdset="0">
+                            <size>
+                             <width>20</width>
+                             <height>40</height>
+                            </size>
+                           </property>
+                          </spacer>
+                         </item>
+                         <item>
+                          <layout class="QHBoxLayout" name="horizontalLayout_10">
+                           <item>
+                            <spacer name="horizontalSpacer_4">
+                             <property name="orientation">
+                              <enum>Qt::Horizontal</enum>
+                             </property>
+                             <property name="sizeHint" stdset="0">
+                              <size>
+                               <width>40</width>
+                               <height>20</height>
+                              </size>
+                             </property>
+                            </spacer>
+                           </item>
+                           <item>
+                            <widget class="QPushButton" name="btn_delete">
+                             <property name="minimumSize">
+                              <size>
+                               <width>180</width>
+                               <height>50</height>
+                              </size>
+                             </property>
+                             <property name="maximumSize">
+                              <size>
+                               <width>180</width>
+                               <height>50</height>
+                              </size>
+                             </property>
+                             <property name="text">
+                              <string>Eliminar</string>
+                             </property>
+                            </widget>
+                           </item>
+                           <item>
+                            <spacer name="horizontalSpacer_6">
+                             <property name="orientation">
+                              <enum>Qt::Horizontal</enum>
+                             </property>
+                             <property name="sizeHint" stdset="0">
+                              <size>
+                               <width>40</width>
+                               <height>20</height>
+                              </size>
+                             </property>
+                            </spacer>
+                           </item>
+                          </layout>
+                         </item>
+                         <item>
+                          <spacer name="verticalSpacer_3">
+                           <property name="orientation">
+                            <enum>Qt::Vertical</enum>
+                           </property>
+                           <property name="sizeHint" stdset="0">
+                            <size>
+                             <width>20</width>
+                             <height>40</height>
+                            </size>
+                           </property>
+                          </spacer>
+                         </item>
+                        </layout>
+                       </item>
+                      </layout>
+                     </widget>
                     </item>
                    </layout>
                   </widget>
@@ -879,7 +919,7 @@ border: 2px solid rgb(0,0,0);
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1100</width>
+     <width>1331</width>
      <height>21</height>
     </rect>
    </property>
@@ -894,6 +934,11 @@ border: 2px solid rgb(0,0,0);
    </widget>
    <addaction name="menuMenu_principal"/>
   </widget>
+  <action name="actionVolver_al_menu_principal">
+   <property name="text">
+    <string>Volver al menu principal</string>
+   </property>
+  </action>
   <action name="actionRegistrar_pacientes">
    <property name="text">
     <string>Registrar pacientes</string>
@@ -907,11 +952,6 @@ border: 2px solid rgb(0,0,0);
   <action name="actionSalir">
    <property name="text">
     <string>Salir</string>
-   </property>
-  </action>
-  <action name="actionVolver_al_menu_principal">
-   <property name="text">
-    <string>Volver al menu principal</string>
    </property>
   </action>
  </widget>
