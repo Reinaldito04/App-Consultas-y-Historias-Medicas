@@ -5,7 +5,7 @@ from PyQt5.QtCore import QDate , QBuffer, QByteArray , QTime
 from PyQt5.QtGui import QImage,QPixmap 
 from PyQt5.QtCore import QIODevice
 from PyQt5.QtWidgets import QFileDialog
-from PyQt5.QtWidgets import QWidget ,QApplication ,QMainWindow,QGraphicsDropShadowEffect, QCalendarWidget , QBoxLayout
+from PyQt5.QtWidgets import QWidget ,QApplication ,QMainWindow,QStackedWidget,QGraphicsDropShadowEffect, QCalendarWidget , QBoxLayout
 from PyQt5.QtWidgets import QMessageBox,QLabel,QTableWidgetItem
 from PyQt5.QtWidgets import QDialog
 import hashlib
@@ -24,13 +24,16 @@ class IngresoUsuario(QMainWindow):
         self.bt_salir.clicked.connect(lambda : QApplication.quit())
         self.setWindowTitle("IngresoUsuario")
         self.showMaximized()
+        
 
-    #INSTANCIAS DE VENTANAS PARA LOS BOTONES
-    def ingresoLogin(self):
-        self.hide()
+  
         
     def ingresoRegistro(self):
-        self.hide()
+            registroview =Registro()
+            widget.addWidget(registroview)
+            widget.setCurrentIndex(widget.currentIndex()+1)
+            registroview.show()
+            self.hide()
         
     def cifrar_contrasenia(self, contrasenia):
         # Cifrar la contraseña usando un algoritmo de hash (SHA-256 en este caso)
@@ -38,8 +41,7 @@ class IngresoUsuario(QMainWindow):
         cifrado.update(contrasenia.encode('utf-8'))
         return cifrado.hexdigest()
     
-    def MenuPrincipalacceso(self):
-        self.hide()
+    
          
     def ingreso(self):
         nombre = self.txt_username.text()
@@ -92,11 +94,14 @@ class Registro(QMainWindow):
         loadUi("interfaces\dogtores.ui", self)
         self.btn_agg.clicked.connect(self.registrarUsuario)
         self.btn_clear.clicked.connect(self.clearInputs)
-        self.actionLogin.triggered.connect(self.ingresoLogin)
+        self.actionLogin.triggered.connect(self.login)
         self.actionSalir.triggered.connect(self.close)
         self.bt_photo.clicked.connect(self.addPhoto)
         
     
+    def login(self):
+        ingreso_usuario.show()
+        self.hide()
     def addPhoto(self):
         filenames, _ = QFileDialog.getOpenFileNames(self, "Seleccionar imágenes", "", "Archivos de imagen (*.png *.jpg *.bmp)")
         
@@ -309,8 +314,7 @@ class MenuPrincipal(QMainWindow):
                 doctorView.foto_2.setPixmap(pixmap1)
             widget.addWidget(doctorView)
             widget.setCurrentIndex(widget.currentIndex()+1)
-            widget.setFixedHeight(620)
-            widget.setFixedWidth(800)
+           
             self.hide()
         
         
@@ -327,8 +331,7 @@ class MenuPrincipal(QMainWindow):
             historia = historiaMenu(self.id_user)
             widget.addWidget(historia)
             widget.setCurrentIndex(widget.currentIndex()+1)
-            widget.setFixedHeight(750)
-            widget.setFixedWidth(1100)
+           
             historia.show()
             self.hide()
             # widget.addWidget(histori)
@@ -558,7 +561,7 @@ class Ui_CitasMenu(QMainWindow):
         self.btn_clear.clicked.connect(self.clear)
         self.btn_edit.clicked.connect(self.editarCita)
         self.btn_delete.clicked.connect(self.eliminarCita)
-        self.setWindowTitle("Ui_CitasMenu")
+        self.setWindowTitle("Menu de Citas")
         self.showMaximized()
     def eliminarCita(self):
         try:
@@ -1911,6 +1914,10 @@ class historiaMenu(QMainWindow):
             QMessageBox.critical(self, "Error", "Error al consultar la base de datos: " + str(e))
 
     def UpdateData(self):
+        busqueda = self.in_busqueda.text()
+        if not busqueda :
+            QMessageBox.warning(self,"Error","Introduzca su cedula")
+            return
         try:
             cedula = self.in_cedula.text()
             nombre = self.in_name.text()
@@ -1919,6 +1926,7 @@ class historiaMenu(QMainWindow):
             direccion = self.in_dir.text()
             telefono = self.in_number.text()
             mail = self.in_mail.text()
+            valor_sexo = None
             if self.btn_m.isChecked():
                 valor_sexo = "Masculino"
             if self.btn_f.isChecked():
@@ -2013,18 +2021,19 @@ class historiaMenu(QMainWindow):
        
             
 
-app = QApplication(sys.argv)
-IngresoUsuario = IngresoUsuario()
-IngresoUsuario.show()
-widget = QtWidgets.QStackedWidget()
-widget.move(200, 80)
+if __name__ == "__main__":
+    app = QApplication(sys.argv)
+    ingreso_usuario = IngresoUsuario()
 
+    widget = QStackedWidget()
+    widget.addWidget(ingreso_usuario)
 
-widget.show()
+    # Ajustar el tamaño del QStackedWidget para que coincida con la ventana maximizada
+    widget.setGeometry(ingreso_usuario.geometry())
 
+    widget.show()
 
-
-try:
-    sys.exit(app.exec_())
-except:
-    print("saliendo")
+    try:
+        sys.exit(app.exec_())
+    except SystemExit:
+        print("Saliendo")
