@@ -324,12 +324,12 @@ class MenuPrincipal(QMainWindow):
             QMessageBox.Yes
         )
         if reply == QMessageBox.Yes:
-            histori = historiaMenu(self.id_user)
-            widget.addWidget(histori)
+            historia = historiaMenu(self.id_user)
+            widget.addWidget(historia)
             widget.setCurrentIndex(widget.currentIndex()+1)
-            widget.setFixedHeight(720)
-            widget.setFixedWidth(1150)
-            histori.show()
+            widget.setFixedHeight(750)
+            widget.setFixedWidth(1100)
+            historia.show()
             self.hide()
             # widget.addWidget(histori)
             # widget.setCurrentIndex(widget.currentIndex()+1)
@@ -1113,6 +1113,7 @@ class Ui_placas(QMainWindow):
         self.actionSalir.triggered.connect(self.salir)
         self.btn_import.clicked.connect(self.addPhoto)
         self.actionVolver_al_menu_principal.triggered.connect(self.back_menu)
+        self.showMaximized()
         
         self.btn_buscar_2.clicked.connect(self.buscarDatos)
         # self.btn_buscar_2.clicked.connect(self.searchAll)
@@ -1445,6 +1446,7 @@ class historiaMenu(QMainWindow):
         self.btn_clear_4.clicked.connect(self.clearTrata)
         self.fecha_hora_actualizadas = False
         self.tabWidget.currentChanged.connect(self.actualizar_fecha_hora_diagnostico)
+        self.showMaximized()
 
         
         self.t0 = self.findChild(QtWidgets.QComboBox, "t0")
@@ -1921,7 +1923,8 @@ class historiaMenu(QMainWindow):
                 valor_sexo = "Masculino"
             if self.btn_f.isChecked():
                 valor_sexo = "Femenino"
-            context = self.motivo.text()
+            context = self.motivo.toPlainText()
+
 
             conexion = sqlite3.connect('interfaces/database.db')
             cursor = conexion.cursor()
@@ -2012,6 +2015,7 @@ class historiaMenu(QMainWindow):
 
 app = QApplication(sys.argv)
 IngresoUsuario = IngresoUsuario()
+IngresoUsuario.show()
 widget = QtWidgets.QStackedWidget()
 widget.move(200, 80)
 
