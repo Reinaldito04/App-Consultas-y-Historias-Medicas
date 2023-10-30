@@ -2013,10 +2013,8 @@ class historiaMenu(QMainWindow):
 app = QApplication(sys.argv)
 IngresoUsuario = IngresoUsuario()
 widget = QtWidgets.QStackedWidget()
-widget.addWidget(IngresoUsuario)
 widget.move(200, 80)
-widget.setFixedHeight(580)
-widget.setFixedWidth(750)
+
 
 widget.show()
 
