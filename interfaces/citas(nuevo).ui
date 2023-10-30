@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>MainWindow</class>
- <widget class="QMainWindow" name="MainWindow">
+ <class>CitasMenu</class>
+ <widget class="QMainWindow" name="CitasMenu">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1331</width>
+    <width>1338</width>
     <height>690</height>
    </rect>
   </property>
@@ -463,7 +463,7 @@ QPushButton:hover{
                             </property>
                             <property name="styleSheet">
                              <string notr="true">QTimeEdit{
-	font: 14pt &quot;MS Shell Dlg 2&quot;;
+	font: 12pt &quot;MS Shell Dlg 2&quot;;
 }</string>
                             </property>
                             <property name="alignment">
@@ -919,7 +919,7 @@ border: 2px solid rgb(0,0,0);
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1331</width>
+     <width>1338</width>
      <height>21</height>
     </rect>
    </property>

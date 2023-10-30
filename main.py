@@ -25,18 +25,11 @@ class IngresoUsuario(QMainWindow):
         self.setWindowTitle("IngresoUsuario")
         self.showMaximized()
 
+    #INSTANCIAS DE VENTANAS PARA LOS BOTONES
     def ingresoLogin(self):
-        ingreso = IngresoUsuario
-        widget.addWidget(ingreso)
-        widget.setCurrentIndex(widget.currentIndex()+1)
         self.hide()
         
     def ingresoRegistro(self):
-        registro = Registro()
-        widget.addWidget(registro)
-        widget.setCurrentIndex(widget.currentIndex()+1)
-        widget.setFixedHeight(800)
-        widget.setFixedWidth(900)
         self.hide()
         
     def cifrar_contrasenia(self, contrasenia):
@@ -46,11 +39,6 @@ class IngresoUsuario(QMainWindow):
         return cifrado.hexdigest()
     
     def MenuPrincipalacceso(self):
-        MenuPrincipal = MenuPrincipal()
-        widget.addWidget(MenuPrincipal)
-        widget.setCurrentIndex(widget.currentIndex()+1)
-        widget.setFixedHeight(1000)
-        widget.setFixedWidth(1000)  
         self.hide()
          
     def ingreso(self):
@@ -282,13 +270,12 @@ class MenuPrincipal(QMainWindow):
             QMessageBox.Yes
         )
         if reply ==QMessageBox.Yes:
-            citas = CitasMenu(self.id_user)
+            citas =Ui_CitasMenu(self.id_user)
             widget.addWidget(citas)
             widget.setCurrentIndex(widget.currentIndex()+1)
-            widget.setFixedHeight(700)
-            widget.setFixedWidth(1050)
             citas.show()
             self.hide()
+            
     def informacionView(self):
         reply = QMessageBox.question(
             self,
@@ -340,8 +327,8 @@ class MenuPrincipal(QMainWindow):
             histori = historiaMenu(self.id_user)
             widget.addWidget(histori)
             widget.setCurrentIndex(widget.currentIndex()+1)
-            widget.setFixedHeight(700)
-            widget.setFixedWidth(1100)
+            widget.setFixedHeight(720)
+            widget.setFixedWidth(1150)
             histori.show()
             self.hide()
             # widget.addWidget(histori)
@@ -474,8 +461,7 @@ class EditDoctor(QMainWindow):
            
             widget.addWidget(passwordview)
             widget.setCurrentIndex(widget.currentIndex()+1)
-            widget.setFixedHeight(700)
-            widget.setFixedWidth(1100)
+
             self.hide()
             
 class DeleteAllData(QMainWindow):
@@ -560,9 +546,9 @@ class DeleteAllData(QMainWindow):
             widget.setFixedWidth(800)
             self.hide()
         
-class CitasMenu(QMainWindow):
+class Ui_CitasMenu(QMainWindow):
     def __init__(self,id_user):
-        super(CitasMenu, self).__init__()
+        super(Ui_CitasMenu, self).__init__()
         self.id_user = id_user
         loadUi("interfaces\citas(nuevo).ui", self)
         self.actionVolver_al_menu_principal.triggered.connect(self.back)
@@ -572,6 +558,8 @@ class CitasMenu(QMainWindow):
         self.btn_clear.clicked.connect(self.clear)
         self.btn_edit.clicked.connect(self.editarCita)
         self.btn_delete.clicked.connect(self.eliminarCita)
+        self.setWindowTitle("Ui_CitasMenu")
+        self.showMaximized()
     def eliminarCita(self):
         try:
             cedula = self.in_busqueda.text()
