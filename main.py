@@ -75,14 +75,16 @@ class IngresoUsuario(QMainWindow):
     def open_menu_principal(self, text_for_menu, id_user):
         menu_principal = MenuPrincipal(id_user)
         menu_principal.lb_nombre.setText(text_for_menu)
-
+        
         # Establecer la ventana en modo de pantalla completa
         menu_principal.showMaximized()
-
+       
         menu_principal.setWindowTitle("Menu Principal")
 
+     
         # Asegúrate de añadir la ventana al widget después de establecerla en modo de pantalla completa
         widget.addWidget(menu_principal)
+       
         widget.setCurrentIndex(widget.currentIndex() + 1)
 
         self.close()
@@ -357,12 +359,12 @@ class EditDoctor(QMainWindow):
                 textForMenu = f"Hola {nombre_usuario}\n¿Qué deseas hacer hoy?"
             menu_principal = MenuPrincipal(self.id_user)
             menu_principal.lb_nombre.setText(textForMenu)
-
+          
             # Establecer la ventana en modo de pantalla completa
             menu_principal.showMaximized()
 
             menu_principal.setWindowTitle("Menu Principal")
-
+            
             # Asegúrate de añadir la ventana al widget después de establecerla en modo de pantalla completa
             widget.addWidget(menu_principal)
             widget.setCurrentIndex(widget.currentIndex() + 1)
@@ -2035,13 +2037,14 @@ class historiaMenu(QMainWindow):
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)
+    app.setApplicationName("Clinica")  # Establecer el nombre de la aplicación
 
     ingreso_usuario = IngresoUsuario()
-    ingreso_usuario.show()
+    ingreso_usuario.showFullScreen()  # Muestra la ventana en pantalla completa
 
     widget = QStackedWidget()
     widget.addWidget(ingreso_usuario)
     widget.setGeometry(ingreso_usuario.geometry())
     widget.show()
 
-    sys.exit(app.exec_())  
+    sys.exit(app.exec_())
