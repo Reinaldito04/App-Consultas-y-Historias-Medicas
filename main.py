@@ -408,8 +408,7 @@ class EditDoctor(QMainWindow):
         eliminarData = DeleteAllData(self.id_user)
         widget.addWidget(eliminarData)
         widget.setCurrentIndex(widget.currentIndex()+1)
-        widget.setFixedHeight(500)
-        widget.setFixedWidth(500)
+        
         self.hide()
         
         # reply = QMessageBox.question(
@@ -448,7 +447,7 @@ class EditDoctor(QMainWindow):
            
             widget.addWidget(passwordview)
             widget.setCurrentIndex(widget.currentIndex()+1)
-
+            
             self.hide()
             
 class DeleteAllData(QMainWindow):
@@ -493,8 +492,7 @@ class DeleteAllData(QMainWindow):
                         registro = Registro()
                         widget.addWidget(registro)
                         widget.setCurrentIndex(widget.currentIndex()+1)
-                        widget.setFixedHeight(578)
-                        widget.setFixedWidth(879) 
+                        
                     else:
                         QMessageBox.information(self,'Error','Las contraseñas no coinciden.')
                 else:
@@ -529,8 +527,7 @@ class DeleteAllData(QMainWindow):
                 doctorView.foto_2.setPixmap(pixmap1)
             widget.addWidget(doctorView)
             widget.setCurrentIndex(widget.currentIndex()+1)
-            widget.setFixedHeight(620)
-            widget.setFixedWidth(800)
+            
             self.hide()
         
 class Ui_CitasMenu(QMainWindow):
@@ -1066,8 +1063,7 @@ class PasswordMenu(QMainWindow):
                 doctorView.foto_2.setPixmap(pixmap1)
             widget.addWidget(doctorView)
             widget.setCurrentIndex(widget.currentIndex()+1)
-            widget.setFixedHeight(620)
-            widget.setFixedWidth(800)
+            
             self.hide()
         
  
