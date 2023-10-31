@@ -23,8 +23,11 @@ class IngresoUsuario(QMainWindow):
         self.setWindowTitle("Login")
         self.btn_login.clicked.connect(self.ingreso)
         self.btn_adduser.clicked.connect(self.ingresoRegistro)
-        self.bt_salir.clicked.connect(QApplication.quit)
+        self.bt_salir.clicked.connect(self.salida)
 
+    def salida(self):
+        QApplication.quit()
+            
     def ingresoRegistro(self):
         registroview = Registro()
         widget.addWidget(registroview)
@@ -1921,6 +1924,7 @@ class historiaMenu(QMainWindow):
             QMessageBox.warning(self,"Error","Introduzca su cedula")
             return
         try:
+
             cedula = self.in_cedula.text()
             nombre = self.in_name.text()
             apellido = self.in_apell.text()
@@ -1940,7 +1944,6 @@ class historiaMenu(QMainWindow):
             cursor = conexion.cursor()
     
         # Actualizar los registros en la base de datos
-            cursor = conexion.cursor()
             cursor.execute("UPDATE Pacientes SET Nombre=?, Apellido=?, Edad=?, Direccion=?, Sexo=? ,Telefono=? ,Mail =? , Context=? WHERE Cedula=?", (nombre, apellido, edad, direccion, valor_sexo, telefono ,mail, cedula , context))
             conexion.commit()
             
