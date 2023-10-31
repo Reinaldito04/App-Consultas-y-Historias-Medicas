@@ -23,8 +23,11 @@ class IngresoUsuario(QMainWindow):
         self.setWindowTitle("Login")
         self.btn_login.clicked.connect(self.ingreso)
         self.btn_adduser.clicked.connect(self.ingresoRegistro)
-        self.bt_salir.clicked.connect(QApplication.quit)
+        self.bt_salir.clicked.connect(self.salida)
 
+    def salida(self):
+        QApplication.quit()
+            
     def ingresoRegistro(self):
         registroview = Registro()
         widget.addWidget(registroview)
@@ -98,7 +101,7 @@ class IngresoUsuario(QMainWindow):
 class Registro(QMainWindow):
     def __init__(self):
         super(Registro, self).__init__()
-        loadUi("interfaces\dogtores.ui", self)
+        loadUi("interfaces/dogtores.ui", self)
         self.btn_agg.clicked.connect(self.registrarUsuario)
         self.btn_clear.clicked.connect(self.clearInputs)
         self.actionLogin.triggered.connect(self.login)
@@ -170,7 +173,7 @@ class Registro(QMainWindow):
             valor_sexo = "Masculino"
         elif self.btn_f.isChecked():
             valor_sexo = "Femenino"
-        conexion = sqlite3.connect('interfaces\database.db')
+        conexion = sqlite3.connect('interfaces/database.db')
         username = self.in_user.text()
         password = self.in_password.text()
         passwordRepeat = self.in_password_2.text()
@@ -267,6 +270,8 @@ class MenuPrincipal(QMainWindow):
         reply = self.showConfirmation("¿Deseas ir al formulario de placas?")
         if reply == QMessageBox.Yes:
             placa_view = Ui_placas(self.id_user)
+            widget.addWidget(placa_view)
+            widget.setCurrentIndex(widget.currentIndex() + 1)
             placa_view.show()
             self.hide()
 
@@ -331,7 +336,7 @@ class EditDoctor(QMainWindow):
     def __init__(self,id_user):
         super(EditDoctor, self).__init__()
         self.id_user = id_user
-        loadUi("interfaces\edicion.ui", self)
+        loadUi("interfaces/edicion.ui", self)
         self.btn_passwordChange.clicked.connect(self.PasswordView)
         self.bt_delete.clicked.connect(self.eliminarInfo)
         self.btn_save.clicked.connect(self.modifyInfo)
@@ -454,7 +459,7 @@ class DeleteAllData(QMainWindow):
     def __init__(self,id_user):
         super(DeleteAllData , self).__init__()
         self.id_user = id_user
-        loadUi("interfaces\eliminarData.ui", self)
+        loadUi("interfaces/eliminarData.ui", self)
         self.bt_back.clicked.connect(self.back)
         self.bt_delete.clicked.connect(self.deleteData)
         
@@ -534,7 +539,7 @@ class Ui_CitasMenu(QMainWindow):
     def __init__(self,id_user):
         super(Ui_CitasMenu, self).__init__()
         self.id_user = id_user
-        loadUi("interfaces\citas(nuevo).ui", self)
+        loadUi("interfaces/citas.ui", self)
         self.actionVolver_al_menu_principal.triggered.connect(self.back)
         self.actionSalir.triggered.connect(self.salir)
         self.btn_buscar.clicked.connect(self.searchdata)
@@ -665,7 +670,7 @@ class Ui_CitasMenu(QMainWindow):
             return  # Salir de la función si no hay cédula
 
         try:
-            conexion = sqlite3.connect('interfaces\database.db')
+            conexion = sqlite3.connect('interfaces/database.db')
             cursor = conexion.cursor()
             cursor.execute("SELECT Cedula,Nombre, Apellido, Fecha_Cita, Hora_Cita  FROM Pacientes WHERE Cedula = ? AND ID_user = ?", (cedula, idUser))
             tabla_cita = cursor.fetchall()
@@ -993,7 +998,7 @@ class PasswordMenu(QMainWindow):
     def __init__(self,id_user ):
         super(PasswordMenu, self).__init__()
         self.id_user = id_user
-        loadUi("interfaces\password.ui", self)
+        loadUi("interfaces/password.ui", self)
         self.bt_salir.clicked.connect(lambda : QApplication.quit())
         self.bt_menu.clicked.connect(self.returnMenu)
         self.bt_passwordChange.clicked.connect(self.cambiarPassword)
@@ -1097,7 +1102,7 @@ class ImagePopup(QDialog):
 class Ui_placas(QMainWindow):
     def __init__(self,id_user):
         super(Ui_placas, self).__init__()
-        loadUi("interfaces\placas(nueva).ui", self)
+        loadUi("interfaces/placas.ui", self)
         self.id_user = id_user
         self.btn_agg.clicked.connect(self.addplacas)
         self.btn_buscar.clicked.connect(self.searchData)
@@ -1221,7 +1226,7 @@ class Ui_placas(QMainWindow):
                 foto3_image.save(buffer3, "PNG")
                 foto3_byte = buffer3.data()
                 buffer3.close()
-                conexion = sqlite3.connect('interfaces\database.db')
+                conexion = sqlite3.connect('interfaces/database.db')
                 cursor = conexion.cursor()
                 cursor.execute("UPDATE Pacientes SET Placa1 = ?, Placa2 = ? ,Placa3 = ? WHERE Cedula = ?",
                             (foto1_byte, foto2_byte, foto3_byte ,cedula ))
@@ -1431,7 +1436,7 @@ class Ui_placas(QMainWindow):
 class historiaMenu(QMainWindow):
     def __init__(self ,id_user):
         super(historiaMenu, self).__init__()
-        loadUi("interfaces\History.ui", self)
+        loadUi("interfaces/History.ui", self)
         self.id_user = id_user
         self.btn_buscar.clicked.connect(self.Searchdata)
         self.btn_agg.clicked.connect(self.AddPacient)
@@ -1919,6 +1924,7 @@ class historiaMenu(QMainWindow):
             QMessageBox.warning(self,"Error","Introduzca su cedula")
             return
         try:
+
             cedula = self.in_cedula.text()
             nombre = self.in_name.text()
             apellido = self.in_apell.text()
@@ -2029,8 +2035,6 @@ class historiaMenu(QMainWindow):
 
             self.close()
        
-            
-
 if __name__ == "__main__":
     app = QApplication(sys.argv)
     app.setApplicationName("Clinica")  # Establecer el nombre de la aplicación
