@@ -15,6 +15,7 @@ import datetime
 from bs4 import BeautifulSoup
 import requests
 from PyQt5.QtCore import Qt
+
 class IngresoUsuario(QMainWindow):
     def __init__(self):
         super(IngresoUsuario , self). __init__()
@@ -23,7 +24,7 @@ class IngresoUsuario(QMainWindow):
         self.btn_adduser.clicked.connect(self.ingresoRegistro)
         self.bt_salir.clicked.connect(lambda : QApplication.quit())
         self.setWindowTitle("IngresoUsuario")
-        self.showMaximized()
+        
         
 
   
@@ -74,9 +75,9 @@ class IngresoUsuario(QMainWindow):
                 id_user = usuario[2]
                 menu_principal = MenuPrincipal(id_user)
                 menu_principal.lb_nombre.setText(textForMenu)
-                self.close()
+               
                 menu_principal.show()
-                print("Inicio de sesión exitoso.")
+                self.close()
                 
             
             else:
@@ -334,11 +335,7 @@ class MenuPrincipal(QMainWindow):
            
             historia.show()
             self.hide()
-            # widget.addWidget(histori)
-            # widget.setCurrentIndex(widget.currentIndex()+1)
-            # widget.setFixedHeight(620)
-            # widget.setFixedWidth(800)
-            # self.hide()+
+            
          
 
         
@@ -2023,17 +2020,13 @@ class historiaMenu(QMainWindow):
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)
+
     ingreso_usuario = IngresoUsuario()
+    ingreso_usuario.show()
 
     widget = QStackedWidget()
     widget.addWidget(ingreso_usuario)
-
-    # Ajustar el tamaño del QStackedWidget para que coincida con la ventana maximizada
     widget.setGeometry(ingreso_usuario.geometry())
-
     widget.show()
 
-    try:
-        sys.exit(app.exec_())
-    except SystemExit:
-        print("Saliendo")
+    sys.exit(app.exec_())  
