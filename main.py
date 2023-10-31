@@ -18,75 +18,79 @@ from PyQt5.QtCore import Qt
 
 class IngresoUsuario(QMainWindow):
     def __init__(self):
-        super(IngresoUsuario , self). __init__()
+        super(IngresoUsuario, self).__init__()
         loadUi("./interfaces/loggin.ui", self)
+        self.setWindowTitle("Login")
         self.btn_login.clicked.connect(self.ingreso)
         self.btn_adduser.clicked.connect(self.ingresoRegistro)
-        self.bt_salir.clicked.connect(lambda : QApplication.quit())
-        self.setWindowTitle("IngresoUsuario")
-        
-        
+        self.bt_salir.clicked.connect(QApplication.quit)
 
-  
-        
     def ingresoRegistro(self):
-            registroview =Registro()
-            widget.addWidget(registroview)
-            widget.setCurrentIndex(widget.currentIndex()+1)
-            registroview.show()
-            self.hide()
-        
+        registroview = Registro()
+        widget.addWidget(registroview)
+        widget.setCurrentIndex(widget.currentIndex() + 1)
+        registroview.show()
+        self.hide()
+
     def cifrar_contrasenia(self, contrasenia):
         # Cifrar la contraseña usando un algoritmo de hash (SHA-256 en este caso)
         cifrado = hashlib.sha256()
         cifrado.update(contrasenia.encode('utf-8'))
         return cifrado.hexdigest()
-    
-    
-         
-    def ingreso(self):
-        nombre = self.txt_username.text()
-        password = self.txt_password.text()
 
-        if not  nombre or not password:
+    def get_greeting_message(self, nombre):
+        hora_actual = datetime.datetime.now().time()
+        if datetime.time(5, 0, 0) <= hora_actual < datetime.time(12, 0, 0):
+            return f"Buenos días {nombre}\n¿Qué deseas hacer hoy?"
+        elif datetime.time(12, 0, 0) <= hora_actual < datetime.time(18, 0, 0):
+            return f"Buenas tardes {nombre}\n¿Qué deseas hacer hoy?"
+        elif datetime.time(18, 0, 0) <= hora_actual or hora_actual < datetime.time(5, 0, 0):
+            return f"Buenas noches {nombre}\n¿Qué deseas hacer hoy?"
+        else:
+            return f"Hola {nombre}\n¿Qué deseas hacer hoy?"
+
+    def authenticate_user(self, username, password):
+        if not username or not password:
             QMessageBox.warning(self, "Error", "Por favor ingrese usuario y contraseña.")
             return
+
         conexion = sqlite3.connect('interfaces/database.db')
         cursor = conexion.cursor()
-        cursor.execute("SELECT * FROM Users WHERE Username = ?", (nombre,))
+        cursor.execute("SELECT * FROM Users WHERE Username = ?", (username,))
         usuario = cursor.fetchone()
+        conexion.close()
 
         if usuario:
             contrasenia_cifrada_ingresada = self.cifrar_contrasenia(password)
             contrasenia_cifrada_almacenada = usuario[1]  # Suponiendo que el hash se almacena en el segundo campo de la tabla
-            if contrasenia_cifrada_ingresada == contrasenia_cifrada_almacenada:         
-                horaActual = datetime.datetime.now().time()
-            
-                if datetime.time(5, 0, 0) <= horaActual < datetime.time(12, 0, 0):
-                    textForMenu = f"Buenos días {nombre}\n¿Qué deseas hacer hoy?"
-                elif datetime.time(12, 0, 0) <= horaActual < datetime.time(18, 0, 0):
-                    textForMenu = f"Buenas tardes {nombre}\n¿Qué deseas hacer hoy?"
-                elif datetime.time(18, 0, 0) <= horaActual or horaActual < datetime.time(5, 0, 0):
-                    textForMenu = f"Buenas noches {nombre}\n¿Qué deseas hacer hoy?"
-                else:
-                    textForMenu = f"Hola {nombre}\n¿Qué deseas hacer hoy?"
-                    
-               
+            if contrasenia_cifrada_ingresada == contrasenia_cifrada_almacenada:
+                text_for_menu = self.get_greeting_message(username)
                 id_user = usuario[2]
-                menu_principal = MenuPrincipal(id_user)
-                menu_principal.lb_nombre.setText(textForMenu)
-               
-                menu_principal.show()
-                self.close()
-                
-            
+                self.open_menu_principal(text_for_menu, id_user)
             else:
-          
-                 QMessageBox.warning(self, "Error", "Contraseña Incorrecta.")
+                QMessageBox.warning(self, "Error", "Contraseña Incorrecta.")
         else:
-             QMessageBox.warning(self, "Error", "Nombre de usuario no encontrado.")
-    
-        conexion.close()
+            QMessageBox.warning(self, "Error", "Nombre de usuario no encontrado.")
+
+    def open_menu_principal(self, text_for_menu, id_user):
+        menu_principal = MenuPrincipal(id_user)
+        menu_principal.lb_nombre.setText(text_for_menu)
+
+        # Establecer la ventana en modo de pantalla completa
+        menu_principal.showMaximized()
+
+        menu_principal.setWindowTitle("Menu Principal")
+
+        # Asegúrate de añadir la ventana al widget después de establecerla en modo de pantalla completa
+        widget.addWidget(menu_principal)
+        widget.setCurrentIndex(widget.currentIndex() + 1)
+
+        self.close()
+
+    def ingreso(self):
+        nombre = self.txt_username.text()
+        password = self.txt_password.text()
+        self.authenticate_user(nombre, password)
     
    
 class Registro(QMainWindow):
@@ -237,119 +241,90 @@ class Registro(QMainWindow):
         
 
 class MenuPrincipal(QMainWindow):
-    def __init__(self , id_user):
-        super(MenuPrincipal , self). __init__()
+    def __init__(self, id_user):
+        super(MenuPrincipal, self).__init__()
         loadUi("./interfaces/menu.ui", self)
+
+        self.id_user = id_user
+        self.setWindowTitle("MenuPrincipal")
+        self.showMaximized()
+        
+        self.setupUi()
+    
+    def setupUi(self):
         self.frame_opciones.hide()
-        self.id_user  = id_user
         self.bt_info.clicked.connect(self.informacionView)
         self.bt_menu.clicked.connect(self.toggle_sidebar)
         self.bt_salir.clicked.connect(self.close)
         self.bt_home.clicked.connect(lambda: self.tabWidget.setCurrentWidget(self.principal_tab))
         self.bt_registro.clicked.connect(self.Historyviews)
-        self.bt_paciente.clicked.connect(self.PlacasView )
+        self.bt_paciente.clicked.connect(self.PlacasView)
         self.bt_citas.clicked.connect(self.CitasView)
-        self.setWindowTitle("MenuPrincipal")
-        self.showMaximized()
     
     def PlacasView(self):
-        reply = QMessageBox.question(
-            self,
-            'Confirmación',
-            '¿Deseas ir al formulario de placas?',
-            QMessageBox.Yes | QMessageBox.No,
-            QMessageBox.Yes
-        )
-        if reply ==QMessageBox.Yes:
-            placa_view = Ui_placas(self.id_user) 
+        reply = self.showConfirmation("¿Deseas ir al formulario de placas?")
+        if reply == QMessageBox.Yes:
+            placa_view = Ui_placas(self.id_user)
             placa_view.show()
-        
             self.hide()
-    
-            
+
     def CitasView(self):
-        reply = QMessageBox.question(
-            self,
-            'Confirmación',
-            '¿Deseas ir al formulario de citas?',
-            QMessageBox.Yes | QMessageBox.No,
-            QMessageBox.Yes
-        )
-        if reply ==QMessageBox.Yes:
-            citas =Ui_CitasMenu(self.id_user)
+        reply = self.showConfirmation("¿Deseas ir al formulario de citas?")
+        if reply == QMessageBox.Yes:
+            citas = Ui_CitasMenu(self.id_user)
             widget.addWidget(citas)
-            widget.setCurrentIndex(widget.currentIndex()+1)
+            widget.setCurrentIndex(widget.currentIndex() + 1)
             citas.show()
             self.hide()
-            
+
     def informacionView(self):
-        reply = QMessageBox.question(
-            self,
-            'Confirmación',
-            '¿Deseas ir al formulario de cambiar data?',
-            QMessageBox.Yes | QMessageBox.No,
-            QMessageBox.Yes
-        )
-        if reply ==QMessageBox.Yes:
+        reply = self.showConfirmation("¿Deseas ir al formulario de cambiar data?")
+        if reply == QMessageBox.Yes:
             doctorView = EditDoctor(self.id_user)
             conexion = sqlite3.connect('interfaces/database.db')
             cursor = conexion.cursor()
-            cursor.execute("SELECT Cedula,Especialidad,Nombres,Apellidos,Sexo,Edad,Direccion,Telefono,Mail , Imagen FROM Users WHERE ID = ?", (self.id_user,))
+            cursor.execute("SELECT Cedula, Especialidad, Nombres, Apellidos, Sexo, Edad, Direccion, Telefono, Mail, Imagen FROM Users WHERE ID = ?", (self.id_user,))
             resultado = cursor.fetchone()
-            if resultado :
-                doctorView.in_cedula_2.setText(resultado[0])
-                doctorView.in_espec_2.setText(resultado[1])
-                doctorView.in_name_2.setText(resultado[2])
-                doctorView.in_apell_2.setText(resultado[3])
-                doctorView.in_age_2.setText(resultado[5])
-                doctorView.in_dir_2.setText(resultado[6])
-                doctorView.in_number_2.setText(resultado[7])
-                doctorView.in_mail_2.setText(resultado[8])
-                sexo = resultado[4]
-                if sexo == "Masculino":
-                    doctorView.btn_m_2.setChecked(True)
-                if sexo == "Femenino":
-                    doctorView.btn_f_2.setChecked(True)
-                pixmap1 = QPixmap()
-                pixmap1.loadFromData(resultado[9])
-                doctorView.foto_2.setPixmap(pixmap1)
-            widget.addWidget(doctorView)
-            widget.setCurrentIndex(widget.currentIndex()+1)
-           
-            self.hide()
-        
-        
-         
+            if resultado:
+                self.populateDoctorView(doctorView, resultado)
+                widget.addWidget(doctorView)
+                widget.setCurrentIndex(widget.currentIndex() + 1)
+                self.hide()
+
+    def populateDoctorView(self, doctorView, data):
+        doctorView.in_cedula_2.setText(data[0])
+        doctorView.in_espec_2.setText(data[1])
+        doctorView.in_name_2.setText(data[2])
+        doctorView.in_apell_2.setText(data[3])
+        doctorView.in_age_2.setText(data[5])
+        doctorView.in_dir_2.setText(data[6])
+        doctorView.in_number_2.setText(data[7])
+        doctorView.in_mail_2.setText(data[8])
+        if data[4] == "Masculino":
+            doctorView.btn_m_2.setChecked(True)
+        elif data[4] == "Femenino":
+            doctorView.btn_f_2.setChecked(True)
+        pixmap1 = QPixmap()
+        pixmap1.loadFromData(data[9])
+        doctorView.foto_2.setPixmap(pixmap1)
+
     def Historyviews(self):
-        reply = QMessageBox.question(
-            self,
-            'Confirmación',
-            '¿Desea ir al formulario de registro de pacientes?',
-            QMessageBox.Yes | QMessageBox.No,
-            QMessageBox.Yes
-        )
+        reply = self.showConfirmation("¿Desea ir al formulario de registro de pacientes?")
         if reply == QMessageBox.Yes:
             historia = historiaMenu(self.id_user)
             widget.addWidget(historia)
-            widget.setCurrentIndex(widget.currentIndex()+1)
-           
+            widget.setCurrentIndex(widget.currentIndex() + 1)
             historia.show()
             self.hide()
-            
-         
 
-        
+    def showConfirmation(self, message):
+        return QMessageBox.question(self, 'Confirmación', message, QMessageBox.Yes | QMessageBox.No, QMessageBox.Yes)
 
-        
     def toggle_sidebar(self):
-        if self.frame_opciones.isHidden():
-            self.frame_opciones.show()
-        else:
-            self.frame_opciones.hide()
-   
+        self.frame_opciones.setHidden(not self.frame_opciones.isHidden())
+
     def close(self):
-       QApplication.quit()
-       
+        QApplication.quit()
 class EditDoctor(QMainWindow):
     def __init__(self,id_user):
         super(EditDoctor, self).__init__()
@@ -358,11 +333,11 @@ class EditDoctor(QMainWindow):
         self.btn_passwordChange.clicked.connect(self.PasswordView)
         self.bt_delete.clicked.connect(self.eliminarInfo)
         self.btn_save.clicked.connect(self.modifyInfo)
-        self.btn_back.clicked.connect(self.backMenu)
+        self.btn_back.clicked.connect(self.back_menu)
 
      
-    def backMenu(self):   
-        menu_principal = MenuPrincipal(self.id_user)
+    def back_menu(self):
+        
         conexion = sqlite3.connect('interfaces/database.db')
         cursor= conexion.cursor()
         cursor.execute("SELECT Username FROM Users WHERE ID = ?", (self.id_user,))
@@ -380,9 +355,19 @@ class EditDoctor(QMainWindow):
                 textForMenu = f"Buenas noches {nombre_usuario}\n¿Qué deseas hacer hoy?"
             else:
                 textForMenu = f"Hola {nombre_usuario}\n¿Qué deseas hacer hoy?"
+            menu_principal = MenuPrincipal(self.id_user)
             menu_principal.lb_nombre.setText(textForMenu)
-            menu_principal.show()
-            self.hide()
+
+            # Establecer la ventana en modo de pantalla completa
+            menu_principal.showMaximized()
+
+            menu_principal.setWindowTitle("Menu Principal")
+
+            # Asegúrate de añadir la ventana al widget después de establecerla en modo de pantalla completa
+            widget.addWidget(menu_principal)
+            widget.setCurrentIndex(widget.currentIndex() + 1)
+
+            self.close()
     def modifyInfo(self):
         reply = QMessageBox.question(
             self,
@@ -728,7 +713,7 @@ class Ui_CitasMenu(QMainWindow):
 
 
     def back(self):
-        menu_principal = MenuPrincipal(self.id_user)
+        
         conexion = sqlite3.connect('interfaces/database.db')
         cursor= conexion.cursor()
         cursor.execute("SELECT Username FROM Users WHERE ID = ?", (self.id_user,))
@@ -746,9 +731,19 @@ class Ui_CitasMenu(QMainWindow):
                 textForMenu = f"Buenas noches {nombre_usuario}\n¿Qué deseas hacer hoy?"
             else:
                 textForMenu = f"Hola {nombre_usuario}\n¿Qué deseas hacer hoy?"
+            menu_principal = MenuPrincipal(self.id_user)
             menu_principal.lb_nombre.setText(textForMenu)
+
+            # Establecer la ventana en modo de pantalla completa
+            menu_principal.showMaximized()
+
+            menu_principal.setWindowTitle("Menu Principal")
+
+            # Asegúrate de añadir la ventana al widget después de establecerla en modo de pantalla completa
+            widget.addWidget(menu_principal)
+            widget.setCurrentIndex(widget.currentIndex() + 1)
+
             self.close()
-            menu_principal.show()
             
     def salir(self):
         QApplication.quit()
@@ -1125,7 +1120,7 @@ class Ui_placas(QMainWindow):
         self.img5.mousePressEvent = lambda event: self.show_image_popup(self.img5.pixmap())
         self.img6.mousePressEvent = lambda event: self.show_image_popup(self.img6.pixmap())
     def back_menu(self):
-        menu_principal = MenuPrincipal(self.id_user)
+        
         conexion = sqlite3.connect('interfaces/database.db')
         cursor= conexion.cursor()
         cursor.execute("SELECT Username FROM Users WHERE ID = ?", (self.id_user,))
@@ -1143,9 +1138,19 @@ class Ui_placas(QMainWindow):
                 textForMenu = f"Buenas noches {nombre_usuario}\n¿Qué deseas hacer hoy?"
             else:
                 textForMenu = f"Hola {nombre_usuario}\n¿Qué deseas hacer hoy?"
+            menu_principal = MenuPrincipal(self.id_user)
             menu_principal.lb_nombre.setText(textForMenu)
-            menu_principal.show()
-            self.hide()
+
+            # Establecer la ventana en modo de pantalla completa
+            menu_principal.showMaximized()
+
+            menu_principal.setWindowTitle("Menu Principal")
+
+            # Asegúrate de añadir la ventana al widget después de establecerla en modo de pantalla completa
+            widget.addWidget(menu_principal)
+            widget.setCurrentIndex(widget.currentIndex() + 1)
+
+            self.close()
 
     def show_image_popup(self, pixmap):
         if pixmap:
@@ -1994,7 +1999,7 @@ class historiaMenu(QMainWindow):
         
         
     def back_menu(self):
-        menu_principal = MenuPrincipal(self.id_user)
+        
         conexion = sqlite3.connect('interfaces/database.db')
         cursor= conexion.cursor()
         cursor.execute("SELECT Username FROM Users WHERE ID = ?", (self.id_user,))
@@ -2012,9 +2017,19 @@ class historiaMenu(QMainWindow):
                 textForMenu = f"Buenas noches {nombre_usuario}\n¿Qué deseas hacer hoy?"
             else:
                 textForMenu = f"Hola {nombre_usuario}\n¿Qué deseas hacer hoy?"
+            menu_principal = MenuPrincipal(self.id_user)
             menu_principal.lb_nombre.setText(textForMenu)
-            menu_principal.show()
-            self.hide()
+
+            # Establecer la ventana en modo de pantalla completa
+            menu_principal.showMaximized()
+
+            menu_principal.setWindowTitle("Menu Principal")
+
+            # Asegúrate de añadir la ventana al widget después de establecerla en modo de pantalla completa
+            widget.addWidget(menu_principal)
+            widget.setCurrentIndex(widget.currentIndex() + 1)
+
+            self.close()
        
             
 
