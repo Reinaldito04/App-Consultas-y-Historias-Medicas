@@ -1944,12 +1944,13 @@ class historiaMenu(QMainWindow):
             cursor = conexion.cursor()
     
         # Actualizar los registros en la base de datos
-            cursor.execute("UPDATE Pacientes SET Nombre=?, Apellido=?, Edad=?, Direccion=?, Sexo=? ,Telefono=? ,Mail =? , Context=? WHERE Cedula=?", (nombre, apellido, edad, direccion, valor_sexo, telefono ,mail, cedula , context))
+            cursor.execute("UPDATE Pacientes SET Nombre=?, Apellido=?, Edad=?, Direccion=?, Sexo=? ,Telefono=? ,Mail =? , Context=? WHERE Cedula=?", (nombre, apellido, edad, direccion, valor_sexo, telefono ,mail,  context, cedula))
             conexion.commit()
             
             QMessageBox.information(self, "Información", "Los datos se actualizaron correctamente")
-
+           
             conexion.close()
+            self.Searchdata()
         except sqlite3.Error as e:
             QMessageBox.critical(self, "Error", "Error al actualizar los datos en la base de datos: " + str(e))
     def searchDataForDelete(self):
