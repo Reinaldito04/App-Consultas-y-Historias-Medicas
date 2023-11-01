@@ -443,7 +443,7 @@ background-color:rgb(145, 200, 228);
                  </property>
                  <property name="icon">
                   <iconset>
-                   <normaloff>ELEMENTOS GRAFICOS/medical.png</normaloff>ELEMENTOS GRAFICOS/medical.png</iconset>
+                   <normaloff>ELEMENTOS GRAFICOS/radiografia.png</normaloff>ELEMENTOS GRAFICOS/radiografia.png</iconset>
                  </property>
                  <property name="iconSize">
                   <size>
@@ -501,7 +501,7 @@ background-color:rgb(145, 200, 228);
                  </property>
                  <property name="icon">
                   <iconset>
-                   <normaloff>ELEMENTOS GRAFICOS/work-history.png</normaloff>ELEMENTOS GRAFICOS/work-history.png</iconset>
+                   <normaloff>ELEMENTOS GRAFICOS/cita-dental.png</normaloff>ELEMENTOS GRAFICOS/cita-dental.png</iconset>
                  </property>
                  <property name="iconSize">
                   <size>
