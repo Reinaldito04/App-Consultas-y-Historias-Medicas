@@ -120,7 +120,8 @@ class Registro(QMainWindow):
             self.foto.setPixmap(pixmap1)
             
         else:
-            QMessageBox.information(self,"Imagenes","Por favor,Selecciona una imagen")      
+            QMessageBox.information(self,"Imagenes","Por favor,Selecciona una imagen")   
+               
     def clearInputs(self):
         self.in_cedula.clear()
         self.in_name.clear()
