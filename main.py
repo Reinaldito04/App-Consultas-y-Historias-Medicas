@@ -26,7 +26,15 @@ class IngresoUsuario(QMainWindow):
         self.bt_salir.clicked.connect(self.salida)
 
     def salida(self):
-        QApplication.quit()
+        reply = QMessageBox.question(
+            self,
+            'Confirmación',
+            '¿Desea Salir?',
+            QMessageBox.Yes | QMessageBox.No,
+            QMessageBox.Yes
+        )
+        if reply == QMessageBox.Yes:
+            QApplication.quit()
             
     def ingresoRegistro(self):
         registroview = Registro()
@@ -108,7 +116,6 @@ class Registro(QMainWindow):
         self.actionSalir.triggered.connect(self.close)
         self.bt_photo.clicked.connect(self.addPhoto)
         
-    
     def login(self):
         ingreso_usuario.show()
         self.hide()
@@ -191,8 +198,6 @@ class Registro(QMainWindow):
             QMessageBox.warning(self,"Advertencia","Debes importar una imagen antes de guardar")
             return
         else :
-        
-           
            
             if len(username) < 6:
                 QMessageBox.critical(self, "Error", "El nombre de usuario debe tener minimo 6 caracteres.")
@@ -237,14 +242,17 @@ class Registro(QMainWindow):
         else:
             QMessageBox.warning(self, "Error", "Las contraseñas no coinciden")
             self.clearInputs()
-       
-
-        
-        
-        
+            
     def close(self):
-       QApplication.quit()
-        
+        reply = QMessageBox.question(
+            self,
+            'Confirmación',
+            '¿Desea Salir?',
+            QMessageBox.Yes | QMessageBox.No,
+            QMessageBox.Yes
+        )
+        if reply == QMessageBox.Yes:
+            QApplication.quit()
 
 class MenuPrincipal(QMainWindow):
     def __init__(self, id_user):
@@ -332,7 +340,16 @@ class MenuPrincipal(QMainWindow):
         self.frame_opciones.setHidden(not self.frame_opciones.isHidden())
 
     def close(self):
-        QApplication.quit()
+        reply = QMessageBox.question(
+            self,
+            'Confirmación',
+            '¿Desea Salir?',
+            QMessageBox.Yes | QMessageBox.No,
+            QMessageBox.Yes
+        )
+        if reply == QMessageBox.Yes:
+            QApplication.quit()
+            
 class EditDoctor(QMainWindow):
     def __init__(self,id_user):
         super(EditDoctor, self).__init__()
@@ -385,7 +402,6 @@ class EditDoctor(QMainWindow):
             QMessageBox.Yes
         )
             
-           
         if self.btn_m_2.isChecked():
                sexo = "Masculino"
         if self.btn_f_2.isChecked():
@@ -416,29 +432,6 @@ class EditDoctor(QMainWindow):
         widget.setCurrentIndex(widget.currentIndex()+1)
         
         self.hide()
-        
-        # reply = QMessageBox.question(
-        #     self,
-        #     'Confirmación',
-        #     '¿Deseas eliminar toda tu informacion?\n (Pacientes y datos de acceso)',
-        #     QMessageBox.Yes | QMessageBox.No,
-        #     QMessageBox.Yes
-        # )
-        # if reply == QMessageBox.Yes:
-        #     conexion = sqlite3.connect('interfaces/database.db')
-        #     cursor = conexion.cursor()
-        #     cursor.execute('BEGIN TRANSACTION;')
-        #     cursor.execute("DELETE FROM Users WHERE ID =?",(self.id_user,))
-        #     cursor.execute('DELETE FROM Pacientes WHERE ID_user = ?', (self.id_user,))
-        #     conexion.commit()
-        #     QMessageBox.information(self,"Finalizado","Tus datos han sido borrados exitosamente")
-        #     conexion.close()
-        #     registro = Registro()
-        #     widget.addWidget(registro)
-        #     widget.setCurrentIndex(widget.currentIndex()+1)
-        #     widget.setFixedHeight(578)
-        #     widget.setFixedWidth(879)
-     
             
     def PasswordView(self):
         reply = QMessageBox.question(
@@ -715,8 +708,6 @@ class Ui_CitasMenu(QMainWindow):
         finally:
             conexion.close()
 
-
-
     def back(self):
         
         conexion = sqlite3.connect('interfaces/database.db')
@@ -751,7 +742,15 @@ class Ui_CitasMenu(QMainWindow):
             self.close()
             
     def salir(self):
-        QApplication.quit()
+        reply = QMessageBox.question(
+            self,
+            'Confirmación',
+            '¿Desea Salir?',
+            QMessageBox.Yes | QMessageBox.No,
+            QMessageBox.Yes
+        )
+        if reply == QMessageBox.Yes:
+            QApplication.quit()
 #         self.btn_citas.clicked.connect(self.mostrarCitas)
 #         self.btn_agg_cita.clicked.connect(self.mostrarFormularioAgendarCita)
 #         self.btn_borrar.clicked.connect(self.mostrarFormularioEliminarCita)
@@ -1087,7 +1086,7 @@ class ImagePopup(QDialog):
 
         self.setWindowTitle('Vista completa de la imagen')
         self.center()
-        self.setFixedSize(800, 600)
+        self.setFixedSize(800, 800)
         
     def show_image(self, pixmap):
         self.image_label.setPixmap(pixmap)
@@ -1115,8 +1114,6 @@ class Ui_placas(QMainWindow):
         self.showMaximized()
         
         self.btn_buscar_2.clicked.connect(self.buscarDatos)
-        # self.btn_buscar_2.clicked.connect(self.searchAll)
-        # self.btn_buscar_2.clicked.connect(self.searchForDelete)
         self.img1.mousePressEvent = lambda event: self.show_image_popup(self.img1.pixmap())
         self.img2.mousePressEvent = lambda event: self.show_image_popup(self.img2.pixmap())
         self.img3.mousePressEvent = lambda event: self.show_image_popup(self.img3.pixmap())
@@ -1171,7 +1168,15 @@ class Ui_placas(QMainWindow):
         self.setEnabled(True)
             
     def salir(self):
-       QApplication.quit()
+        reply = QMessageBox.question(
+            self,
+            'Confirmación',
+            '¿Desea Salir?',
+            QMessageBox.Yes | QMessageBox.No,
+            QMessageBox.Yes
+        )
+        if reply == QMessageBox.Yes:
+            QApplication.quit()
        
     def clearInputs(self):
         self.in_busqueda.clear()
@@ -1530,13 +1535,6 @@ class historiaMenu(QMainWindow):
             "Corona metal porcelana sobre implante":500,
             "DPR acrilica":120,
         }
-    #     self.btn_back.clicked.connect(self.back_menu)
-    #     self.btn_refresh.clicked.connect(self.cargarDatosPacientes)
-    #     self.btn_registrar.clicked.connect(self.addPacients)
-    #     self.btn_buscar_2.clicked.connect(self.searchDataForDelete)
-    #     self.btn_borrar.clicked.connect(self.DeletaData)
-    #     self.btn_buscar.clicked.connect(self.SearchDataForUpdate)
-    #     self.btn_act.clicked.connect(self.UpdateData)
     
     def actualizar_fecha_hora_diagnostico(self):
         # Solo actualiza los campos de fecha y hora si no se han actualizado previamente
@@ -1593,8 +1591,6 @@ class historiaMenu(QMainWindow):
         seleccion_t1 = self.t1.currentText()
 
         # Define un diccionario para asignar los valores de monto a cada selección
-       
-
         if seleccion_t1 in self.valores_monto:
             monto = self.valores_monto[seleccion_t1]
             bolivares, operacion = self.calcularDivisa(monto)  # Captura los valores retornados
@@ -1606,8 +1602,6 @@ class historiaMenu(QMainWindow):
         seleccion_t1 = self.t2.currentText()
 
         # Define un diccionario para asignar los valores de monto a cada selección
-       
-
         if seleccion_t1 in self.valores_monto:
             monto = self.valores_monto[seleccion_t1]
             bolivares, operacion = self.calcularDivisa(monto)  # Captura los valores retornados
@@ -1619,8 +1613,6 @@ class historiaMenu(QMainWindow):
         seleccion_t1 = self.t3.currentText()
 
         # Define un diccionario para asignar los valores de monto a cada selección
-       
-
         if seleccion_t1 in self.valores_monto:
             monto = self.valores_monto[seleccion_t1]
             bolivares, operacion = self.calcularDivisa(monto)  # Captura los valores retornados
@@ -1656,8 +1648,7 @@ class historiaMenu(QMainWindow):
         # Formatea el número con dos decimales
         totalBs_formateado = f'{totalBs:.2f}'
         totalUsd_formateado = f'{totalUsd:.2f}'
-        
-
+    
         # Asigna el valor formateado al QLineEdit
         self.totalBs.setText(totalBs_formateado)
         self.totaldola.setText(totalUsd_formateado)
@@ -1725,8 +1716,18 @@ class historiaMenu(QMainWindow):
         self.btn_no_3.setChecked(False)
         self.btn_no.setChecked(False)
         self.ln_alergias.clear()
+        
     def salir(self):
-        QApplication.quit()
+        reply = QMessageBox.question(
+            self,
+            'Confirmación',
+            '¿Desea Salir?',
+            QMessageBox.Yes | QMessageBox.No,
+            QMessageBox.Yes
+        )
+        if reply == QMessageBox.Yes:
+            QApplication.quit()
+
     def addInformation(self):
         hipertenso = None
         diabetes = None
@@ -1767,7 +1768,6 @@ class historiaMenu(QMainWindow):
             conexion.commit()
             QMessageBox.information(self, "Éxito", "Informacion registrada correctamente.")
 
-          
             # Cierra la conexión con la base de datos
             conexion.close()
     
