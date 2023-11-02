@@ -24,6 +24,8 @@ class IngresoUsuario(QMainWindow):
         self.btn_login.clicked.connect(self.ingreso)
         self.btn_adduser.clicked.connect(self.ingresoRegistro)
         self.bt_salir.clicked.connect(self.salida)
+        
+        
 
     def salida(self):
         reply = QMessageBox.question(
@@ -1086,7 +1088,7 @@ class ImagePopup(QDialog):
 
         self.setWindowTitle('Vista completa de la imagen')
         self.center()
-        self.setFixedSize(800, 800)
+        self.setFixedSize(600, 600)
         
     def show_image(self, pixmap):
         self.image_label.setPixmap(pixmap)
