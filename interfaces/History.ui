@@ -3407,16 +3407,30 @@ QPushButton:hover{
      <x>0</x>
      <y>0</y>
      <width>1107</width>
-     <height>21</height>
+     <height>22</height>
     </rect>
    </property>
+   <property name="font">
+    <font>
+     <family>Microsoft Sans Serif</family>
+     <pointsize>10</pointsize>
+    </font>
+   </property>
    <widget class="QMenu" name="menuVolver_al_menu_principal">
+    <property name="font">
+     <font>
+      <pointsize>10</pointsize>
+     </font>
+    </property>
     <property name="title">
      <string>Menu principal</string>
     </property>
     <addaction name="actionVolver_al_menu_principal"/>
+    <addaction name="separator"/>
     <addaction name="actionAgendar_citas"/>
+    <addaction name="separator"/>
     <addaction name="actionImportar_Placas"/>
+    <addaction name="separator"/>
     <addaction name="actionSalir"/>
    </widget>
    <addaction name="menuVolver_al_menu_principal"/>
@@ -3425,10 +3439,28 @@ QPushButton:hover{
    <property name="text">
     <string>Volver al menu principal</string>
    </property>
+   <property name="font">
+    <font>
+     <family>Microsoft Sans Serif</family>
+     <pointsize>10</pointsize>
+    </font>
+   </property>
+   <property name="iconVisibleInMenu">
+    <bool>true</bool>
+   </property>
   </action>
   <action name="actionAgendar_citas">
    <property name="text">
     <string>Agendar citas</string>
+   </property>
+   <property name="font">
+    <font>
+     <family>Microsoft Sans Serif</family>
+     <pointsize>10</pointsize>
+    </font>
+   </property>
+   <property name="shortcutContext">
+    <enum>Qt::WindowShortcut</enum>
    </property>
   </action>
   <action name="actionImportar_Placas">

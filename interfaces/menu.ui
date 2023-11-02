@@ -40,12 +40,12 @@ background-color:rgb(70, 130, 169);
 QTableWidget{
 color:rgb(0,0,0);
 gridline-color:rgb(0,206,151);
-font-size:12pt;
+	font: 75 12pt &quot;MS Shell Dlg 2&quot;;
 }
 QHeaderView::section{
 background-color:rgb(0,206,151);
 border:1px solid rgb(0,0,0);
-font-size:12pt;
+	font: 75 12pt &quot;MS Shell Dlg 2&quot;;
 }
 QTbaleWidget QTableCornerButton::section{
 background-color:rgb(0,0,0);
@@ -120,8 +120,8 @@ background-color:rgb(145, 200, 228);
               </property>
               <property name="iconSize">
                <size>
-                <width>38</width>
-                <height>38</height>
+                <width>45</width>
+                <height>45</height>
                </size>
               </property>
              </widget>
@@ -191,7 +191,7 @@ background-color:rgb(145, 200, 228);
               </property>
               <property name="iconSize">
                <size>
-                <width>38</width>
+                <width>45</width>
                 <height>38</height>
                </size>
               </property>
@@ -226,7 +226,7 @@ background-color:rgb(145, 200, 228);
               </property>
               <property name="iconSize">
                <size>
-                <width>38</width>
+                <width>45</width>
                 <height>38</height>
                </size>
               </property>
@@ -265,9 +265,6 @@ background-color:rgb(145, 200, 228);
 background-color:rgb(246, 244, 235);
 border-radius:25px;
 }
-QLabel{
-	font: 12pt &quot;MS Reference Sans Serif&quot;;
-}
 </string>
             </property>
             <property name="frameShape">
@@ -294,6 +291,15 @@ QLabel{
                </item>
                <item>
                 <widget class="QLabel" name="label">
+                 <property name="font">
+                  <font>
+                   <family>Verdana</family>
+                   <pointsize>10</pointsize>
+                   <weight>75</weight>
+                   <italic>false</italic>
+                   <bold>true</bold>
+                  </font>
+                 </property>
                  <property name="text">
                   <string>Home</string>
                  </property>
@@ -330,8 +336,8 @@ background-color:rgb(145, 200, 228);
                  </property>
                  <property name="iconSize">
                   <size>
-                   <width>38</width>
-                   <height>38</height>
+                   <width>45</width>
+                   <height>45</height>
                   </size>
                  </property>
                 </widget>
@@ -351,6 +357,15 @@ background-color:rgb(145, 200, 228);
                </item>
                <item>
                 <widget class="QLabel" name="label_6">
+                 <property name="font">
+                  <font>
+                   <family>Verdana</family>
+                   <pointsize>10</pointsize>
+                   <weight>75</weight>
+                   <italic>false</italic>
+                   <bold>true</bold>
+                  </font>
+                 </property>
                  <property name="text">
                   <string>Registro de pacientes</string>
                  </property>
@@ -384,12 +399,12 @@ background-color:rgb(145, 200, 228);
                  </property>
                  <property name="icon">
                   <iconset>
-                   <normaloff>ELEMENTOS GRAFICOS/doctor-48-regular.png</normaloff>ELEMENTOS GRAFICOS/doctor-48-regular.png</iconset>
+                   <normaloff>ELEMENTOS GRAFICOS/registro-dental.png</normaloff>ELEMENTOS GRAFICOS/registro-dental.png</iconset>
                  </property>
                  <property name="iconSize">
                   <size>
-                   <width>38</width>
-                   <height>38</height>
+                   <width>45</width>
+                   <height>45</height>
                   </size>
                  </property>
                 </widget>
@@ -409,6 +424,15 @@ background-color:rgb(145, 200, 228);
                </item>
                <item>
                 <widget class="QLabel" name="label_7">
+                 <property name="font">
+                  <font>
+                   <family>Verdana</family>
+                   <pointsize>10</pointsize>
+                   <weight>75</weight>
+                   <italic>false</italic>
+                   <bold>true</bold>
+                  </font>
+                 </property>
                  <property name="text">
                   <string>Placas dentales</string>
                  </property>
@@ -447,8 +471,8 @@ background-color:rgb(145, 200, 228);
                  </property>
                  <property name="iconSize">
                   <size>
-                   <width>38</width>
-                   <height>38</height>
+                   <width>45</width>
+                   <height>45</height>
                   </size>
                  </property>
                 </widget>
@@ -468,6 +492,15 @@ background-color:rgb(145, 200, 228);
                </item>
                <item>
                 <widget class="QLabel" name="label_8">
+                 <property name="font">
+                  <font>
+                   <family>Verdana</family>
+                   <pointsize>10</pointsize>
+                   <weight>75</weight>
+                   <italic>false</italic>
+                   <bold>true</bold>
+                  </font>
+                 </property>
                  <property name="text">
                   <string>Agendar citas</string>
                  </property>
@@ -505,8 +538,8 @@ background-color:rgb(145, 200, 228);
                  </property>
                  <property name="iconSize">
                   <size>
-                   <width>38</width>
-                   <height>38</height>
+                   <width>45</width>
+                   <height>45</height>
                   </size>
                  </property>
                 </widget>
@@ -526,6 +559,15 @@ background-color:rgb(145, 200, 228);
                </item>
                <item>
                 <widget class="QLabel" name="label_9">
+                 <property name="font">
+                  <font>
+                   <family>Verdana</family>
+                   <pointsize>10</pointsize>
+                   <weight>75</weight>
+                   <italic>false</italic>
+                   <bold>true</bold>
+                  </font>
+                 </property>
                  <property name="text">
                   <string>Generar historias</string>
                  </property>
@@ -564,8 +606,8 @@ background-color:rgb(145, 200, 228);
                  </property>
                  <property name="iconSize">
                   <size>
-                   <width>38</width>
-                   <height>38</height>
+                   <width>45</width>
+                   <height>45</height>
                   </size>
                  </property>
                 </widget>
@@ -625,6 +667,15 @@ font: 75 italic 18px &quot;Hack Nerd Font&quot;;
             </item>
             <item>
              <widget class="QTabWidget" name="tabWidget">
+              <property name="font">
+               <font>
+                <pointsize>10</pointsize>
+                <weight>75</weight>
+                <italic>false</italic>
+                <bold>true</bold>
+                <underline>true</underline>
+               </font>
+              </property>
               <property name="focusPolicy">
                <enum>Qt::ClickFocus</enum>
               </property>
@@ -635,7 +686,7 @@ font: 75 italic 18px &quot;Hack Nerd Font&quot;;
                <enum>QTabWidget::North</enum>
               </property>
               <property name="currentIndex">
-               <number>1</number>
+               <number>0</number>
               </property>
               <property name="usesScrollButtons">
                <bool>true</bool>
@@ -973,6 +1024,15 @@ QFrame{
                       </property>
                       <item>
                        <widget class="QTableWidget" name="tableWidget">
+                        <property name="font">
+                         <font>
+                          <family>MS Shell Dlg 2</family>
+                          <pointsize>12</pointsize>
+                          <weight>9</weight>
+                          <italic>false</italic>
+                          <bold>false</bold>
+                         </font>
+                        </property>
                         <attribute name="horizontalHeaderDefaultSectionSize">
                          <number>237</number>
                         </attribute>
