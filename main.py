@@ -3,6 +3,7 @@ from PyQt5 import QtCore,QtGui,QtWidgets
 from PyQt5.uic import loadUi
 from PyQt5.QtCore import QDate , QBuffer, QByteArray , QTime
 from PyQt5.QtGui import QImage,QPixmap 
+from PyQt5.QtGui import QIcon
 from PyQt5.QtCore import QIODevice
 from PyQt5.QtWidgets import QFileDialog
 from PyQt5.QtWidgets import QWidget ,QApplication ,QMainWindow,QStackedWidget,QGraphicsDropShadowEffect, QCalendarWidget , QBoxLayout
@@ -2050,5 +2051,6 @@ if __name__ == "__main__":
     widget.addWidget(ingreso_usuario)
     widget.setGeometry(ingreso_usuario.geometry())
     widget.show()
-
+    icon = QIcon("./interfaces/ELEMENTOS GRAFICOS/odontology-outline.png")
+    ingreso_usuario.setWindowIcon(icon)
     sys.exit(app.exec_())
