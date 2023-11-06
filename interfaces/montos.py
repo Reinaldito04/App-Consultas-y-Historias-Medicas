@@ -28,7 +28,7 @@ class Ui_montos(QMainWindow):
         self.actionSalir.triggered.connect(self.salir)
         # self.actionVolver_al_menu_principal.triggered.connect(self.backM)
     def aggMontos(self):
-     print("no")
+     print("si")
        
     def salir(self):
         reply = QMessageBox.question(
