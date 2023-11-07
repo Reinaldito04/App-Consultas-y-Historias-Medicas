@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>846</width>
-    <height>434</height>
+    <width>1046</width>
+    <height>473</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -234,13 +234,13 @@ border:2px solid rgb(0,0,0);
                            <widget class="QLineEdit" name="t_1">
                             <property name="minimumSize">
                              <size>
-                              <width>300</width>
+                              <width>400</width>
                               <height>40</height>
                              </size>
                             </property>
                             <property name="maximumSize">
                              <size>
-                              <width>300</width>
+                              <width>400</width>
                               <height>40</height>
                              </size>
                             </property>
@@ -257,7 +257,7 @@ border:2px solid rgb(0,0,0);
                              <set>Qt::AlignCenter</set>
                             </property>
                             <property name="readOnly">
-                             <bool>false</bool>
+                             <bool>true</bool>
                             </property>
                             <property name="placeholderText">
                              <string>Tratamiento 1</string>
@@ -352,13 +352,13 @@ border:2px solid rgb(0,0,0);
                            <widget class="QLineEdit" name="t_2">
                             <property name="minimumSize">
                              <size>
-                              <width>300</width>
+                              <width>400</width>
                               <height>40</height>
                              </size>
                             </property>
                             <property name="maximumSize">
                              <size>
-                              <width>300</width>
+                              <width>400</width>
                               <height>40</height>
                              </size>
                             </property>
@@ -375,7 +375,7 @@ border:2px solid rgb(0,0,0);
                              <set>Qt::AlignCenter</set>
                             </property>
                             <property name="readOnly">
-                             <bool>false</bool>
+                             <bool>true</bool>
                             </property>
                             <property name="placeholderText">
                              <string>Tratamiento 2</string>
@@ -470,13 +470,13 @@ border:2px solid rgb(0,0,0);
                            <widget class="QLineEdit" name="t_3">
                             <property name="minimumSize">
                              <size>
-                              <width>300</width>
+                              <width>400</width>
                               <height>40</height>
                              </size>
                             </property>
                             <property name="maximumSize">
                              <size>
-                              <width>300</width>
+                              <width>400</width>
                               <height>40</height>
                              </size>
                             </property>
@@ -493,7 +493,7 @@ border:2px solid rgb(0,0,0);
                              <set>Qt::AlignCenter</set>
                             </property>
                             <property name="readOnly">
-                             <bool>false</bool>
+                             <bool>true</bool>
                             </property>
                             <property name="placeholderText">
                              <string>Tratamiento 3</string>
@@ -592,13 +592,13 @@ border:2px solid rgb(0,0,0);
                            <widget class="QLineEdit" name="t_4">
                             <property name="minimumSize">
                              <size>
-                              <width>300</width>
+                              <width>400</width>
                               <height>40</height>
                              </size>
                             </property>
                             <property name="maximumSize">
                              <size>
-                              <width>300</width>
+                              <width>400</width>
                               <height>40</height>
                              </size>
                             </property>
@@ -615,7 +615,7 @@ border:2px solid rgb(0,0,0);
                              <set>Qt::AlignCenter</set>
                             </property>
                             <property name="readOnly">
-                             <bool>false</bool>
+                             <bool>true</bool>
                             </property>
                             <property name="placeholderText">
                              <string>Tratamiento 4</string>
@@ -710,13 +710,13 @@ border:2px solid rgb(0,0,0);
                            <widget class="QLineEdit" name="t_5">
                             <property name="minimumSize">
                              <size>
-                              <width>300</width>
+                              <width>400</width>
                               <height>40</height>
                              </size>
                             </property>
                             <property name="maximumSize">
                              <size>
-                              <width>300</width>
+                              <width>400</width>
                               <height>40</height>
                              </size>
                             </property>
@@ -733,7 +733,7 @@ border:2px solid rgb(0,0,0);
                              <set>Qt::AlignCenter</set>
                             </property>
                             <property name="readOnly">
-                             <bool>false</bool>
+                             <bool>true</bool>
                             </property>
                             <property name="placeholderText">
                              <string>Tratamiento 5</string>
@@ -828,13 +828,13 @@ border:2px solid rgb(0,0,0);
                            <widget class="QLineEdit" name="t_6">
                             <property name="minimumSize">
                              <size>
-                              <width>300</width>
+                              <width>400</width>
                               <height>40</height>
                              </size>
                             </property>
                             <property name="maximumSize">
                              <size>
-                              <width>300</width>
+                              <width>400</width>
                               <height>40</height>
                              </size>
                             </property>
@@ -851,7 +851,7 @@ border:2px solid rgb(0,0,0);
                              <set>Qt::AlignCenter</set>
                             </property>
                             <property name="readOnly">
-                             <bool>false</bool>
+                             <bool>true</bool>
                             </property>
                             <property name="placeholderText">
                              <string>Tratamiento 6</string>
@@ -1154,7 +1154,7 @@ border-top:2px solid rgb(0,0,0);
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>846</width>
+     <width>1046</width>
      <height>21</height>
     </rect>
    </property>
