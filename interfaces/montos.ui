@@ -296,11 +296,14 @@ border:2px solid rgb(0,0,0);
                               <property name="font">
                                <font>
                                 <family>Microsoft Sans Serif</family>
-                                <pointsize>12</pointsize>
+                                <pointsize>-1</pointsize>
                                 <weight>50</weight>
                                 <italic>false</italic>
                                 <bold>false</bold>
                                </font>
+                              </property>
+                              <property name="styleSheet">
+                               <string notr="true">font-size:14px;</string>
                               </property>
                               <property name="maxLength">
                                <number>4</number>
@@ -312,7 +315,7 @@ border:2px solid rgb(0,0,0);
                                <bool>false</bool>
                               </property>
                               <property name="placeholderText">
-                               <string>Igrese el monto en $$$</string>
+                               <string>Ingrese el monto en $$$</string>
                               </property>
                              </widget>
                             </item>
@@ -414,11 +417,14 @@ border:2px solid rgb(0,0,0);
                               <property name="font">
                                <font>
                                 <family>Microsoft Sans Serif</family>
-                                <pointsize>12</pointsize>
+                                <pointsize>-1</pointsize>
                                 <weight>50</weight>
                                 <italic>false</italic>
                                 <bold>false</bold>
                                </font>
+                              </property>
+                              <property name="styleSheet">
+                               <string notr="true">font-size:14px;</string>
                               </property>
                               <property name="maxLength">
                                <number>4</number>
@@ -430,7 +436,7 @@ border:2px solid rgb(0,0,0);
                                <bool>false</bool>
                               </property>
                               <property name="placeholderText">
-                               <string>Igrese el monto en $$$</string>
+                               <string>Ingrese el monto en $$$</string>
                               </property>
                              </widget>
                             </item>
@@ -532,11 +538,14 @@ border:2px solid rgb(0,0,0);
                               <property name="font">
                                <font>
                                 <family>Microsoft Sans Serif</family>
-                                <pointsize>12</pointsize>
+                                <pointsize>-1</pointsize>
                                 <weight>50</weight>
                                 <italic>false</italic>
                                 <bold>false</bold>
                                </font>
+                              </property>
+                              <property name="styleSheet">
+                               <string notr="true">font-size:14px;</string>
                               </property>
                               <property name="maxLength">
                                <number>4</number>
@@ -548,7 +557,7 @@ border:2px solid rgb(0,0,0);
                                <bool>false</bool>
                               </property>
                               <property name="placeholderText">
-                               <string>Igrese el monto en $$$</string>
+                               <string>Ingrese el monto en $$$</string>
                               </property>
                              </widget>
                             </item>
@@ -654,11 +663,14 @@ border:2px solid rgb(0,0,0);
                               <property name="font">
                                <font>
                                 <family>Microsoft Sans Serif</family>
-                                <pointsize>12</pointsize>
+                                <pointsize>-1</pointsize>
                                 <weight>50</weight>
                                 <italic>false</italic>
                                 <bold>false</bold>
                                </font>
+                              </property>
+                              <property name="styleSheet">
+                               <string notr="true">font-size:14px;</string>
                               </property>
                               <property name="maxLength">
                                <number>4</number>
@@ -670,7 +682,7 @@ border:2px solid rgb(0,0,0);
                                <bool>false</bool>
                               </property>
                               <property name="placeholderText">
-                               <string>Igrese el monto en $$$</string>
+                               <string>Ingrese el monto en $$$</string>
                               </property>
                              </widget>
                             </item>
@@ -772,11 +784,14 @@ border:2px solid rgb(0,0,0);
                               <property name="font">
                                <font>
                                 <family>Microsoft Sans Serif</family>
-                                <pointsize>12</pointsize>
+                                <pointsize>-1</pointsize>
                                 <weight>50</weight>
                                 <italic>false</italic>
                                 <bold>false</bold>
                                </font>
+                              </property>
+                              <property name="styleSheet">
+                               <string notr="true">font-size:14px;</string>
                               </property>
                               <property name="maxLength">
                                <number>4</number>
@@ -788,7 +803,7 @@ border:2px solid rgb(0,0,0);
                                <bool>false</bool>
                               </property>
                               <property name="placeholderText">
-                               <string>Igrese el monto en $$$</string>
+                               <string>Ingrese el monto en $$$</string>
                               </property>
                              </widget>
                             </item>
@@ -890,11 +905,14 @@ border:2px solid rgb(0,0,0);
                               <property name="font">
                                <font>
                                 <family>Microsoft Sans Serif</family>
-                                <pointsize>12</pointsize>
+                                <pointsize>-1</pointsize>
                                 <weight>50</weight>
                                 <italic>false</italic>
                                 <bold>false</bold>
                                </font>
+                              </property>
+                              <property name="styleSheet">
+                               <string notr="true">font-size:14px;</string>
                               </property>
                               <property name="maxLength">
                                <number>4</number>
@@ -906,7 +924,7 @@ border:2px solid rgb(0,0,0);
                                <bool>false</bool>
                               </property>
                               <property name="placeholderText">
-                               <string>Igrese el monto en $$$</string>
+                               <string>Ingrese el monto en $$$</string>
                               </property>
                              </widget>
                             </item>
@@ -1155,7 +1173,7 @@ border-top:2px solid rgb(0,0,0);
      <x>0</x>
      <y>0</y>
      <width>1046</width>
-     <height>21</height>
+     <height>20</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuMenu">

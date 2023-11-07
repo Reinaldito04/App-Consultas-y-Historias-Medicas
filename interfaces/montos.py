@@ -3,7 +3,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.uic import loadUi
 from PyQt5.QtWidgets import QMessageBox, QMainWindow
 import sqlite3
-
+import re
 class Ui_montos(QMainWindow):
     def __init__(self):
         super(Ui_montos, self).__init__()
@@ -37,6 +37,7 @@ class Ui_montos(QMainWindow):
         self.loadTratamientos()
 
     def loadTratamientos(self):
+        self.clear()
         seleccion_t_0 = self.t_0.currentText()
         if seleccion_t_0 == "Seleccione el tipo de honorario":
             return
@@ -50,39 +51,74 @@ class Ui_montos(QMainWindow):
         tipo_tratamiento = self.t_0.currentText()
 
         tratamientos_montos = []
-
+        num_montos_introducidos = 0
+        
         for i in range(1, 7):
             tratamiento = getattr(self, f't_{i}').text()
             monto = getattr(self, f'monto_{i}').text()
 
             # Verifica si el tratamiento y el monto no están vacíos
             if tratamiento and monto:
+                if not re.match(r'^-?\d*\.?\d+$', monto):
+                    QMessageBox.warning(self, "Error", "Por favor, ingrese solo números en el campo de monto.")
+                    self.clear()
+                    return  
+
+                
                 tratamientos_montos.append((tratamiento, monto))
-
-        if len(tipo_tratamiento) <= 0:
-            QMessageBox.warning(self, "Advertencia", "Debes ingresar el tipo de tratamiento")
+                num_montos_introducidos += 1  # Incrementa el contador
+        if num_montos_introducidos == 0:
+            QtWidgets.QMessageBox.warning(None, 'Error', 'No se han introducido montos')
             return
+        
+        
+        montos=QMessageBox.question(self, "Cantidad de Montos",
+                                    f"Se han introducido {num_montos_introducidos} montos.\n¿Deseas seguir con la ejecución?",
+                                    QMessageBox.Yes | QMessageBox.No
+                                     )
 
-        try:
-            # Conecta a la base de datos y almacena los datos
-            conexion = sqlite3.connect('interfaces/database.db')
-            cursor = conexion.cursor()
+        if montos == QMessageBox.Yes:
+            if len(tipo_tratamiento) <= 0:
+                QMessageBox.warning(self, "Advertencia", "Debes ingresar el tipo de tratamiento")
+                return
 
-            # Inserta los tratamientos y montos válidos en la tabla
-            for tratamiento, monto in tratamientos_montos:
-                cursor.execute("INSERT INTO Trata (tipo_tratamiento, tratamiento, monto) VALUES (?, ?, ?)",
-                               (tipo_tratamiento, tratamiento, monto))
+            try:
+                # Conecta a la base de datos y almacena los datos
+                conexion = sqlite3.connect('interfaces/database.db')
+                cursor = conexion.cursor()
 
-            QMessageBox.information(self, "Éxito", "Datos de tratamientos añadidos correctamente")
-            for i in range(1, 7):
-                getattr(self, f't_{i}').clear()
-                getattr(self, f"monto_{i}").clear()
+                # Verifica si el tratamiento ya existe en la base de datos
+                for tratamiento, monto in tratamientos_montos:
+                    cursor.execute("SELECT monto FROM Trata WHERE tipo_tratamiento = ? AND tratamiento = ?", (tipo_tratamiento, tratamiento))
+                    existing_record = cursor.fetchone()
 
-            conexion.commit()
-        except sqlite3.Error as e:
-            QMessageBox.critical(self, "Error", "Error al insertar datos en la base de datos: " + str(e))
-        finally:
-            conexion.close()
+                    if existing_record:
+                        # Si existe el tratamiento, preguntar al usuario si desea actualizar el monto
+                        update = QMessageBox.question(self, "Tratamiento Existente",
+                                                    f"El tratamiento '{tratamiento}' ya existe con un monto de '{existing_record[0]}'. ¿Desea actualizar el monto?",
+                                                    QMessageBox.Yes | QMessageBox.No)
+
+                        if update == QMessageBox.Yes:
+                            cursor.execute("UPDATE Trata SET monto = ? WHERE tipo_tratamiento = ? AND tratamiento = ?",
+                                        (monto, tipo_tratamiento, tratamiento))
+                            QMessageBox.information(self, "Éxito", f"¡Monto actualizado para el tratamiento '{tratamiento}'!")
+                    else:
+                        # Si no existe, insertar el nuevo tratamiento y monto
+                        cursor.execute("INSERT INTO Trata (tipo_tratamiento, tratamiento, monto) VALUES (?, ?, ?)",
+                                    (tipo_tratamiento, tratamiento, monto))
+                        QMessageBox.information(self, "Éxito", "Datos de tratamientos añadidos correctamente")
+
+                for i in range(1, 7):
+                    getattr(self, f't_{i}').clear()
+                    getattr(self, f"monto_{i}").clear()
+
+                conexion.commit()
+            except sqlite3.Error as e:
+                QMessageBox.critical(self, "Error", "Error al insertar o actualizar datos en la base de datos: " + str(e))
+            finally:
+                conexion.close()
+        else:
+            self.clear()
 
     def clear(self):
         for i in range(1, 7):
