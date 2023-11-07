@@ -189,66 +189,11 @@ border:2px solid rgb(0,0,0);
                          <bool>false</bool>
                         </property>
                         <property name="currentText">
-                         <string>Seleccione un tipo de tratamiento</string>
+                         <string/>
                         </property>
                         <property name="maxVisibleItems">
                          <number>20</number>
                         </property>
-                        <item>
-                         <property name="text">
-                          <string>Seleccione un tipo de tratamiento</string>
-                         </property>
-                        </item>
-                        <item>
-                         <property name="text">
-                          <string>Triaje</string>
-                         </property>
-                        </item>
-                        <item>
-                         <property name="text">
-                          <string>Periodoncia</string>
-                         </property>
-                        </item>
-                        <item>
-                         <property name="text">
-                          <string>Blanqueamiento</string>
-                         </property>
-                        </item>
-                        <item>
-                         <property name="text">
-                          <string>Operatoria</string>
-                         </property>
-                        </item>
-                        <item>
-                         <property name="text">
-                          <string>Radiografias Periaciales</string>
-                         </property>
-                        </item>
-                        <item>
-                         <property name="text">
-                          <string>Cirugias</string>
-                         </property>
-                        </item>
-                        <item>
-                         <property name="text">
-                          <string>Protesis</string>
-                         </property>
-                        </item>
-                        <item>
-                         <property name="text">
-                          <string>Protesis removibles metalicas y/o acrilicas</string>
-                         </property>
-                        </item>
-                        <item>
-                         <property name="text">
-                          <string>Protesis totales</string>
-                         </property>
-                        </item>
-                        <item>
-                         <property name="text">
-                          <string>Implantes dentales</string>
-                         </property>
-                        </item>
                        </widget>
                       </item>
                       <item>
@@ -312,7 +257,7 @@ border:2px solid rgb(0,0,0);
                              <set>Qt::AlignCenter</set>
                             </property>
                             <property name="readOnly">
-                             <bool>true</bool>
+                             <bool>false</bool>
                             </property>
                             <property name="placeholderText">
                              <string>Tratamiento 1</string>
@@ -430,7 +375,7 @@ border:2px solid rgb(0,0,0);
                              <set>Qt::AlignCenter</set>
                             </property>
                             <property name="readOnly">
-                             <bool>true</bool>
+                             <bool>false</bool>
                             </property>
                             <property name="placeholderText">
                              <string>Tratamiento 2</string>
@@ -548,7 +493,7 @@ border:2px solid rgb(0,0,0);
                              <set>Qt::AlignCenter</set>
                             </property>
                             <property name="readOnly">
-                             <bool>true</bool>
+                             <bool>false</bool>
                             </property>
                             <property name="placeholderText">
                              <string>Tratamiento 3</string>
@@ -670,7 +615,7 @@ border:2px solid rgb(0,0,0);
                              <set>Qt::AlignCenter</set>
                             </property>
                             <property name="readOnly">
-                             <bool>true</bool>
+                             <bool>false</bool>
                             </property>
                             <property name="placeholderText">
                              <string>Tratamiento 4</string>
@@ -788,7 +733,7 @@ border:2px solid rgb(0,0,0);
                              <set>Qt::AlignCenter</set>
                             </property>
                             <property name="readOnly">
-                             <bool>true</bool>
+                             <bool>false</bool>
                             </property>
                             <property name="placeholderText">
                              <string>Tratamiento 5</string>
@@ -906,7 +851,7 @@ border:2px solid rgb(0,0,0);
                              <set>Qt::AlignCenter</set>
                             </property>
                             <property name="readOnly">
-                             <bool>true</bool>
+                             <bool>false</bool>
                             </property>
                             <property name="placeholderText">
                              <string>Tratamiento 6</string>
