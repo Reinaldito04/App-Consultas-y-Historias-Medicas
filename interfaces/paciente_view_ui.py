@@ -14,7 +14,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_pacientes_view(object):
     def setupUi(self, pacientes_view):
         pacientes_view.setObjectName("pacientes_view")
-        pacientes_view.resize(822, 786)
+        pacientes_view.resize(844, 786)
         self.centralwidget = QtWidgets.QWidget(pacientes_view)
         self.centralwidget.setObjectName("centralwidget")
         self.verticalLayout = QtWidgets.QVBoxLayout(self.centralwidget)
@@ -188,135 +188,11 @@ class Ui_pacientes_view(object):
         self.verticalLayout_5.addWidget(self.frame_3)
         self.verticalLayout_3.addWidget(self.frame_2)
         self.tabWidget.addTab(self.tab, "")
-        self.tab_2 = QtWidgets.QWidget()
-        self.tab_2.setObjectName("tab_2")
-        self.verticalLayout_8 = QtWidgets.QVBoxLayout(self.tab_2)
-        self.verticalLayout_8.setContentsMargins(0, 0, 0, 0)
-        self.verticalLayout_8.setSpacing(0)
-        self.verticalLayout_8.setObjectName("verticalLayout_8")
-        self.frame_4 = QtWidgets.QFrame(self.tab_2)
-        self.frame_4.setStyleSheet("QFrame{\n"
-"background-color:#138D75;\n"
-"    font: 12pt \"Microsoft Sans Serif\";\n"
-"}\n"
-"QTableWidget{\n"
-"color:rgb(0,0,0);\n"
-"gridline-color:rgb(0,206,151);\n"
-"font-size:12pt;\n"
-"}\n"
-"QHeaderView::section{\n"
-"background-color:rgb(0,206,151);\n"
-"border:1px solid rgb(0,0,0);\n"
-"font-size:12pt;\n"
-"}\n"
-"QTbaleWidget QTableCornerButton::section{\n"
-"background-color:rgb(0,0,0);\n"
-"border:1px solid  rgb(0,206,151);\n"
-"}\n"
-"QLineEdit{\n"
-"border:2px solid rgb(0,0,0);\n"
-"border-radius:20px;\n"
-"    font: 12pt \"Microsoft Sans Serif\";\n"
-"    background-color: rgb(255, 255, 255);\n"
-"}\n"
-"QPushButton{\n"
-"border-radius:20px;\n"
-"border:2px solid rgb(0,0,0);\n"
-"background-color:white;\n"
-"}\n"
-"QPushButton:hover{\n"
-"    background-color:#CB4335;\n"
-"}\n"
-"QTextEdit{\n"
-"border:4px solid rgb(0,0,0);\n"
-"border-radius:20px;\n"
-"    font: 12pt \"Microsoft Sans Serif\";\n"
-"    background-color: rgb(255, 255, 255);\n"
-"}\n"
-"QLabel{\n"
-"    \n"
-"    font: 12pt \"Microsoft Sans Serif\";\n"
-"}\n"
-"")
-        self.frame_4.setFrameShape(QtWidgets.QFrame.StyledPanel)
-        self.frame_4.setFrameShadow(QtWidgets.QFrame.Raised)
-        self.frame_4.setObjectName("frame_4")
-        self.verticalLayout_6 = QtWidgets.QVBoxLayout(self.frame_4)
-        self.verticalLayout_6.setObjectName("verticalLayout_6")
-        self.horizontalLayout_2 = QtWidgets.QHBoxLayout()
-        self.horizontalLayout_2.setObjectName("horizontalLayout_2")
-        self.label_2 = QtWidgets.QLabel(self.frame_4)
-        self.label_2.setObjectName("label_2")
-        self.horizontalLayout_2.addWidget(self.label_2)
-        spacerItem2 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
-        self.horizontalLayout_2.addItem(spacerItem2)
-        self.filtro_cita = QtWidgets.QComboBox(self.frame_4)
-        self.filtro_cita.setMinimumSize(QtCore.QSize(200, 40))
-        self.filtro_cita.setMaximumSize(QtCore.QSize(200, 40))
-        font = QtGui.QFont()
-        font.setPointSize(10)
-        font.setBold(True)
-        font.setWeight(75)
-        self.filtro_cita.setFont(font)
-        self.filtro_cita.setObjectName("filtro_cita")
-        self.horizontalLayout_2.addWidget(self.filtro_cita)
-        self.in_buscar_cita = QtWidgets.QLineEdit(self.frame_4)
-        self.in_buscar_cita.setMinimumSize(QtCore.QSize(200, 40))
-        self.in_buscar_cita.setMaximumSize(QtCore.QSize(200, 40))
-        self.in_buscar_cita.setInputMask("")
-        self.in_buscar_cita.setText("")
-        self.in_buscar_cita.setMaxLength(20)
-        self.in_buscar_cita.setPlaceholderText("")
-        self.in_buscar_cita.setObjectName("in_buscar_cita")
-        self.horizontalLayout_2.addWidget(self.in_buscar_cita)
-        self.bt_buscar_cita = QtWidgets.QPushButton(self.frame_4)
-        self.bt_buscar_cita.setMinimumSize(QtCore.QSize(80, 40))
-        self.bt_buscar_cita.setMaximumSize(QtCore.QSize(80, 40))
-        self.bt_buscar_cita.setText("")
-        self.bt_buscar_cita.setIcon(icon)
-        self.bt_buscar_cita.setIconSize(QtCore.QSize(30, 30))
-        self.bt_buscar_cita.setObjectName("bt_buscar_cita")
-        self.horizontalLayout_2.addWidget(self.bt_buscar_cita)
-        self.verticalLayout_6.addLayout(self.horizontalLayout_2)
-        self.horizontalLayout_4 = QtWidgets.QHBoxLayout()
-        self.horizontalLayout_4.setObjectName("horizontalLayout_4")
-        self.bt_act_2 = QtWidgets.QPushButton(self.frame_4)
-        self.bt_act_2.setMinimumSize(QtCore.QSize(150, 50))
-        self.bt_act_2.setMaximumSize(QtCore.QSize(150, 50))
-        font = QtGui.QFont()
-        font.setPointSize(9)
-        self.bt_act_2.setFont(font)
-        self.bt_act_2.setIcon(icon1)
-        self.bt_act_2.setIconSize(QtCore.QSize(30, 30))
-        self.bt_act_2.setObjectName("bt_act_2")
-        self.horizontalLayout_4.addWidget(self.bt_act_2)
-        spacerItem3 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
-        self.horizontalLayout_4.addItem(spacerItem3)
-        self.verticalLayout_6.addLayout(self.horizontalLayout_4)
-        self.frame_5 = QtWidgets.QFrame(self.frame_4)
-        self.frame_5.setStyleSheet("QFrame{\n"
-"    background-color: rgb(255, 255, 255);\n"
-"}")
-        self.frame_5.setFrameShape(QtWidgets.QFrame.StyledPanel)
-        self.frame_5.setFrameShadow(QtWidgets.QFrame.Raised)
-        self.frame_5.setObjectName("frame_5")
-        self.verticalLayout_7 = QtWidgets.QVBoxLayout(self.frame_5)
-        self.verticalLayout_7.setContentsMargins(0, 0, 0, 0)
-        self.verticalLayout_7.setSpacing(0)
-        self.verticalLayout_7.setObjectName("verticalLayout_7")
-        self.tabla_p_2 = QtWidgets.QTableWidget(self.frame_5)
-        self.tabla_p_2.setObjectName("tabla_p_2")
-        self.tabla_p_2.setColumnCount(0)
-        self.tabla_p_2.setRowCount(0)
-        self.verticalLayout_7.addWidget(self.tabla_p_2)
-        self.verticalLayout_6.addWidget(self.frame_5)
-        self.verticalLayout_8.addWidget(self.frame_4)
-        self.tabWidget.addTab(self.tab_2, "")
         self.verticalLayout_2.addWidget(self.tabWidget)
         self.verticalLayout.addWidget(self.frame)
         pacientes_view.setCentralWidget(self.centralwidget)
         self.menubar = QtWidgets.QMenuBar(pacientes_view)
-        self.menubar.setGeometry(QtCore.QRect(0, 0, 822, 21))
+        self.menubar.setGeometry(QtCore.QRect(0, 0, 844, 20))
         self.menubar.setObjectName("menubar")
         self.menuMenu = QtWidgets.QMenu(self.menubar)
         self.menuMenu.setObjectName("menuMenu")
@@ -359,9 +235,6 @@ class Ui_pacientes_view(object):
         item = self.tabla_p.horizontalHeaderItem(6)
         item.setText(_translate("pacientes_view", "Fecha_Diagnotico"))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab), _translate("pacientes_view", "Pacientes registrados"))
-        self.label_2.setText(_translate("pacientes_view", "Visualización de citas"))
-        self.bt_act_2.setText(_translate("pacientes_view", "Actulizar tabla"))
-        self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_2), _translate("pacientes_view", "Citas registradas"))
         self.menuMenu.setTitle(_translate("pacientes_view", "Menu"))
         self.actionVolver_al_registro.setText(_translate("pacientes_view", "Volver al registro"))
         self.actionVolver_al_menu_prinicpla.setText(_translate("pacientes_view", "Volver al menu principal"))
