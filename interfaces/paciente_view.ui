@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>943</width>
-    <height>612</height>
+    <width>822</width>
+    <height>786</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -275,7 +275,7 @@ QLabel{
                    </font>
                   </property>
                   <property name="text">
-                   <string>Actulizar tabla</string>
+                   <string>Actualizar tabla</string>
                   </property>
                   <property name="icon">
                    <iconset>
@@ -339,7 +339,7 @@ QLabel{
                     <number>100</number>
                    </attribute>
                    <attribute name="horizontalHeaderDefaultSectionSize">
-                    <number>200</number>
+                    <number>160</number>
                    </attribute>
                    <attribute name="horizontalHeaderShowSortIndicator" stdset="0">
                     <bool>false</bool>
@@ -382,7 +382,7 @@ QLabel{
                    </column>
                    <column>
                     <property name="text">
-                     <string>Fecha</string>
+                     <string>Fecha_Diagnotico</string>
                     </property>
                    </column>
                   </widget>
@@ -676,7 +676,7 @@ QLabel{
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>943</width>
+     <width>822</width>
      <height>21</height>
     </rect>
    </property>
