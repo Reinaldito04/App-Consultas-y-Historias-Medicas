@@ -15,6 +15,8 @@ import os
 import datetime
 from bs4 import BeautifulSoup
 import requests
+from requests.packages.urllib3.exceptions import InsecureRequestWarning
+
 from PyQt5.QtCore import Qt
 
 class IngresoUsuario(QMainWindow):
@@ -1653,8 +1655,10 @@ class historiaMenu(QMainWindow):
         self.montobs_t3.clear()
         self.montodola_t3.clear()
     def calcularDivisa(self, dolar):
+        requests.packages.urllib3.disable_warnings(InsecureRequestWarning)
+
         url = 'https://www.bcv.org.ve'
-        response = requests.get(url)
+        response = requests.get(url , verify=False)
 
         soup = BeautifulSoup(response.text, 'html.parser')
 
