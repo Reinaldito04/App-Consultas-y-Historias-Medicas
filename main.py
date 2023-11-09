@@ -574,6 +574,7 @@ class Ui_CitasMenu(QMainWindow):
         self.txt_name.clear()
         self.txt_apell.clear()
         self.tableWidget.setRowCount(0)
+        
     def editarCita(self):
         idUser = self.id_user
         cedula = self.in_busqueda.text()
@@ -585,29 +586,38 @@ class Ui_CitasMenu(QMainWindow):
         horaToString = hora.toString('hh:mmm:ss')
         
         try:
-            conexion = sqlite3.connect('interfaces/database.db')
-            cursor = conexion.cursor()
+            reply = QMessageBox.question(
+                self,
+                'Confirmación',
+                '¿Desea cambiar la fecha y hora de la cita?',
+                QMessageBox.Yes | QMessageBox.No,
+                QMessageBox.Yes
+            )
+            if reply == QMessageBox.Yes:
             
-            # Verificar si existe un paciente con la cédula proporcionada
-            cursor.execute("SELECT COUNT(*) FROM Pacientes WHERE Cedula = ?", (cedula,))
-            existe_paciente = cursor.fetchone()[0] > 0
-            
-            if existe_paciente:
-                # Si el paciente existe, proceder a actualizar la cita
-                cursor.execute("UPDATE Pacientes SET Fecha_Cita = ?, Hora_Cita = ? WHERE Cedula = ?",
-                            (fechaToString, horaToString, cedula))
+                conexion = sqlite3.connect('interfaces/database.db')
+                cursor = conexion.cursor()
                 
-                # Guardar los cambios en la base de datos
-                conexion.commit()
+                # Verificar si existe un paciente con la cédula proporcionada
+                cursor.execute("SELECT COUNT(*) FROM Pacientes WHERE Cedula = ?", (cedula,))
+                existe_paciente = cursor.fetchone()[0] > 0
                 
-                # Mostrar un mensaje de éxito
-                QMessageBox.information(self, "Información", "Cita actualizada con éxito.")
-            else:
-                # Si el paciente no existe, mostrar un mensaje de error
-                QMessageBox.warning(self, "Advertencia", "No se encontró un paciente con la cédula proporcionada.")
-            
-            # Cerrar la conexión con la base de datos
-            conexion.close()
+                if existe_paciente:
+                    # Si el paciente existe, proceder a actualizar la cita
+                    cursor.execute("UPDATE Pacientes SET Fecha_Cita = ?, Hora_Cita = ? WHERE Cedula = ?",
+                                (fechaToString, horaToString, cedula))
+                    
+                    # Guardar los cambios en la base de datos
+                    conexion.commit()
+                    
+                    # Mostrar un mensaje de éxito
+                    QMessageBox.information(self, "Información", "Cita actualizada con éxito.")
+                else:
+                    # Si el paciente no existe, mostrar un mensaje de error
+                    QMessageBox.warning(self, "Advertencia", "No se encontró un paciente con la cédula proporcionada.")
+                
+                # Cerrar la conexión con la base de datos
+                conexion.close()
             
         except sqlite3.Error as error:
             # En caso de error, mostrar un mensaje de error
@@ -638,19 +648,23 @@ class Ui_CitasMenu(QMainWindow):
             cursor.execute("SELECT COUNT(*) FROM Pacientes WHERE Cedula = ?", (cedula,))
             existe_paciente = cursor.fetchone()[0] > 0
             
-            if existe_paciente:
+            if existe_paciente > 0:
+                QMessageBox.critical(self, "Error", "El paciente ya esta registrado en el sistema.")
+                
+            elif existe_paciente < 0:
                 # Si el paciente existe, proceder a actualizar la cita
                 cursor.execute("UPDATE Pacientes SET Fecha_Cita = ?, Hora_Cita = ? WHERE Cedula = ?",
                             (fechaToString, horaToString, cedula))
-                
+                existe_paciente = cursor.fetchone()[0]
+
                 # Guardar los cambios en la base de datos
                 conexion.commit()
                 
                 # Mostrar un mensaje de éxito
                 QMessageBox.information(self, "Información", "Cita guardada con éxito.")
             else:
-                # Si el paciente no existe, mostrar un mensaje de error
-                QMessageBox.warning(self, "Advertencia", "No se encontró un paciente con la cédula proporcionada.")
+                 # Si el paciente no existe, mostrar un mensaje de error
+                 QMessageBox.warning(self, "Advertencia", "No se encontró un paciente con la cédula proporcionada.")
             
             # Cerrar la conexión con la base de datos
             conexion.close()
@@ -1166,15 +1180,23 @@ class Ui_placas(QMainWindow):
                 
                 conexion = sqlite3.connect('interfaces/database.db')
                 cursor = conexion.cursor()
-                
-                cursor.execute("SELECT COUNT(*) FROM Pacientes WHERE Cedula = ?", (cedula,))
-                existe_paciente = cursor.fetchone()[0]
-                
-                cursor.execute("UPDATE Pacientes SET Placa1 = ?, Placa2 = ? ,Placa3 = ? WHERE Cedula = ?",
-                (foto1_byte, foto2_byte, foto3_byte ,cedula ))
-                QMessageBox.information(self, "Exito", "Datos Guardados Correctamente ")
-                conexion.commit()
-                conexion.close()
+                reply = QMessageBox.question(
+                    self,
+                    'Confirmación',
+                    '¿Desea editar las placas ya guardadas?',
+                    QMessageBox.Yes | QMessageBox.No,
+                    QMessageBox.Yes
+                )
+                if reply == QMessageBox.Yes:
+                    cursor.execute("SELECT COUNT(*) FROM Pacientes WHERE Cedula = ?", (cedula,))
+                    
+                    cursor.execute("UPDATE Pacientes SET Placa1 = ?, Placa2 = ? ,Placa3 = ? WHERE Cedula = ?",
+                    (foto1_byte, foto2_byte, foto3_byte ,cedula ))
+                    QMessageBox.information(self, "Exito", "Datos Guardados Correctamente ")
+                    conexion.commit()
+                    conexion.close()
+                    self.clearInputs()
+                return
             except sqlite3.Error as e:
                 QMessageBox.critical(self, "Error", "Error al actualizar los datos en la base de datos: " + str(e))
     def back_menu(self):
@@ -1930,7 +1952,6 @@ class historiaMenu(QMainWindow):
 
             QMessageBox.information(self, "Éxito", "Paciente registrado correctamente.")
 
-          
             # Cierra la conexión con la base de datos
             conexion.close()
 
@@ -2020,7 +2041,6 @@ class historiaMenu(QMainWindow):
             QMessageBox.warning(self,"Error","Introduzca su cedula")
             return
         try:
-
             cedula = self.in_cedula.text()
             nombre = self.in_name.text()
             apellido = self.in_apell.text()
