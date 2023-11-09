@@ -1108,6 +1108,7 @@ class Ui_placas(QMainWindow):
         loadUi("interfaces/placas.ui", self)
         self.id_user = id_user
         self.btn_agg.clicked.connect(self.addplacas)
+        self.btn_edit.clicked.connect(self.editar)
         self.btn_buscar.clicked.connect(self.searchData)
         self.btn_clear.clicked.connect(self.clearInputs)
         self.btn_clear_2.clicked.connect(self.clearInputs_2)
@@ -1123,6 +1124,59 @@ class Ui_placas(QMainWindow):
         self.img4.mousePressEvent = lambda event: self.show_image_popup(self.img4.pixmap())
         self.img5.mousePressEvent = lambda event: self.show_image_popup(self.img5.pixmap())
         self.img6.mousePressEvent = lambda event: self.show_image_popup(self.img6.pixmap())
+        
+    def editar(self):
+        cedula = self.in_busqueda.text()
+        foto_pixmap1  =self.img1.pixmap()
+        foto_pixmap2  =self.img2.pixmap()
+        foto_pixmap3  =self.img3.pixmap()
+        if foto_pixmap1 is None or foto_pixmap2 is None or foto_pixmap3 is None:
+            QMessageBox.warning(self,"Advertencia","Debes importar 3 imagenes antes de guardar")
+            return
+        if len(cedula) <=0 :
+             QMessageBox.warning(self,"Advertencia","Debes ingresar la cedula para almacenar las placas")
+             return
+        else:
+            try:
+                foto1_image = foto_pixmap1.toImage()
+                foto2_image = foto_pixmap2.toImage()
+                foto3_image = foto_pixmap3.toImage()
+
+                # Convierte cada imagen a un formato de bytes (por ejemplo, PNG)
+                foto1_bytes = QByteArray()
+                buffer1 = QBuffer(foto1_bytes)
+                buffer1.open(QIODevice.WriteOnly)
+                foto1_image.save(buffer1, "PNG")
+                foto1_byte = buffer1.data()
+                buffer1.close()
+
+                foto2_bytes = QByteArray()
+                buffer2 = QBuffer(foto2_bytes)
+                buffer2.open(QIODevice.WriteOnly)
+                foto2_image.save(buffer2, "PNG")
+                foto2_byte = buffer2.data()
+                buffer2.close()
+
+                foto3_bytes = QByteArray()
+                buffer3 = QBuffer(foto3_bytes)
+                buffer3.open(QIODevice.WriteOnly)
+                foto3_image.save(buffer3, "PNG")
+                foto3_byte = buffer3.data()
+                buffer3.close()
+                
+                conexion = sqlite3.connect('interfaces/database.db')
+                cursor = conexion.cursor()
+                
+                cursor.execute("SELECT COUNT(*) FROM Pacientes WHERE Cedula = ?", (cedula,))
+                existe_paciente = cursor.fetchone()[0]
+                
+                cursor.execute("UPDATE Pacientes SET Placa1 = ?, Placa2 = ? ,Placa3 = ? WHERE Cedula = ?",
+                (foto1_byte, foto2_byte, foto3_byte ,cedula ))
+                QMessageBox.information(self, "Exito", "Datos Guardados Correctamente ")
+                conexion.commit()
+                conexion.close()
+            except sqlite3.Error as e:
+                QMessageBox.critical(self, "Error", "Error al actualizar los datos en la base de datos: " + str(e))
     def back_menu(self):
         
         conexion = sqlite3.connect('interfaces/database.db')
@@ -1235,11 +1289,23 @@ class Ui_placas(QMainWindow):
                 foto3_image.save(buffer3, "PNG")
                 foto3_byte = buffer3.data()
                 buffer3.close()
+                
                 conexion = sqlite3.connect('interfaces/database.db')
                 cursor = conexion.cursor()
-                cursor.execute("UPDATE Pacientes SET Placa1 = ?, Placa2 = ? ,Placa3 = ? WHERE Cedula = ?",
-                            (foto1_byte, foto2_byte, foto3_byte ,cedula ))
-                QMessageBox.information(self, "Exito", "Datos Guardados Correctamente ")
+                
+                cursor.execute("SELECT COUNT(*) FROM Pacientes WHERE Cedula = ?", (cedula,))
+                existe_paciente = cursor.fetchone()[0]
+
+                if existe_paciente > 0:
+                    QMessageBox.critical(self, "Error", "El paciente ya tiene placas registradas.")
+                    
+                #limpia los campos luego de denegar el ingreso
+                self.clearInputs()
+                
+                if existe_paciente < 0:
+                    cursor.execute("UPDATE Pacientes SET Placa1 = ?, Placa2 = ? ,Placa3 = ? WHERE Cedula = ?",
+                    (foto1_byte, foto2_byte, foto3_byte ,cedula ))
+                    QMessageBox.information(self, "Exito", "Datos Guardados Correctamente ")
                 conexion.commit()
                 conexion.close()
             except sqlite3.Error as e:
@@ -1695,6 +1761,19 @@ class historiaMenu(QMainWindow):
         try:
             conexion = sqlite3.connect('interfaces/database.db')
             cursor = conexion.cursor()
+                        # Verificar si ya existe un paciente con la misma cédula
+            cursor.execute("SELECT COUNT(*) FROM Pacientes WHERE Cedula = ?", (cedula,))
+            existe_paciente = cursor.fetchone()[0]
+
+            if existe_paciente > 0:
+                QMessageBox.critical(self, "Error", "El paciente ya esta registrado en el sistema.")
+                
+                #limpia los campos luego de denegar el ingreso
+                self.clearInputs()
+                self.clearData()
+                self.clearDiag()
+                return
+            
             cursor.execute("UPDATE Pacientes SET Diagnotico=?, Fecha_Diagnotico=?, Hora_Diagnostico=?  WHERE Cedula=?", (
                 diag,fechaToString,horatoString, cedula ))
             conexion.commit()
@@ -1766,6 +1845,19 @@ class historiaMenu(QMainWindow):
         try:
             conexion = sqlite3.connect('interfaces/database.db')
             cursor = conexion.cursor()
+            
+            # Verificar si ya existe un paciente con la misma cédula
+            cursor.execute("SELECT COUNT(*) FROM Pacientes WHERE Cedula = ?", (cedula,))
+            existe_paciente = cursor.fetchone()[0]
+
+            if existe_paciente > 0:
+                QMessageBox.critical(self, "Error", "El paciente ya esta registrado en el sistema.")
+                
+                #limpia los campos luego de denegar el ingreso
+                self.clearInputs()
+                self.clearData()
+                return
+
             cursor.execute("UPDATE Pacientes SET Hipertension=?, Diabates=?, Coagualcion=?, Otros=? ,Alergias=? , diabate_Data=?,hipertension_Data=?,Coagualcion_Data=?  WHERE Cedula=?", (
                 hipertenso, diabetes, coagulacion, Otros, alergias,diabetes_control,hipertenso_control,coagualcion_control, cedula ))
             conexion.commit()

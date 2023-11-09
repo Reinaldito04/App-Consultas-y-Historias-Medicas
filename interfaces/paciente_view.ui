@@ -72,10 +72,20 @@ background-color:gray;
          <property name="currentIndex">
           <number>0</number>
          </property>
+         <property name="iconSize">
+          <size>
+           <width>25</width>
+           <height>25</height>
+          </size>
+         </property>
          <property name="documentMode">
           <bool>true</bool>
          </property>
          <widget class="QWidget" name="tab">
+          <attribute name="icon">
+           <iconset>
+            <normaloff>ELEMENTOS GRAFICOS/silla-de-dentista.png</normaloff>ELEMENTOS GRAFICOS/silla-de-dentista.png</iconset>
+          </attribute>
           <attribute name="title">
            <string>Pacientes registrados</string>
           </attribute>
@@ -97,6 +107,9 @@ background-color:gray;
            </property>
            <item>
             <widget class="QFrame" name="frame_2">
+             <property name="autoFillBackground">
+              <bool>true</bool>
+             </property>
              <property name="styleSheet">
               <string notr="true">QFrame{
 background-color:#138D75;
@@ -191,6 +204,15 @@ QLabel{
                     <weight>75</weight>
                     <bold>true</bold>
                    </font>
+                  </property>
+                  <property name="autoFillBackground">
+                   <bool>false</bool>
+                  </property>
+                  <property name="styleSheet">
+                   <string notr="true"/>
+                  </property>
+                  <property name="frame">
+                   <bool>false</bool>
                   </property>
                  </widget>
                 </item>
@@ -408,7 +430,7 @@ QLabel{
      <x>0</x>
      <y>0</y>
      <width>844</width>
-     <height>20</height>
+     <height>21</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuMenu">

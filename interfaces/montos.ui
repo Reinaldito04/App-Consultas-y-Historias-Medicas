@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1046</width>
-    <height>473</height>
+    <width>1246</width>
+    <height>586</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -61,13 +61,32 @@ background-color:gray;
        </property>
        <item>
         <widget class="QTabWidget" name="tabWidget">
+         <property name="font">
+          <font>
+           <family>MS Reference Sans Serif</family>
+           <pointsize>10</pointsize>
+           <weight>75</weight>
+           <bold>true</bold>
+           <underline>true</underline>
+          </font>
+         </property>
          <property name="currentIndex">
           <number>0</number>
+         </property>
+         <property name="iconSize">
+          <size>
+           <width>25</width>
+           <height>25</height>
+          </size>
          </property>
          <property name="documentMode">
           <bool>true</bool>
          </property>
          <widget class="QWidget" name="tab">
+          <attribute name="icon">
+           <iconset>
+            <normaloff>ELEMENTOS GRAFICOS/metodo-de-pago.png</normaloff>ELEMENTOS GRAFICOS/metodo-de-pago.png</iconset>
+          </attribute>
           <attribute name="title">
            <string>Montos de tratamientos</string>
           </attribute>
@@ -234,13 +253,13 @@ border:2px solid rgb(0,0,0);
                            <widget class="QLineEdit" name="t_1">
                             <property name="minimumSize">
                              <size>
-                              <width>400</width>
+                              <width>500</width>
                               <height>40</height>
                              </size>
                             </property>
                             <property name="maximumSize">
                              <size>
-                              <width>400</width>
+                              <width>500</width>
                               <height>40</height>
                              </size>
                             </property>
@@ -355,13 +374,13 @@ border:2px solid rgb(0,0,0);
                            <widget class="QLineEdit" name="t_2">
                             <property name="minimumSize">
                              <size>
-                              <width>400</width>
+                              <width>500</width>
                               <height>40</height>
                              </size>
                             </property>
                             <property name="maximumSize">
                              <size>
-                              <width>400</width>
+                              <width>500</width>
                               <height>40</height>
                              </size>
                             </property>
@@ -476,13 +495,13 @@ border:2px solid rgb(0,0,0);
                            <widget class="QLineEdit" name="t_3">
                             <property name="minimumSize">
                              <size>
-                              <width>400</width>
+                              <width>500</width>
                               <height>40</height>
                              </size>
                             </property>
                             <property name="maximumSize">
                              <size>
-                              <width>400</width>
+                              <width>500</width>
                               <height>40</height>
                              </size>
                             </property>
@@ -601,13 +620,13 @@ border:2px solid rgb(0,0,0);
                            <widget class="QLineEdit" name="t_4">
                             <property name="minimumSize">
                              <size>
-                              <width>400</width>
+                              <width>500</width>
                               <height>40</height>
                              </size>
                             </property>
                             <property name="maximumSize">
                              <size>
-                              <width>400</width>
+                              <width>500</width>
                               <height>40</height>
                              </size>
                             </property>
@@ -619,6 +638,12 @@ border:2px solid rgb(0,0,0);
                               <italic>false</italic>
                               <bold>false</bold>
                              </font>
+                            </property>
+                            <property name="autoFillBackground">
+                             <bool>false</bool>
+                            </property>
+                            <property name="maxLength">
+                             <number>200</number>
                             </property>
                             <property name="alignment">
                              <set>Qt::AlignCenter</set>
@@ -722,13 +747,13 @@ border:2px solid rgb(0,0,0);
                            <widget class="QLineEdit" name="t_5">
                             <property name="minimumSize">
                              <size>
-                              <width>400</width>
+                              <width>500</width>
                               <height>40</height>
                              </size>
                             </property>
                             <property name="maximumSize">
                              <size>
-                              <width>400</width>
+                              <width>500</width>
                               <height>40</height>
                              </size>
                             </property>
@@ -843,13 +868,13 @@ border:2px solid rgb(0,0,0);
                            <widget class="QLineEdit" name="t_6">
                             <property name="minimumSize">
                              <size>
-                              <width>400</width>
+                              <width>500</width>
                               <height>40</height>
                              </size>
                             </property>
                             <property name="maximumSize">
                              <size>
-                              <width>400</width>
+                              <width>500</width>
                               <height>40</height>
                              </size>
                             </property>
@@ -1172,8 +1197,8 @@ border-top:2px solid rgb(0,0,0);
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1046</width>
-     <height>20</height>
+     <width>1246</width>
+     <height>21</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuMenu">
