@@ -15,8 +15,7 @@ import os
 import datetime
 from bs4 import BeautifulSoup
 import requests
-from requests.packages.urllib3.exceptions import InsecureRequestWarning
-
+from urllib3.exceptions import InsecureRequestWarning
 from PyQt5.QtCore import Qt
 
 class IngresoUsuario(QMainWindow):
