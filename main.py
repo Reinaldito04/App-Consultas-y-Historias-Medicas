@@ -17,7 +17,7 @@ from bs4 import BeautifulSoup
 import requests
 from urllib3.exceptions import InsecureRequestWarning
 from PyQt5.QtCore import Qt
-
+import re
 class IngresoUsuario(QMainWindow):
     def __init__(self):
         super(IngresoUsuario, self).__init__()
@@ -120,7 +120,9 @@ class Registro(QMainWindow):
         self.actionSalir.triggered.connect(self.close)
         self.bt_photo.clicked.connect(self.addPhoto)
         self.in_cedula.textChanged.connect(self.verificar_existencia_cedula)
-        
+        self.in_mail.editingFinished.connect(self.mostrar_mensaje)
+        self.in_number.textChanged.connect(self.mostrar_mensaje)
+        self.in_user.textChanged.connect(lambda: self.usuario_existe(nombre=self.in_user.text()))
     def login(self):
         ingreso_usuario.show()
         self.hide()
@@ -132,8 +134,32 @@ class Registro(QMainWindow):
             self.foto.setPixmap(pixmap1)
             
         else:
-            QMessageBox.information(self,"Imagenes","Por favor,Selecciona una imagen")   
-               
+            QMessageBox.information(self,"Imagenes","Por favor,Selecciona una imagen") 
+    def mostrar_mensaje(self):
+        correo = self.in_mail.text()
+        if self.validar_correo_electronico(correo):
+           self.btn_agg.setEnabled(True) 
+            
+        else:
+            QMessageBox.warning(self,"Correo invalido","Por favor introduzca un correo valido")
+            self.btn_agg.setEnabled(False) 
+            return
+    def validar_numeros(self,cadena):
+        
+        patron = r'^[0-9]+$'
+        return re.match(patron, cadena) is not None
+    
+    def mostrar_mensaje(self):
+        numero = self.in_number.text()
+        if self.validar_numeros(numero):
+            self.btn_agg.setEnabled(True) 
+        else:
+            QMessageBox.information(self,"Solo numeros","Número inválido")
+            self.btn_agg.setEnabled(False) 
+            return
+    def validar_correo_electronico(self, correo):
+        patron = r'^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$'
+        return re.match(patron, correo) is not None         
     def clearInputs(self):
         self.in_cedula.clear()
         self.in_name.clear()
@@ -158,6 +184,7 @@ class Registro(QMainWindow):
     
     def usuario_existe(self, nombre):
         # Conectar a la base de datos
+        
         conexion = sqlite3.connect('interfaces/database.db')
 
         # Crear un cursor
@@ -171,7 +198,16 @@ class Registro(QMainWindow):
         conexion.close()
 
         # Si resultado es mayor que 0, significa que el usuario ya existe
-        return resultado > 0
+        
+        if resultado >0:
+            QMessageBox.warning(self,"Error","El nombre de usuario ya existe. \nIngrese uno distinto")
+            self.btn_agg.setEnabled(False)
+            return
+        else:
+            self.btn_agg.setEnabled(True)
+        
+        
+
     
     def verificar_existencia_cedula(self):
         cedula = self.in_cedula.text()
