@@ -120,8 +120,8 @@ class Registro(QMainWindow):
         self.actionSalir.triggered.connect(self.close)
         self.bt_photo.clicked.connect(self.addPhoto)
         self.in_cedula.textChanged.connect(self.verificar_existencia_cedula)
-        self.in_mail.editingFinished.connect(self.mostrar_mensaje)
-        self.in_number.textChanged.connect(self.mostrar_mensaje)
+        self.in_mail.editingFinished.connect(self.mostrar_mensaje_mail)
+        self.in_number.textChanged.connect(self.mostrar_mensaje_telefono)
         self.in_user.textChanged.connect(lambda: self.usuario_existe(nombre=self.in_user.text()))
     def login(self):
         ingreso_usuario.show()
@@ -135,7 +135,7 @@ class Registro(QMainWindow):
             
         else:
             QMessageBox.information(self,"Imagenes","Por favor,Selecciona una imagen") 
-    def mostrar_mensaje(self):
+    def mostrar_mensaje_mail(self):
         correo = self.in_mail.text()
         if self.validar_correo_electronico(correo):
            self.btn_agg.setEnabled(True) 
@@ -149,7 +149,7 @@ class Registro(QMainWindow):
         patron = r'^[0-9]+$'
         return re.match(patron, cadena) is not None
     
-    def mostrar_mensaje(self):
+    def mostrar_mensaje_telefono(self):
         numero = self.in_number.text()
         if self.validar_numeros(numero):
             self.btn_agg.setEnabled(True) 
