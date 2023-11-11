@@ -119,6 +119,7 @@ class Registro(QMainWindow):
         self.actionLogin.triggered.connect(self.login)
         self.actionSalir.triggered.connect(self.close)
         self.bt_photo.clicked.connect(self.addPhoto)
+        self.in_cedula.textChanged.connect(self.verificar_existencia_cedula)
         
     def login(self):
         ingreso_usuario.show()
@@ -172,6 +173,27 @@ class Registro(QMainWindow):
         # Si resultado es mayor que 0, significa que el usuario ya existe
         return resultado > 0
     
+    def verificar_existencia_cedula(self):
+        cedula = self.in_cedula.text()
+
+        if not cedula:
+            return
+
+        conexion = sqlite3.connect('interfaces/database.db')
+        cursor = conexion.cursor()
+
+        # Consultar si ya existe alguien con la misma cédula
+        cursor.execute('SELECT * FROM Users WHERE Cedula = ?', (cedula,))
+        existe_cedula = cursor.fetchone() is not None
+
+        conexion.close()
+
+        if existe_cedula:
+            QMessageBox.warning(self, "Error", "Ya existe alguien con la misma cédula.")
+            self.btn_agg.setEnabled(False)
+            return
+        else:
+            self.btn_agg.setEnabled(True)
 
     def registrarUsuario(self):
         cedula = self.in_cedula.text()
