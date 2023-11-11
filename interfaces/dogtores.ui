@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1196</width>
-    <height>366</height>
+    <width>1202</width>
+    <height>693</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -194,7 +194,7 @@ background-color:white;
                              <item>
                               <widget class="QLabel" name="lbl_foto">
                                <property name="text">
-                                <string>Cargue una foto del Doctor</string>
+                                <string>Cargue una foto para su usuario</string>
                                </property>
                                <property name="alignment">
                                 <set>Qt::AlignCenter</set>
@@ -848,7 +848,7 @@ border-top:2px solid rgb(0,0,0);
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1196</width>
+     <width>1202</width>
      <height>21</height>
     </rect>
    </property>
