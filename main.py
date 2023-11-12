@@ -135,6 +135,12 @@ class Registro(QMainWindow):
             
         else:
             QMessageBox.information(self,"Imagenes","Por favor,Selecciona una imagen") 
+            
+    def validar_correo_electronico(self, correo):
+        patron = r'^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$'
+        return re.match(patron, correo) is not None    
+    
+    
     def mostrar_mensaje_mail(self):
         correo = self.in_mail.text()
         if self.validar_correo_electronico(correo):
@@ -157,9 +163,7 @@ class Registro(QMainWindow):
             QMessageBox.information(self,"Solo numeros","Número inválido")
             self.btn_agg.setEnabled(False) 
             return
-    def validar_correo_electronico(self, correo):
-        patron = r'^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$'
-        return re.match(patron, correo) is not None         
+         
     def clearInputs(self):
         self.in_cedula.clear()
         self.in_name.clear()
@@ -602,7 +606,7 @@ class Ui_CitasMenu(QMainWindow):
         self.btn_agg.clicked.connect(self.aggCite)
         self.btn_clear.clicked.connect(self.clear)
         self.btn_edit.clicked.connect(self.editarCita)
-        self.btn_delete.clicked.connect(self.eliminarCita)
+        #self.btn_delete.clicked.connect(self.eliminarCita)
         self.setWindowTitle("Menu de Citas")
         self.showMaximized()
     def eliminarCita(self):
@@ -645,6 +649,9 @@ class Ui_CitasMenu(QMainWindow):
         horaToString = hora.toString('hh:mmm:ss')
         
         try:
+            if not cedula:
+                QMessageBox.warning(self,"Introduzca una cedula","Debes introducir una cedula antes de editar")
+                return
             reply = QMessageBox.question(
                 self,
                 'Confirmación',
@@ -691,46 +698,48 @@ class Ui_CitasMenu(QMainWindow):
             
         hora = self.hora.time()
         horaToString = hora.toString('hh:mmm:ss')
-        nombre = self.txt_name.text()
-        apellido = self.txt_apell.text()
-        if len(nombre) <= 0:
-            QMessageBox.warning(self,"error","Ingrese el nombre del paciente ")
-            return
-        if len(apellido) <= 0:
-            QMessageBox.warning(self,"error","Ingrese el apellido del paciente ")
-            return
+        
         try:
-            conexion = sqlite3.connect('interfaces/database.db')
-            cursor = conexion.cursor()
+            if not cedula:
+                QMessageBox.warning(self,"Introduzca una cedula","Debes introducir una cedula antes de guardar")
+                return
+            reply = QMessageBox.question(
+                self,
+                'Confirmación',
+                '¿Deseas agregar la cita?',
+                QMessageBox.Yes | QMessageBox.No,
+                QMessageBox.Yes
+            )
+            if reply == QMessageBox.Yes:
             
-            # Verificar si existe un paciente con la cédula proporcionada
-            cursor.execute("SELECT COUNT(*) FROM Pacientes WHERE Cedula = ?", (cedula,))
-            existe_paciente = cursor.fetchone()[0] > 0
-            
-            if existe_paciente > 0:
-                QMessageBox.critical(self, "Error", "El paciente ya esta registrado en el sistema.")
+                conexion = sqlite3.connect('interfaces/database.db')
+                cursor = conexion.cursor()
                 
-            elif existe_paciente < 0:
-                # Si el paciente existe, proceder a actualizar la cita
-                cursor.execute("UPDATE Pacientes SET Fecha_Cita = ?, Hora_Cita = ? WHERE Cedula = ?",
-                            (fechaToString, horaToString, cedula))
-                existe_paciente = cursor.fetchone()[0]
-
-                # Guardar los cambios en la base de datos
-                conexion.commit()
+                # Verificar si existe un paciente con la cédula proporcionada
+                cursor.execute("SELECT COUNT(*) FROM Pacientes WHERE Cedula = ?", (cedula,))
+                existe_paciente = cursor.fetchone()[0] > 0
                 
-                # Mostrar un mensaje de éxito
-                QMessageBox.information(self, "Información", "Cita guardada con éxito.")
-            else:
-                 # Si el paciente no existe, mostrar un mensaje de error
-                 QMessageBox.warning(self, "Advertencia", "No se encontró un paciente con la cédula proporcionada.")
-            
-            # Cerrar la conexión con la base de datos
-            conexion.close()
+                if existe_paciente:
+                    # Si el paciente existe, proceder a actualizar la cita
+                    cursor.execute("UPDATE Pacientes SET Fecha_Cita = ?, Hora_Cita = ? WHERE Cedula = ?",
+                                (fechaToString, horaToString, cedula))
+                    
+                    # Guardar los cambios en la base de datos
+                    conexion.commit()
+                    
+                    # Mostrar un mensaje de éxito
+                    QMessageBox.information(self, "Información", "Cita agregada con éxito.")
+                else:
+                    # Si el paciente no existe, mostrar un mensaje de error
+                    QMessageBox.warning(self, "Advertencia", "No se encontró un paciente con la cédula proporcionada.")
+                
+                # Cerrar la conexión con la base de datos
+                conexion.close()
             
         except sqlite3.Error as error:
             # En caso de error, mostrar un mensaje de error
-            QMessageBox.critical(self, "Error", f"Error al guardar la cita: {str(error)}")    
+            QMessageBox.critical(self, "Error", f"Error al actualizar la cita: {str(error)}")
+
     def searchdata(self):
         idUser = self.id_user
         cedula = self.in_busqueda.text()
@@ -742,7 +751,7 @@ class Ui_CitasMenu(QMainWindow):
         try:
             conexion = sqlite3.connect('interfaces/database.db')
             cursor = conexion.cursor()
-            cursor.execute("SELECT Cedula,Nombre, Apellido, Fecha_Cita, Hora_Cita  FROM Pacientes WHERE Cedula = ? AND ID_user = ?", (cedula, idUser))
+            cursor.execute("SELECT Cedula, Nombre, Apellido, Fecha_Cita, Hora_Cita  FROM Pacientes WHERE Cedula = ? AND ID_user = ?", (cedula, idUser))
             tabla_cita = cursor.fetchall()
 
             # Filtrar los resultados para eliminar las filas con None
@@ -776,9 +785,16 @@ class Ui_CitasMenu(QMainWindow):
                 # Manejar el caso en el que no se encontraron resultados, por ejemplo, mostrar un mensaje de error
                 QMessageBox.warning(self, "Sin resultados", "El paciente no tiene citas actualmente")
 
-                # Si deseas mostrar el nombre en pantalla, puedes hacerlo aquí
-                self.txt_name.clear()  # Limpiar el campo de nombre
-                self.txt_apell.clear()  # Limpiar el campo de apellido
+                # Si deseas mostrar el nombre y apellido incluso si no hay cita, puedes hacerlo aquí
+                cursor.execute("SELECT Nombre, Apellido FROM Pacientes WHERE Cedula = ? AND ID_user = ?", (cedula, idUser))
+                datos_paciente = cursor.fetchone()
+                
+                if datos_paciente:
+                    nombre_paciente, apellido_paciente = datos_paciente
+                    self.txt_name.setText(nombre_paciente)
+                    self.txt_apell.setText(apellido_paciente)
+                else:
+                    QMessageBox.warning(self, "Sin resultados", "No se encontró al paciente")
         except sqlite3.Error as error:
             QMessageBox.critical(self, "Error", f"Error al buscar paciente: {str(error)}")
         finally:
@@ -1988,6 +2004,20 @@ class historiaMenu(QMainWindow):
             QMessageBox.critical(self, "Error", "Por favor, complete todos los campos.")
             return
 
+        telefono_pattern = re.compile(r'^\d{11}$')  # Asume que el número de teléfono debe tener 10 dígitos
+        mail_pattern = re.compile(r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$')  # Patrón para validar correo electrónico
+        cedula_pattern = re.compile(r'^\d+$')  # Asume que la cédula debe contener solo dígitos
+        
+        if not cedula_pattern.match(cedula):
+            QMessageBox.warning(self, "Error", "Ingrese una cédula válida (solo números).")
+            return
+        if not telefono_pattern.match(telefono):
+            QMessageBox.warning(self, "Error", "Ingrese un número de teléfono válido (0000-0000-000).")
+            return
+
+        if not mail_pattern.match(mail):
+            QMessageBox.warning(self, "Error", "Ingrese una dirección de correo electrónico válida.")
+            return
         try:
             conexion = sqlite3.connect('interfaces/database.db')
             cursor = conexion.cursor()
