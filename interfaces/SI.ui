@@ -211,8 +211,14 @@
                      <height>30</height>
                     </size>
                    </property>
+                   <property name="alignment">
+                    <set>Qt::AlignCenter</set>
+                   </property>
                    <property name="readOnly">
                     <bool>true</bool>
+                   </property>
+                   <property name="placeholderText">
+                    <string>Monto en Bs.</string>
                    </property>
                   </widget>
                  </item>
@@ -243,8 +249,14 @@
                      <height>30</height>
                     </size>
                    </property>
+                   <property name="alignment">
+                    <set>Qt::AlignCenter</set>
+                   </property>
                    <property name="readOnly">
                     <bool>true</bool>
+                   </property>
+                   <property name="placeholderText">
+                    <string>Monto en $$$</string>
                    </property>
                   </widget>
                  </item>
@@ -428,8 +440,14 @@
                      <height>30</height>
                     </size>
                    </property>
+                   <property name="alignment">
+                    <set>Qt::AlignCenter</set>
+                   </property>
                    <property name="readOnly">
                     <bool>true</bool>
+                   </property>
+                   <property name="placeholderText">
+                    <string>Monto en Bs.</string>
                    </property>
                   </widget>
                  </item>
@@ -460,8 +478,14 @@
                      <height>30</height>
                     </size>
                    </property>
+                   <property name="alignment">
+                    <set>Qt::AlignCenter</set>
+                   </property>
                    <property name="readOnly">
                     <bool>true</bool>
+                   </property>
+                   <property name="placeholderText">
+                    <string>Monto en $$$</string>
                    </property>
                   </widget>
                  </item>
@@ -645,8 +669,14 @@
                      <height>30</height>
                     </size>
                    </property>
+                   <property name="alignment">
+                    <set>Qt::AlignCenter</set>
+                   </property>
                    <property name="readOnly">
                     <bool>true</bool>
+                   </property>
+                   <property name="placeholderText">
+                    <string>Monto en Bs.</string>
                    </property>
                   </widget>
                  </item>
@@ -677,8 +707,14 @@
                      <height>30</height>
                     </size>
                    </property>
+                   <property name="alignment">
+                    <set>Qt::AlignCenter</set>
+                   </property>
                    <property name="readOnly">
                     <bool>true</bool>
+                   </property>
+                   <property name="placeholderText">
+                    <string>Monto en $$$</string>
                    </property>
                   </widget>
                  </item>
@@ -866,8 +902,14 @@
                      <height>30</height>
                     </size>
                    </property>
+                   <property name="alignment">
+                    <set>Qt::AlignCenter</set>
+                   </property>
                    <property name="readOnly">
                     <bool>true</bool>
+                   </property>
+                   <property name="placeholderText">
+                    <string>Monto en Bs.</string>
                    </property>
                   </widget>
                  </item>
@@ -898,8 +940,14 @@
                      <height>30</height>
                     </size>
                    </property>
+                   <property name="alignment">
+                    <set>Qt::AlignCenter</set>
+                   </property>
                    <property name="readOnly">
                     <bool>true</bool>
+                   </property>
+                   <property name="placeholderText">
+                    <string>Monto en $$$</string>
                    </property>
                   </widget>
                  </item>
@@ -1083,8 +1131,14 @@
                      <height>30</height>
                     </size>
                    </property>
+                   <property name="alignment">
+                    <set>Qt::AlignCenter</set>
+                   </property>
                    <property name="readOnly">
                     <bool>true</bool>
+                   </property>
+                   <property name="placeholderText">
+                    <string>Monto en Bs.</string>
                    </property>
                   </widget>
                  </item>
@@ -1115,8 +1169,14 @@
                      <height>30</height>
                     </size>
                    </property>
+                   <property name="alignment">
+                    <set>Qt::AlignCenter</set>
+                   </property>
                    <property name="readOnly">
                     <bool>true</bool>
+                   </property>
+                   <property name="placeholderText">
+                    <string>Monto en $$$</string>
                    </property>
                   </widget>
                  </item>
@@ -1300,8 +1360,14 @@
                      <height>30</height>
                     </size>
                    </property>
+                   <property name="alignment">
+                    <set>Qt::AlignCenter</set>
+                   </property>
                    <property name="readOnly">
                     <bool>true</bool>
+                   </property>
+                   <property name="placeholderText">
+                    <string>Monto en Bs.</string>
                    </property>
                   </widget>
                  </item>
@@ -1332,8 +1398,14 @@
                      <height>30</height>
                     </size>
                    </property>
+                   <property name="alignment">
+                    <set>Qt::AlignCenter</set>
+                   </property>
                    <property name="readOnly">
                     <bool>true</bool>
+                   </property>
+                   <property name="placeholderText">
+                    <string>Monto en $$$</string>
                    </property>
                   </widget>
                  </item>
