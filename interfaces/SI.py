@@ -2,7 +2,9 @@ import sys
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.uic import loadUi
 import sqlite3
-
+from bs4 import BeautifulSoup
+import requests
+from urllib3.exceptions import InsecureRequestWarning
 class Ui_SI(QtWidgets.QMainWindow):
     def __init__(self):
         super(Ui_SI, self).__init__()
@@ -26,7 +28,7 @@ class Ui_SI(QtWidgets.QMainWindow):
         self.combo_honorario = [self.findChild(QtWidgets.QComboBox, f"c_{i}") for i in range(6)]
         self.combo_tratamiento = [self.findChild(QtWidgets.QComboBox, f"t_{i}") for i in range(6)]
         self.monto_dola = [self.findChild(QtWidgets.QLineEdit, f"monto_dola_{i+1}") for i in range(6)]
-
+        self.monto_bs = [self.findChild(QtWidgets.QLineEdit, f"monto_bs_{i+1}") for i in range(6)]
         for combo in self.combo_honorario:
             combo.addItem("Seleccione el tipo de honorario")
             combo.addItems(list(self.tratamientos.keys()))
@@ -35,6 +37,33 @@ class Ui_SI(QtWidgets.QMainWindow):
         for i, combo in enumerate(self.combo_tratamiento):
             combo.currentTextChanged.connect(lambda _, index=i: self.update_monto(index))
 
+    def calcularDivisa(self, dolar):
+        requests.packages.urllib3.disable_warnings(InsecureRequestWarning)
+
+        url = 'https://www.bcv.org.ve'
+        response = requests.get(url , verify=False)
+
+        soup = BeautifulSoup(response.text, 'html.parser')
+
+        div_dolar = soup.find('div', id='dolar')
+
+        divisa = div_dolar.find('strong').text
+
+        # Eliminar espacios en blanco y comas
+        divisa_limpia = divisa.replace(' ', '').replace(',', '.')
+
+        # Convertir la cadena limpia en un número decimal
+        valor_numerico = float(divisa_limpia)
+
+        # Obtener la cantidad de dólares del QLineEdit en tu interfaz gráfica
+        operacion = float(dolar)
+
+        # Calcular la suma
+        bolivares = operacion * valor_numerico
+        suma_formateada = "{:.2f}".format(bolivares).replace(".", ",")
+
+        # Retorna el valor calculado
+        return suma_formateada, operacion
     def loadTratamientos(self):
         sender = self.sender()
         selected_honorario = sender.currentText()
@@ -69,6 +98,19 @@ class Ui_SI(QtWidgets.QMainWindow):
 
         if monto:
             self.monto_dola[index].setText(str(monto[0]))
+           
+            dolares = monto[0]
+            resultado_divisa = self.calcularDivisa(dolares)
+            if resultado_divisa:
+                bolivares, operacion = resultado_divisa
+                self.monto_bs[index].setText(str(bolivares))
+            else:
+                # Manejar el caso en el que no se pueda obtener la información de la divisa
+                self.monto_bs[index].setText("Error al obtener la tasa de cambio")
+        else:
+            # Manejar el caso en el que no se encuentre el monto en la base de datos
+            self.monto_bs[index].setText("Monto no encontrado en la base de datos")
+
 
 if __name__ == "__main__":
     app = QtWidgets.QApplication(sys.argv)
