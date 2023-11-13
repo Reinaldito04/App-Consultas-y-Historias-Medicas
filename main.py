@@ -1862,23 +1862,11 @@ class historiaMenu(QMainWindow):
             cursor = conexion.cursor()
                         # Verificar si ya existe un paciente con la misma cédula
             cursor.execute("SELECT COUNT(*) FROM Pacientes WHERE Cedula = ?", (cedula,))
-            existe_paciente = cursor.fetchone()[0]
-
-            if existe_paciente > 0:
-                QMessageBox.critical(self, "Error", "El paciente ya esta registrado en el sistema.")
-                
-                #limpia los campos luego de denegar el ingreso
-                self.clearInputs()
-                self.clearData()
-                self.clearDiag()
-                return
-            
             cursor.execute("UPDATE Pacientes SET Diagnotico=?, Fecha_Diagnotico=?, Hora_Diagnostico=?  WHERE Cedula=?", (
                 diag,fechaToString,horatoString, cedula ))
             conexion.commit()
             QMessageBox.information(self, "Éxito", "Informacion registrada correctamente.")
 
-          
             # Cierra la conexión con la base de datos
             conexion.close()
     
@@ -1944,19 +1932,7 @@ class historiaMenu(QMainWindow):
         try:
             conexion = sqlite3.connect('interfaces/database.db')
             cursor = conexion.cursor()
-            
-            # Verificar si ya existe un paciente con la misma cédula
             cursor.execute("SELECT COUNT(*) FROM Pacientes WHERE Cedula = ?", (cedula,))
-            existe_paciente = cursor.fetchone()[0]
-
-            if existe_paciente > 0:
-                QMessageBox.critical(self, "Error", "El paciente ya esta registrado en el sistema.")
-                
-                #limpia los campos luego de denegar el ingreso
-                self.clearInputs()
-                self.clearData()
-                return
-
             cursor.execute("UPDATE Pacientes SET Hipertension=?, Diabates=?, Coagualcion=?, Otros=? ,Alergias=? , diabate_Data=?,hipertension_Data=?,Coagualcion_Data=?  WHERE Cedula=?", (
                 hipertenso, diabetes, coagulacion, Otros, alergias,diabetes_control,hipertenso_control,coagualcion_control, cedula ))
             conexion.commit()
@@ -2024,17 +2000,6 @@ class historiaMenu(QMainWindow):
 
             # Verificar si ya existe un paciente con la misma cédula
             cursor.execute("SELECT COUNT(*) FROM Pacientes WHERE Cedula = ?", (cedula,))
-            existe_paciente = cursor.fetchone()[0]
-
-            if existe_paciente > 0:
-                QMessageBox.critical(self, "Error", "Ya existe un paciente con la misma cédula.")
-                
-                #limpia los campos luego de denegar el ingreso
-                self.clearInputs()
-                self.clearData()
-                return
-
-            # Si no existe un paciente con la misma cédula, ejecutar la consulta de inserción
             cursor.execute("INSERT INTO Pacientes (Cedula, Nombre, Apellido, Edad, Sexo ,Direccion , ID_user ,Telefono, Mail ,Context) VALUES (?, ?, ?, ?, ?, ?, ? , ? ,? , ?)",
                         (cedula, nombre, apellido, edad, valor_sexo , direccion , idUser ,telefono , mail , contexto))
 
