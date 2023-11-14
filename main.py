@@ -4,7 +4,9 @@ from PyQt5.uic import loadUi
 from PyQt5.QtCore import QDate , QBuffer, QByteArray , QTime
 from PyQt5.QtGui import QImage,QPixmap 
 from PyQt5.QtGui import QIcon
-from PyQt5.QtCore import QIODevice
+from PyQt5.QtGui import QDesktopServices
+
+from PyQt5.QtCore import QIODevice , QUrl
 from PyQt5.QtWidgets import QFileDialog
 from PyQt5.QtWidgets import QWidget ,QApplication ,QMainWindow,QStackedWidget,QGraphicsDropShadowEffect, QCalendarWidget , QBoxLayout
 from PyQt5.QtWidgets import QMessageBox,QLabel,QTableWidgetItem
@@ -340,6 +342,7 @@ class MenuPrincipal(QMainWindow):
         self.bt_registro.clicked.connect(self.Historyviews)
         self.bt_paciente.clicked.connect(self.PlacasView)
         self.bt_citas.clicked.connect(self.CitasView)
+        self.bt_help.clicked.connect(self.ayuda)
     
     def PlacasView(self):
         reply = self.showConfirmation("¿Deseas ir al formulario de placas?")
@@ -349,7 +352,9 @@ class MenuPrincipal(QMainWindow):
             widget.setCurrentIndex(widget.currentIndex() + 1)
             placa_view.show()
             self.hide()
-
+    def ayuda(self):
+        dialog = helpView()
+        dialog.exec_()
     def CitasView(self):
         reply = self.showConfirmation("¿Deseas ir al formulario de citas?")
         if reply == QMessageBox.Yes:
@@ -416,6 +421,20 @@ class MenuPrincipal(QMainWindow):
         if reply == QMessageBox.Yes:
             QApplication.quit()
             
+class helpView(QDialog):
+    def __init__(self):
+        super(helpView,self).__init__()
+        loadUi('interfaces/help.ui', self)
+        self.setWindowTitle('Información')
+       
+        self.click.setText('<a href="https://github.com/Reinaldito04/App-Consultas-y-Historias-Medicas">Haz Click aqui</a>')
+        self.click.setOpenExternalLinks(True)
+        self.click.linkActivated.connect(self.open_github_link)
+        self.click.setStyleSheet("QLabel { text-decoration: none; }")
+
+    def open_github_link(self):
+        QDesktopServices.openUrl(QUrl('https://github.com/Reinaldito04/App-Consultas-y-Historias-Medicas'))
+
 class EditDoctor(QMainWindow):
     def __init__(self,id_user):
         super(EditDoctor, self).__init__()

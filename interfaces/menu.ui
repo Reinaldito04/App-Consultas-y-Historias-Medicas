@@ -163,6 +163,40 @@ background-color:rgb(145, 200, 228);
              </spacer>
             </item>
             <item>
+             <widget class="QPushButton" name="bt_help">
+              <property name="minimumSize">
+               <size>
+                <width>50</width>
+                <height>50</height>
+               </size>
+              </property>
+              <property name="styleSheet">
+               <string notr="true">QPushButton{
+border-radius:25px;
+}
+
+QPushButton:hover{
+color:white;
+background-color:rgb(145, 200, 228);
+
+}</string>
+              </property>
+              <property name="text">
+               <string/>
+              </property>
+              <property name="icon">
+               <iconset>
+                <normaloff>ELEMENTOS GRAFICOS/informacion.png</normaloff>ELEMENTOS GRAFICOS/informacion.png</iconset>
+              </property>
+              <property name="iconSize">
+               <size>
+                <width>45</width>
+                <height>38</height>
+               </size>
+              </property>
+             </widget>
+            </item>
+            <item>
              <widget class="QPushButton" name="bt_info">
               <property name="minimumSize">
                <size>
