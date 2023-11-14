@@ -663,7 +663,11 @@ class Ui_CitasMenu(QMainWindow):
         
         fecha = self.fecha.selectedDate()
         fechaToString = fecha.toString('yyyy-MM-dd')
-            
+        statusCita = None
+        if self.bt_act.isChecked():
+            statusCita = 'Activa'
+        if self.bt_cancel.isChecked():
+            statusCita = 'Cancelada'
         hora = self.hora.time()
         horaToString = hora.toString('hh:mmm:ss')
         
@@ -689,8 +693,8 @@ class Ui_CitasMenu(QMainWindow):
                 
                 if existe_paciente:
                     # Si el paciente existe, proceder a actualizar la cita
-                    cursor.execute("UPDATE Pacientes SET Fecha_Cita = ?, Hora_Cita = ? WHERE Cedula = ?",
-                                (fechaToString, horaToString, cedula))
+                    cursor.execute("UPDATE Pacientes SET Fecha_Cita = ?, Hora_Cita = ?,Status_Cita=? WHERE Cedula = ?",
+                                (fechaToString, horaToString,statusCita, cedula))
                     
                     # Guardar los cambios en la base de datos
                     conexion.commit()
@@ -714,7 +718,11 @@ class Ui_CitasMenu(QMainWindow):
         
         fecha = self.fecha.selectedDate()
         fechaToString = fecha.toString('yyyy-MM-dd')
-            
+        statusCita = None
+        if self.bt_act.isChecked():
+            statusCita = 'Activa'
+        if self.bt_cancel.isChecked():
+            statusCita = 'Cancelada'
         hora = self.hora.time()
         horaToString = hora.toString('hh:mmm:ss')
         
@@ -740,8 +748,8 @@ class Ui_CitasMenu(QMainWindow):
                 
                 if existe_paciente:
                     # Si el paciente existe, proceder a actualizar la cita
-                    cursor.execute("UPDATE Pacientes SET Fecha_Cita = ?, Hora_Cita = ? WHERE Cedula = ?",
-                                (fechaToString, horaToString, cedula))
+                    cursor.execute("UPDATE Pacientes SET Fecha_Cita = ?, Hora_Cita = ? ,Status_Cita=? WHERE Cedula = ?",
+                                (fechaToString, horaToString, statusCita,cedula))
                     
                     # Guardar los cambios en la base de datos
                     conexion.commit()
@@ -770,7 +778,7 @@ class Ui_CitasMenu(QMainWindow):
         try:
             conexion = sqlite3.connect('interfaces/database.db')
             cursor = conexion.cursor()
-            cursor.execute("SELECT Cedula, Nombre, Apellido, Fecha_Cita, Hora_Cita  FROM Pacientes WHERE Cedula = ? AND ID_user = ?", (cedula, idUser))
+            cursor.execute("SELECT Cedula, Nombre, Apellido, Fecha_Cita, Hora_Cita,Status_Cita  FROM Pacientes WHERE Cedula = ? AND ID_user = ?", (cedula, idUser))
             tabla_cita = cursor.fetchall()
 
             # Filtrar los resultados para eliminar las filas con None
@@ -792,13 +800,19 @@ class Ui_CitasMenu(QMainWindow):
 
                 # Mostrar el primer resultado en los campos de texto
                 primer_resultado = resultados_filtrados[0]
-                nombre_paciente, apellido_paciente, fechaCita, horaCita, cedula = primer_resultado
+                nombre_paciente, apellido_paciente, fechaCita, horaCita,statusCita, cedula = primer_resultado
                 self.txt_name.setText(nombre_paciente)
                 self.txt_apell.setText(apellido_paciente)
                 fecha_cita = fechaCita
                 print("Hora obtenida de la base de datos:", horaCita)
                 self.fecha.setSelectedDate(QDate.fromString(fecha_cita, 'yyyy-MM-dd'))
                 hora_cita = QTime.fromString(horaCita, 'hh:mm:ss')
+                status_cita =primer_resultado[5]
+                if status_cita =='Activa':
+                    self.bt_act.setChecked(True)
+                if status_cita == 'Cancelada':
+                    self.bt_cancel.setChecked(True)
+                
                 self.hora.setTime(hora_cita)
             else:
                 # Manejar el caso en el que no se encontraron resultados, por ejemplo, mostrar un mensaje de error
