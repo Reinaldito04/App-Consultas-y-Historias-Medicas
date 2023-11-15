@@ -15,7 +15,7 @@ class Ui_pacientes_view(QtWidgets.QMainWindow):
         self.filtro = self.findChild(QtWidgets.QComboBox, "filtro")
         self.filtro.addItem("Seleccione una opción para filtrar")
         self.filtro.addItems(["Dentista","Cedula", "Nombre", "Edad", "Sexo","Direccion" , "Fecha_Diagnotico"])
-        
+        self.in_buscar.textChanged.connect(self.buscar)
     def act_T(self):
         self.cargarPacientes()
 
@@ -52,8 +52,11 @@ class Ui_pacientes_view(QtWidgets.QMainWindow):
         valor = self.in_buscar.text()
         if filtro == "Seleccione una opción para filtrar":
             QtWidgets.QMessageBox.warning(self, "Error", "Debe seleccionar un filtro para buscar")
+        elif len(valor) == 0:
+            self.act_T()
         elif not valor:
             QtWidgets.QMessageBox.warning(self, "Por favor", "Ingrese alguna especificación del paciente para realizar la búsqueda")
+       
         elif self.tabla_p.rowCount() == 0:
             QtWidgets.QMessageBox.warning(self, "Advertencia", "No se ha encontrado ningún registro")  
         else:
