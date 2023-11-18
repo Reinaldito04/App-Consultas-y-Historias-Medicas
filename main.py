@@ -2029,16 +2029,21 @@ class historiaMenu(QMainWindow):
 
             # Verificar si ya existe un paciente con la misma cédula
             cursor.execute("SELECT COUNT(*) FROM Pacientes WHERE Cedula = ?", (cedula,))
-            cursor.execute("INSERT INTO Pacientes (Cedula, Nombre, Apellido, Edad, Sexo ,Direccion , ID_user ,Telefono, Mail ,Context) VALUES (?, ?, ?, ?, ?, ?, ? , ? ,? , ?)",
-                        (cedula, nombre, apellido, edad, valor_sexo , direccion , idUser ,telefono , mail , contexto))
+            existe_paciente = cursor.fetchone()[0]
+            if existe_paciente:
+                QMessageBox.warning(self, "Advertencia", "Ya existe un paciente con la misma cédula.")
+                return
+            else:
+                cursor.execute("INSERT INTO Pacientes (Cedula, Nombre, Apellido, Edad, Sexo ,Direccion , ID_user ,Telefono, Mail ,Context) VALUES (?, ?, ?, ?, ?, ?, ? , ? ,? , ?)",
+                            (cedula, nombre, apellido, edad, valor_sexo , direccion , idUser ,telefono , mail , contexto))
 
-            # Confirmar los cambios en la base de datos
-            conexion.commit()
+                # Confirmar los cambios en la base de datos
+                conexion.commit()
 
-            QMessageBox.information(self, "Éxito", "Paciente registrado correctamente.")
+                QMessageBox.information(self, "Éxito", "Paciente registrado correctamente.")
 
-            # Cierra la conexión con la base de datos
-            conexion.close()
+                # Cierra la conexión con la base de datos
+                conexion.close()
 
         except sqlite3.Error as error:
             QMessageBox.critical(self, "Error", f"Error al registrar el paciente: {str(error)}")
