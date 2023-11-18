@@ -56,7 +56,6 @@ class Ui_pacientes_view(QtWidgets.QMainWindow):
             self.act_T()
         elif not valor:
             QtWidgets.QMessageBox.warning(self, "Por favor", "Ingrese alguna especificación del paciente para realizar la búsqueda")
-       
         elif self.tabla_p.rowCount() == 0:
             QtWidgets.QMessageBox.warning(self, "Advertencia", "No se ha encontrado ningún registro")  
         else:
