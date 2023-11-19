@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>911</width>
-    <height>726</height>
+    <width>1142</width>
+    <height>874</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -993,14 +993,8 @@ QFrame{
                    <enum>QFrame::Raised</enum>
                   </property>
                   <layout class="QVBoxLayout" name="verticalLayout_13">
-                   <property name="leftMargin">
-                    <number>0</number>
-                   </property>
-                   <property name="rightMargin">
-                    <number>0</number>
-                   </property>
                    <item>
-                    <widget class="Line" name="line_3">
+                    <widget class="Line" name="line_5">
                      <property name="orientation">
                       <enum>Qt::Horizontal</enum>
                      </property>
@@ -1018,14 +1012,154 @@ QFrame{
                        </property>
                       </widget>
                      </item>
+                     <item>
+                      <widget class="QComboBox" name="filtro">
+                       <property name="minimumSize">
+                        <size>
+                         <width>300</width>
+                         <height>40</height>
+                        </size>
+                       </property>
+                       <property name="maximumSize">
+                        <size>
+                         <width>300</width>
+                         <height>40</height>
+                        </size>
+                       </property>
+                       <property name="font">
+                        <font>
+                         <pointsize>10</pointsize>
+                         <weight>75</weight>
+                         <bold>true</bold>
+                        </font>
+                       </property>
+                       <property name="autoFillBackground">
+                        <bool>false</bool>
+                       </property>
+                       <property name="styleSheet">
+                        <string notr="true"/>
+                       </property>
+                       <property name="frame">
+                        <bool>false</bool>
+                       </property>
+                      </widget>
+                     </item>
+                     <item>
+                      <widget class="QLineEdit" name="in_buscar">
+                       <property name="minimumSize">
+                        <size>
+                         <width>200</width>
+                         <height>40</height>
+                        </size>
+                       </property>
+                       <property name="maximumSize">
+                        <size>
+                         <width>200</width>
+                         <height>40</height>
+                        </size>
+                       </property>
+                       <property name="inputMask">
+                        <string/>
+                       </property>
+                       <property name="text">
+                        <string/>
+                       </property>
+                       <property name="maxLength">
+                        <number>20</number>
+                       </property>
+                       <property name="placeholderText">
+                        <string/>
+                       </property>
+                      </widget>
+                     </item>
+                     <item>
+                      <widget class="QPushButton" name="bt_buscar">
+                       <property name="minimumSize">
+                        <size>
+                         <width>80</width>
+                         <height>40</height>
+                        </size>
+                       </property>
+                       <property name="maximumSize">
+                        <size>
+                         <width>80</width>
+                         <height>40</height>
+                        </size>
+                       </property>
+                       <property name="text">
+                        <string/>
+                       </property>
+                       <property name="icon">
+                        <iconset>
+                         <normaloff>ELEMENTOS GRAFICOS/buscar.png</normaloff>ELEMENTOS GRAFICOS/buscar.png</iconset>
+                       </property>
+                       <property name="iconSize">
+                        <size>
+                         <width>30</width>
+                         <height>30</height>
+                        </size>
+                       </property>
+                      </widget>
+                     </item>
                     </layout>
                    </item>
                    <item>
-                    <widget class="Line" name="line_5">
+                    <widget class="Line" name="line_3">
                      <property name="orientation">
                       <enum>Qt::Horizontal</enum>
                      </property>
                     </widget>
+                   </item>
+                   <item>
+                    <layout class="QHBoxLayout" name="horizontalLayout_7">
+                     <item>
+                      <widget class="QPushButton" name="bt_act">
+                       <property name="minimumSize">
+                        <size>
+                         <width>150</width>
+                         <height>50</height>
+                        </size>
+                       </property>
+                       <property name="maximumSize">
+                        <size>
+                         <width>150</width>
+                         <height>50</height>
+                        </size>
+                       </property>
+                       <property name="font">
+                        <font>
+                         <pointsize>9</pointsize>
+                        </font>
+                       </property>
+                       <property name="text">
+                        <string>Actualizar tabla</string>
+                       </property>
+                       <property name="icon">
+                        <iconset>
+                         <normaloff>ELEMENTOS GRAFICOS/actualizar.png</normaloff>ELEMENTOS GRAFICOS/actualizar.png</iconset>
+                       </property>
+                       <property name="iconSize">
+                        <size>
+                         <width>30</width>
+                         <height>30</height>
+                        </size>
+                       </property>
+                      </widget>
+                     </item>
+                     <item>
+                      <spacer name="horizontalSpacer_5">
+                       <property name="orientation">
+                        <enum>Qt::Horizontal</enum>
+                       </property>
+                       <property name="sizeHint" stdset="0">
+                        <size>
+                         <width>40</width>
+                         <height>20</height>
+                        </size>
+                       </property>
+                      </spacer>
+                     </item>
+                    </layout>
                    </item>
                    <item>
                     <widget class="QFrame" name="frame_tabla">
@@ -1057,7 +1191,7 @@ QFrame{
                        <number>0</number>
                       </property>
                       <item>
-                       <widget class="QTableWidget" name="tableWidget">
+                       <widget class="QTableWidget" name="tabla_cita">
                         <property name="font">
                          <font>
                           <family>MS Shell Dlg 2</family>
@@ -1075,17 +1209,17 @@ QFrame{
                         </attribute>
                         <column>
                          <property name="text">
-                          <string>Cedula_P</string>
+                          <string>Cedula</string>
                          </property>
                         </column>
                         <column>
                          <property name="text">
-                          <string>Nombre_P</string>
+                          <string>Nombre</string>
                          </property>
                         </column>
                         <column>
                          <property name="text">
-                          <string>Apellido_P</string>
+                          <string>Apellido</string>
                          </property>
                         </column>
                         <column>
@@ -1096,6 +1230,11 @@ QFrame{
                         <column>
                          <property name="text">
                           <string>Hora</string>
+                         </property>
+                        </column>
+                        <column>
+                         <property name="text">
+                          <string>Estatus de cita</string>
                          </property>
                         </column>
                        </widget>

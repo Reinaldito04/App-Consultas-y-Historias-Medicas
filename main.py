@@ -343,6 +343,59 @@ class MenuPrincipal(QMainWindow):
         self.bt_paciente.clicked.connect(self.PlacasView)
         self.bt_citas.clicked.connect(self.CitasView)
         self.bt_help.clicked.connect(self.ayuda)
+        self.bt_act.clicked.connect(self.act_T)
+        self.bt_buscar.clicked.connect(self.buscar)
+        self.cargarCitas()
+        self.filtro = self.findChild(QtWidgets.QComboBox, "filtro")
+        self.filtro.addItem("Seleccione una opción para filtrar")
+        self.filtro.addItems(["Dentista", "Cedula", "Nombre", "Fecha_Cita", "Hora_Cita", "Status_Cita"])
+        self.in_buscar.textChanged.connect(self.buscar)
+
+    def act_T(self):
+        self.cargarCitas()
+
+    def cargarCitas(self, filtro=None, valor=None):
+        self.tabla_cita.setRowCount(0)  # Limpiar la tabla actual
+        headers = ["Cedula", "Nombre", "Apellido", "Fecha de la  cita", "Hora de la cita", "Estatus de la cita"]
+
+        try:
+            conexion = sqlite3.connect('interfaces/database.db')
+            cursor = conexion.cursor()
+
+            if filtro and valor:
+                cursor.execute("SELECT Cedula, Nombre, Apellido, Fecha_Cita, Hora_Cita, Status_Cita FROM Pacientes WHERE {} LIKE ? AND ID_user = ? ORDER BY Fecha_Cita ASC".format(filtro), ('%' + valor + '%', self.id_user))
+            else:
+                cursor.execute("SELECT Cedula, Nombre, Apellido, Fecha_Cita, Hora_Cita, Status_Cita FROM Pacientes WHERE ID_user = ? ORDER BY Fecha_Cita ASC", (self.id_user,))
+
+            citas = cursor.fetchall()
+
+            self.tabla_cita.setColumnCount(len(headers))
+            self.tabla_cita.setHorizontalHeaderLabels(headers)
+
+            for row, cita in enumerate(citas):
+                self.tabla_cita.insertRow(row)
+                for column, value in enumerate(cita):
+                    item = QtWidgets.QTableWidgetItem(str(value))
+                    self.tabla_cita.setItem(row, column, item)
+
+            conexion.close()
+        except sqlite3.Error as e:
+            QtWidgets.QMessageBox.critical(self, "Error", "Error al consultar la base de datos: " + str(e))
+
+    def buscar(self):
+        filtro = self.filtro.currentText()
+        valor = self.in_buscar.text()
+        if filtro == "Seleccione una opción para filtrar":
+            QtWidgets.QMessageBox.warning(self, "Error", "Debe seleccionar un filtro para buscar")
+        elif len(valor) == 0:
+            self.act_T()
+        elif not valor:
+            QtWidgets.QMessageBox.warning(self, "Por favor", "Ingrese alguna especificación de la cita para realizar la búsqueda")
+        elif self.tabla_cita.rowCount() == 0:
+            QtWidgets.QMessageBox.warning(self, "Advertencia", "No se ha encontrado ninguna cita")
+        else:
+            self.cargarCitas(filtro, valor)
+
     
     def PlacasView(self):
         reply = self.showConfirmation("¿Deseas ir al formulario de placas?")
@@ -352,6 +405,7 @@ class MenuPrincipal(QMainWindow):
             widget.setCurrentIndex(widget.currentIndex() + 1)
             placa_view.show()
             self.hide()
+            
     def ayuda(self):
         dialog = helpView()
         dialog.exec_()
