@@ -112,7 +112,7 @@ background-color:gray;
              </property>
              <property name="styleSheet">
               <string notr="true">QFrame{
-background-color:#138D75;
+background-color:rgb(70, 130, 169);
 	font: 12pt &quot;Microsoft Sans Serif&quot;;
 }
 QTableWidget{
@@ -430,7 +430,7 @@ QLabel{
      <x>0</x>
      <y>0</y>
      <width>844</width>
-     <height>20</height>
+     <height>21</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuMenu">

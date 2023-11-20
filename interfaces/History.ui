@@ -34,7 +34,7 @@
      <widget class="QFrame" name="frame_P">
       <property name="styleSheet">
        <string notr="true">QFrame{
-background-color:gray;
+background-color:rgb(0, 85, 127);
 }</string>
       </property>
       <property name="frameShape">
@@ -79,7 +79,7 @@ background-color:gray;
           <enum>QTabWidget::Rounded</enum>
          </property>
          <property name="currentIndex">
-          <number>0</number>
+          <number>2</number>
          </property>
          <property name="iconSize">
           <size>
@@ -133,7 +133,7 @@ background-color:gray;
             <widget class="QFrame" name="fondo">
              <property name="styleSheet">
               <string notr="true">QFrame{
-background-color:#138D75;
+background-color:rgb(70, 130, 169);
 	font: 12pt &quot;Microsoft Sans Serif&quot;;
 }
 QTableWidget{
@@ -144,7 +144,7 @@ font-size:12pt;
 QHeaderView::section{
 background-color:rgb(0,206,151);
 border:1px solid rgb(0,0,0);
-font-size:12pt;
+font: 75 12pt &quot;Microsoft Sans Serif&quot;;
 }
 QTbaleWidget QTableCornerButton::section{
 background-color:rgb(0,0,0);
@@ -192,7 +192,7 @@ border-radius:20px;
                   <item>
                    <widget class="QLabel" name="title">
                     <property name="text">
-                     <string>Registro de datos de paciente</string>
+                     <string>Registro de datos basicos del paciente</string>
                     </property>
                    </widget>
                   </item>
@@ -402,7 +402,7 @@ border-radius:20px;
                                </size>
                               </property>
                               <property name="text">
-                               <string>Nombres:</string>
+                               <string>Nombre:</string>
                               </property>
                              </widget>
                             </item>
@@ -448,7 +448,7 @@ border-radius:20px;
                             <item>
                              <widget class="QLabel" name="lbl_apell">
                               <property name="text">
-                               <string>Apellidos:</string>
+                               <string>Apellido:</string>
                               </property>
                              </widget>
                             </item>
@@ -594,13 +594,13 @@ border-radius:20px;
                           <property name="minimumSize">
                            <size>
                             <width>500</width>
-                            <height>100</height>
+                            <height>200</height>
                            </size>
                           </property>
                           <property name="maximumSize">
                            <size>
                             <width>500</width>
-                            <height>100</height>
+                            <height>200</height>
                            </size>
                           </property>
                          </widget>
@@ -679,7 +679,7 @@ border-top:2px solid rgb(0,0,0);
                    <widget class="QFrame" name="frame_4">
                     <property name="styleSheet">
                      <string notr="true">QFrame{
-	background-color:rgb(70, 130, 169);
+	background-color: rgb(0, 170, 127);
 border-right:2px solid rgb(0,0,0);
 border-left:2px solid rgb(0,0,0);
 border-bottom:2px solid rgb(0,0,0);
@@ -876,7 +876,6 @@ border-top:2px solid rgb(0,0,0);
                 <property name="styleSheet">
                  <string notr="true">QFrame{
 background-color:white;
-border-radius:20px;
 }</string>
                 </property>
                 <property name="frameShape">
@@ -903,21 +902,15 @@ border-radius:20px;
                  </property>
                  <item>
                   <widget class="QTableWidget" name="tabla_pacientes">
-                   <property name="minimumSize">
-                    <size>
-                     <width>810</width>
-                     <height>0</height>
-                    </size>
-                   </property>
-                   <property name="maximumSize">
-                    <size>
-                     <width>810</width>
-                     <height>16777215</height>
-                    </size>
-                   </property>
                    <property name="styleSheet">
                     <string notr="true"/>
                    </property>
+                   <attribute name="horizontalHeaderDefaultSectionSize">
+                    <number>140</number>
+                   </attribute>
+                   <attribute name="horizontalHeaderStretchLastSection">
+                    <bool>true</bool>
+                   </attribute>
                    <column>
                     <property name="text">
                      <string>Cedula</string>
@@ -961,24 +954,17 @@ border-radius:20px;
                   </widget>
                  </item>
                  <item>
-                  <spacer name="horizontalSpacer_4">
-                   <property name="orientation">
-                    <enum>Qt::Horizontal</enum>
-                   </property>
-                   <property name="sizeHint" stdset="0">
-                    <size>
-                     <width>40</width>
-                     <height>20</height>
-                    </size>
-                   </property>
-                  </spacer>
-                 </item>
-                 <item>
                   <widget class="QFrame" name="frame_3">
                    <property name="minimumSize">
                     <size>
                      <width>200</width>
                      <height>0</height>
+                    </size>
+                   </property>
+                   <property name="maximumSize">
+                    <size>
+                     <width>200</width>
+                     <height>16777215</height>
                     </size>
                    </property>
                    <property name="styleSheet">
@@ -1101,7 +1087,7 @@ border: 2px solid rgb(0,0,0);
             <widget class="QFrame" name="fondo_2">
              <property name="styleSheet">
               <string notr="true">QFrame{
-background-color:#138D75;
+background-color:rgb(70, 130, 169);
 	font: 12pt &quot;Microsoft Sans Serif&quot;;
 }
 QTableWidget{
@@ -1922,7 +1908,7 @@ border-top:2px solid rgb(0,0,0);
             <widget class="QFrame" name="frame_7">
              <property name="styleSheet">
               <string notr="true">QFrame{
-background-color:#138D75;
+background-color:rgb(70, 130, 169);
 	font: 12pt &quot;Microsoft Sans Serif&quot;;
 }
 QTableWidget{
@@ -2082,7 +2068,7 @@ border:2px solid rgb(0,0,0);
                            </size>
                           </property>
                           <property name="text">
-                           <string>Nombres:</string>
+                           <string>Nombre:</string>
                           </property>
                          </widget>
                         </item>
@@ -2103,7 +2089,7 @@ border:2px solid rgb(0,0,0);
                         <item>
                          <widget class="QLabel" name="lbl_apell_3">
                           <property name="text">
-                           <string>Apellidos:</string>
+                           <string>Apellido:</string>
                           </property>
                          </widget>
                         </item>
@@ -2164,14 +2150,14 @@ border:2px solid rgb(0,0,0);
                      <widget class="QTextEdit" name="diag">
                       <property name="minimumSize">
                        <size>
-                        <width>560</width>
-                        <height>160</height>
+                        <width>600</width>
+                        <height>200</height>
                        </size>
                       </property>
                       <property name="maximumSize">
                        <size>
-                        <width>400</width>
-                        <height>160</height>
+                        <width>600</width>
+                        <height>200</height>
                        </size>
                       </property>
                      </widget>
@@ -2458,7 +2444,7 @@ border-top:2px solid rgb(0,0,0);
             <widget class="QFrame" name="frame">
              <property name="styleSheet">
               <string notr="true">QFrame{
-background-color:#138D75;
+background-color:rgb(70, 130, 169);
 	font: 12pt &quot;Microsoft Sans Serif&quot;;
 }
 QTableWidget{
@@ -2547,7 +2533,7 @@ border:1px solid rgb(0,0,0);
                        </size>
                       </property>
                       <property name="text">
-                       <string>Nombres:</string>
+                       <string>Nombre:</string>
                       </property>
                      </widget>
                     </item>
@@ -2568,7 +2554,7 @@ border:1px solid rgb(0,0,0);
                     <item>
                      <widget class="QLabel" name="lbl_apell_4">
                       <property name="text">
-                       <string>Apellidos:</string>
+                       <string>Apellido:</string>
                       </property>
                      </widget>
                     </item>

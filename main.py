@@ -2245,26 +2245,33 @@ class historiaMenu(QMainWindow):
         except:
              QMessageBox.critical(self, "Error", "No hay ningún paciente con esa cedula.")
     def DeletaData(self):
+        reply = QMessageBox.question(
+            self,
+            'Confirmación',
+            '¿Desea eliminar al paciente del sistema?',
+            QMessageBox.Yes | QMessageBox.No,
+            QMessageBox.Yes
+        )
+        if reply == QMessageBox.Yes:
+            try:
+                cedula = self.in_busqueda.text()
         
-        try:
-            cedula = self.in_busqueda.text()
-    
-            if len(cedula) == 0:
-                QMessageBox.critical(self, "Error", "Ingrese una cédula")
-            else:
-                conexion = sqlite3.connect('interfaces/database.db')
-                cursor = conexion.cursor()
-                cursor.execute("DELETE FROM Pacientes WHERE Cedula = ?", (cedula,))
-                conexion.commit()
-                conexion.close()
+                if len(cedula) == 0:
+                    QMessageBox.critical(self, "Error", "Ingrese una cédula")
+                else:
+                    conexion = sqlite3.connect('interfaces/database.db')
+                    cursor = conexion.cursor()
+                    cursor.execute("DELETE FROM Pacientes WHERE Cedula = ?", (cedula,))
+                    conexion.commit()
+                    conexion.close()
+            
+            # Eliminación exitosa, muestra un mensaje y realiza otras acciones si es necesario
+                    QMessageBox.information(self, "Realizado", "Los datos han sido eliminados correctamente")
+                    self.clearInputs()
+                    self.clearData()
+            except sqlite3.Error as e:
+                QMessageBox.critical(self, "Error", "Error al eliminar los datos de la base de datos: " + str(e))
         
-        # Eliminación exitosa, muestra un mensaje y realiza otras acciones si es necesario
-                QMessageBox.information(self, "Realizado", "Los datos han sido eliminados correctamente")
-                self.clearInputs()
-                self.clearData()
-        except sqlite3.Error as e:
-            QMessageBox.critical(self, "Error", "Error al eliminar los datos de la base de datos: " + str(e))
-    
         
         
     def back_menu(self):

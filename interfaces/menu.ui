@@ -720,7 +720,7 @@ font: 75 italic 18px &quot;Hack Nerd Font&quot;;
                <enum>QTabWidget::North</enum>
               </property>
               <property name="currentIndex">
-               <number>0</number>
+               <number>1</number>
               </property>
               <property name="usesScrollButtons">
                <bool>true</bool>
@@ -762,8 +762,9 @@ font: 75 italic 18px &quot;Hack Nerd Font&quot;;
                   <property name="styleSheet">
                    <string notr="true">QLabel{
 	font: 12pt &quot;MS Reference Sans Serif&quot;;
-}QFrame{
-	background-color: rgb(27, 127, 112);
+}
+QFrame{
+	background-color:rgb(0, 85, 127);
 }</string>
                   </property>
                   <property name="frameShape">
@@ -983,7 +984,7 @@ background-color:white;
 	font: 12pt &quot;MS Reference Sans Serif&quot;;
 }
 QFrame{
-	background-color: rgb(27, 127, 112);
+background-color:rgb(0, 85, 127);
 }</string>
                   </property>
                   <property name="frameShape">

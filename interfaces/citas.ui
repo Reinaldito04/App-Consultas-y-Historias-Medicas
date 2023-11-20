@@ -88,7 +88,7 @@ background-color:gray;
             <widget class="QFrame" name="frame_2">
              <property name="styleSheet">
               <string notr="true">QFrame{
-background-color:#138D75;
+background-color:rgb(70, 130, 169);
 	font: 12pt &quot;Microsoft Sans Serif&quot;;
 }
 QTableWidget{
@@ -461,6 +461,19 @@ QPushButton:hover{
                             </property>
                             <property name="showGroupSeparator" stdset="0">
                              <bool>false</bool>
+                            </property>
+                            <property name="maximumDateTime">
+                             <datetime>
+                              <hour>23</hour>
+                              <minute>59</minute>
+                              <second>59</second>
+                              <year>2000</year>
+                              <month>1</month>
+                              <day>1</day>
+                             </datetime>
+                            </property>
+                            <property name="currentSection">
+                             <enum>QDateTimeEdit::HourSection</enum>
                             </property>
                             <property name="calendarPopup">
                              <bool>false</bool>
