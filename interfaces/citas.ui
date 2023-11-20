@@ -659,7 +659,7 @@ border-top:2px solid rgb(0,0,0);
                    <widget class="QFrame" name="frame_4">
                     <property name="styleSheet">
                      <string notr="true">QFrame{
-	background-color:rgb(70, 130, 169);
+	background-color:#707B7C;
 border-right:2px solid rgb(0,0,0);
 border-left:2px solid rgb(0,0,0);
 border-bottom:2px solid rgb(0,0,0);

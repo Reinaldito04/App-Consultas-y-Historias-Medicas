@@ -79,7 +79,7 @@ background-color:rgb(0, 85, 127);
           <enum>QTabWidget::Rounded</enum>
          </property>
          <property name="currentIndex">
-          <number>2</number>
+          <number>3</number>
          </property>
          <property name="iconSize">
           <size>
@@ -679,7 +679,7 @@ border-top:2px solid rgb(0,0,0);
                    <widget class="QFrame" name="frame_4">
                     <property name="styleSheet">
                      <string notr="true">QFrame{
-	background-color: rgb(0, 170, 127);
+background-color:#707B7C;
 border-right:2px solid rgb(0,0,0);
 border-left:2px solid rgb(0,0,0);
 border-bottom:2px solid rgb(0,0,0);
@@ -969,7 +969,7 @@ background-color:white;
                    </property>
                    <property name="styleSheet">
                     <string notr="true">QFrame{
-background-color:gray;
+background-color:#707B7C;
 border-radius: 0px;
 border: 2px solid rgb(0,0,0);
 }</string>
@@ -1676,7 +1676,7 @@ border-top:2px solid rgb(0,0,0);
                    <widget class="QFrame" name="frame_6">
                     <property name="styleSheet">
                      <string notr="true">QFrame{
-	background-color:rgb(70, 130, 169);
+	background-color:#707B7C;
 border-right:2px solid rgb(0,0,0);
 border-left:2px solid rgb(0,0,0);
 border-bottom:2px solid rgb(0,0,0);
@@ -2219,7 +2219,7 @@ border-top:2px solid rgb(0,0,0);
                    <widget class="QFrame" name="frame_8">
                     <property name="styleSheet">
                      <string notr="true">QFrame{
-	background-color:rgb(70, 130, 169);
+	background-color:#707B7C;
 border-right:2px solid rgb(0,0,0);
 border-left:2px solid rgb(0,0,0);
 border-bottom:2px solid rgb(0,0,0);
@@ -4241,7 +4241,7 @@ border-top:2px solid rgb(0,0,0);
                      <widget class="QFrame" name="frame_9">
                       <property name="styleSheet">
                        <string notr="true">QFrame{
-	background-color:rgb(70, 130, 169);
+	background-color:#707B7C;
 border-right:2px solid rgb(0,0,0);
 border-left:2px solid rgb(0,0,0);
 border-bottom:2px solid rgb(0,0,0);

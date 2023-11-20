@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1210</width>
+    <width>1216</width>
     <height>638</height>
    </rect>
   </property>
@@ -93,7 +93,7 @@ background-color:gray;
             <widget class="QFrame" name="frame_3">
              <property name="styleSheet">
               <string notr="true">QFrame{
-background-color:#138D75;
+background-color:rgb(70, 130, 169);
 	font: 12pt &quot;Microsoft Sans Serif&quot;;
 }
 QTableWidget{
@@ -170,6 +170,19 @@ QPushButton:hover{
               </item>
               <item>
                <layout class="QHBoxLayout" name="horizontalLayout_16">
+                <item>
+                 <spacer name="horizontalSpacer_5">
+                  <property name="orientation">
+                   <enum>Qt::Horizontal</enum>
+                  </property>
+                  <property name="sizeHint" stdset="0">
+                   <size>
+                    <width>40</width>
+                    <height>20</height>
+                   </size>
+                  </property>
+                 </spacer>
+                </item>
                 <item>
                  <layout class="QVBoxLayout" name="verticalLayout_11">
                   <item>
@@ -633,8 +646,8 @@ border-top:2px solid rgb(0,0,0);
                   <item>
                    <widget class="QFrame" name="frame_5">
                     <property name="styleSheet">
-                     <string notr="true">QFrame{
-	background-color:rgb(70, 130, 169);
+                     <string notr="true">QFrame{	
+background-color:#707B7C;
 border-right:2px solid rgb(0,0,0);
 border-left:2px solid rgb(0,0,0);
 border-bottom:2px solid rgb(0,0,0);
@@ -790,6 +803,19 @@ border-top:2px solid rgb(0,0,0);
                 </item>
                </layout>
               </item>
+              <item>
+               <spacer name="verticalSpacer_4">
+                <property name="orientation">
+                 <enum>Qt::Vertical</enum>
+                </property>
+                <property name="sizeHint" stdset="0">
+                 <size>
+                  <width>20</width>
+                  <height>40</height>
+                 </size>
+                </property>
+               </spacer>
+              </item>
              </layout>
             </widget>
            </item>
@@ -807,7 +833,7 @@ border-top:2px solid rgb(0,0,0);
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1210</width>
+     <width>1216</width>
      <height>21</height>
     </rect>
    </property>
