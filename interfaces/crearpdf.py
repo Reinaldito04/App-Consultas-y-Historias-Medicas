@@ -1,113 +1,150 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
-  </head>
-  <body>
-    <style>
-      h2 {
+from weasyprint import HTML
+import os
+import base64
+import sqlite3
+from datetime import datetime
+
+
+def recuperar_datos_bd(cedula):
+    conexion = sqlite3.connect("interfaces/database.db")
+    cursor = conexion.cursor()
+    cursor.execute("SELECT Nombre, Apellido, Direccion, Telefono, context FROM Pacientes WHERE Cedula=?", (cedula,))
+    datos_base = cursor.fetchall()
+    cursor.close()
+    return datos_base
+    
+    
+def crear_pdf( ruta_salida,cedula):
+  
+    
+    fecha_actual = datetime.now()
+    fecha_formateada = fecha_actual.strftime("%Y-%m-%d")
+
+    print("Fecha actual:", fecha_formateada)
+    if fecha_formateada:
+       
+        datos_base = recuperar_datos_bd(cedula)       
+        for dato in datos_base :
+          nombre = dato[0]
+          apellido = dato[1]
+          direccion = dato[2]
+          telefono = dato[3]
+          contexto = dato[4]
+        
+        
+    html = f"""
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Document</title>
+        <style>
+      h2 {{
         text-align: center;
         line-height: 0.4;
-      }
-      .container-fecha {
+      }}
+      .container-fecha {{
         width: 90%;
-      }
-      .fecha {
+        margin-left:20px;
+      }}
+      .fecha {{
+        margin-left:20px;
         text-align: end;
         font-size: 18px;
-      }
-      .titulo {
+      }}
+      .titulo {{
         text-align: center;
         line-height: 0.4;
-      }
-      .container-historia-clinica {
+      }}
+      .container-historia-clinica {{
         width: 90%;
-      }
-      .history-clinic {
+      }}
+      .history-clinic {{
         text-align: end;
-      }
-      .container {
+      }}
+      .container {{
         margin-left: 10%;
-      }
-      .container-telefonoOcupacion {
+      }}
+      .container-telefonoOcupacion {{
         display: flex;
         margin: 0 auto;
-      }
-      .estado-salud {
+      }}
+      .estado-salud {{
         text-decoration: underline;
         font-weight: bolder;
-      }
-      .container-hipertenso {
+      }}
+      .container-hipertenso {{
         display: flex;
-      }
+      }}
       .si-hipertenso,
       .si-trastorno,
-      .si-diabetes {
+      .si-diabetes {{
         margin-left: 10px;
-      }
-      .controlado {
+      }}
+      .controlado {{
         margin-left: 50px;
-      }
+      }}
       .no-hipertenso,
       .no-trastorno,
-      .no-diabetes {
+      .no-diabetes {{
         margin-left: 10px;
-      }
+      }}
       .container-trastornos,
-      .container-diabetes {
+      .container-diabetes {{
         display: flex;
-      }
+      }}
       .container-precio,
-      .container-total {
+      .container-total {{
         display: flex;
-      }
-      .container-total {
+      }}
+      .container-total {{
         width: 70%;
-      }
-      .totalBs {
+      }}
+      .totalBs {{
         margin-left: 86%;
         font-weight: bolder;
-      }
-      .total {
+      }}
+      .total {{
         margin-left: 500%;
         font-weight: bolder;
-      }
-      .firma {
+      }}
+      .firma {{
         line-height: 0.5;
         margin-left: 28%;
-      }
-      .container-tabla {
+      }}
+      .container-tabla {{
         max-width: 800px;
         margin: 0 auto;
         margin-left: -20px;
         padding: 20px;
 
         border-radius: 8px;
-      }
+      }}
 
-      table {
+      table {{
         width: 100%;
         border-collapse: collapse;
         margin-top: 10px;
-      }
+      }}
 
       th,
-      td {
+      td {{
         border: 1px solid #ddd;
         padding: 8px;
         text-align: left;
-      }
-      .footer{
+      }}
+      .footer{{
         text-decoration: overline;
         font-size: 15px;
-      }
+      }}
     </style>
-    <h2>Od.José R. Fernández R.</h2>
+    </head>
+    <body>
+      <h2>Od.José R. Fernández R.</h2>
     <h2>Odontología General e Infantil</h2>
     <div class="container-fecha">
-      <p class="fecha">Fecha :</p>
+      <p class="fecha">Fecha :{fecha_formateada} </p>
     </div>
 
     <p class="titulo">Prótesis Fijas, Totales y Removibles,</p>
@@ -118,17 +155,22 @@
     </div>
 
     <div class="container">
-      <p class="name">Nombres y Apellidos : <strong>Reinaldo</strong></p>
-
-      <p>Direccion:</p>
+      <p class="name">Nombres y Apellidos :<strong>{nombre} {apellido} </strong>
       
-      <div class="container-telefonoOcupacion">
-        <p>Telefono :_______________________</p>
+      </p>
 
-        <p>Ocupacion:___________________________</p>
+      <p>Direccion: <strong>{direccion} </strong></p>
+
+      <div class="container-telefonoOcupacion">
+        <p>Telefono :<strong>{telefono} </strong>  </p>
+        
+       
+      </div>
+      <div class="container-telefonoOcupacion">
+       <p>Ocupacion:___________________________</p>
       </div>
 
-      <p>MOTIVO DE CONSULTA: ___________________________</p>
+      <p>MOTIVO DE CONSULTA: <strong>{contexto} </strong> </p>
 
       <p class="estado-salud">ESTADO DE SALUD GENERAL.</p>
 
@@ -254,5 +296,17 @@
         </p>
       </footer>
     </div>
-  </body>
-</html>
+    </body>
+    </html>
+    
+    """
+
+    HTML(string=html).write_pdf(ruta_salida)
+
+if __name__ == "__main__":
+    # Obtén tus datos desde la base de datos
+   
+    # Llamada a la función con tus datos y ruta de salida
+    ruta_salida = '/home/reinaldo/Documentos/dev/App-Consultas-y-Historias-Medicas/interfaces/waos.pdf'
+    cedula = '31112639'
+    crear_pdf( ruta_salida=ruta_salida,cedula=cedula)

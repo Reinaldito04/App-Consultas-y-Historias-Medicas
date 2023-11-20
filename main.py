@@ -348,7 +348,7 @@ class MenuPrincipal(QMainWindow):
         self.cargarCitas()
         self.filtro = self.findChild(QtWidgets.QComboBox, "filtro")
         self.filtro.addItem("Seleccione una opción para filtrar")
-        self.filtro.addItems(["Dentista", "Cedula", "Nombre", "Fecha_Cita", "Hora_Cita", "Status_Cita"])
+        self.filtro.addItems(["Dentista", "Cedula", "Nombre","Apellido", "Fecha_Cita", "Hora_Cita", "Status_Cita"])
         self.in_buscar.textChanged.connect(self.buscar)
 
     def act_T(self):
@@ -392,7 +392,7 @@ class MenuPrincipal(QMainWindow):
         elif not valor:
             QtWidgets.QMessageBox.warning(self, "Por favor", "Ingrese alguna especificación de la cita para realizar la búsqueda")
         elif self.tabla_cita.rowCount() == 0:
-            QtWidgets.QMessageBox.warning(self, "Advertencia", "No se ha encontrado ninguna cita")
+            QtWidgets.QMessageBox.warning(self, "Advertencia", "No se ha encontrado ningún resultado")
         else:
             self.cargarCitas(filtro, valor)
 
