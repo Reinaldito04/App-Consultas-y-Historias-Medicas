@@ -5,7 +5,6 @@ from PyQt5.QtCore import QDate , QBuffer, QByteArray , QTime
 from PyQt5.QtGui import QImage,QPixmap 
 from PyQt5.QtGui import QIcon
 from PyQt5.QtGui import QDesktopServices
-
 from PyQt5.QtCore import QIODevice , QUrl
 from PyQt5.QtWidgets import QFileDialog
 from PyQt5.QtWidgets import QWidget ,QApplication ,QMainWindow,QStackedWidget,QGraphicsDropShadowEffect, QCalendarWidget , QBoxLayout
