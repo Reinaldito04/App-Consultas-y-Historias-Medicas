@@ -347,7 +347,7 @@ class MenuPrincipal(QMainWindow):
         self.cargarCitas()
         self.filtro = self.findChild(QtWidgets.QComboBox, "filtro")
         self.filtro.addItem("Seleccione una opción para filtrar")
-        self.filtro.addItems(["Dentista", "Cedula", "Nombre","Apellido", "Fecha_Cita", "Hora_Cita", "Status_Cita"])
+        self.filtro.addItems(["Dentista", "Cedula", "Nombre","Apellido", "Fecha_Cita", "Hora_Cita", "Estatus_Cita"])
         self.in_buscar.textChanged.connect(self.buscar)
 
     def act_T(self):
@@ -362,11 +362,42 @@ class MenuPrincipal(QMainWindow):
             cursor = conexion.cursor()
 
             if filtro and valor:
-                cursor.execute("SELECT Cedula, Nombre, Apellido, Fecha_Cita, Hora_Cita, Status_Cita FROM Pacientes WHERE {} LIKE ? AND ID_user = ? ORDER BY Fecha_Cita ASC".format(filtro), ('%' + valor + '%', self.id_user))
+                cursor.execute("""
+                SELECT 
+                    Pacientes.Cedula, 
+                    Pacientes.Nombre, 
+                    Pacientes.Apellido, 
+                    Cita.Fecha_Cita, 
+                    Cita.Hora_Cita, 
+                    Cita.Estatus_Cita
+                FROM 
+                    Pacientes
+                INNER JOIN 
+                    Cita ON Pacientes.Cedula = Cita.Cedula
+                WHERE 
+                    {} LIKE ? AND Pacientes.ID_user = ? 
+                ORDER BY 
+                    Cita.Fecha_Cita ASC
+                """.format(filtro), ('%' + valor + '%', self.id_user))
             else:
-                cursor.execute("SELECT Cedula, Nombre, Apellido, Fecha_Cita, Hora_Cita, Status_Cita FROM Pacientes WHERE ID_user = ? ORDER BY Fecha_Cita ASC", (self.id_user,))
-
-            citas = cursor.fetchall()
+                cursor.execute("""
+                SELECT 
+                    Pacientes.Cedula, 
+                    Pacientes.Nombre, 
+                    Pacientes.Apellido, 
+                    Cita.Fecha_Cita, 
+                    Cita.Hora_Cita, 
+                    Cita.Estatus_Cita
+                FROM 
+                    Pacientes
+                INNER JOIN 
+                    Cita ON Pacientes.Cedula = Cita.Cedula
+                WHERE 
+                    Pacientes.ID_user = ? 
+                ORDER BY 
+                    Cita.Fecha_Cita ASC
+                """, (self.id_user,))
+            citas = cursor.fetchall() 
 
             self.tabla_cita.setColumnCount(len(headers))
             self.tabla_cita.setHorizontalHeaderLabels(headers)
@@ -392,6 +423,8 @@ class MenuPrincipal(QMainWindow):
             QtWidgets.QMessageBox.warning(self, "Por favor", "Ingrese alguna especificación de la cita para realizar la búsqueda")
         elif self.tabla_cita.rowCount() == 0:
             QtWidgets.QMessageBox.warning(self, "Advertencia", "No se ha encontrado ningún resultado")
+            self.in_buscar.clear()
+            self.act_T()
         else:
             self.cargarCitas(filtro, valor)
 
@@ -688,12 +721,11 @@ class Ui_CitasMenu(QMainWindow):
             if len(cedula) == 0:
                 QMessageBox.critical(self, "Error", "Ingrese una cédula")
             else:
-                citaNull = None
-                horaNull = None
+              
                 conexion = sqlite3.connect('interfaces/database.db')
                 cursor = conexion.cursor()
-                cursor.execute("UPDATE Pacientes SET Fecha_Cita = ?, Hora_Cita = ? WHERE Cedula = ?",
-                        (citaNull, horaNull, cedula))
+                cursor.execute("DELETE FROM Cita WHERE Cedula = ?", (cedula,))
+
                 conexion.commit()
                 conexion.close()
         
@@ -722,7 +754,7 @@ class Ui_CitasMenu(QMainWindow):
         if self.bt_cancel.isChecked():
             statusCita = 'Cancelada'
         hora = self.hora.time()
-        horaToString = hora.toString('hh:mmm:ss')
+        horaToString = hora.toString('hh:mm:ss')
         
         try:
             if not cedula:
@@ -746,9 +778,12 @@ class Ui_CitasMenu(QMainWindow):
                 
                 if existe_paciente:
                     # Si el paciente existe, proceder a actualizar la cita
-                    cursor.execute("UPDATE Pacientes SET Fecha_Cita = ?, Hora_Cita = ?,Status_Cita=? WHERE Cedula = ?",
-                                (fechaToString, horaToString,statusCita, cedula))
-                    
+                    cursor.execute("""
+                        UPDATE Cita 
+                        SET Fecha_Cita = ?, Hora_Cita = ?, Estatus_Cita = ?
+                        WHERE Cedula = ? 
+                    """, (fechaToString, horaToString, statusCita, cedula))
+        
                     # Guardar los cambios en la base de datos
                     conexion.commit()
                     
@@ -766,7 +801,7 @@ class Ui_CitasMenu(QMainWindow):
             QMessageBox.critical(self, "Error", f"Error al actualizar la cita: {str(error)}")
 
     def aggCite(self):
-        idUser = self.id_user
+       
         cedula = self.in_busqueda.text()
         
         fecha = self.fecha.selectedDate()
@@ -777,7 +812,7 @@ class Ui_CitasMenu(QMainWindow):
         if self.bt_cancel.isChecked():
             statusCita = 'Cancelada'
         hora = self.hora.time()
-        horaToString = hora.toString('hh:mmm:ss')
+        horaToString = hora.toString('hh:mm:ss')
         
         try:
             if not cedula:
@@ -796,13 +831,18 @@ class Ui_CitasMenu(QMainWindow):
                 cursor = conexion.cursor()
                 
                 # Verificar si existe un paciente con la cédula proporcionada
-                cursor.execute("SELECT COUNT(*) FROM Pacientes WHERE Cedula = ?", (cedula,))
+                cursor.execute("SELECT COUNT(*) FROM Cita WHERE Cedula = ?", (cedula,))
                 existe_paciente = cursor.fetchone()[0] > 0
                 
                 if existe_paciente:
+                    QMessageBox.information(self,"Cita","Ya el paciente tiene una cita registrada")
+                    return
+                elif not existe_paciente:
                     # Si el paciente existe, proceder a actualizar la cita
-                    cursor.execute("UPDATE Pacientes SET Fecha_Cita = ?, Hora_Cita = ? ,Status_Cita=? WHERE Cedula = ?",
-                                (fechaToString, horaToString, statusCita,cedula))
+                    cursor.execute("""
+                                    INSERT INTO Cita (Cedula, Fecha_Cita, Hora_Cita, Estatus_Cita)
+                                    VALUES (?, ?, ?, ?)
+                                """, (cedula, fechaToString, horaToString, statusCita))
                     
                     # Guardar los cambios en la base de datos
                     conexion.commit()
@@ -831,50 +871,70 @@ class Ui_CitasMenu(QMainWindow):
         try:
             conexion = sqlite3.connect('interfaces/database.db')
             cursor = conexion.cursor()
-            cursor.execute("SELECT Cedula, Nombre, Apellido, Fecha_Cita, Hora_Cita,Status_Cita  FROM Pacientes WHERE Cedula = ? AND ID_user = ?", (cedula, idUser))
+            cursor.execute("""
+                            SELECT 
+                            Pacientes.Cedula, 
+                            Pacientes.Nombre, 
+                            Pacientes.Apellido, 
+                            Cita.Fecha_Cita, 
+                            Cita.Hora_Cita, 
+                            Cita.Estatus_Cita
+                        FROM 
+                            Pacientes
+                        INNER JOIN 
+                            Cita ON Pacientes.Cedula = Cita.Cedula
+                        WHERE 
+                            Pacientes.Cedula = ? AND Pacientes.ID_user = ?"""
+                           
+                           , (cedula, idUser))
             tabla_cita = cursor.fetchall()
 
             # Filtrar los resultados para eliminar las filas con None
-            resultados_filtrados = [resultado for resultado in tabla_cita if None not in resultado]
+        
+            if tabla_cita:
+                for cita in tabla_cita:
+                  
+                    cedula = cita[0]
+                    nombre = cita[1]
+                    apellido = cita[2]
+                    fecha = cita[3]
+                    hora = cita[4]
+                    estatus = cita[5]
+                    # Limpiar la tabla existente si es necesario
+                    self.tableWidget.clearContents()
 
-            if resultados_filtrados:
-                # Limpiar la tabla existente si es necesario
-                self.tableWidget.clearContents()
+                    # Establecer el número de filas y columnas en la tabla
+                    self.tableWidget.setRowCount(len(tabla_cita))
+                    self.tableWidget.setColumnCount(len(tabla_cita[0]))
 
-                # Establecer el número de filas y columnas en la tabla
-                self.tableWidget.setRowCount(len(resultados_filtrados))
-                self.tableWidget.setColumnCount(len(resultados_filtrados[0]))
+                    # Agregar los datos a la tabla
+                    for row, paciente in enumerate(tabla_cita):
+                        for column, value in enumerate(paciente):
+                            item = QTableWidgetItem(str(value))
+                            self.tableWidget.setItem(row, column, item)
 
-                # Agregar los datos a la tabla
-                for row, paciente in enumerate(resultados_filtrados):
-                    for column, value in enumerate(paciente):
-                        item = QTableWidgetItem(str(value))
-                        self.tableWidget.setItem(row, column, item)
-
-                # Mostrar el primer resultado en los campos de texto
-                primer_resultado = resultados_filtrados[0]
-                nombre_paciente, apellido_paciente, fechaCita, horaCita,statusCita, cedula = primer_resultado
-                self.txt_name.setText(nombre_paciente)
-                self.txt_apell.setText(apellido_paciente)
-                fecha_cita = fechaCita
-                print("Hora obtenida de la base de datos:", horaCita)
-                self.fecha.setSelectedDate(QDate.fromString(fecha_cita, 'yyyy-MM-dd'))
-                hora_cita = QTime.fromString(horaCita, 'hh:mm:ss')
-                status_cita =primer_resultado[5]
-                if status_cita =='Activa':
-                    self.bt_act.setChecked(True)
-                if status_cita == 'Cancelada':
-                    self.bt_cancel.setChecked(True)
-                
-                self.hora.setTime(hora_cita)
+                    self.txt_name.setText(nombre)
+                    self.txt_apell.setText(apellido)
+                    fecha_cita = fecha
+                  
+                    self.fecha.setSelectedDate(QDate.fromString(fecha_cita, 'yyyy-MM-dd'))
+                    hora_cita = QTime.fromString(hora, 'hh:mm:ss')
+                    
+                    if estatus =='Activa':
+                        self.bt_act.setChecked(True)
+                    if estatus == 'Cancelada':
+                        self.bt_cancel.setChecked(True)
+                    
+                    self.hora.setTime(hora_cita)
+                    
             else:
-                # Manejar el caso en el que no se encontraron resultados, por ejemplo, mostrar un mensaje de error
+                    # Manejar el caso en el que no se encontraron resultados, por ejemplo, mostrar un mensaje de error
                 QMessageBox.warning(self, "Sin resultados", "El paciente no tiene citas actualmente")
 
-                # Si deseas mostrar el nombre y apellido incluso si no hay cita, puedes hacerlo aquí
+                    # Si deseas mostrar el nombre y apellido incluso si no hay cita, puedes hacerlo aquí
                 cursor.execute("SELECT Nombre, Apellido FROM Pacientes WHERE Cedula = ? AND ID_user = ?", (cedula, idUser))
                 datos_paciente = cursor.fetchone()
-                
+                    
                 if datos_paciente:
                     nombre_paciente, apellido_paciente = datos_paciente
                     self.txt_name.setText(nombre_paciente)
