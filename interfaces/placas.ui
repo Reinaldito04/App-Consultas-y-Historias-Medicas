@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1108</width>
-    <height>689</height>
+    <width>1099</width>
+    <height>753</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -62,7 +62,7 @@ background-color:gray;
        <item>
         <widget class="QTabWidget" name="tabWidget">
          <property name="currentIndex">
-          <number>0</number>
+          <number>1</number>
          </property>
          <widget class="QWidget" name="tab">
           <attribute name="title">
@@ -126,7 +126,7 @@ QPushButton:hover{
              <property name="frameShadow">
               <enum>QFrame::Raised</enum>
              </property>
-             <layout class="QVBoxLayout" name="verticalLayout_6">
+             <layout class="QVBoxLayout" name="verticalLayout_7">
               <item>
                <layout class="QHBoxLayout" name="horizontalLayout_19">
                 <item>
@@ -163,14 +163,14 @@ QPushButton:hover{
                  <widget class="QPushButton" name="btn_buscar">
                   <property name="minimumSize">
                    <size>
-                    <width>180</width>
-                    <height>50</height>
+                    <width>80</width>
+                    <height>40</height>
                    </size>
                   </property>
                   <property name="maximumSize">
                    <size>
-                    <width>180</width>
-                    <height>16777215</height>
+                    <width>80</width>
+                    <height>40</height>
                    </size>
                   </property>
                   <property name="styleSheet">
@@ -181,7 +181,7 @@ QPushButton:hover{
                   </property>
                   <property name="icon">
                    <iconset>
-                    <normaloff>../../../../Desktop/PROYECTO/project/interfaces/ELEMENTOS GRAFICOS/buscar.png</normaloff>../../../../Desktop/PROYECTO/project/interfaces/ELEMENTOS GRAFICOS/buscar.png</iconset>
+                    <normaloff>ELEMENTOS GRAFICOS/buscar.png</normaloff>ELEMENTOS GRAFICOS/buscar.png</iconset>
                   </property>
                   <property name="iconSize">
                    <size>
@@ -307,176 +307,295 @@ QPushButton:hover{
                </layout>
               </item>
               <item>
-               <layout class="QHBoxLayout" name="horizontalLayout_3">
+               <spacer name="verticalSpacer_5">
+                <property name="orientation">
+                 <enum>Qt::Vertical</enum>
+                </property>
+                <property name="sizeHint" stdset="0">
+                 <size>
+                  <width>20</width>
+                  <height>40</height>
+                 </size>
+                </property>
+               </spacer>
+              </item>
+              <item>
+               <layout class="QHBoxLayout" name="horizontalLayout_6">
                 <item>
-                 <layout class="QVBoxLayout" name="verticalLayout_5">
+                 <layout class="QVBoxLayout" name="verticalLayout_6">
                   <item>
-                   <spacer name="verticalSpacer_3">
-                    <property name="orientation">
-                     <enum>Qt::Vertical</enum>
-                    </property>
-                    <property name="sizeHint" stdset="0">
-                     <size>
-                      <width>20</width>
-                      <height>40</height>
-                     </size>
-                    </property>
-                   </spacer>
-                  </item>
-                  <item>
-                   <layout class="QHBoxLayout" name="horizontalLayout_2">
+                   <layout class="QVBoxLayout" name="verticalLayout_5">
                     <item>
-                     <spacer name="horizontalSpacer_21">
-                      <property name="orientation">
-                       <enum>Qt::Horizontal</enum>
-                      </property>
-                      <property name="sizeHint" stdset="0">
-                       <size>
-                        <width>40</width>
-                        <height>20</height>
-                       </size>
-                      </property>
-                     </spacer>
-                    </item>
-                    <item>
-                     <widget class="QLabel" name="img1">
-                      <property name="minimumSize">
-                       <size>
-                        <width>250</width>
-                        <height>250</height>
-                       </size>
-                      </property>
-                      <property name="maximumSize">
-                       <size>
-                        <width>250</width>
-                        <height>250</height>
-                       </size>
-                      </property>
-                      <property name="styleSheet">
-                       <string notr="true">QLabel{
+                     <layout class="QHBoxLayout" name="horizontalLayout_2">
+                      <item>
+                       <spacer name="horizontalSpacer_9">
+                        <property name="orientation">
+                         <enum>Qt::Horizontal</enum>
+                        </property>
+                        <property name="sizeHint" stdset="0">
+                         <size>
+                          <width>40</width>
+                          <height>20</height>
+                         </size>
+                        </property>
+                       </spacer>
+                      </item>
+                      <item>
+                       <widget class="QLabel" name="img1">
+                        <property name="minimumSize">
+                         <size>
+                          <width>200</width>
+                          <height>200</height>
+                         </size>
+                        </property>
+                        <property name="maximumSize">
+                         <size>
+                          <width>200</width>
+                          <height>200</height>
+                         </size>
+                        </property>
+                        <property name="styleSheet">
+                         <string notr="true">QLabel{
 background-color: rgb(255, 255, 255);
 border: 2px solid  rgb(0,0,0);
-border-radius:20px;
 }</string>
-                      </property>
-                      <property name="text">
-                       <string>Placa</string>
-                      </property>
-                      <property name="scaledContents">
-                       <bool>true</bool>
-                      </property>
-                      <property name="alignment">
-                       <set>Qt::AlignCenter</set>
-                      </property>
-                     </widget>
-                    </item>
-                    <item>
-                     <spacer name="horizontalSpacer_22">
-                      <property name="orientation">
-                       <enum>Qt::Horizontal</enum>
-                      </property>
-                      <property name="sizeHint" stdset="0">
-                       <size>
-                        <width>40</width>
-                        <height>20</height>
-                       </size>
-                      </property>
-                     </spacer>
-                    </item>
-                    <item>
-                     <widget class="QLabel" name="img2">
-                      <property name="minimumSize">
-                       <size>
-                        <width>250</width>
-                        <height>250</height>
-                       </size>
-                      </property>
-                      <property name="maximumSize">
-                       <size>
-                        <width>250</width>
-                        <height>250</height>
-                       </size>
-                      </property>
-                      <property name="styleSheet">
-                       <string notr="true">QLabel{
+                        </property>
+                        <property name="text">
+                         <string>Placa</string>
+                        </property>
+                        <property name="scaledContents">
+                         <bool>true</bool>
+                        </property>
+                        <property name="alignment">
+                         <set>Qt::AlignCenter</set>
+                        </property>
+                       </widget>
+                      </item>
+                      <item>
+                       <spacer name="horizontalSpacer_6">
+                        <property name="orientation">
+                         <enum>Qt::Horizontal</enum>
+                        </property>
+                        <property name="sizeHint" stdset="0">
+                         <size>
+                          <width>40</width>
+                          <height>20</height>
+                         </size>
+                        </property>
+                       </spacer>
+                      </item>
+                      <item>
+                       <widget class="QLabel" name="img2">
+                        <property name="minimumSize">
+                         <size>
+                          <width>200</width>
+                          <height>200</height>
+                         </size>
+                        </property>
+                        <property name="maximumSize">
+                         <size>
+                          <width>200</width>
+                          <height>200</height>
+                         </size>
+                        </property>
+                        <property name="styleSheet">
+                         <string notr="true">QLabel{
 background-color: rgb(255, 255, 255);
 border: 2px solid  rgb(0,0,0);
-border-radius:20px;
 }</string>
-                      </property>
-                      <property name="text">
-                       <string>Placa</string>
-                      </property>
-                      <property name="scaledContents">
-                       <bool>true</bool>
-                      </property>
-                      <property name="alignment">
-                       <set>Qt::AlignCenter</set>
-                      </property>
-                     </widget>
-                    </item>
-                    <item>
-                     <spacer name="horizontalSpacer_23">
-                      <property name="orientation">
-                       <enum>Qt::Horizontal</enum>
-                      </property>
-                      <property name="sizeHint" stdset="0">
-                       <size>
-                        <width>40</width>
-                        <height>20</height>
-                       </size>
-                      </property>
-                     </spacer>
-                    </item>
-                    <item>
-                     <widget class="QLabel" name="img3">
-                      <property name="minimumSize">
-                       <size>
-                        <width>250</width>
-                        <height>250</height>
-                       </size>
-                      </property>
-                      <property name="maximumSize">
-                       <size>
-                        <width>250</width>
-                        <height>250</height>
-                       </size>
-                      </property>
-                      <property name="styleSheet">
-                       <string notr="true">QLabel{
+                        </property>
+                        <property name="text">
+                         <string>Placa</string>
+                        </property>
+                        <property name="scaledContents">
+                         <bool>true</bool>
+                        </property>
+                        <property name="alignment">
+                         <set>Qt::AlignCenter</set>
+                        </property>
+                       </widget>
+                      </item>
+                      <item>
+                       <spacer name="horizontalSpacer_7">
+                        <property name="orientation">
+                         <enum>Qt::Horizontal</enum>
+                        </property>
+                        <property name="sizeHint" stdset="0">
+                         <size>
+                          <width>40</width>
+                          <height>20</height>
+                         </size>
+                        </property>
+                       </spacer>
+                      </item>
+                      <item>
+                       <widget class="QLabel" name="img3">
+                        <property name="minimumSize">
+                         <size>
+                          <width>200</width>
+                          <height>200</height>
+                         </size>
+                        </property>
+                        <property name="maximumSize">
+                         <size>
+                          <width>200</width>
+                          <height>200</height>
+                         </size>
+                        </property>
+                        <property name="styleSheet">
+                         <string notr="true">QLabel{
 background-color: rgb(255, 255, 255);
 border: 2px solid  rgb(0,0,0);
-border-radius:20px;
 }</string>
-                      </property>
-                      <property name="text">
-                       <string>Placa</string>
-                      </property>
-                      <property name="scaledContents">
-                       <bool>true</bool>
-                      </property>
-                      <property name="alignment">
-                       <set>Qt::AlignCenter</set>
-                      </property>
-                     </widget>
+                        </property>
+                        <property name="text">
+                         <string>Placa</string>
+                        </property>
+                        <property name="scaledContents">
+                         <bool>true</bool>
+                        </property>
+                        <property name="alignment">
+                         <set>Qt::AlignCenter</set>
+                        </property>
+                       </widget>
+                      </item>
+                      <item>
+                       <spacer name="horizontalSpacer_8">
+                        <property name="orientation">
+                         <enum>Qt::Horizontal</enum>
+                        </property>
+                        <property name="sizeHint" stdset="0">
+                         <size>
+                          <width>40</width>
+                          <height>20</height>
+                         </size>
+                        </property>
+                       </spacer>
+                      </item>
+                     </layout>
                     </item>
                     <item>
-                     <spacer name="horizontalSpacer_24">
+                     <spacer name="verticalSpacer_3">
                       <property name="orientation">
-                       <enum>Qt::Horizontal</enum>
+                       <enum>Qt::Vertical</enum>
                       </property>
                       <property name="sizeHint" stdset="0">
                        <size>
-                        <width>40</width>
-                        <height>20</height>
+                        <width>20</width>
+                        <height>40</height>
                        </size>
                       </property>
                      </spacer>
+                    </item>
+                    <item>
+                     <layout class="QHBoxLayout" name="horizontalLayout_3">
+                      <item>
+                       <spacer name="horizontalSpacer_10">
+                        <property name="orientation">
+                         <enum>Qt::Horizontal</enum>
+                        </property>
+                        <property name="sizeHint" stdset="0">
+                         <size>
+                          <width>40</width>
+                          <height>20</height>
+                         </size>
+                        </property>
+                       </spacer>
+                      </item>
+                      <item>
+                       <widget class="QLabel" name="img4">
+                        <property name="minimumSize">
+                         <size>
+                          <width>200</width>
+                          <height>200</height>
+                         </size>
+                        </property>
+                        <property name="maximumSize">
+                         <size>
+                          <width>200</width>
+                          <height>200</height>
+                         </size>
+                        </property>
+                        <property name="styleSheet">
+                         <string notr="true">QLabel{
+background-color: rgb(255, 255, 255);
+border: 2px solid  rgb(0,0,0);
+}</string>
+                        </property>
+                        <property name="text">
+                         <string>Placa</string>
+                        </property>
+                        <property name="scaledContents">
+                         <bool>true</bool>
+                        </property>
+                        <property name="alignment">
+                         <set>Qt::AlignCenter</set>
+                        </property>
+                       </widget>
+                      </item>
+                      <item>
+                       <spacer name="horizontalSpacer_11">
+                        <property name="orientation">
+                         <enum>Qt::Horizontal</enum>
+                        </property>
+                        <property name="sizeHint" stdset="0">
+                         <size>
+                          <width>40</width>
+                          <height>20</height>
+                         </size>
+                        </property>
+                       </spacer>
+                      </item>
+                      <item>
+                       <widget class="QLabel" name="img5">
+                        <property name="minimumSize">
+                         <size>
+                          <width>200</width>
+                          <height>200</height>
+                         </size>
+                        </property>
+                        <property name="maximumSize">
+                         <size>
+                          <width>200</width>
+                          <height>200</height>
+                         </size>
+                        </property>
+                        <property name="styleSheet">
+                         <string notr="true">QLabel{
+background-color: rgb(255, 255, 255);
+border: 2px solid  rgb(0,0,0);
+}</string>
+                        </property>
+                        <property name="text">
+                         <string>Placa</string>
+                        </property>
+                        <property name="scaledContents">
+                         <bool>true</bool>
+                        </property>
+                        <property name="alignment">
+                         <set>Qt::AlignCenter</set>
+                        </property>
+                       </widget>
+                      </item>
+                      <item>
+                       <spacer name="horizontalSpacer_12">
+                        <property name="orientation">
+                         <enum>Qt::Horizontal</enum>
+                        </property>
+                        <property name="sizeHint" stdset="0">
+                         <size>
+                          <width>40</width>
+                          <height>20</height>
+                         </size>
+                        </property>
+                       </spacer>
+                      </item>
+                     </layout>
                     </item>
                    </layout>
                   </item>
                   <item>
-                   <spacer name="verticalSpacer_2">
+                   <spacer name="verticalSpacer_4">
                     <property name="orientation">
                      <enum>Qt::Vertical</enum>
                     </property>
@@ -746,14 +865,14 @@ border-top:2px solid rgb(0,0,0);
                </layout>
               </item>
               <item>
-               <spacer name="verticalSpacer_4">
+               <spacer name="verticalSpacer_2">
                 <property name="orientation">
                  <enum>Qt::Vertical</enum>
                 </property>
                 <property name="sizeHint" stdset="0">
                  <size>
                   <width>20</width>
-                  <height>47</height>
+                  <height>40</height>
                  </size>
                 </property>
                </spacer>
@@ -825,7 +944,7 @@ QPushButton:hover{
              <property name="frameShadow">
               <enum>QFrame::Raised</enum>
              </property>
-             <layout class="QVBoxLayout" name="verticalLayout_8">
+             <layout class="QVBoxLayout" name="verticalLayout_9">
               <item>
                <layout class="QHBoxLayout" name="horizontalLayout_17">
                 <item>
@@ -862,14 +981,14 @@ QPushButton:hover{
                  <widget class="QPushButton" name="btn_buscar_2">
                   <property name="minimumSize">
                    <size>
-                    <width>180</width>
-                    <height>50</height>
+                    <width>80</width>
+                    <height>40</height>
                    </size>
                   </property>
                   <property name="maximumSize">
                    <size>
-                    <width>180</width>
-                    <height>16777215</height>
+                    <width>80</width>
+                    <height>40</height>
                    </size>
                   </property>
                   <property name="styleSheet">
@@ -880,7 +999,7 @@ QPushButton:hover{
                   </property>
                   <property name="icon">
                    <iconset>
-                    <normaloff>../../../../Desktop/PROYECTO/project/interfaces/ELEMENTOS GRAFICOS/buscar.png</normaloff>../../../../Desktop/PROYECTO/project/interfaces/ELEMENTOS GRAFICOS/buscar.png</iconset>
+                    <normaloff>ELEMENTOS GRAFICOS/buscar.png</normaloff>ELEMENTOS GRAFICOS/buscar.png</iconset>
                   </property>
                   <property name="iconSize">
                    <size>
@@ -1013,154 +1132,273 @@ QPushButton:hover{
                </spacer>
               </item>
               <item>
-               <layout class="QHBoxLayout" name="horizontalLayout_11">
+               <layout class="QVBoxLayout" name="verticalLayout_8">
                 <item>
-                 <spacer name="horizontalSpacer_12">
-                  <property name="orientation">
-                   <enum>Qt::Horizontal</enum>
-                  </property>
-                  <property name="sizeHint" stdset="0">
-                   <size>
-                    <width>40</width>
-                    <height>20</height>
-                   </size>
-                  </property>
-                 </spacer>
-                </item>
-                <item>
-                 <widget class="QLabel" name="img4">
-                  <property name="minimumSize">
-                   <size>
-                    <width>250</width>
-                    <height>250</height>
-                   </size>
-                  </property>
-                  <property name="maximumSize">
-                   <size>
-                    <width>250</width>
-                    <height>250</height>
-                   </size>
-                  </property>
-                  <property name="styleSheet">
-                   <string notr="true">QLabel{
+                 <layout class="QHBoxLayout" name="horizontalLayout_7">
+                  <item>
+                   <spacer name="horizontalSpacer_14">
+                    <property name="orientation">
+                     <enum>Qt::Horizontal</enum>
+                    </property>
+                    <property name="sizeHint" stdset="0">
+                     <size>
+                      <width>40</width>
+                      <height>20</height>
+                     </size>
+                    </property>
+                   </spacer>
+                  </item>
+                  <item>
+                   <widget class="QLabel" name="img6">
+                    <property name="minimumSize">
+                     <size>
+                      <width>200</width>
+                      <height>200</height>
+                     </size>
+                    </property>
+                    <property name="maximumSize">
+                     <size>
+                      <width>200</width>
+                      <height>200</height>
+                     </size>
+                    </property>
+                    <property name="styleSheet">
+                     <string notr="true">QLabel{
 background-color: rgb(255, 255, 255);
 border: 2px solid  rgb(0,0,0);
-border-radius:20px;
 }</string>
-                  </property>
-                  <property name="text">
-                   <string>Placa</string>
-                  </property>
-                  <property name="scaledContents">
-                   <bool>true</bool>
-                  </property>
-                  <property name="alignment">
-                   <set>Qt::AlignCenter</set>
-                  </property>
-                 </widget>
-                </item>
-                <item>
-                 <spacer name="horizontalSpacer_10">
-                  <property name="orientation">
-                   <enum>Qt::Horizontal</enum>
-                  </property>
-                  <property name="sizeHint" stdset="0">
-                   <size>
-                    <width>40</width>
-                    <height>20</height>
-                   </size>
-                  </property>
-                 </spacer>
-                </item>
-                <item>
-                 <widget class="QLabel" name="img5">
-                  <property name="minimumSize">
-                   <size>
-                    <width>250</width>
-                    <height>250</height>
-                   </size>
-                  </property>
-                  <property name="maximumSize">
-                   <size>
-                    <width>250</width>
-                    <height>250</height>
-                   </size>
-                  </property>
-                  <property name="styleSheet">
-                   <string notr="true">QLabel{
+                    </property>
+                    <property name="text">
+                     <string>Placa</string>
+                    </property>
+                    <property name="scaledContents">
+                     <bool>true</bool>
+                    </property>
+                    <property name="alignment">
+                     <set>Qt::AlignCenter</set>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <spacer name="horizontalSpacer_15">
+                    <property name="orientation">
+                     <enum>Qt::Horizontal</enum>
+                    </property>
+                    <property name="sizeHint" stdset="0">
+                     <size>
+                      <width>40</width>
+                      <height>20</height>
+                     </size>
+                    </property>
+                   </spacer>
+                  </item>
+                  <item>
+                   <widget class="QLabel" name="img7">
+                    <property name="minimumSize">
+                     <size>
+                      <width>200</width>
+                      <height>200</height>
+                     </size>
+                    </property>
+                    <property name="maximumSize">
+                     <size>
+                      <width>200</width>
+                      <height>200</height>
+                     </size>
+                    </property>
+                    <property name="styleSheet">
+                     <string notr="true">QLabel{
 background-color: rgb(255, 255, 255);
 border: 2px solid  rgb(0,0,0);
-border-radius:20px;
 }</string>
-                  </property>
-                  <property name="text">
-                   <string>Placa</string>
-                  </property>
-                  <property name="scaledContents">
-                   <bool>true</bool>
-                  </property>
-                  <property name="alignment">
-                   <set>Qt::AlignCenter</set>
-                  </property>
-                 </widget>
-                </item>
-                <item>
-                 <spacer name="horizontalSpacer_11">
-                  <property name="orientation">
-                   <enum>Qt::Horizontal</enum>
-                  </property>
-                  <property name="sizeHint" stdset="0">
-                   <size>
-                    <width>40</width>
-                    <height>20</height>
-                   </size>
-                  </property>
-                 </spacer>
-                </item>
-                <item>
-                 <widget class="QLabel" name="img6">
-                  <property name="minimumSize">
-                   <size>
-                    <width>250</width>
-                    <height>250</height>
-                   </size>
-                  </property>
-                  <property name="maximumSize">
-                   <size>
-                    <width>250</width>
-                    <height>250</height>
-                   </size>
-                  </property>
-                  <property name="styleSheet">
-                   <string notr="true">QLabel{
+                    </property>
+                    <property name="text">
+                     <string>Placa</string>
+                    </property>
+                    <property name="scaledContents">
+                     <bool>true</bool>
+                    </property>
+                    <property name="alignment">
+                     <set>Qt::AlignCenter</set>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <spacer name="horizontalSpacer_21">
+                    <property name="orientation">
+                     <enum>Qt::Horizontal</enum>
+                    </property>
+                    <property name="sizeHint" stdset="0">
+                     <size>
+                      <width>40</width>
+                      <height>20</height>
+                     </size>
+                    </property>
+                   </spacer>
+                  </item>
+                  <item>
+                   <widget class="QLabel" name="img8">
+                    <property name="minimumSize">
+                     <size>
+                      <width>200</width>
+                      <height>200</height>
+                     </size>
+                    </property>
+                    <property name="maximumSize">
+                     <size>
+                      <width>200</width>
+                      <height>200</height>
+                     </size>
+                    </property>
+                    <property name="styleSheet">
+                     <string notr="true">QLabel{
 background-color: rgb(255, 255, 255);
 border: 2px solid  rgb(0,0,0);
-border-radius:20px;
 }</string>
-                  </property>
-                  <property name="text">
-                   <string>Placa</string>
-                  </property>
-                  <property name="scaledContents">
-                   <bool>true</bool>
-                  </property>
-                  <property name="alignment">
-                   <set>Qt::AlignCenter</set>
-                  </property>
-                 </widget>
+                    </property>
+                    <property name="text">
+                     <string>Placa</string>
+                    </property>
+                    <property name="scaledContents">
+                     <bool>true</bool>
+                    </property>
+                    <property name="alignment">
+                     <set>Qt::AlignCenter</set>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <spacer name="horizontalSpacer_22">
+                    <property name="orientation">
+                     <enum>Qt::Horizontal</enum>
+                    </property>
+                    <property name="sizeHint" stdset="0">
+                     <size>
+                      <width>40</width>
+                      <height>20</height>
+                     </size>
+                    </property>
+                   </spacer>
+                  </item>
+                 </layout>
                 </item>
                 <item>
-                 <spacer name="horizontalSpacer_15">
+                 <spacer name="verticalSpacer_7">
                   <property name="orientation">
-                   <enum>Qt::Horizontal</enum>
+                   <enum>Qt::Vertical</enum>
                   </property>
                   <property name="sizeHint" stdset="0">
                    <size>
-                    <width>40</width>
-                    <height>20</height>
+                    <width>20</width>
+                    <height>40</height>
                    </size>
                   </property>
                  </spacer>
+                </item>
+                <item>
+                 <layout class="QHBoxLayout" name="horizontalLayout_8">
+                  <item>
+                   <spacer name="horizontalSpacer_23">
+                    <property name="orientation">
+                     <enum>Qt::Horizontal</enum>
+                    </property>
+                    <property name="sizeHint" stdset="0">
+                     <size>
+                      <width>40</width>
+                      <height>20</height>
+                     </size>
+                    </property>
+                   </spacer>
+                  </item>
+                  <item>
+                   <widget class="QLabel" name="img9">
+                    <property name="minimumSize">
+                     <size>
+                      <width>200</width>
+                      <height>200</height>
+                     </size>
+                    </property>
+                    <property name="maximumSize">
+                     <size>
+                      <width>200</width>
+                      <height>200</height>
+                     </size>
+                    </property>
+                    <property name="styleSheet">
+                     <string notr="true">QLabel{
+background-color: rgb(255, 255, 255);
+border: 2px solid  rgb(0,0,0);
+}</string>
+                    </property>
+                    <property name="text">
+                     <string>Placa</string>
+                    </property>
+                    <property name="scaledContents">
+                     <bool>true</bool>
+                    </property>
+                    <property name="alignment">
+                     <set>Qt::AlignCenter</set>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <spacer name="horizontalSpacer_24">
+                    <property name="orientation">
+                     <enum>Qt::Horizontal</enum>
+                    </property>
+                    <property name="sizeHint" stdset="0">
+                     <size>
+                      <width>40</width>
+                      <height>20</height>
+                     </size>
+                    </property>
+                   </spacer>
+                  </item>
+                  <item>
+                   <widget class="QLabel" name="img10">
+                    <property name="minimumSize">
+                     <size>
+                      <width>200</width>
+                      <height>200</height>
+                     </size>
+                    </property>
+                    <property name="maximumSize">
+                     <size>
+                      <width>200</width>
+                      <height>200</height>
+                     </size>
+                    </property>
+                    <property name="styleSheet">
+                     <string notr="true">QLabel{
+background-color: rgb(255, 255, 255);
+border: 2px solid  rgb(0,0,0);
+}</string>
+                    </property>
+                    <property name="text">
+                     <string>Placa</string>
+                    </property>
+                    <property name="scaledContents">
+                     <bool>true</bool>
+                    </property>
+                    <property name="alignment">
+                     <set>Qt::AlignCenter</set>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <spacer name="horizontalSpacer_25">
+                    <property name="orientation">
+                     <enum>Qt::Horizontal</enum>
+                    </property>
+                    <property name="sizeHint" stdset="0">
+                     <size>
+                      <width>40</width>
+                      <height>20</height>
+                     </size>
+                    </property>
+                   </spacer>
+                  </item>
+                 </layout>
                 </item>
                </layout>
               </item>
@@ -1256,7 +1494,7 @@ border-radius:20px;
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1108</width>
+     <width>1099</width>
      <height>21</height>
     </rect>
    </property>

@@ -347,7 +347,7 @@ class MenuPrincipal(QMainWindow):
         self.cargarCitas()
         self.filtro = self.findChild(QtWidgets.QComboBox, "filtro")
         self.filtro.addItem("Seleccione una opción para filtrar")
-        self.filtro.addItems(["Dentista", "Cedula", "Nombre","Apellido", "Fecha_Cita", "Hora_Cita", "Estatus_Cita"])
+        self.filtro.addItems(["Fecha_Cita", "Hora_Cita", "Estatus_Cita"])
         self.in_buscar.textChanged.connect(self.buscar)
 
     def act_T(self):
@@ -1081,7 +1081,7 @@ class ImagePopup(QDialog):
 
         self.setWindowTitle('Vista completa de la imagen')
         self.center()
-        self.setFixedSize(600, 600)
+        self.setFixedSize(650, 650)
         
     def show_image(self, pixmap):
         self.image_label.setPixmap(pixmap)
@@ -1116,14 +1116,20 @@ class Ui_placas(QMainWindow):
         self.img4.mousePressEvent = lambda event: self.show_image_popup(self.img4.pixmap())
         self.img5.mousePressEvent = lambda event: self.show_image_popup(self.img5.pixmap())
         self.img6.mousePressEvent = lambda event: self.show_image_popup(self.img6.pixmap())
+        self.img7.mousePressEvent = lambda event: self.show_image_popup(self.img7.pixmap())
+        self.img8.mousePressEvent = lambda event: self.show_image_popup(self.img8.pixmap())
+        self.img9.mousePressEvent = lambda event: self.show_image_popup(self.img9.pixmap())
+        self.img10.mousePressEvent = lambda event: self.show_image_popup(self.img10.pixmap())
         
     def editar(self):
         cedula = self.in_busqueda.text()
         foto_pixmap1  =self.img1.pixmap()
         foto_pixmap2  =self.img2.pixmap()
         foto_pixmap3  =self.img3.pixmap()
-        if foto_pixmap1 is None or foto_pixmap2 is None or foto_pixmap3 is None:
-            QMessageBox.warning(self,"Advertencia","Debes importar 3 imagenes antes de guardar")
+        foto_pixmap4  =self.img4.pixmap()
+        foto_pixmap5  =self.img5.pixmap()
+        if foto_pixmap1 is None or foto_pixmap2 is None or foto_pixmap3 is None or foto_pixmap4 is None or foto_pixmap5 is None:
+            QMessageBox.warning(self,"Advertencia","Debes importar 5 imagenes antes de guardar")
             return
         if len(cedula) <=0 :
              QMessageBox.warning(self,"Advertencia","Debes ingresar la cedula para almacenar las placas")
@@ -1133,6 +1139,8 @@ class Ui_placas(QMainWindow):
                 foto1_image = foto_pixmap1.toImage()
                 foto2_image = foto_pixmap2.toImage()
                 foto3_image = foto_pixmap3.toImage()
+                foto4_image = foto_pixmap4.toImage()
+                foto5_image = foto_pixmap5.toImage()
 
                 # Convierte cada imagen a un formato de bytes (por ejemplo, PNG)
                 foto1_bytes = QByteArray()
@@ -1156,6 +1164,20 @@ class Ui_placas(QMainWindow):
                 foto3_byte = buffer3.data()
                 buffer3.close()
                 
+                foto4_bytes = QByteArray()
+                buffer4 = QBuffer(foto4_bytes)
+                buffer4.open(QIODevice.WriteOnly)
+                foto4_image.save(buffer4, "PNG")
+                foto4_byte = buffer4.data()
+                buffer4.close()
+                
+                foto5_bytes = QByteArray()
+                buffer5 = QBuffer(foto5_bytes)
+                buffer5.open(QIODevice.WriteOnly)
+                foto5_image.save(buffer5, "PNG")
+                foto5_byte = buffer5.data()
+                buffer5.close()
+                
                 conexion = sqlite3.connect('interfaces/database.db')
                 cursor = conexion.cursor()
                 reply = QMessageBox.question(
@@ -1168,8 +1190,8 @@ class Ui_placas(QMainWindow):
                 if reply == QMessageBox.Yes:
                     cursor.execute("SELECT COUNT(*) FROM Pacientes WHERE Cedula = ?", (cedula,))
                     
-                    cursor.execute("UPDATE Pacientes SET Placa1 = ?, Placa2 = ? ,Placa3 = ? WHERE Cedula = ?",
-                    (foto1_byte, foto2_byte, foto3_byte ,cedula ))
+                    cursor.execute("UPDATE Pacientes SET Placa1 = ?, Placa2 = ? ,Placa3 = ?, Placa4 = ?, Placa5 = ? WHERE Cedula = ?",
+                    (foto1_byte, foto2_byte, foto3_byte, foto4_byte, foto5_byte ,cedula ))
                     QMessageBox.information(self, "Exito", "Datos Guardados Correctamente ")
                     conexion.commit()
                     conexion.close()
@@ -1242,22 +1264,27 @@ class Ui_placas(QMainWindow):
         self.img1.clear()
         self.img2.clear()
         self.img3.clear()
-    
+        self.img4.clear()
+        self.img5.clear()
     def clearInputs_2(self):
         self.in_busqueda_2.clear()
         self.in_apell_2.clear()
         self.in_name_2.clear()
-        self.img4.clear()
-        self.img5.clear()
         self.img6.clear()
+        self.img7.clear()
+        self.img8.clear()
+        self.img9.clear()
+        self.img10.clear()
         
     def addplacas(self):
         cedula = self.in_busqueda.text()
         foto_pixmap1  =self.img1.pixmap()
         foto_pixmap2  =self.img2.pixmap()
         foto_pixmap3  =self.img3.pixmap()
-        if foto_pixmap1 is None or foto_pixmap2 is None or foto_pixmap3 is None:
-            QMessageBox.warning(self,"Advertencia","Debes importar 3 imagenes antes de guardar")
+        foto_pixmap4  =self.img4.pixmap()
+        foto_pixmap5  =self.img5.pixmap()
+        if foto_pixmap1 is None or foto_pixmap2 is None or foto_pixmap3 is None or foto_pixmap4 is None or foto_pixmap5 is None:
+            QMessageBox.warning(self,"Advertencia","Debes importar 5 imagenes antes de guardar")
             return
         if len(cedula) <=0 :
              QMessageBox.warning(self,"Advertencia","Debes ingresar la cedula para almacenar las placas")
@@ -1267,7 +1294,8 @@ class Ui_placas(QMainWindow):
                 foto1_image = foto_pixmap1.toImage()
                 foto2_image = foto_pixmap2.toImage()
                 foto3_image = foto_pixmap3.toImage()
-
+                foto4_image = foto_pixmap4.toImage()
+                foto5_image = foto_pixmap5.toImage()
                 # Convierte cada imagen a un formato de bytes (por ejemplo, PNG)
                 foto1_bytes = QByteArray()
                 buffer1 = QBuffer(foto1_bytes)
@@ -1290,6 +1318,20 @@ class Ui_placas(QMainWindow):
                 foto3_byte = buffer3.data()
                 buffer3.close()
                 
+                foto4_bytes = QByteArray()
+                buffer4 = QBuffer(foto4_bytes)
+                buffer4.open(QIODevice.WriteOnly)
+                foto4_image.save(buffer4, "PNG")
+                foto4_byte = buffer4.data()
+                buffer4.close()
+                
+                foto5_bytes = QByteArray()
+                buffer5 = QBuffer(foto5_bytes)
+                buffer5.open(QIODevice.WriteOnly)
+                foto5_image.save(buffer5, "PNG")
+                foto5_byte = buffer5.data()
+                buffer5.close()
+                
                 conexion = sqlite3.connect('interfaces/database.db')
                 cursor = conexion.cursor()
                 
@@ -1303,8 +1345,8 @@ class Ui_placas(QMainWindow):
                 self.clearInputs()
                 
                 if existe_paciente < 0:
-                    cursor.execute("UPDATE Pacientes SET Placa1 = ?, Placa2 = ? ,Placa3 = ? WHERE Cedula = ?",
-                    (foto1_byte, foto2_byte, foto3_byte ,cedula ))
+                    cursor.execute("UPDATE Pacientes SET Placa1 = ?, Placa2 = ? ,Placa3 = ?, Placa4 = ?, Placa5 = ? WHERE Cedula = ?",
+                    (foto1_byte, foto2_byte, foto3_byte, foto4_byte, foto5_byte ,cedula ))
                     QMessageBox.information(self, "Exito", "Datos Guardados Correctamente ")
                 conexion.commit()
                 conexion.close()
@@ -1336,14 +1378,18 @@ class Ui_placas(QMainWindow):
     def addPhoto(self):
             filenames, _ = QFileDialog.getOpenFileNames(self, "Seleccionar imágenes", "", "Archivos de imagen (*.png *.jpg *.bmp *.jpeg *.JFIF)")
                 
-            if len(filenames) >= 3:
+            if len(filenames) >= 5:
                     pixmap1 = QPixmap(filenames[0])
                     pixmap2 = QPixmap(filenames[1])
                     pixmap3 = QPixmap(filenames[2])
+                    pixmap4 = QPixmap(filenames[3])
+                    pixmap5 = QPixmap(filenames[4])
                     
                     self.img1.setPixmap(pixmap1)    
                     self.img2.setPixmap(pixmap2)
                     self.img3.setPixmap(pixmap3)
+                    self.img4.setPixmap(pixmap4)
+                    self.img5.setPixmap(pixmap5)
             else:
                     QMessageBox.information(self,"Imagenes","Por favor,Selecciona una imagen")    
     
@@ -1356,23 +1402,32 @@ class Ui_placas(QMainWindow):
             try:
                 conexion = sqlite3.connect('./interfaces/database.db')
                 cursor =conexion.cursor()
-                cursor.execute("SELECT Nombre , Apellido , Placa1, Placa2, Placa3 FROM Pacientes WHERE Cedula = ? AND ID_user = ?",(cedula, idUser))
+                cursor.execute("SELECT Nombre , Apellido , Placa1, Placa2, Placa3, Placa4, Placa5 FROM Pacientes WHERE Cedula = ? AND ID_user = ?",(cedula, idUser))
                 resultado = cursor.fetchone()
                 if resultado:
-                    nombre_paciente , apellido_paciente ,placa1 , placa2,placa3 = resultado
+                    nombre_paciente , apellido_paciente ,placa1 , placa2,placa3, placa4, placa5 = resultado
                     self.in_name_2.setText(nombre_paciente)
                     self.in_apell_2.setText(apellido_paciente)
+                    
                     pixmap1 = QPixmap()
                     pixmap1.loadFromData(placa1)
-                    self.img4.setPixmap(pixmap1)
+                    self.img6.setPixmap(pixmap1)
                     
                     pixmap2 = QPixmap()
                     pixmap2.loadFromData(placa2)
-                    self.img5.setPixmap(pixmap2)
+                    self.img7.setPixmap(pixmap2)
                     
                     pixmap3 = QPixmap()
                     pixmap3.loadFromData(placa3)
-                    self.img6.setPixmap(pixmap3)
+                    self.img8.setPixmap(pixmap3)
+                    
+                    pixmap4 = QPixmap()
+                    pixmap4.loadFromData(placa4)
+                    self.img9.setPixmap(pixmap4)
+                    
+                    pixmap5 = QPixmap()
+                    pixmap5.loadFromData(placa5)
+                    self.img10.setPixmap(pixmap5)
                 else:
                     QMessageBox.information(self,"Eror","No se encuentra datos")
                     return
@@ -1385,7 +1440,7 @@ class Ui_placas(QMainWindow):
             idUser = self.id_user
 
             # Ejecuta una consulta para obtener los datos de los pacientes y ordenar por Fecha_Cita descendente
-            cursor.execute("SELECT Cedula, Nombre, Apellido, Placa1 , Placa2 , Placa3   FROM Pacientes WHERE ID_user = ? ", (idUser,))
+            cursor.execute("SELECT Cedula, Nombre, Apellido, Placa1 , Placa2 , Placa3, Placa4, Placa5   FROM Pacientes WHERE ID_user = ? ", (idUser,))
             tabla_placas = cursor.fetchall()
             conexion.close()
 
@@ -1438,7 +1493,7 @@ class Ui_placas(QMainWindow):
             else:
                 
                 # Ejecuta una consulta para obtener los datos de los pacientes y ordenar por Fecha_Cita descendente
-                cursor.execute("SELECT Cedula, Nombre, Apellido, Placa1 , Placa2 , Placa3   FROM Pacientes WHERE ID_user = ? AND Cedula = ? ", (idUser,cedula ))
+                cursor.execute("SELECT Cedula, Nombre, Apellido, Placa1 , Placa2 , Placa3, Placa4, Placa5   FROM Pacientes WHERE ID_user = ? AND Cedula = ? ", (idUser,cedula ))
                 tabla_placas = cursor.fetchall()
                 conexion.close()
 
@@ -1492,10 +1547,12 @@ class Ui_placas(QMainWindow):
                 Placa1 = None
                 Placa2 = None
                 Placa3 = None
+                Placa4 = None
+                Placa5 = None
                 conexion = sqlite3.connect('interfaces/database.db')
                 cursor = conexion.cursor()
-                cursor.execute("UPDATE Pacientes SET Placa1 = ?, Placa2 = ? , Placa3= ? WHERE Cedula = ?",
-                        (Placa1, Placa2, Placa3 , cedula))
+                cursor.execute("UPDATE Pacientes SET Placa1 = ?, Placa2 = ? , Placa3= ?, Placa4 = ?, Placa5 = ? WHERE Cedula = ?",
+                        (Placa1, Placa2, Placa3, Placa4, Placa5, cedula))
                 conexion.commit()
                 conexion.close()
         

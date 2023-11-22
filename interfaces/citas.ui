@@ -163,14 +163,14 @@ QPushButton:hover{
                  <widget class="QPushButton" name="btn_buscar">
                   <property name="minimumSize">
                    <size>
-                    <width>180</width>
-                    <height>50</height>
+                    <width>80</width>
+                    <height>40</height>
                    </size>
                   </property>
                   <property name="maximumSize">
                    <size>
-                    <width>180</width>
-                    <height>16777215</height>
+                    <width>80</width>
+                    <height>40</height>
                    </size>
                   </property>
                   <property name="styleSheet">
@@ -181,7 +181,7 @@ QPushButton:hover{
                   </property>
                   <property name="icon">
                    <iconset>
-                    <normaloff>../../../../Desktop/PROYECTO/project/interfaces/ELEMENTOS GRAFICOS/buscar.png</normaloff>../../../../Desktop/PROYECTO/project/interfaces/ELEMENTOS GRAFICOS/buscar.png</iconset>
+                    <normaloff>ELEMENTOS GRAFICOS/buscar.png</normaloff>ELEMENTOS GRAFICOS/buscar.png</iconset>
                   </property>
                   <property name="iconSize">
                    <size>
