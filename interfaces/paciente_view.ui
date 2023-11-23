@@ -437,7 +437,7 @@ QLabel{
     <property name="title">
      <string>Menu</string>
     </property>
-    <addaction name="actionVolver_al_menu_prinicpla"/>
+    <addaction name="actionVolver_al_menu_principal"/>
     <addaction name="separator"/>
     <addaction name="actionVolver_al_registro"/>
     <addaction name="separator"/>
@@ -451,7 +451,7 @@ QLabel{
     <string>Volver al registro</string>
    </property>
   </action>
-  <action name="actionVolver_al_menu_prinicpla">
+  <action name="actionVolver_al_menu_principal">
    <property name="text">
     <string>Volver al menu principal</string>
    </property>

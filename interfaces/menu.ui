@@ -127,6 +127,41 @@ background-color:rgb(145, 200, 228);
              </widget>
             </item>
             <item>
+             <widget class="QPushButton" name="bt_bdd">
+              <property name="minimumSize">
+               <size>
+                <width>50</width>
+                <height>50</height>
+               </size>
+              </property>
+              <property name="styleSheet">
+               <string notr="true">QPushButton{
+border-radius:25px;
+}
+
+QPushButton:hover{
+color:white;
+background-color:rgb(145, 200, 228);
+
+}
+</string>
+              </property>
+              <property name="text">
+               <string/>
+              </property>
+              <property name="icon">
+               <iconset>
+                <normaloff>ELEMENTOS GRAFICOS/archivo-de-base-de-datos.png</normaloff>ELEMENTOS GRAFICOS/archivo-de-base-de-datos.png</iconset>
+              </property>
+              <property name="iconSize">
+               <size>
+                <width>45</width>
+                <height>45</height>
+               </size>
+              </property>
+             </widget>
+            </item>
+            <item>
              <spacer name="horizontalSpacer">
               <property name="orientation">
                <enum>Qt::Horizontal</enum>
@@ -462,7 +497,7 @@ background-color:rgb(145, 200, 228);
                  </property>
                  <property name="icon">
                   <iconset>
-                   <normaloff>ELEMENTOS GRAFICOS/registro-dental.png</normaloff>ELEMENTOS GRAFICOS/registro-dental.png</iconset>
+                   <normaloff>ELEMENTOS GRAFICOS/registro.png</normaloff>ELEMENTOS GRAFICOS/registro.png</iconset>
                  </property>
                  <property name="iconSize">
                   <size>
@@ -688,6 +723,77 @@ background-color:rgb(145, 200, 228);
                  </property>
                 </spacer>
                </item>
+               <item>
+                <widget class="QLabel" name="label_15">
+                 <property name="font">
+                  <font>
+                   <family>Verdana</family>
+                   <pointsize>10</pointsize>
+                   <weight>75</weight>
+                   <italic>false</italic>
+                   <bold>true</bold>
+                  </font>
+                 </property>
+                 <property name="text">
+                  <string>Cambiar montos de tratamientos</string>
+                 </property>
+                 <property name="alignment">
+                  <set>Qt::AlignCenter</set>
+                 </property>
+                 <property name="wordWrap">
+                  <bool>true</bool>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QPushButton" name="bt_montos">
+                 <property name="minimumSize">
+                  <size>
+                   <width>50</width>
+                   <height>50</height>
+                  </size>
+                 </property>
+                 <property name="styleSheet">
+                  <string notr="true">QPushButton{
+border-radius:25px;
+background-color:rgb(246, 244, 235);
+}
+
+QPushButton:hover{
+color:white;
+background-color:rgb(145, 200, 228);
+
+}
+</string>
+                 </property>
+                 <property name="text">
+                  <string/>
+                 </property>
+                 <property name="icon">
+                  <iconset>
+                   <normaloff>ELEMENTOS GRAFICOS/cesar.jpg</normaloff>ELEMENTOS GRAFICOS/cesar.jpg</iconset>
+                 </property>
+                 <property name="iconSize">
+                  <size>
+                   <width>45</width>
+                   <height>45</height>
+                  </size>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <spacer name="verticalSpacer_8">
+                 <property name="orientation">
+                  <enum>Qt::Vertical</enum>
+                 </property>
+                 <property name="sizeHint" stdset="0">
+                  <size>
+                   <width>20</width>
+                   <height>40</height>
+                  </size>
+                 </property>
+                </spacer>
+               </item>
               </layout>
              </item>
             </layout>
@@ -803,12 +909,6 @@ QFrame{
                    <enum>QFrame::Raised</enum>
                   </property>
                   <layout class="QVBoxLayout" name="verticalLayout_12">
-                   <property name="leftMargin">
-                    <number>0</number>
-                   </property>
-                   <property name="rightMargin">
-                    <number>0</number>
-                   </property>
                    <item>
                     <widget class="Line" name="line_2">
                      <property name="orientation">

@@ -357,6 +357,170 @@ class Registro(QtWidgets.QMainWindow):
         self.users_dialog.in_conf = self.users_dialog.findChild(QtWidgets.QLineEdit, 'in_conf')
 
         self.users_dialog.exec_()
+class Ui_montos(QMainWindow):
+    def __init__(self, id_user):
+        super(Ui_montos, self).__init__()
+        loadUi("./interfaces/montos.ui", self)
+        self.setWindowTitle("Montos")
+        self.id_user=id_user
+        self.tratamientos = {
+            "Triaje": ["Consulta e Historia Clínica sin informe", "Consulta e Historia Clínica con informe"],
+            "Periodoncia": ["Tartectomía y pulido simple (1 sesión)", "Tartectomía y pulido simple (2-3 sesiones)","Aplicación tópica de fluór","Cirguia periodontal (por cuadrante)"],
+            "Blanqueamiento": ["Blanqueamiento intrapulpar", "Blanquemaineto maxilar superior e inferior (2 sesiones de 20 min c/u)"],
+            "Operatoria": ["Obturaciones provisionales","Obturaciones con Amalgama","Obturaciones con vidrio ionomerico pequeña","Obturaciones con vidrio ionomerico grande","Obturaciones con resina fotocurada"],
+            "Endodoncia": ["Pulpotomías formocreasoladas","Emergencias Endodontica","Tratamiento endodontico monoradicular","Tratamiento endodontico biradicular","Tratamiento endodontico multiradicular","Desobturación conductos"],
+            "Radiografias Periaciales": ["Adultos e infantes"],
+            "Cirugias": ["Exodoncia simple","Exodoncia quirurgica","Exodoncia de dientes temporales","Exodoncia de corales erupcionadas/incluidas"],
+            "Protesis": ["Coronas provisionales por unidad","Muñon artificial monoradicular","Muñon artificial multiradicular","Incrustacion resina/metálica","Unidad de corona meta-porcelana","Cementado de protesis fija"],
+            "Protesis removibles metalicas y/o acrilicas": ["1 a 3 unidades","4 a 6 unidades","7 a 12 unidades","Unidadad adicional","Ganchos contorneados retentativas acrilicas c/u","Reparaciones protesis acrilicas y/oo agregar un diente a la protesis"],
+            "Protesis totales": ["Dentadura superior o inferior (incluye controles post-inatalción) c/u"],
+            "Implantes dentales": ["Honorarios cirujano por implante","Implante y aditamientos","Injertos óseos (1cc)","PRF (incluye bionalista y extraccion de sangre + centrifugado)","Corona metal porcelana sobre implante","DPR acrilica"],
+        }
+
+        self.btn_agg.clicked.connect(self.aggMontos)
+        self.btn_clear.clicked.connect(self.clear)
+        self.actionSalir.triggered.connect(self.salir)
+        self.actionRegresar_al_menu_prinicipal.triggered.connect(self.backmenu)
+
+        self.t_0 = self.findChild(QtWidgets.QComboBox, "t_0")
+        self.t_0.addItem("Seleccione el tipo de honorario")
+        self.t_0.addItems(list(self.tratamientos.keys()))
+
+        self.t_0.currentTextChanged.connect(self.loadTratamientos)
+
+        self.loadTratamientos()
+        
+    def backmenu(self):        
+        conexion = sqlite3.connect('interfaces/database.db')
+        cursor= conexion.cursor()
+        cursor.execute("SELECT Username FROM Users WHERE ID = ?", (self.id_user,))
+        
+        resultado = cursor.fetchone()
+        if resultado :
+            nombre_usuario = resultado[0]
+            horaActual = datetime.datetime.now().time()
+            
+            if datetime.time(5, 0, 0) <= horaActual < datetime.time(12, 0, 0):
+                textForMenu = f"Buenos días {nombre_usuario}\n¿Qué deseas hacer hoy?"
+            elif datetime.time(12, 0, 0) <= horaActual < datetime.time(18, 0, 0):
+                textForMenu = f"Buenas tardes {nombre_usuario}\n¿Qué deseas hacer hoy?"
+            elif datetime.time(18, 0, 0) <= horaActual or horaActual < datetime.time(5, 0, 0):
+                textForMenu = f"Buenas noches {nombre_usuario}\n¿Qué deseas hacer hoy?"
+            else:
+                textForMenu = f"Hola {nombre_usuario}\n¿Qué deseas hacer hoy?"
+            menu_principal = MenuPrincipal(self.id_user)
+            menu_principal.lb_nombre.setText(textForMenu)
+
+            # Establecer la ventana en modo de pantalla completa
+            menu_principal.showMaximized()
+
+            menu_principal.setWindowTitle("Menu Principal")
+
+            # Asegúrate de añadir la ventana al widget después de establecerla en modo de pantalla completa
+            widget.addWidget(menu_principal)
+            widget.setCurrentIndex(widget.currentIndex() + 1)
+
+            self.close()
+            
+    def loadTratamientos(self):
+        self.clear()
+        seleccion_t_0 = self.t_0.currentText()
+        if seleccion_t_0 == "Seleccione el tipo de honorario":
+            return
+
+        tratamientos_honorario = self.tratamientos.get(seleccion_t_0, [])
+
+        for i, tratamiento in enumerate(tratamientos_honorario, start=1):
+            getattr(self, f't_{i}').setText(tratamiento)
+
+    def aggMontos(self):
+        tipo_tratamiento = self.t_0.currentText()
+
+        tratamientos_montos = []
+        num_montos_introducidos = 0
+        
+        for i in range(1, 7):
+            tratamiento = getattr(self, f't_{i}').text()
+            monto = getattr(self, f'monto_{i}').text()
+
+            # Verifica si el tratamiento y el monto no están vacíos
+            if tratamiento and monto:
+                if not re.match(r'^-?\d*\.?\d+$', monto):
+                    QMessageBox.warning(self, "Error", "Por favor, ingrese solo números en el campo de monto.")
+                    self.clear()
+                    return  
+
+                
+                tratamientos_montos.append((tratamiento, monto))
+                num_montos_introducidos += 1  # Incrementa el contador
+        if num_montos_introducidos == 0:
+            QtWidgets.QMessageBox.warning(None, 'Error', 'No se han introducido montos')
+            return
+        
+        
+        montos=QMessageBox.question(self, "Cantidad de Montos",
+                                    f"Se han introducido {num_montos_introducidos} montos.\n¿Deseas seguir con la ejecución?",
+                                    QMessageBox.Yes | QMessageBox.No
+                                     )
+
+        if montos == QMessageBox.Yes:
+            if len(tipo_tratamiento) <= 0:
+                QMessageBox.warning(self, "Advertencia", "Debes ingresar el tipo de tratamiento")
+                return
+
+            try:
+                # Conecta a la base de datos y almacena los datos
+                conexion = sqlite3.connect('interfaces/database.db')
+                cursor = conexion.cursor()
+
+                # Verifica si el tratamiento ya existe en la base de datos
+                for tratamiento, monto in tratamientos_montos:
+                    cursor.execute("SELECT monto FROM Trata WHERE tipo_tratamiento = ? AND tratamiento = ?", (tipo_tratamiento, tratamiento))
+                    existing_record = cursor.fetchone()
+
+                    if existing_record:
+                        # Si existe el tratamiento, preguntar al usuario si desea actualizar el monto
+                        update = QMessageBox.question(self, "Tratamiento Existente",
+                                                    f"El tratamiento '{tratamiento}' ya existe con un monto de '{existing_record[0]}'. ¿Desea actualizar el monto?",
+                                                    QMessageBox.Yes | QMessageBox.No)
+
+                        if update == QMessageBox.Yes:
+                            cursor.execute("UPDATE Trata SET monto = ? WHERE tipo_tratamiento = ? AND tratamiento = ?",
+                                        (monto, tipo_tratamiento, tratamiento))
+                            QMessageBox.information(self, "Éxito", f"¡Monto actualizado para el tratamiento '{tratamiento}'!")
+                    else:
+                        # Si no existe, insertar el nuevo tratamiento y monto
+                        cursor.execute("INSERT INTO Trata (tipo_tratamiento, tratamiento, monto) VALUES (?, ?, ?)",
+                                    (tipo_tratamiento, tratamiento, monto))
+                        QMessageBox.information(self, "Éxito", "Datos de tratamientos añadidos correctamente")
+
+                for i in range(1, 7):
+                    getattr(self, f't_{i}').clear()
+                    getattr(self, f"monto_{i}").clear()
+
+                conexion.commit()
+            except sqlite3.Error as e:
+                QMessageBox.critical(self, "Error", "Error al insertar o actualizar datos en la base de datos: " + str(e))
+            finally:
+                conexion.close()
+        else:
+            self.clear()
+
+    def clear(self):
+        for i in range(1, 7):
+            getattr(self, f't_{i}').clear()
+            getattr(self, f"monto_{i}").clear()
+
+    def salir(self):
+        reply = QMessageBox.question(
+            self,
+            'Confirmación',
+            '¿Desea Salir ?',
+            QMessageBox.Yes | QMessageBox.No,
+            QMessageBox.Yes
+        )
+        if reply == QMessageBox.Yes:
+            QApplication.quit()
 class MenuPrincipal(QMainWindow):
     def __init__(self, id_user):
         super(MenuPrincipal, self).__init__()
@@ -377,6 +541,8 @@ class MenuPrincipal(QMainWindow):
         self.bt_registro.clicked.connect(self.Historyviews)
         self.bt_paciente.clicked.connect(self.PlacasView)
         self.bt_citas.clicked.connect(self.CitasView)
+        self.bt_bdd.clicked.connect(self.BddView)
+        self.bt_montos.clicked.connect(self.MontosView)
         self.bt_help.clicked.connect(self.ayuda)
         self.bt_act.clicked.connect(self.act_T)
         self.bt_buscar.clicked.connect(self.buscar)
@@ -386,7 +552,24 @@ class MenuPrincipal(QMainWindow):
         self.filtro.addItems(["Fecha_Cita", "Hora_Cita", "Estatus_Cita"])
         self.in_buscar.textChanged.connect(self.buscar)
         self.bt_closesesion.clicked.connect(self.eliminar_datos_acceso)
-
+    
+    def BddView(self):
+        reply = self.showConfirmation("¿Deseas ir al formulario para visualizar todos los pacientes registrados?")
+        if reply == QMessageBox.Yes:
+            bdd = Ui_pacientes_view()
+            widget.addWidget(bdd)
+            widget.setCurrentIndex(widget.currentIndex() + 1)
+            bdd.show()
+            self.hide()    
+    def MontosView(self):
+        reply = self.showConfirmation("¿Deseas ir al formulario para cambiar los montos de los tratamientos?")
+        if reply == QMessageBox.Yes:
+            montos = Ui_montos(self.id_user)
+            widget.addWidget(montos)
+            widget.setCurrentIndex(widget.currentIndex() + 1)
+            montos.show()
+            self.hide()
+             
     def act_T(self):
         self.cargarCitas()
 
@@ -561,6 +744,72 @@ class MenuPrincipal(QMainWindow):
             except FileNotFoundError:
                 print("No se encontraron datos de acceso para eliminar.")
                 QApplication.quit()
+                
+class Ui_pacientes_view(QtWidgets.QMainWindow):
+    def __init__(self):
+        super(Ui_pacientes_view, self).__init__()
+        loadUi("./interfaces/paciente_view.ui", self)
+        self.actionSalir.triggered.connect(self.salir)
+        self.bt_act.clicked.connect(self.act_T)
+        self.bt_buscar.clicked.connect(self.buscar)
+        self.cargarPacientes()
+        self.filtro = self.findChild(QtWidgets.QComboBox, "filtro")
+        self.filtro.addItem("Seleccione una opción para filtrar")
+        self.filtro.addItems(["Dentista","Cedula", "Nombre", "Edad", "Sexo","Direccion" , "Fecha_Diagnotico"])
+        self.in_buscar.textChanged.connect(self.buscar)
+    
+    def act_T(self):
+        self.cargarPacientes()
+
+    def cargarPacientes(self, filtro=None, valor=None):
+        self.tabla_p.setRowCount(0)  # Limpiar la tabla actual
+        headers = ["Cedula", "Nombre", "Apellido", "Edad", "Dirección", "Sexo", "Fecha_Diagnotico"]
+
+        try:
+            conexion = sqlite3.connect('interfaces/database.db')
+            cursor = conexion.cursor()
+
+            if filtro and valor:
+                cursor.execute("SELECT Cedula, Nombre, Apellido, Edad, Direccion, Sexo, Fecha_Diagnotico FROM Pacientes WHERE {} LIKE ? ORDER BY Fecha_Diagnotico ASC".format(filtro), ('%' + valor + '%',))
+            else:
+                cursor.execute("SELECT Cedula, Nombre, Apellido, Edad, Direccion, Sexo, Fecha_Diagnotico FROM Pacientes ORDER BY Fecha_Diagnotico ASC")
+
+            pacientes = cursor.fetchall()
+
+            self.tabla_p.setColumnCount(len(headers))
+            self.tabla_p.setHorizontalHeaderLabels(headers)
+
+            for row, paciente in enumerate(pacientes):
+                self.tabla_p.insertRow(row)
+                for column, value in enumerate(paciente):
+                    item = QtWidgets.QTableWidgetItem(str(value))
+                    self.tabla_p.setItem(row, column, item)
+
+            conexion.close()
+        except sqlite3.Error as e:
+            QtWidgets.QMessageBox.critical(self, "Error", "Error al consultar la base de datos: " + str(e))
+
+    def buscar(self):
+        filtro = self.filtro.currentText()
+        valor = self.in_buscar.text()
+        if filtro == "Seleccione una opción para filtrar":
+            QtWidgets.QMessageBox.warning(self, "Error", "Debe seleccionar un filtro para buscar")
+        elif len(valor) == 0:
+            self.act_T()
+        elif not valor:
+            QtWidgets.QMessageBox.warning(self, "Por favor", "Ingrese alguna especificación del paciente para realizar la búsqueda")
+        elif self.tabla_p.rowCount() == 0:
+            QtWidgets.QMessageBox.warning(self, "Advertencia", "No se ha encontrado ningún registro")  
+        else:
+            self.cargarPacientes(filtro, valor)
+        
+    def salir(self):
+        reply = QtWidgets.QMessageBox.question(
+            self, 'Confirmación', '¿Desea Salir?',
+            QtWidgets.QMessageBox.Yes | QtWidgets.QMessageBox.No, QtWidgets.QMessageBox.Yes
+        )
+        if reply == QtWidgets.QMessageBox.Yes:
+            QtWidgets.QApplication.quit()
 
 class helpView(QDialog):
     def __init__(self):
