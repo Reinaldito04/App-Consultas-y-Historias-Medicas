@@ -2111,10 +2111,7 @@ class historiaMenu(QMainWindow):
                     self.clearInputs()
                     self.clearData()
             except sqlite3.Error as e:
-                QMessageBox.critical(self, "Error", "Error al eliminar los datos de la base de datos: " + str(e))
-        
-        
-        
+                QMessageBox.critical(self, "Error", "Error al eliminar los datos de la base de datos: " + str(e))        
     def back_menu(self):
         
         conexion = sqlite3.connect('interfaces/database.db')

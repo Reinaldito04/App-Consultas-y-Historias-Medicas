@@ -61,6 +61,14 @@ background-color:gray;
        </property>
        <item>
         <widget class="QTabWidget" name="tabWidget">
+         <property name="font">
+          <font>
+           <pointsize>10</pointsize>
+           <weight>75</weight>
+           <bold>true</bold>
+           <underline>true</underline>
+          </font>
+         </property>
          <property name="currentIndex">
           <number>1</number>
          </property>
