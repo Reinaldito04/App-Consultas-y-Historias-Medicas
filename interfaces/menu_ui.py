@@ -124,6 +124,24 @@ class Ui_MainWindow(object):
         self.bt_info.setIconSize(QtCore.QSize(45, 38))
         self.bt_info.setObjectName("bt_info")
         self.horizontalLayout_2.addWidget(self.bt_info)
+        self.bt_closesesion = QtWidgets.QPushButton(self.frame_superior)
+        self.bt_closesesion.setStyleSheet("QPushButton{\n"
+"border-radius:25px;\n"
+"}\n"
+"\n"
+"QPushButton:hover{\n"
+"color:white;\n"
+"background-color:rgb(145, 200, 228);\n"
+"\n"
+"}\n"
+"")
+        self.bt_closesesion.setText("")
+        icon3 = QtGui.QIcon()
+        icon3.addPixmap(QtGui.QPixmap("/home/reinaldo/Documentos/dev/App-Consultas-y-Historias-Medicas/interfaces/ELEMENTOS GRAFICOS/close-filled(1).png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.bt_closesesion.setIcon(icon3)
+        self.bt_closesesion.setIconSize(QtCore.QSize(45, 38))
+        self.bt_closesesion.setObjectName("bt_closesesion")
+        self.horizontalLayout_2.addWidget(self.bt_closesesion)
         self.bt_salir = QtWidgets.QPushButton(self.frame_superior)
         self.bt_salir.setMinimumSize(QtCore.QSize(50, 50))
         self.bt_salir.setStyleSheet("QPushButton{\n"
@@ -137,9 +155,9 @@ class Ui_MainWindow(object):
 "}\n"
 "")
         self.bt_salir.setText("")
-        icon3 = QtGui.QIcon()
-        icon3.addPixmap(QtGui.QPixmap("/home/reinaldo/Documentos/dev/App-Consultas-y-Historias-Medicas/interfaces/ELEMENTOS GRAFICOS/exit-fill.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
-        self.bt_salir.setIcon(icon3)
+        icon4 = QtGui.QIcon()
+        icon4.addPixmap(QtGui.QPixmap("/home/reinaldo/Documentos/dev/App-Consultas-y-Historias-Medicas/interfaces/ELEMENTOS GRAFICOS/exit-fill.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.bt_salir.setIcon(icon4)
         self.bt_salir.setIconSize(QtCore.QSize(45, 38))
         self.bt_salir.setObjectName("bt_salir")
         self.horizontalLayout_2.addWidget(self.bt_salir)
@@ -191,9 +209,9 @@ class Ui_MainWindow(object):
 "\n"
 "}")
         self.bt_home.setText("")
-        icon4 = QtGui.QIcon()
-        icon4.addPixmap(QtGui.QPixmap("/home/reinaldo/Documentos/dev/App-Consultas-y-Historias-Medicas/interfaces/ELEMENTOS GRAFICOS/casa.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
-        self.bt_home.setIcon(icon4)
+        icon5 = QtGui.QIcon()
+        icon5.addPixmap(QtGui.QPixmap("/home/reinaldo/Documentos/dev/App-Consultas-y-Historias-Medicas/interfaces/ELEMENTOS GRAFICOS/casa.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.bt_home.setIcon(icon5)
         self.bt_home.setIconSize(QtCore.QSize(45, 45))
         self.bt_home.setObjectName("bt_home")
         self.verticalLayout_3.addWidget(self.bt_home)
@@ -223,9 +241,9 @@ class Ui_MainWindow(object):
 "}\n"
 "")
         self.bt_registro.setText("")
-        icon5 = QtGui.QIcon()
-        icon5.addPixmap(QtGui.QPixmap("/home/reinaldo/Documentos/dev/App-Consultas-y-Historias-Medicas/interfaces/ELEMENTOS GRAFICOS/registro-dental.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
-        self.bt_registro.setIcon(icon5)
+        icon6 = QtGui.QIcon()
+        icon6.addPixmap(QtGui.QPixmap("/home/reinaldo/Documentos/dev/App-Consultas-y-Historias-Medicas/interfaces/ELEMENTOS GRAFICOS/registro-dental.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.bt_registro.setIcon(icon6)
         self.bt_registro.setIconSize(QtCore.QSize(45, 45))
         self.bt_registro.setObjectName("bt_registro")
         self.verticalLayout_3.addWidget(self.bt_registro)
@@ -256,9 +274,9 @@ class Ui_MainWindow(object):
 "}\n"
 "")
         self.bt_paciente.setText("")
-        icon6 = QtGui.QIcon()
-        icon6.addPixmap(QtGui.QPixmap("/home/reinaldo/Documentos/dev/App-Consultas-y-Historias-Medicas/interfaces/ELEMENTOS GRAFICOS/radiografia.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
-        self.bt_paciente.setIcon(icon6)
+        icon7 = QtGui.QIcon()
+        icon7.addPixmap(QtGui.QPixmap("/home/reinaldo/Documentos/dev/App-Consultas-y-Historias-Medicas/interfaces/ELEMENTOS GRAFICOS/radiografia.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.bt_paciente.setIcon(icon7)
         self.bt_paciente.setIconSize(QtCore.QSize(45, 45))
         self.bt_paciente.setObjectName("bt_paciente")
         self.verticalLayout_3.addWidget(self.bt_paciente)
@@ -288,9 +306,9 @@ class Ui_MainWindow(object):
 "}\n"
 "")
         self.bt_citas.setText("")
-        icon7 = QtGui.QIcon()
-        icon7.addPixmap(QtGui.QPixmap("/home/reinaldo/Documentos/dev/App-Consultas-y-Historias-Medicas/interfaces/ELEMENTOS GRAFICOS/cita-dental.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
-        self.bt_citas.setIcon(icon7)
+        icon8 = QtGui.QIcon()
+        icon8.addPixmap(QtGui.QPixmap("/home/reinaldo/Documentos/dev/App-Consultas-y-Historias-Medicas/interfaces/ELEMENTOS GRAFICOS/cita-dental.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.bt_citas.setIcon(icon8)
         self.bt_citas.setIconSize(QtCore.QSize(45, 45))
         self.bt_citas.setObjectName("bt_citas")
         self.verticalLayout_3.addWidget(self.bt_citas)
@@ -321,9 +339,9 @@ class Ui_MainWindow(object):
 "}\n"
 "")
         self.bt_historial.setText("")
-        icon8 = QtGui.QIcon()
-        icon8.addPixmap(QtGui.QPixmap("/home/reinaldo/Documentos/dev/App-Consultas-y-Historias-Medicas/interfaces/ELEMENTOS GRAFICOS/sharp-update.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
-        self.bt_historial.setIcon(icon8)
+        icon9 = QtGui.QIcon()
+        icon9.addPixmap(QtGui.QPixmap("/home/reinaldo/Documentos/dev/App-Consultas-y-Historias-Medicas/interfaces/ELEMENTOS GRAFICOS/sharp-update.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.bt_historial.setIcon(icon9)
         self.bt_historial.setIconSize(QtCore.QSize(45, 45))
         self.bt_historial.setObjectName("bt_historial")
         self.verticalLayout_3.addWidget(self.bt_historial)
@@ -371,8 +389,9 @@ class Ui_MainWindow(object):
         self.frmae_fondo = QtWidgets.QFrame(self.principal_tab)
         self.frmae_fondo.setStyleSheet("QLabel{\n"
 "    font: 12pt \"MS Reference Sans Serif\";\n"
-"}QFrame{\n"
-"    background-color: rgb(27, 127, 112);\n"
+"}\n"
+"QFrame{\n"
+"    background-color:rgb(0, 85, 127);\n"
 "}")
         self.frmae_fondo.setFrameShape(QtWidgets.QFrame.StyledPanel)
         self.frmae_fondo.setFrameShadow(QtWidgets.QFrame.Raised)
@@ -462,7 +481,7 @@ class Ui_MainWindow(object):
 "    font: 12pt \"MS Reference Sans Serif\";\n"
 "}\n"
 "QFrame{\n"
-"    background-color: rgb(27, 127, 112);\n"
+"background-color:rgb(0, 85, 127);\n"
 "}")
         self.frame_fondo.setFrameShape(QtWidgets.QFrame.StyledPanel)
         self.frame_fondo.setFrameShadow(QtWidgets.QFrame.Raised)
@@ -506,9 +525,9 @@ class Ui_MainWindow(object):
         self.bt_buscar.setMinimumSize(QtCore.QSize(80, 40))
         self.bt_buscar.setMaximumSize(QtCore.QSize(80, 40))
         self.bt_buscar.setText("")
-        icon9 = QtGui.QIcon()
-        icon9.addPixmap(QtGui.QPixmap("/home/reinaldo/Documentos/dev/App-Consultas-y-Historias-Medicas/interfaces/ELEMENTOS GRAFICOS/buscar.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
-        self.bt_buscar.setIcon(icon9)
+        icon10 = QtGui.QIcon()
+        icon10.addPixmap(QtGui.QPixmap("/home/reinaldo/Documentos/dev/App-Consultas-y-Historias-Medicas/interfaces/ELEMENTOS GRAFICOS/buscar.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.bt_buscar.setIcon(icon10)
         self.bt_buscar.setIconSize(QtCore.QSize(30, 30))
         self.bt_buscar.setObjectName("bt_buscar")
         self.horizontalLayout_5.addWidget(self.bt_buscar)
@@ -526,9 +545,9 @@ class Ui_MainWindow(object):
         font = QtGui.QFont()
         font.setPointSize(9)
         self.bt_act.setFont(font)
-        icon10 = QtGui.QIcon()
-        icon10.addPixmap(QtGui.QPixmap("/home/reinaldo/Documentos/dev/App-Consultas-y-Historias-Medicas/interfaces/ELEMENTOS GRAFICOS/actualizar.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
-        self.bt_act.setIcon(icon10)
+        icon11 = QtGui.QIcon()
+        icon11.addPixmap(QtGui.QPixmap("/home/reinaldo/Documentos/dev/App-Consultas-y-Historias-Medicas/interfaces/ELEMENTOS GRAFICOS/actualizar.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.bt_act.setIcon(icon11)
         self.bt_act.setIconSize(QtCore.QSize(30, 30))
         self.bt_act.setObjectName("bt_act")
         self.horizontalLayout_7.addWidget(self.bt_act)
@@ -589,7 +608,7 @@ class Ui_MainWindow(object):
         MainWindow.setCentralWidget(self.centralwidget)
 
         self.retranslateUi(MainWindow)
-        self.tabWidget.setCurrentIndex(0)
+        self.tabWidget.setCurrentIndex(1)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
     def retranslateUi(self, MainWindow):

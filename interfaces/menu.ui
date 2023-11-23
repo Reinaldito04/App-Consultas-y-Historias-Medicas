@@ -232,6 +232,35 @@ background-color:rgb(145, 200, 228);
              </widget>
             </item>
             <item>
+             <widget class="QPushButton" name="bt_closesesion">
+              <property name="styleSheet">
+               <string notr="true">QPushButton{
+border-radius:25px;
+}
+
+QPushButton:hover{
+color:white;
+background-color:rgb(145, 200, 228);
+
+}
+</string>
+              </property>
+              <property name="text">
+               <string/>
+              </property>
+              <property name="icon">
+               <iconset>
+                <normaloff>ELEMENTOS GRAFICOS/close-filled(1).png</normaloff>ELEMENTOS GRAFICOS/close-filled(1).png</iconset>
+              </property>
+              <property name="iconSize">
+               <size>
+                <width>45</width>
+                <height>38</height>
+               </size>
+              </property>
+             </widget>
+            </item>
+            <item>
              <widget class="QPushButton" name="bt_salir">
               <property name="minimumSize">
                <size>

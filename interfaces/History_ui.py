@@ -1666,7 +1666,7 @@ class Ui_Paciente_Historias(object):
         self.menubar.addAction(self.menuVolver_al_menu_principal.menuAction())
 
         self.retranslateUi(Paciente_Historias)
-        self.tabWidget.setCurrentIndex(3)
+        self.tabWidget.setCurrentIndex(0)
         QtCore.QMetaObject.connectSlotsByName(Paciente_Historias)
 
     def retranslateUi(self, Paciente_Historias):
