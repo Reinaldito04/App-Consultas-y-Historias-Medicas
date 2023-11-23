@@ -19,6 +19,7 @@ import requests
 from urllib3.exceptions import InsecureRequestWarning
 from PyQt5.QtCore import Qt
 import re
+from users import Ui_Dialog
 import time
 import json
 class IngresoUsuario(QMainWindow):
@@ -136,60 +137,54 @@ class IngresoUsuario(QMainWindow):
         self.guardar_datos_acceso(nombre, password)
         print("Datos de acceso guardados exitosamente.")
    
-class Registro(QMainWindow):
+class Registro(QtWidgets.QMainWindow):
     def __init__(self):
         super(Registro, self).__init__()
         loadUi("interfaces/dogtores.ui", self)
         self.btn_agg.clicked.connect(self.registrarUsuario)
         self.btn_clear.clicked.connect(self.clearInputs)
-        self.actionLogin.triggered.connect(self.login)
         self.actionSalir.triggered.connect(self.close)
         self.bt_photo.clicked.connect(self.addPhoto)
         self.in_cedula.textChanged.connect(self.verificar_existencia_cedula)
         self.in_mail.editingFinished.connect(self.mostrar_mensaje_mail)
         self.in_number.textChanged.connect(self.mostrar_mensaje_telefono)
-        self.in_user.textChanged.connect(lambda: self.usuario_existe(nombre=self.in_user.text()))
-    def login(self):
-        ingreso_usuario.show()
-        self.hide()
+        self.users_dialog = None  # Definir users_dialog como un atributo de la clase
+
     def addPhoto(self):
         filenames, _ = QFileDialog.getOpenFileNames(self, "Seleccionar imágenes", "", "Archivos de imagen (*.png *.jpg *.bmp)")
-        
+
         if len(filenames) >= 1:
             pixmap1 = QPixmap(filenames[0])
             self.foto.setPixmap(pixmap1)
-            
         else:
-            QMessageBox.information(self,"Imagenes","Por favor,Selecciona una imagen") 
-            
+            QMessageBox.information(self, "Imagenes", "Por favor, selecciona una imagen")
+
     def validar_correo_electronico(self, correo):
         patron = r'^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$'
-        return re.match(patron, correo) is not None    
-    
-    
+        return re.match(patron, correo) is not None
+
     def mostrar_mensaje_mail(self):
         correo = self.in_mail.text()
         if self.validar_correo_electronico(correo):
-           self.btn_agg.setEnabled(True) 
-            
+            self.btn_agg.setEnabled(True)
         else:
-            QMessageBox.warning(self,"Correo invalido","Por favor introduzca un correo valido")
-            self.btn_agg.setEnabled(False) 
+            QMessageBox.warning(self, "Correo invalido", "Por favor introduzca un correo valido")
+            self.btn_agg.setEnabled(False)
             return
-    def validar_numeros(self,cadena):
-        
+
+    def validar_numeros(self, cadena):
         patron = r'^[0-9]+$'
         return re.match(patron, cadena) is not None
-    
+
     def mostrar_mensaje_telefono(self):
         numero = self.in_number.text()
         if self.validar_numeros(numero):
-            self.btn_agg.setEnabled(True) 
+            self.btn_agg.setEnabled(True)
         else:
-            QMessageBox.information(self,"Solo numeros","Número inválido")
-            self.btn_agg.setEnabled(False) 
+            QMessageBox.information(self, "Solo numeros", "Número inválido")
+            self.btn_agg.setEnabled(False)
             return
-         
+
     def clearInputs(self):
         self.in_cedula.clear()
         self.in_name.clear()
@@ -201,44 +196,13 @@ class Registro(QMainWindow):
         self.btn_m.setChecked(False)
         self.btn_f.setChecked(False)
         self.in_espec.clear()
-        
-        self.in_user.clear()
-        self.in_password.clear()
-        self.in_password_2.clear()    
         self.foto.clear()
+
     def cifrar_contrasenia(self, contrasenia):
-        # Cifrar la contraseña usando un algoritmo de hash (SHA-256 en este caso)
         cifrado = hashlib.sha256()
         cifrado.update(contrasenia.encode('utf-8'))
         return cifrado.hexdigest()
-    
-    def usuario_existe(self, nombre):
-        # Conectar a la base de datos
-        
-        conexion = sqlite3.connect('interfaces/database.db')
 
-        # Crear un cursor
-        cursor = conexion.cursor()
-
-        # Consultar si el usuario ya existe
-        cursor.execute('SELECT COUNT(*) FROM Users WHERE Username = ?', (nombre,))
-        resultado = cursor.fetchone()[0]
-
-        # Cerrar la conexión
-        conexion.close()
-
-        # Si resultado es mayor que 0, significa que el usuario ya existe
-        
-        if resultado >0:
-            QMessageBox.warning(self,"Error","El nombre de usuario ya existe. \nIngrese uno distinto")
-            self.btn_agg.setEnabled(False)
-            return
-        else:
-            self.btn_agg.setEnabled(True)
-        
-        
-
-    
     def verificar_existencia_cedula(self):
         cedula = self.in_cedula.text()
 
@@ -247,11 +211,8 @@ class Registro(QMainWindow):
 
         conexion = sqlite3.connect('interfaces/database.db')
         cursor = conexion.cursor()
-
-        # Consultar si ya existe alguien con la misma cédula
         cursor.execute('SELECT * FROM Users WHERE Cedula = ?', (cedula,))
         existe_cedula = cursor.fetchone() is not None
-
         conexion.close()
 
         if existe_cedula:
@@ -260,6 +221,30 @@ class Registro(QMainWindow):
             return
         else:
             self.btn_agg.setEnabled(True)
+
+    def close(self):
+        reply = QMessageBox.question(
+            self,
+            'Confirmación',
+            '¿Desea Salir?',
+            QMessageBox.Yes | QMessageBox.No,
+            QMessageBox.Yes
+        )
+        if reply == QMessageBox.Yes:
+            QtWidgets.QApplication.quit()
+
+    def usuario_existe(self, username):
+        # Conectar a la base de datos
+        conexion = sqlite3.connect('interfaces/database.db')
+        # Crear un cursor
+        cursor = conexion.cursor()
+        # Consultar si el usuario ya existe
+        cursor.execute('SELECT COUNT(*) FROM Users WHERE Username = ?', (username,))
+        resultado = cursor.fetchone()[0]
+        # Cerrar la conexión
+        conexion.close()
+        # Si resultado es mayor que 0, significa que el usuario ya existe
+        return resultado > 0
 
     def registrarUsuario(self):
         cedula = self.in_cedula.text()
@@ -273,79 +258,105 @@ class Registro(QMainWindow):
             valor_sexo = "Masculino"
         elif self.btn_f.isChecked():
             valor_sexo = "Femenino"
-        conexion = sqlite3.connect('interfaces/database.db')
-        username = self.in_user.text()
-        password = self.in_password.text()
-        passwordRepeat = self.in_password_2.text()
+
+        if not cedula or not nombre or not apellido or not edad or not valor_sexo or not mail:
+            QMessageBox.critical(self, "Error", "Por favor, complete todos los campos básicos.")
+            return
+
+        self.datos_basicos = {
+            'cedula': cedula,
+            'nombre': nombre,
+            'apellido': apellido,
+            'edad': edad,
+            'sexo': valor_sexo,
+            'mail': mail,
+        }
+
+        # Mostrar diálogo para completar información adicional
+        self.openUsersDialog()
+
+    def guardarDatosUsuarios(self):
+        username = self.users_dialog.in_user.text()
+        password = self.users_dialog.in_password.text()
+        passwordRepeat = self.users_dialog.in_conf.text()
         telefono = self.in_number.text()
         direccion = self.in_dir.text()
         especialidad = self.in_espec.text()
-        if not cedula or not username or not nombre or not apellido or not edad or not valor_sexo or not mail or not telefono or not direccion or not especialidad:
-            QMessageBox.critical(self, "Error", "Por favor, complete todos los campos.")
+        foto = self.foto.pixmap()
+
+        if not username or not password or not passwordRepeat or not telefono or not direccion or not especialidad:
+            QMessageBox.critical(self, "Error", "Por favor, complete todos los campos de usuario.")
             return
-        if len( password or passwordRepeat) <=0:
-            QMessageBox.critical(self,"Error","Digite su contraseña")
+
+        if len(password) < 8:
+            QMessageBox.critical(self, "Error", "La contraseña debe tener mínimo 8 caracteres.")
             return
-        if foto is None :
-            QMessageBox.warning(self,"Advertencia","Debes importar una imagen antes de guardar")
+
+        if password != passwordRepeat:
+            QMessageBox.warning(self, "Error", "Las contraseñas no coinciden.")
             return
-        else :
-           
-            if len(username) < 6:
-                QMessageBox.critical(self, "Error", "El nombre de usuario debe tener minimo 6 caracteres.")
-                return
-        
-            if len(password) < 8:
-                QMessageBox.critical(self, "Error", "La contraseña debe tener minimo 8 caracteres.")
-                return
-            if len(passwordRepeat) < 8:
-                QMessageBox.critical(self, "Error", "La contraseña debe minimo tener 8 caracteres.")
-                return
-        
-         
-        if password == passwordRepeat:
-            if self.usuario_existe(username):
-                QMessageBox.warning(self, "Error", "El nombre de usuario ya existe. \nIngrese uno distinto")
-                return
-            else:
-                foto_image = foto.toImage()  
-                foto_bytes = QByteArray()
-                buffer = QBuffer(foto_bytes)  
-                buffer.open(QIODevice.WriteOnly)
-                foto_image.save(buffer, "PNG")
-                foto_bytes = buffer.data()
-                buffer.close()
-                # Conectar a la base de datos
-                contrasenia_cifrada = self.cifrar_contrasenia(password)
-                conexion = sqlite3.connect('interfaces/database.db')
 
-                # Crear un cursor
-                cursor = conexion.cursor()
+        if not foto:
+            QMessageBox.warning(self, "Advertencia", "Debes importar una imagen antes de guardar.")
+            return
 
-                # Insertar datos en la base de datos
-                cursor.execute('INSERT INTO Users (Username, Password ,Cedula ,Nombres, Apellidos, Sexo , Edad , Direccion , Telefono , Mail , Especialidad , Imagen) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? , ?)', 
-                               (username , contrasenia_cifrada , cedula ,nombre, apellido , valor_sexo , edad , direccion ,telefono , mail ,especialidad , foto_bytes ))
+        cedula = self.datos_basicos['cedula']
+        nombre = self.datos_basicos['nombre']
+        apellido = self.datos_basicos['apellido']
+        edad = self.datos_basicos['edad']
+        valor_sexo = self.datos_basicos['sexo']
+        mail = self.datos_basicos['mail']
 
-                # Confirmar los cambios en la base de datos y cerrar la conexión
-                conexion.commit()
-                conexion.close()
+        # Validar si el nombre de usuario ya existe
+        if self.usuario_existe(username):
+            QMessageBox.warning(self, "Error", "El nombre de usuario ya existe. \nIngrese uno distinto")
+            return
 
-                QMessageBox.information(self, "Éxito", "Registro exitoso")
-        else:
-            QMessageBox.warning(self, "Error", "Las contraseñas no coinciden")
-            self.clearInputs()
-            
-    def close(self):
-        reply = QMessageBox.question(
-            self,
-            'Confirmación',
-            '¿Desea Salir?',
-            QMessageBox.Yes | QMessageBox.No,
-            QMessageBox.Yes
-        )
-        if reply == QMessageBox.Yes:
-            QApplication.quit()
+        # Cifrar la contraseña
+        contrasenia_cifrada = self.cifrar_contrasenia(password)
 
+        foto_image = foto.toImage()
+        foto_bytes = QByteArray()
+        buffer = QBuffer(foto_bytes)
+        buffer.open(QIODevice.WriteOnly)
+        foto_image.save(buffer, "PNG")
+        foto_bytes = buffer.data()
+        buffer.close()
+
+        # Conectar a la base de datos
+        conexion = sqlite3.connect('interfaces/database.db')
+        # Crear un cursor
+        cursor = conexion.cursor()
+        # Insertar datos en la tabla Users
+        cursor.execute(
+            'INSERT INTO Users (Username, Password, Cedula, Nombres, Apellidos, Sexo, Edad, Direccion, Telefono, Mail, Especialidad, Imagen) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
+            (username, contrasenia_cifrada, cedula, nombre, apellido, valor_sexo, edad, direccion, telefono, mail,
+             especialidad, foto_bytes))
+        # Confirmar la transacción
+        conexion.commit()
+        # Cerrar la conexión
+        conexion.close()
+
+        QMessageBox.information(self, "Éxito", "Registro exitoso")
+
+        # Cerrar el diálogo de usuarios
+        self.users_dialog.close()
+
+    def openUsersDialog(self):
+        # Crear una instancia del diálogo y asignarla como un atributo de la instancia de la clase
+        self.users_dialog = QDialog(self)
+        ui = Ui_Dialog()
+        ui.setupUi(self.users_dialog)
+
+        # Conectar la señal de aceptar en el diálogo de usuarios a una función
+        ui.btn_agg.clicked.connect(self.guardarDatosUsuarios)
+
+        # Acceder directamente a los atributos necesarios en el diálogo de usuarios
+        self.users_dialog.in_user = self.users_dialog.findChild(QtWidgets.QLineEdit, 'in_user')
+        self.users_dialog.in_password = self.users_dialog.findChild(QtWidgets.QLineEdit, 'in_password')
+        self.users_dialog.in_conf = self.users_dialog.findChild(QtWidgets.QLineEdit, 'in_conf')
+
+        self.users_dialog.exec_()
 class MenuPrincipal(QMainWindow):
     def __init__(self, id_user):
         super(MenuPrincipal, self).__init__()
@@ -642,11 +653,9 @@ class EditDoctor(QMainWindow):
         
            
     def eliminarInfo(self):
-        eliminarData = DeleteAllData(self.id_user)
-        widget.addWidget(eliminarData)
-        widget.setCurrentIndex(widget.currentIndex()+1)
+        dialog = DeleteAllData(self.id_user)
+        dialog.exec_()
         
-        self.hide()
             
     def PasswordView(self):
         reply = QMessageBox.question(
@@ -657,21 +666,17 @@ class EditDoctor(QMainWindow):
             QMessageBox.Yes
         )
         if reply ==QMessageBox.Yes:
-            passwordview = PasswordMenu(self.id_user)
-           
-            widget.addWidget(passwordview)
-            widget.setCurrentIndex(widget.currentIndex()+1)
+            dialog = PasswordMenu(self.id_user)
+            dialog.exec_()
             
-            self.hide()
-            
-class DeleteAllData(QMainWindow):
+class DeleteAllData(QDialog):
     def __init__(self,id_user):
         super(DeleteAllData , self).__init__()
         self.id_user = id_user
         loadUi("interfaces/eliminarData.ui", self)
         self.bt_back.clicked.connect(self.back)
         self.bt_delete.clicked.connect(self.deleteData)
-        
+
     def cifrar_contrasenia(self, contrasenia):
         # Cifrar la contraseña usando un algoritmo de hash (SHA-256 en este caso)
         cifrado = hashlib.sha256()
@@ -1033,7 +1038,7 @@ class Ui_CitasMenu(QMainWindow):
         )
         if reply == QMessageBox.Yes:
             QApplication.quit()
-class PasswordMenu(QMainWindow):
+class PasswordMenu(QDialog):
     def __init__(self,id_user ):
         super(PasswordMenu, self).__init__()
         self.id_user = id_user

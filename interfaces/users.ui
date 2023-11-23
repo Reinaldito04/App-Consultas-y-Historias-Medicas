@@ -100,7 +100,6 @@
             <property name="styleSheet">
              <string notr="true">QFrame{
 	background-color:rgb(70, 130, 169);
-	font: 12pt &quot;Microsoft Sans Serif&quot;;
 }
 QTableWidget{
 color:rgb(0,0,0);
@@ -192,6 +191,15 @@ QPushButton:hover{
                   <layout class="QHBoxLayout" name="horizontalLayout_11">
                    <item>
                     <widget class="QLabel" name="lbl_username">
+                     <property name="font">
+                      <font>
+                       <family>Microsoft Sans Serif</family>
+                       <pointsize>12</pointsize>
+                       <weight>75</weight>
+                       <italic>false</italic>
+                       <bold>true</bold>
+                      </font>
+                     </property>
                      <property name="text">
                       <string>Nombre de usuario</string>
                      </property>
@@ -245,8 +253,17 @@ QPushButton:hover{
                   <layout class="QHBoxLayout" name="horizontalLayout_20">
                    <item>
                     <widget class="QLabel" name="lbl_password">
+                     <property name="font">
+                      <font>
+                       <family>Microsoft Sans Serif</family>
+                       <pointsize>12</pointsize>
+                       <weight>75</weight>
+                       <italic>false</italic>
+                       <bold>true</bold>
+                      </font>
+                     </property>
                      <property name="text">
-                      <string>Contarseña</string>
+                      <string>Contraseña</string>
                      </property>
                     </widget>
                    </item>
@@ -298,6 +315,15 @@ QPushButton:hover{
                   <layout class="QHBoxLayout" name="horizontalLayout_23">
                    <item>
                     <widget class="QLabel" name="lbl_password_2">
+                     <property name="font">
+                      <font>
+                       <family>Microsoft Sans Serif</family>
+                       <pointsize>12</pointsize>
+                       <weight>75</weight>
+                       <italic>false</italic>
+                       <bold>true</bold>
+                      </font>
+                     </property>
                      <property name="text">
                       <string>Confirme su contraseña</string>
                      </property>
