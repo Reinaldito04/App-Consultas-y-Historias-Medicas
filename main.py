@@ -19,6 +19,8 @@ import requests
 from urllib3.exceptions import InsecureRequestWarning
 from PyQt5.QtCore import Qt
 import re
+import time
+import json
 class IngresoUsuario(QMainWindow):
     def __init__(self):
         super(IngresoUsuario, self).__init__()
@@ -27,9 +29,17 @@ class IngresoUsuario(QMainWindow):
         self.btn_login.clicked.connect(self.ingreso)
         self.btn_adduser.clicked.connect(self.ingresoRegistro)
         self.bt_salir.clicked.connect(self.salida)
+        self.ingresoAnterior()
         
-        
-
+    
+    def ingresoAnterior(self):
+        usuario, contrasena = self.cargar_datos_acceso()
+        if usuario and contrasena:
+            self.label_2.setText(f"Hola nuevamente {usuario}")
+            self.txt_username.setText(usuario)
+            self.txt_password.setText(contrasena)
+        else:
+            print("No se encontraron datos de acceso almacenados.")
     def salida(self):
         reply = QMessageBox.question(
             self,
@@ -47,7 +57,19 @@ class IngresoUsuario(QMainWindow):
         widget.setCurrentIndex(widget.currentIndex() + 1)
         registroview.show()
         self.hide()
+    def guardar_datos_acceso(self,usuario, contrasena):
+        datos_acceso = {"usuario": usuario, "contrasena": contrasena}
+        with open("datos_acceso.json", "w") as archivo:
+            json.dump(datos_acceso, archivo)
 
+    # Función para cargar los datos de acceso desde un archivo
+    def cargar_datos_acceso(self):
+        try:
+            with open("datos_acceso.json", "r") as archivo:
+                datos_acceso = json.load(archivo)
+                return datos_acceso["usuario"], datos_acceso["contrasena"]
+        except FileNotFoundError:
+            return None, None
     def cifrar_contrasenia(self, contrasenia):
         # Cifrar la contraseña usando un algoritmo de hash (SHA-256 en este caso)
         cifrado = hashlib.sha256()
@@ -83,6 +105,8 @@ class IngresoUsuario(QMainWindow):
                 text_for_menu = self.get_greeting_message(username)
                 id_user = usuario[2]
                 self.open_menu_principal(text_for_menu, id_user)
+                
+                
             else:
                 QMessageBox.warning(self, "Error", "Contraseña Incorrecta.")
         else:
@@ -109,7 +133,8 @@ class IngresoUsuario(QMainWindow):
         nombre = self.txt_username.text()
         password = self.txt_password.text()
         self.authenticate_user(nombre, password)
-    
+        self.guardar_datos_acceso(nombre, password)
+        print("Datos de acceso guardados exitosamente.")
    
 class Registro(QMainWindow):
     def __init__(self):
@@ -349,6 +374,7 @@ class MenuPrincipal(QMainWindow):
         self.filtro.addItem("Seleccione una opción para filtrar")
         self.filtro.addItems(["Fecha_Cita", "Hora_Cita", "Estatus_Cita"])
         self.in_buscar.textChanged.connect(self.buscar)
+        self.bt_closesesion.clicked.connect(self.eliminar_datos_acceso)
 
     def act_T(self):
         self.cargarCitas()
@@ -500,13 +526,31 @@ class MenuPrincipal(QMainWindow):
         reply = QMessageBox.question(
             self,
             'Confirmación',
-            '¿Desea Salir?',
+            '¿Desea Salir ?',
             QMessageBox.Yes | QMessageBox.No,
             QMessageBox.Yes
         )
         if reply == QMessageBox.Yes:
             QApplication.quit()
-            
+    def eliminar_datos_acceso(self):
+        reply = QMessageBox.question(
+            self,
+            'Confirmación',
+            '¿Desea Eliminar tu Sesion Actual y Salir ?',
+            QMessageBox.Yes | QMessageBox.No,
+            QMessageBox.Yes
+        )
+        if reply == QMessageBox.Yes:
+            archivo_datos_acceso = "datos_acceso.json"
+
+            try:
+                os.remove(archivo_datos_acceso)
+                print(f"Datos de acceso eliminados correctamente.")
+                QApplication.quit()
+            except FileNotFoundError:
+                print("No se encontraron datos de acceso para eliminar.")
+                QApplication.quit()
+
 class helpView(QDialog):
     def __init__(self):
         super(helpView,self).__init__()

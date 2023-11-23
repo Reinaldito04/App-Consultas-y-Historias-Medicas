@@ -14,7 +14,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
-        MainWindow.resize(862, 635)
+        MainWindow.resize(914, 566)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Ignored, QtWidgets.QSizePolicy.Ignored)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
@@ -38,17 +38,21 @@ class Ui_MainWindow(object):
         self.verticalLayout_2.setObjectName("verticalLayout_2")
         self.frame = QtWidgets.QFrame(self.contenedorP)
         self.frame.setStyleSheet("QFrame{\n"
-"    background-color: gray;\n"
+"    background-color:rgb(70, 130, 169);\n"
 "border-radius:25px;\n"
-"}")
+"color:white;\n"
+"}\n"
+"")
         self.frame.setFrameShape(QtWidgets.QFrame.StyledPanel)
         self.frame.setFrameShadow(QtWidgets.QFrame.Raised)
         self.frame.setObjectName("frame")
-        self.verticalLayout_4 = QtWidgets.QVBoxLayout(self.frame)
-        self.verticalLayout_4.setObjectName("verticalLayout_4")
+        self.verticalLayout_5 = QtWidgets.QVBoxLayout(self.frame)
+        self.verticalLayout_5.setObjectName("verticalLayout_5")
         self.frame_2 = QtWidgets.QFrame(self.frame)
+        self.frame_2.setMinimumSize(QtCore.QSize(0, 65))
+        self.frame_2.setMaximumSize(QtCore.QSize(16777215, 65))
         self.frame_2.setStyleSheet("QFrame{\n"
-"background-color:rgb(0, 85, 127);\n"
+"background-color:qlineargradient(spread:pad, x1:0, y1:0.505682 , x2:1 , y2:0.477,stop:0 rgba(20,47,78,219), stop:1 rgba(85,98,112,226));\n"
 "}")
         self.frame_2.setFrameShape(QtWidgets.QFrame.StyledPanel)
         self.frame_2.setFrameShadow(QtWidgets.QFrame.Raised)
@@ -92,55 +96,134 @@ class Ui_MainWindow(object):
         self.bt_salir.setObjectName("bt_salir")
         self.horizontalLayout_3.addWidget(self.bt_salir)
         self.verticalLayout.addLayout(self.horizontalLayout_3)
-        self.verticalLayout_4.addWidget(self.frame_2)
-        spacerItem2 = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
-        self.verticalLayout_4.addItem(spacerItem2)
+        self.verticalLayout_5.addWidget(self.frame_2)
+        self.horizontalLayout_6 = QtWidgets.QHBoxLayout()
+        self.horizontalLayout_6.setObjectName("horizontalLayout_6")
+        spacerItem2 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
+        self.horizontalLayout_6.addItem(spacerItem2)
+        self.frame_4 = QtWidgets.QFrame(self.frame)
+        self.frame_4.setMinimumSize(QtCore.QSize(400, 400))
+        self.frame_4.setMaximumSize(QtCore.QSize(400, 400))
+        self.frame_4.setStyleSheet("QFrame{\n"
+"background-color:white;\n"
+"}")
+        self.frame_4.setFrameShape(QtWidgets.QFrame.StyledPanel)
+        self.frame_4.setFrameShadow(QtWidgets.QFrame.Raised)
+        self.frame_4.setObjectName("frame_4")
+        self.verticalLayout_4 = QtWidgets.QVBoxLayout(self.frame_4)
+        self.verticalLayout_4.setContentsMargins(0, 0, 0, 0)
+        self.verticalLayout_4.setSpacing(0)
+        self.verticalLayout_4.setObjectName("verticalLayout_4")
+        self.label = QtWidgets.QLabel(self.frame_4)
+        self.label.setMinimumSize(QtCore.QSize(400, 400))
+        self.label.setMaximumSize(QtCore.QSize(400, 400))
+        self.label.setStyleSheet("QLabel{\n"
+"border:none;\n"
+"}")
+        self.label.setText("")
+        self.label.setPixmap(QtGui.QPixmap("/home/reinaldo/Documentos/dev/App-Consultas-y-Historias-Medicas/interfaces/ELEMENTOS GRAFICOS/github.png"))
+        self.label.setScaledContents(True)
+        self.label.setObjectName("label")
+        self.verticalLayout_4.addWidget(self.label)
+        self.horizontalLayout_6.addWidget(self.frame_4)
+        spacerItem3 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
+        self.horizontalLayout_6.addItem(spacerItem3)
+        spacerItem4 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
+        self.horizontalLayout_6.addItem(spacerItem4)
+        self.verticalLayout_6 = QtWidgets.QVBoxLayout()
+        self.verticalLayout_6.setObjectName("verticalLayout_6")
+        spacerItem5 = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
+        self.verticalLayout_6.addItem(spacerItem5)
+        self.frame_3 = QtWidgets.QFrame(self.frame)
+        self.frame_3.setMinimumSize(QtCore.QSize(460, 290))
+        self.frame_3.setMaximumSize(QtCore.QSize(460, 290))
+        self.frame_3.setStyleSheet("QFrame{\n"
+"background-color:qlineargradient(spread:pad, x1:0, y1:0.505682 , x2:1 , y2:0.477,stop:0 rgba(20,47,78,219), stop:1 rgba(85,98,112,226));\n"
+"}")
+        self.frame_3.setFrameShape(QtWidgets.QFrame.StyledPanel)
+        self.frame_3.setFrameShadow(QtWidgets.QFrame.Raised)
+        self.frame_3.setObjectName("frame_3")
+        self.verticalLayout_3 = QtWidgets.QVBoxLayout(self.frame_3)
+        self.verticalLayout_3.setObjectName("verticalLayout_3")
+        self.label_2 = QtWidgets.QLabel(self.frame_3)
+        font = QtGui.QFont()
+        font.setFamily("AnjaliOldLipi")
+        font.setPointSize(14)
+        self.label_2.setFont(font)
+        self.label_2.setText("")
+        self.label_2.setTextFormat(QtCore.Qt.AutoText)
+        self.label_2.setAlignment(QtCore.Qt.AlignCenter)
+        self.label_2.setObjectName("label_2")
+        self.verticalLayout_3.addWidget(self.label_2)
+        spacerItem6 = QtWidgets.QSpacerItem(20, 45, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
+        self.verticalLayout_3.addItem(spacerItem6)
         self.horizontalLayout_4 = QtWidgets.QHBoxLayout()
         self.horizontalLayout_4.setObjectName("horizontalLayout_4")
-        spacerItem3 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
-        self.horizontalLayout_4.addItem(spacerItem3)
-        self.verticalLayout_3 = QtWidgets.QVBoxLayout()
-        self.verticalLayout_3.setSpacing(80)
-        self.verticalLayout_3.setObjectName("verticalLayout_3")
-        self.txt_username = QtWidgets.QLineEdit(self.frame)
-        self.txt_username.setMinimumSize(QtCore.QSize(400, 0))
-        self.txt_username.setMaximumSize(QtCore.QSize(400, 16777215))
-        self.txt_username.setStyleSheet("background-color:rgba(0,0,0,0); \n"
-"border:none;\n"
-"border-bottom:2px solid rgba(105,118,132,255);\n"
-"color:rgba(255,255,255,230);\n"
-"padding-bottom:7px;\n"
-"border-left:2px solid rgba(105,118,132,255);\n"
-"border-right:2px solid rgba(105,118,132,255);\n"
-"font: 75 14pt \"Hack Nerd Font\";")
+        spacerItem7 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
+        self.horizontalLayout_4.addItem(spacerItem7)
+        self.txt_username = QtWidgets.QLineEdit(self.frame_3)
+        self.txt_username.setMinimumSize(QtCore.QSize(400, 50))
+        self.txt_username.setMaximumSize(QtCore.QSize(400, 50))
+        self.txt_username.setStyleSheet("QLineEdit{\n"
+"  height: 40px;\n"
+"  padding: 10px;\n"
+"  border: 4px solid #17202A;\n"
+"  border-radius: 5px;\n"
+"    font: 75 12pt \"MS Shell Dlg 2\";\n"
+"}\n"
+"QLineEdit:focus{\n"
+"  \n"
+"border-bottom:2.5px solid rgb(112, 113, 232);\n"
+"border-right:2.5px solid rgb(112, 113, 232);\n"
+"\n"
+"}\n"
+"")
         self.txt_username.setText("")
+        self.txt_username.setAlignment(QtCore.Qt.AlignLeading|QtCore.Qt.AlignLeft|QtCore.Qt.AlignVCenter)
         self.txt_username.setObjectName("txt_username")
-        self.verticalLayout_3.addWidget(self.txt_username)
-        self.txt_password = QtWidgets.QLineEdit(self.frame)
-        self.txt_password.setMinimumSize(QtCore.QSize(400, 0))
-        self.txt_password.setMaximumSize(QtCore.QSize(400, 16777215))
-        self.txt_password.setStyleSheet("background-color:rgba(0,0,0,0); \n"
-"border:none;\n"
-"border-bottom:2px solid rgba(105,118,132,255);\n"
-"color:rgba(255,255,255,230);\n"
-"padding-bottom:7px;\n"
-"border-left:2px solid rgba(105,118,132,255);\n"
-"border-right:2px solid rgba(105,118,132,255);\n"
-"font-size:14px;\n"
-"font: 75 14pt \"Hack Nerd Font\";")
+        self.horizontalLayout_4.addWidget(self.txt_username)
+        spacerItem8 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
+        self.horizontalLayout_4.addItem(spacerItem8)
+        self.verticalLayout_3.addLayout(self.horizontalLayout_4)
+        spacerItem9 = QtWidgets.QSpacerItem(20, 45, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
+        self.verticalLayout_3.addItem(spacerItem9)
+        self.horizontalLayout_5 = QtWidgets.QHBoxLayout()
+        self.horizontalLayout_5.setObjectName("horizontalLayout_5")
+        spacerItem10 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
+        self.horizontalLayout_5.addItem(spacerItem10)
+        self.txt_password = QtWidgets.QLineEdit(self.frame_3)
+        self.txt_password.setMinimumSize(QtCore.QSize(400, 50))
+        self.txt_password.setMaximumSize(QtCore.QSize(400, 50))
+        self.txt_password.setStyleSheet("QLineEdit{\n"
+"  height: 40px;\n"
+"  padding: 10px;\n"
+"  border: 4px solid #17202A;\n"
+"  border-radius: 5px;\n"
+"    font: 75 12pt \"MS Shell Dlg 2\";\n"
+"}\n"
+"QLineEdit:focus{\n"
+"  \n"
+"border-bottom:2.5px solid rgb(112, 113, 232);\n"
+"border-right:2.5px solid rgb(112, 113, 232);\n"
+"\n"
+"}\n"
+"")
         self.txt_password.setText("")
         self.txt_password.setEchoMode(QtWidgets.QLineEdit.Password)
         self.txt_password.setObjectName("txt_password")
-        self.verticalLayout_3.addWidget(self.txt_password)
-        self.horizontalLayout_4.addLayout(self.verticalLayout_3)
-        spacerItem4 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
-        self.horizontalLayout_4.addItem(spacerItem4)
-        self.verticalLayout_4.addLayout(self.horizontalLayout_4)
-        spacerItem5 = QtWidgets.QSpacerItem(20, 94, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
-        self.verticalLayout_4.addItem(spacerItem5)
+        self.horizontalLayout_5.addWidget(self.txt_password)
+        spacerItem11 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
+        self.horizontalLayout_5.addItem(spacerItem11)
+        self.verticalLayout_3.addLayout(self.horizontalLayout_5)
+        spacerItem12 = QtWidgets.QSpacerItem(20, 45, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
+        self.verticalLayout_3.addItem(spacerItem12)
+        self.verticalLayout_6.addWidget(self.frame_3)
+        spacerItem13 = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
+        self.verticalLayout_6.addItem(spacerItem13)
         self.horizontalLayout_2 = QtWidgets.QHBoxLayout()
-        self.horizontalLayout_2.setSpacing(50)
         self.horizontalLayout_2.setObjectName("horizontalLayout_2")
+        spacerItem14 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
+        self.horizontalLayout_2.addItem(spacerItem14)
         self.btn_login = QtWidgets.QPushButton(self.frame)
         self.btn_login.setMinimumSize(QtCore.QSize(150, 50))
         self.btn_login.setMaximumSize(QtCore.QSize(150, 16777215))
@@ -173,6 +256,8 @@ class Ui_MainWindow(object):
         self.btn_login.setIconSize(QtCore.QSize(19, 18))
         self.btn_login.setObjectName("btn_login")
         self.horizontalLayout_2.addWidget(self.btn_login)
+        spacerItem15 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
+        self.horizontalLayout_2.addItem(spacerItem15)
         self.btn_adduser = QtWidgets.QPushButton(self.frame)
         self.btn_adduser.setMinimumSize(QtCore.QSize(150, 50))
         self.btn_adduser.setMaximumSize(QtCore.QSize(150, 16777215))
@@ -194,9 +279,15 @@ class Ui_MainWindow(object):
 "")
         self.btn_adduser.setObjectName("btn_adduser")
         self.horizontalLayout_2.addWidget(self.btn_adduser)
-        self.verticalLayout_4.addLayout(self.horizontalLayout_2)
-        spacerItem6 = QtWidgets.QSpacerItem(20, 60, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
-        self.verticalLayout_4.addItem(spacerItem6)
+        spacerItem16 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
+        self.horizontalLayout_2.addItem(spacerItem16)
+        self.verticalLayout_6.addLayout(self.horizontalLayout_2)
+        spacerItem17 = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
+        self.verticalLayout_6.addItem(spacerItem17)
+        self.horizontalLayout_6.addLayout(self.verticalLayout_6)
+        spacerItem18 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
+        self.horizontalLayout_6.addItem(spacerItem18)
+        self.verticalLayout_5.addLayout(self.horizontalLayout_6)
         self.verticalLayout_2.addWidget(self.frame)
         self.horizontalLayout.addWidget(self.contenedorP)
         MainWindow.setCentralWidget(self.centralwidget)
