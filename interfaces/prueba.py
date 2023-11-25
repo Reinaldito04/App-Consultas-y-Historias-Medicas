@@ -43,6 +43,7 @@ class historiaMenu(QMainWindow):
         self.tabWidget.currentChanged.connect(self.actualizar_fecha_hora_diagnostico)
         self.tabWidget.currentChanged.connect(self.actualizar_fecha_trata)
         self.btn_agg_4.clicked.connect(self.aggTrata)
+        self.btn_edit_4.clicked.connect(self.editTratA)
         self.showMaximized()
 
         self.tratamientos = {
@@ -111,6 +112,56 @@ class historiaMenu(QMainWindow):
         self.totalBs.clear()
         self.totaldola.clear()
         
+    def editTratA(self):
+        cedula = self.in_busqueda.text()
+        fecha_tratamiento = self.fecha_2.date().toString('yyyy-MM-dd')
+        if not cedula:
+            QMessageBox.warning(self, "Error", "Por favor ingrese la cédula en el menú de registro ")
+            return
+        try:
+            conexion = sqlite3.connect('interfaces/database.db')
+            cursor = conexion.cursor()
+            # Verificar si ya existe un registro para el paciente
+            cursor.execute("SELECT ID_Trata FROM PTrata WHERE Cedula = ?", (cedula,))
+            row = cursor.fetchone()
+            
+            if not row:
+                QMessageBox.information(self,"No existe","No existe tratamientos para este paciente,por favor presiona el botón guardar")
+            if row:
+                cursor.execute("SELECT ID_Trata FROM PTrata WHERE Cedula=?",(cedula,))
+                datos = cursor.fetchone()
+                id_trata = datos[0]
+                for i in range(6):
+                    honorario = self.combo_honorario[i].currentText()
+                    tratamiento = self.combo_tratamiento[i].currentText()
+
+                    # Verificar si se seleccionó un tratamiento
+                    if honorario != "Seleccione el tipo de honorario" and tratamiento:
+                        # Crear los nombres de las columnas según el tipo de tratamiento
+                        tipo_trata_column = f"Tipo_Trata{i + 1}"
+                        trata_column = f"Tratamiento{i + 1}"
+                        fecha_trata_column = "Fecha_Trata"
+
+                        # Verificar si ya existe un tratamiento para esa columna
+                        cursor.execute(f"SELECT {tipo_trata_column}, {trata_column} FROM PTrata WHERE ID_Trata = ?", (id_trata,))
+                        existing_data = cursor.fetchone()
+
+                        if existing_data:
+                            # Si ya existe, actualizar los datos existentes
+                            cursor.execute(f"""
+                                UPDATE PTrata
+                                SET {tipo_trata_column} = ?, {trata_column} = ?, {fecha_trata_column} = ?
+                                WHERE ID_Trata = ?
+                            """, (honorario, tratamiento, fecha_tratamiento, id_trata))
+                        # Confirmar los cambios en la base de datos
+                conexion.commit()
+                QMessageBox.information(self, "Éxito", "Tratamientos actualizados correctamente.")
+
+            # Cierra la conexión con la base de datos
+            conexion.close()
+
+        except sqlite3.Error as error:
+            QMessageBox.critical(self, "Error", f"Error al registrar los tratamientos: {str(error)}")
     def aggTrata(self):
         # Obtener información del paciente
         cedula = self.in_busqueda.text()
@@ -130,8 +181,8 @@ class historiaMenu(QMainWindow):
             row = cursor.fetchone()
 
             if row:
-                # Si existe, obtener el ID existente
-                id_trata = row[0]
+               QMessageBox.information(self,"Registro de Tratamientos","Ya existe tratamientos registrados para este paciente,\nPor favor presiona el boton editar")
+               return
             else:
                 # Si no existe, insertar un nuevo registro y obtener el ID asignado
                 cursor.execute("INSERT INTO PTrata (Cedula) VALUES (?)", (cedula,))
@@ -153,19 +204,20 @@ class historiaMenu(QMainWindow):
                     cursor.execute(f"SELECT {tipo_trata_column}, {trata_column} FROM PTrata WHERE ID_Trata = ?", (id_trata,))
                     existing_data = cursor.fetchone()
 
-                    if existing_data[0] is None and existing_data[1] is None:
-                        # Si no existe, actualizar la columna correspondiente
+                    if existing_data:
+                        # Si ya existe, actualizar los datos existentes
                         cursor.execute(f"""
                             UPDATE PTrata
                             SET {tipo_trata_column} = ?, {trata_column} = ?, {fecha_trata_column} = ?
                             WHERE ID_Trata = ?
                         """, (honorario, tratamiento, fecha_tratamiento, id_trata))
                     else:
-                        # Si ya existe, insertar un nuevo registro
+                        # Si no existe, insertar un nuevo registro
                         cursor.execute(f"""
-                            INSERT INTO PTrata (ID_Trata, Cedula, {tipo_trata_column}, {trata_column}, {fecha_trata_column})
-                            VALUES (?, ?, ?, ?, ?)
-                        """, (id_trata, cedula, honorario, tratamiento, fecha_tratamiento))
+                            UPDATE PTrata
+                            SET {tipo_trata_column} = ?, {trata_column} = ?, {fecha_trata_column} = ?
+                            WHERE ID_Trata = ?
+                        """, (honorario, tratamiento, fecha_tratamiento, id_trata))
 
             # Confirmar los cambios en la base de datos
             conexion.commit()
