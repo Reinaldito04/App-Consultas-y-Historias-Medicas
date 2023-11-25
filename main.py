@@ -740,17 +740,14 @@ class MenuPrincipal(QMainWindow):
         doctorView.foto_2.setPixmap(pixmap1)
 
     def Historyviews(self):
-        if self.usuario =="Usuario":
-            QMessageBox.information(self,"Permiso Denegado","No tienes permisos para entrar")
-            return
-        else:
-            reply = self.showConfirmation("¿Desea ir al formulario de registro de pacientes?")
-            if reply == QMessageBox.Yes:
-                historia = historiaMenu(self.id_user)
-                widget.addWidget(historia)
-                widget.setCurrentIndex(widget.currentIndex() + 1)
-                historia.show()
-                self.hide()
+       
+        reply = self.showConfirmation("¿Desea ir al formulario de registro de pacientes?")
+        if reply == QMessageBox.Yes:
+            historia = historiaMenu(self.id_user )
+            widget.addWidget(historia)
+            widget.setCurrentIndex(widget.currentIndex() + 1)
+            historia.show()
+            self.hide()
 
     def showConfirmation(self, message):
         return QMessageBox.question(self, 'Confirmación', message, QMessageBox.Yes | QMessageBox.No, QMessageBox.Yes)
@@ -1912,6 +1909,7 @@ class historiaMenu(QMainWindow):
         super(historiaMenu, self).__init__()
         loadUi("interfaces/History.ui", self)
         self.id_user = id_user
+        
         self.btn_buscar.clicked.connect(self.Searchdata)
         self.btn_agg.clicked.connect(self.AddPacient)
         self.btn_clear.clicked.connect(self.clearInputs)
@@ -1929,8 +1927,10 @@ class historiaMenu(QMainWindow):
         self.fecha_hora_actualizadas = False
         self.tabWidget.currentChanged.connect(self.actualizar_fecha_hora_diagnostico)
         self.showMaximized()
-
         
+        self.usuario =None
+        self.verifytipoUser()
+        self.verifyUsuario()
         self.tratamientos = {
             "Triaje": ["Seleccione el tipo de honorario", "Consulta e Historia Clínica sin informe", "Consulta e Historia Clínica con informe"],
             "Periodoncia": ["Tartectomía y pulido simple (1 sesión)", "Tartectomía y pulido simple (2-3 sesiones)","Aplicación tópica de fluór","Cirguia periodontal (por cuadrante)"],
@@ -1957,6 +1957,31 @@ class historiaMenu(QMainWindow):
         for i, combo in enumerate(self.combo_tratamiento):
             combo.currentTextChanged.connect(lambda _, index=i: self.update_monto(index))
     
+    def verifytipoUser(self):
+        conexion = sqlite3.connect("./interfaces/database.db")
+        cursor = conexion.cursor()
+        cursor.execute("SELECT Tipo FROM Users WHERE ID=?",(self.id_user,))
+        resultado = cursor.fetchone()
+        if resultado:
+            tipoUser = resultado[0]
+            if tipoUser == "Doctor":
+                self.usuario == "Doctor"
+            elif tipoUser =="Administrador":
+                self.usuario = "Administrador"
+            elif tipoUser=="Usuario":
+                self.usuario = "Usuario"
+            else:
+                print("No se encontro ningun tipo")
+    def verifyUsuario(self):
+        if self.usuario== "Usuario":
+            self.btn_agg_2.setEnabled(False)
+            self.btn_edit_2.setEnabled(False)
+            self.btn_clear_2.setEnabled(False)
+            
+            self.btn_agg_3.setEnabled(False)
+            self.btn_edit_3.setEnabled(False)
+            self.btn_clear_3.setEnabled(False)
+            
     def actualizar_fecha_hora_diagnostico(self):
         # Solo actualiza los campos de fecha y hora si no se han actualizado previamente
         if not self.fecha_hora_actualizadas:
