@@ -51,7 +51,7 @@ class Ui_pacientes_view(object):
         self.frame_2 = QtWidgets.QFrame(self.tab)
         self.frame_2.setAutoFillBackground(False)
         self.frame_2.setStyleSheet("QFrame{\n"
-"background-color:#138D75;\n"
+"background-color:rgb(70, 130, 169);\n"
 "    font: 12pt \"Microsoft Sans Serif\";\n"
 "}\n"
 "QTableWidget{\n"
@@ -199,18 +199,18 @@ class Ui_pacientes_view(object):
         self.verticalLayout.addWidget(self.frame)
         pacientes_view.setCentralWidget(self.centralwidget)
         self.menubar = QtWidgets.QMenuBar(pacientes_view)
-        self.menubar.setGeometry(QtCore.QRect(0, 0, 844, 20))
+        self.menubar.setGeometry(QtCore.QRect(0, 0, 844, 21))
         self.menubar.setObjectName("menubar")
         self.menuMenu = QtWidgets.QMenu(self.menubar)
         self.menuMenu.setObjectName("menuMenu")
         pacientes_view.setMenuBar(self.menubar)
         self.actionVolver_al_registro = QtWidgets.QAction(pacientes_view)
         self.actionVolver_al_registro.setObjectName("actionVolver_al_registro")
-        self.actionVolver_al_menu_prinicpla = QtWidgets.QAction(pacientes_view)
-        self.actionVolver_al_menu_prinicpla.setObjectName("actionVolver_al_menu_prinicpla")
+        self.actionVolver_al_menu_principal = QtWidgets.QAction(pacientes_view)
+        self.actionVolver_al_menu_principal.setObjectName("actionVolver_al_menu_principal")
         self.actionSalir = QtWidgets.QAction(pacientes_view)
         self.actionSalir.setObjectName("actionSalir")
-        self.menuMenu.addAction(self.actionVolver_al_menu_prinicpla)
+        self.menuMenu.addAction(self.actionVolver_al_menu_principal)
         self.menuMenu.addSeparator()
         self.menuMenu.addAction(self.actionVolver_al_registro)
         self.menuMenu.addSeparator()
@@ -244,5 +244,5 @@ class Ui_pacientes_view(object):
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab), _translate("pacientes_view", "Pacientes registrados"))
         self.menuMenu.setTitle(_translate("pacientes_view", "Menu"))
         self.actionVolver_al_registro.setText(_translate("pacientes_view", "Volver al registro"))
-        self.actionVolver_al_menu_prinicpla.setText(_translate("pacientes_view", "Volver al menu principal"))
+        self.actionVolver_al_menu_principal.setText(_translate("pacientes_view", "Volver al menu principal"))
         self.actionSalir.setText(_translate("pacientes_view", "Salir"))

@@ -20,7 +20,6 @@ from urllib3.exceptions import InsecureRequestWarning
 from PyQt5.QtCore import Qt
 import re
 from users import Ui_Dialog
-import time
 import json
 class IngresoUsuario(QMainWindow):
     def __init__(self):
@@ -283,6 +282,15 @@ class Registro(QtWidgets.QMainWindow):
         direccion = self.in_dir.text()
         especialidad = self.in_espec.text()
         foto = self.foto.pixmap()
+        tipoUser= None
+        if self.users_dialog.tipo_admin.isChecked():
+            tipoUser = "Administrador"
+        elif self.users_dialog.tipo_doc.isChecked():
+            tipoUser = "Doctor"
+        elif self.users_dialog.tipo_user.isChecked():
+            tipoUser = "Usuario"
+        else:
+            tipoUser = "Tipo no seleccionado"
 
         if not username or not password or not passwordRepeat or not telefono or not direccion or not especialidad:
             QMessageBox.critical(self, "Error", "Por favor, complete todos los campos de usuario.")
@@ -329,9 +337,9 @@ class Registro(QtWidgets.QMainWindow):
         cursor = conexion.cursor()
         # Insertar datos en la tabla Users
         cursor.execute(
-            'INSERT INTO Users (Username, Password, Cedula, Nombres, Apellidos, Sexo, Edad, Direccion, Telefono, Mail, Especialidad, Imagen) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
+            'INSERT INTO Users (Username, Password, Cedula, Nombres, Apellidos, Sexo, Edad, Direccion, Telefono, Mail, Especialidad, Imagen,Tipo) VALUES (?,?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
             (username, contrasenia_cifrada, cedula, nombre, apellido, valor_sexo, edad, direccion, telefono, mail,
-             especialidad, foto_bytes))
+             especialidad, foto_bytes,tipoUser))
         # Confirmar la transacción
         conexion.commit()
         # Cerrar la conexión
@@ -355,6 +363,9 @@ class Registro(QtWidgets.QMainWindow):
         self.users_dialog.in_user = self.users_dialog.findChild(QtWidgets.QLineEdit, 'in_user')
         self.users_dialog.in_password = self.users_dialog.findChild(QtWidgets.QLineEdit, 'in_password')
         self.users_dialog.in_conf = self.users_dialog.findChild(QtWidgets.QLineEdit, 'in_conf')
+        self.users_dialog.tipo_admin = self.users_dialog.findChild(QtWidgets.QRadioButton, 'bt_admin')
+        self.users_dialog.tipo_doc = self.users_dialog.findChild(QtWidgets.QRadioButton, 'bt_doc')
+        self.users_dialog.tipo_user = self.users_dialog.findChild(QtWidgets.QRadioButton, 'bt_user')
 
         self.users_dialog.exec_()
 class Ui_montos(QMainWindow):
@@ -529,9 +540,24 @@ class MenuPrincipal(QMainWindow):
         self.id_user = id_user
         self.setWindowTitle("MenuPrincipal")
         self.showMaximized()
-        
+        self.usuario = None
         self.setupUi()
-    
+        self.verifytipoUser()
+    def verifytipoUser(self):
+        conexion = sqlite3.connect("./interfaces/database.db")
+        cursor = conexion.cursor()
+        cursor.execute("SELECT Tipo FROM Users WHERE ID=?",(self.id_user,))
+        resultado = cursor.fetchone()
+        if resultado:
+            tipoUser = resultado[0]
+            if tipoUser == "Doctor":
+                self.usuario == "Doctor"
+            elif tipoUser =="Administrador":
+                self.usuario = "Administrador"
+            elif tipoUser=="Usuario":
+                self.usuario = "Usuario"
+            else:
+                print("No se encontro ningun tipo")
     def setupUi(self):
         self.frame_opciones.hide()
         self.bt_info.clicked.connect(self.informacionView)
@@ -562,13 +588,17 @@ class MenuPrincipal(QMainWindow):
             bdd.show()
             self.hide()    
     def MontosView(self):
-        reply = self.showConfirmation("¿Deseas ir al formulario para cambiar los montos de los tratamientos?")
-        if reply == QMessageBox.Yes:
-            montos = Ui_montos(self.id_user)
-            widget.addWidget(montos)
-            widget.setCurrentIndex(widget.currentIndex() + 1)
-            montos.show()
-            self.hide()
+        if self.usuario =="Usuario":
+            QMessageBox.information(self,"Permiso Denegado","No tienes permisos para entrar")
+            return
+        else:
+            reply = self.showConfirmation("¿Deseas ir al formulario para cambiar los montos de los tratamientos?")
+            if reply == QMessageBox.Yes:
+                montos = Ui_montos(self.id_user)
+                widget.addWidget(montos)
+                widget.setCurrentIndex(widget.currentIndex() + 1)
+                montos.show()
+                self.hide()
              
     def act_T(self):
         self.cargarCitas()
@@ -650,13 +680,17 @@ class MenuPrincipal(QMainWindow):
 
     
     def PlacasView(self):
-        reply = self.showConfirmation("¿Deseas ir al formulario de placas?")
-        if reply == QMessageBox.Yes:
-            placa_view = Ui_placas(self.id_user)
-            widget.addWidget(placa_view)
-            widget.setCurrentIndex(widget.currentIndex() + 1)
-            placa_view.show()
-            self.hide()
+        if self.usuario =="Usuario":
+            QMessageBox.information(self,"Permiso Denegado","No tienes permisos para entrar")
+            return
+        else:
+            reply = self.showConfirmation("¿Deseas ir al formulario de placas?")
+            if reply == QMessageBox.Yes:
+                placa_view = Ui_placas(self.id_user)
+                widget.addWidget(placa_view)
+                widget.setCurrentIndex(widget.currentIndex() + 1)
+                placa_view.show()
+                self.hide()
             
     def ayuda(self):
         dialog = helpView()
@@ -671,18 +705,22 @@ class MenuPrincipal(QMainWindow):
             self.hide()
 
     def informacionView(self):
-        reply = self.showConfirmation("¿Deseas ir al formulario de cambiar data?")
-        if reply == QMessageBox.Yes:
-            doctorView = EditDoctor(self.id_user)
-            conexion = sqlite3.connect('interfaces/database.db')
-            cursor = conexion.cursor()
-            cursor.execute("SELECT Cedula, Especialidad, Nombres, Apellidos, Sexo, Edad, Direccion, Telefono, Mail, Imagen FROM Users WHERE ID = ?", (self.id_user,))
-            resultado = cursor.fetchone()
-            if resultado:
-                self.populateDoctorView(doctorView, resultado)
-                widget.addWidget(doctorView)
-                widget.setCurrentIndex(widget.currentIndex() + 1)
-                self.hide()
+        if self.usuario =="Usuario":
+            QMessageBox.information(self,"Permiso Denegado","No tienes permisos para entrar")
+            return
+        else:
+            reply = self.showConfirmation("¿Deseas ir al formulario de cambiar data?")
+            if reply == QMessageBox.Yes:
+                doctorView = EditDoctor(self.id_user)
+                conexion = sqlite3.connect('interfaces/database.db')
+                cursor = conexion.cursor()
+                cursor.execute("SELECT Cedula, Especialidad, Nombres, Apellidos, Sexo, Edad, Direccion, Telefono, Mail, Imagen FROM Users WHERE ID = ?", (self.id_user,))
+                resultado = cursor.fetchone()
+                if resultado:
+                    self.populateDoctorView(doctorView, resultado)
+                    widget.addWidget(doctorView)
+                    widget.setCurrentIndex(widget.currentIndex() + 1)
+                    self.hide()
 
     def populateDoctorView(self, doctorView, data):
         doctorView.in_cedula_2.setText(data[0])
@@ -702,13 +740,17 @@ class MenuPrincipal(QMainWindow):
         doctorView.foto_2.setPixmap(pixmap1)
 
     def Historyviews(self):
-        reply = self.showConfirmation("¿Desea ir al formulario de registro de pacientes?")
-        if reply == QMessageBox.Yes:
-            historia = historiaMenu(self.id_user)
-            widget.addWidget(historia)
-            widget.setCurrentIndex(widget.currentIndex() + 1)
-            historia.show()
-            self.hide()
+        if self.usuario =="Usuario":
+            QMessageBox.information(self,"Permiso Denegado","No tienes permisos para entrar")
+            return
+        else:
+            reply = self.showConfirmation("¿Desea ir al formulario de registro de pacientes?")
+            if reply == QMessageBox.Yes:
+                historia = historiaMenu(self.id_user)
+                widget.addWidget(historia)
+                widget.setCurrentIndex(widget.currentIndex() + 1)
+                historia.show()
+                self.hide()
 
     def showConfirmation(self, message):
         return QMessageBox.question(self, 'Confirmación', message, QMessageBox.Yes | QMessageBox.No, QMessageBox.Yes)
@@ -925,6 +967,7 @@ class DeleteAllData(QDialog):
         loadUi("interfaces/eliminarData.ui", self)
         self.bt_back.clicked.connect(self.back)
         self.bt_delete.clicked.connect(self.deleteData)
+        self.setWindowTitle("Eliminar Datos")
 
     def cifrar_contrasenia(self, contrasenia):
         # Cifrar la contraseña usando un algoritmo de hash (SHA-256 en este caso)
@@ -1295,7 +1338,8 @@ class PasswordMenu(QDialog):
         self.bt_salir.clicked.connect(lambda : QApplication.quit())
         self.bt_menu.clicked.connect(self.returnMenu)
         self.bt_passwordChange.clicked.connect(self.cambiarPassword)
-    
+        self.setWindowTitle("Cambiar Contraseña")
+
     def cifrar_contrasenia(self, contrasenia):
         # Cifrar la contraseña usando un algoritmo de hash (SHA-256 en este caso)
         cifrado = hashlib.sha256()
@@ -2448,8 +2492,7 @@ if __name__ == "__main__":
     app.setApplicationName("Clinica")  # Establecer el nombre de la aplicación
 
     ingreso_usuario = IngresoUsuario()
-    ingreso_usuario.showFullScreen()  # Muestra la ventana en pantalla completa
-
+    
     widget = QStackedWidget()
     widget.addWidget(ingreso_usuario)
     widget.setGeometry(ingreso_usuario.geometry())
