@@ -143,11 +143,26 @@ class Registro(QtWidgets.QMainWindow):
         self.btn_agg.clicked.connect(self.registrarUsuario)
         self.btn_clear.clicked.connect(self.clearInputs)
         self.actionSalir.triggered.connect(self.close)
+        self.actionLogin.triggered.connect(self.backLogin)
         self.bt_photo.clicked.connect(self.addPhoto)
         self.in_cedula.textChanged.connect(self.verificar_existencia_cedula)
         self.in_mail.editingFinished.connect(self.mostrar_mensaje_mail)
         self.in_number.textChanged.connect(self.mostrar_mensaje_telefono)
         self.users_dialog = None  # Definir users_dialog como un atributo de la clase
+        
+    def backLogin(self):
+        reply = QMessageBox.question(
+            self,
+            'Confirmación',
+            '¿Desea volver al menú de incio de sesión?',
+            QMessageBox.Yes | QMessageBox.No,
+            QMessageBox.Yes
+        )
+        if reply == QMessageBox.Yes:
+            login = IngresoUsuario()
+            widget.addWidget(login)
+            widget.setCurrentIndex(widget.currentIndex() + 1)
+            login.show()
 
     def addPhoto(self):
         filenames, _ = QFileDialog.getOpenFileNames(self, "Seleccionar imágenes", "", "Archivos de imagen (*.png *.jpg *.bmp)")
