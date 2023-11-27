@@ -1989,6 +1989,8 @@ class historiaMenu(QMainWindow):
                 print("No se encontro ningun tipo")
     def verifyUsuario(self):
         if self.usuario== "Usuario":
+            self.btn_delete.setEnabled(False)
+            
             self.btn_agg_2.setEnabled(False)
             self.btn_edit_2.setEnabled(False)
             self.btn_clear_2.setEnabled(False)
@@ -1996,6 +1998,10 @@ class historiaMenu(QMainWindow):
             self.btn_agg_3.setEnabled(False)
             self.btn_edit_3.setEnabled(False)
             self.btn_clear_3.setEnabled(False)
+            
+            self.btn_agg_4.setEnabled(False)
+            self.btn_edit_4.setEnabled(False)
+            self.btn_clear_4.setEnabled(False)
             
     def actualizar_fecha_hora_diagnostico(self):
         # Solo actualiza los campos de fecha y hora si no se han actualizado previamente
