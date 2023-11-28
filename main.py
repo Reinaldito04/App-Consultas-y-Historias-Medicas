@@ -566,21 +566,23 @@ class MenuPrincipal(QMainWindow):
         self.usuario = None
         self.setupUi()
         self.verifytipoUser()
+        
     def verifytipoUser(self):
         conexion = sqlite3.connect("./interfaces/database.db")
         cursor = conexion.cursor()
-        cursor.execute("SELECT Tipo FROM Users WHERE ID=?",(self.id_user,))
+        cursor.execute("SELECT Tipo FROM Users WHERE ID=?", (self.id_user,))
         resultado = cursor.fetchone()
         if resultado:
             tipoUser = resultado[0]
             if tipoUser == "Doctor":
-                self.usuario == "Doctor"
-            elif tipoUser =="Administrador":
+                self.usuario = "Doctor"
+            elif tipoUser == "Administrador":
                 self.usuario = "Administrador"
-            elif tipoUser=="Usuario":
+            elif tipoUser == "Usuario":
                 self.usuario = "Usuario"
             else:
-                print("No se encontro ningun tipo")
+                print("No se encontró ningún tipo")
+
     def setupUi(self):
         self.frame_opciones.hide()
         self.bt_info.clicked.connect(self.informacionView)
@@ -601,6 +603,15 @@ class MenuPrincipal(QMainWindow):
         self.filtro.addItems(["Dentista","Fecha_Cita", "Hora_Cita", "Estatus_Cita"])
         self.in_buscar.textChanged.connect(self.buscar)
         self.bt_closesesion.clicked.connect(self.eliminar_datos_acceso)
+        
+        if self.usuario == "Doctor":
+        # En el caso del Doctor, ocultar la columna de usuario y nombre de usuario
+            self.tabla_cita.setColumnHidden(0, True) 
+            self.tabla_cita.setColumnHidden(1, True) 
+        else:
+        # Para otros roles, mostrar todas las columnas
+            self.tabla_cita.setColumnHidden(0, False)
+            self.tabla_cita.setColumnHidden(1, False)
     
     def BddView(self):
         reply = self.showConfirmation("¿Deseas ir al formulario para visualizar todos los pacientes registrados?")
@@ -648,7 +659,7 @@ class MenuPrincipal(QMainWindow):
 
     def cargarCitas(self, filtro=None, valor=None):
         self.tabla_cita.setRowCount(0)  # Limpiar la tabla actual
-        headers = ["ID del Dentista", "Nombre del Dentista", "Cedula del paciente", "Nombre del paciente", "Apellido del paciente", "Fecha de la  cita", "Hora de la cita", "Estatus de la cita"]
+        headers = ["ID del Dentista", "Nombre del Dentista", "Cedula del paciente", "Nombre del paciente", "Apellido del paciente", "Fecha de la cita", "Hora de la cita", "Estatus de la cita"]
 
         try:
             conexion = sqlite3.connect('interfaces/database.db')
@@ -2331,6 +2342,10 @@ class historiaMenu(QMainWindow):
         telefono = self.in_number.text()
         direccion = self.in_dir.text()
         contexto = self.motivo.toPlainText()
+        
+        if len(cedula) < 8:
+            QMessageBox.critical(self, "Error", "La cedula debe tener mínimo 8 caracteres.")
+            return
         
         if valor_sexo is None:
             QMessageBox.critical(self,"Error","Por favor seleccione su sexo")
