@@ -276,6 +276,10 @@ class Registro(QtWidgets.QMainWindow):
         if not cedula or not nombre or not apellido or not edad or not valor_sexo or not mail:
             QMessageBox.critical(self, "Error", "Por favor, complete todos los campos básicos.")
             return
+        
+        if len(cedula) < 8:
+            QMessageBox.critical(self, "Error", "La cedula debe tener mínimo 8 caracteres.")
+            return
 
         self.datos_basicos = {
             'cedula': cedula,
@@ -311,6 +315,10 @@ class Registro(QtWidgets.QMainWindow):
             QMessageBox.critical(self, "Error", "Por favor, complete todos los campos de usuario.")
             return
 
+        if len(username) < 6:
+            QMessageBox.critical(self, "Error", "Su nombre de ususario debe tener minimo 6 caracteres")
+            return
+        
         if len(password) < 8:
             QMessageBox.critical(self, "Error", "La contraseña debe tener mínimo 8 caracteres.")
             return
@@ -590,7 +598,7 @@ class MenuPrincipal(QMainWindow):
         self.cargarCitas()
         self.filtro = self.findChild(QtWidgets.QComboBox, "filtro")
         self.filtro.addItem("Seleccione una opción para filtrar")
-        self.filtro.addItems(["Fecha_Cita", "Hora_Cita", "Estatus_Cita"])
+        self.filtro.addItems(["Dentista","Fecha_Cita", "Hora_Cita", "Estatus_Cita"])
         self.in_buscar.textChanged.connect(self.buscar)
         self.bt_closesesion.clicked.connect(self.eliminar_datos_acceso)
     
@@ -618,50 +626,102 @@ class MenuPrincipal(QMainWindow):
     def act_T(self):
         self.cargarCitas()
 
+    def buscar(self):
+        filtro = self.filtro.currentText()
+        valor = self.in_buscar.text()
+
+        if filtro == "Seleccione una opción para filtrar":
+            QtWidgets.QMessageBox.warning(self, "Error", "Debe seleccionar un filtro para buscar")
+        elif len(valor) == 0:
+            self.act_T()
+        elif not valor:
+            QtWidgets.QMessageBox.warning(self, "Por favor", "Ingrese alguna especificación de la cita para realizar la búsqueda")
+        elif self.tabla_cita.rowCount() == 0:
+            QtWidgets.QMessageBox.warning(self, "Advertencia", "No se ha encontrado ningún resultado")
+            self.in_buscar.clear()
+            self.act_T()
+        else:
+            # Modificar el filtro "Dentista" para buscar por nombre de dentista
+            if filtro == "Dentista":
+                filtro = "Nombre_usuario"
+            self.cargarCitas(filtro, valor)
+
     def cargarCitas(self, filtro=None, valor=None):
         self.tabla_cita.setRowCount(0)  # Limpiar la tabla actual
-        headers = ["Cedula", "Nombre", "Apellido", "Fecha de la  cita", "Hora de la cita", "Estatus de la cita"]
+        headers = ["ID del Dentista", "Nombre del Dentista", "Cedula del paciente", "Nombre del paciente", "Apellido del paciente", "Fecha de la  cita", "Hora de la cita", "Estatus de la cita"]
 
         try:
             conexion = sqlite3.connect('interfaces/database.db')
             cursor = conexion.cursor()
 
             if filtro and valor:
-                cursor.execute("""
-                SELECT 
-                    Pacientes.Cedula, 
-                    Pacientes.Nombre, 
-                    Pacientes.Apellido, 
-                    Cita.Fecha_Cita, 
-                    Cita.Hora_Cita, 
-                    Cita.Estatus_Cita
-                FROM 
-                    Pacientes
-                INNER JOIN 
-                    Cita ON Pacientes.Cedula = Cita.Cedula
-                WHERE 
-                    {} LIKE ? AND Pacientes.ID_user = ? 
-                ORDER BY 
-                    Cita.Fecha_Cita ASC
-                """.format(filtro), ('%' + valor + '%', self.id_user))
+                # Modificar la consulta para manejar el filtro "Dentista"
+                if filtro == "Nombre_usuario":
+                    cursor.execute("""
+                        SELECT 
+                            Users.ID as ID_usuario,
+                            Users.Nombres as Nombre_usuario,
+                            Pacientes.Cedula, 
+                            Pacientes.Nombre, 
+                            Pacientes.Apellido, 
+                            Cita.Fecha_Cita, 
+                            Cita.Hora_Cita, 
+                            Cita.Estatus_Cita
+                        FROM 
+                            Pacientes
+                        INNER JOIN 
+                            Cita ON Pacientes.Cedula = Cita.Cedula
+                        INNER JOIN
+                            Users ON Pacientes.ID_user = Users.ID
+                        WHERE 
+                            {} LIKE ? AND Pacientes.ID_user = ? 
+                        ORDER BY 
+                            Cita.Fecha_Cita ASC
+                        """.format(filtro), ('%' + valor + '%', self.id_user))
+                else:
+                    cursor.execute("""
+                        SELECT 
+                            Users.ID as ID_usuario,
+                            Users.Nombres as Nombre_usuario,
+                            Pacientes.Cedula, 
+                            Pacientes.Nombre, 
+                            Pacientes.Apellido, 
+                            Cita.Fecha_Cita, 
+                            Cita.Hora_Cita, 
+                            Cita.Estatus_Cita
+                        FROM 
+                            Pacientes
+                        INNER JOIN 
+                            Cita ON Pacientes.Cedula = Cita.Cedula
+                        INNER JOIN
+                            Users ON Pacientes.ID_user = Users.ID
+                        WHERE 
+                            {} LIKE ? AND Pacientes.ID_user = ? 
+                        ORDER BY 
+                            Cita.Fecha_Cita ASC
+                        """.format(filtro), ('%' + valor + '%', self.id_user))
             else:
                 cursor.execute("""
-                SELECT 
-                    Pacientes.Cedula, 
-                    Pacientes.Nombre, 
-                    Pacientes.Apellido, 
-                    Cita.Fecha_Cita, 
-                    Cita.Hora_Cita, 
-                    Cita.Estatus_Cita
-                FROM 
-                    Pacientes
-                INNER JOIN 
-                    Cita ON Pacientes.Cedula = Cita.Cedula
-                WHERE 
-                    Pacientes.ID_user = ? 
-                ORDER BY 
-                    Cita.Fecha_Cita ASC
-                """, (self.id_user,))
+                    SELECT 
+                        Users.ID as ID_usuario,
+                        Users.Nombres as Nombre_usuario,
+                        Pacientes.Cedula, 
+                        Pacientes.Nombre, 
+                        Pacientes.Apellido, 
+                        Cita.Fecha_Cita, 
+                        Cita.Hora_Cita, 
+                        Cita.Estatus_Cita
+                    FROM 
+                        Pacientes
+                    INNER JOIN 
+                        Cita ON Pacientes.Cedula = Cita.Cedula
+                    INNER JOIN
+                        Users ON Pacientes.ID_user = Users.ID
+                    WHERE 
+                        Pacientes.ID_user = ? 
+                    ORDER BY 
+                        Cita.Fecha_Cita ASC
+                    """, (self.id_user,))
             citas = cursor.fetchall() 
 
             self.tabla_cita.setColumnCount(len(headers))
@@ -677,23 +737,7 @@ class MenuPrincipal(QMainWindow):
         except sqlite3.Error as e:
             QtWidgets.QMessageBox.critical(self, "Error", "Error al consultar la base de datos: " + str(e))
 
-    def buscar(self):
-        filtro = self.filtro.currentText()
-        valor = self.in_buscar.text()
-        if filtro == "Seleccione una opción para filtrar":
-            QtWidgets.QMessageBox.warning(self, "Error", "Debe seleccionar un filtro para buscar")
-        elif len(valor) == 0:
-            self.act_T()
-        elif not valor:
-            QtWidgets.QMessageBox.warning(self, "Por favor", "Ingrese alguna especificación de la cita para realizar la búsqueda")
-        elif self.tabla_cita.rowCount() == 0:
-            QtWidgets.QMessageBox.warning(self, "Advertencia", "No se ha encontrado ningún resultado")
-            self.in_buscar.clear()
-            self.act_T()
-        else:
-            self.cargarCitas(filtro, valor)
 
-    
     def PlacasView(self):
         if self.usuario =="Usuario":
             QMessageBox.information(self,"Permiso Denegado","No tienes permisos para entrar")
@@ -1154,7 +1198,6 @@ class Ui_CitasMenu(QMainWindow):
             QMessageBox.critical(self, "Error", f"Error al actualizar la cita: {str(error)}")
 
     def aggCite(self):
-       
         cedula = self.in_busqueda.text()
         
         fecha = self.fecha.selectedDate()
@@ -1191,11 +1234,11 @@ class Ui_CitasMenu(QMainWindow):
                     QMessageBox.information(self,"Cita","Ya el paciente tiene una cita registrada")
                     return
                 elif not existe_paciente:
-                    # Si el paciente existe, proceder a actualizar la cita
+                    # Si el paciente no existe, proceder a insertar la nueva cita
                     cursor.execute("""
-                                    INSERT INTO Cita (Cedula, Fecha_Cita, Hora_Cita, Estatus_Cita)
-                                    VALUES (?, ?, ?, ?)
-                                """, (cedula, fechaToString, horaToString, statusCita))
+                        INSERT INTO Cita (Cedula, Fecha_Cita, Hora_Cita, Estatus_Cita, ID_user)
+                        VALUES (?, ?, ?, ?, ?)
+                    """, (cedula, fechaToString, horaToString, statusCita, self.id_user))
                     
                     # Guardar los cambios en la base de datos
                     conexion.commit()
@@ -1203,7 +1246,7 @@ class Ui_CitasMenu(QMainWindow):
                     # Mostrar un mensaje de éxito
                     QMessageBox.information(self, "Información", "Cita agregada con éxito.")
                 else:
-                    # Si el paciente no existe, mostrar un mensaje de error
+                    # Si el paciente ya tiene una cita, mostrar un mensaje de error
                     QMessageBox.warning(self, "Advertencia", "No se encontró un paciente con la cédula proporcionada.")
                 
                 # Cerrar la conexión con la base de datos
@@ -1211,7 +1254,7 @@ class Ui_CitasMenu(QMainWindow):
             
         except sqlite3.Error as error:
             # En caso de error, mostrar un mensaje de error
-            QMessageBox.critical(self, "Error", f"Error al actualizar la cita: {str(error)}")
+            QMessageBox.critical(self, "Error", f"Error al agregar la cita: {str(error)}")
 
     def searchdata(self):
         idUser = self.id_user
@@ -2272,6 +2315,7 @@ class historiaMenu(QMainWindow):
         self.btn_m.setChecked(False)
         self.btn_f.setChecked(False)
         self.motivo.clear()
+        
     def  AddPacient(self): 
         idUser = self.id_user
         cedula = self.in_cedula.text()
