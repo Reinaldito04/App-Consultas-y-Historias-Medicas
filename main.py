@@ -589,6 +589,7 @@ class MenuPrincipal(QMainWindow):
         self.bt_menu.clicked.connect(self.toggle_sidebar)
         self.bt_salir.clicked.connect(self.close)
         self.bt_home.clicked.connect(lambda: self.tabWidget.setCurrentWidget(self.principal_tab))
+        self.bt_historial.clicked.connect(self.historiaView)
         self.bt_registro.clicked.connect(self.Historyviews)
         self.bt_paciente.clicked.connect(self.PlacasView)
         self.bt_citas.clicked.connect(self.CitasView)
@@ -612,15 +613,25 @@ class MenuPrincipal(QMainWindow):
         # Para otros roles, mostrar todas las columnas
             self.tabla_cita.setColumnHidden(0, False)
             self.tabla_cita.setColumnHidden(1, False)
-    
+            
+    def historiaView(self):
+        reply = self.showConfirmation("¿Deseas ir al formulario para la creacion/visualización de las historias?")
+        if reply == QMessageBox.Yes:
+            historia = Ui_pacientes_view(self.id_user)
+            widget.addWidget(historia)
+            widget.setCurrentIndex(widget.currentIndex() + 1)
+            historia.show()
+            self.hide() 
+               
     def BddView(self):
         reply = self.showConfirmation("¿Deseas ir al formulario para visualizar todos los pacientes registrados?")
         if reply == QMessageBox.Yes:
-            bdd = Ui_pacientes_view()
+            bdd = Ui_pacientes_view(self.id_user)
             widget.addWidget(bdd)
             widget.setCurrentIndex(widget.currentIndex() + 1)
             bdd.show()
-            self.hide()    
+            self.hide()  
+             
     def MontosView(self):
         if self.usuario =="Usuario":
             QMessageBox.information(self,"Permiso Denegado","No tienes permisos para entrar")
@@ -810,7 +821,6 @@ class MenuPrincipal(QMainWindow):
         doctorView.foto_2.setPixmap(pixmap1)
 
     def Historyviews(self):
-       
         reply = self.showConfirmation("¿Desea ir al formulario de registro de pacientes?")
         if reply == QMessageBox.Yes:
             historia = historiaMenu(self.id_user )
@@ -834,7 +844,8 @@ class MenuPrincipal(QMainWindow):
             QMessageBox.Yes
         )
         if reply == QMessageBox.Yes:
-            QApplication.quit()
+            QApplication.quit() 
+            
     def eliminar_datos_acceso(self):
         reply = QMessageBox.question(
             self,
@@ -854,34 +865,178 @@ class MenuPrincipal(QMainWindow):
                 print("No se encontraron datos de acceso para eliminar.")
                 QApplication.quit()
                 
+
 class Ui_pacientes_view(QtWidgets.QMainWindow):
-    def __init__(self):
+    def __init__(self, id_user):
         super(Ui_pacientes_view, self).__init__()
         loadUi("./interfaces/paciente_view.ui", self)
+        self.actionVolver_al_menu_principal.triggered.connect(self.back_menu)
         self.actionSalir.triggered.connect(self.salir)
         self.bt_act.clicked.connect(self.act_T)
         self.bt_buscar.clicked.connect(self.buscar)
+        self.id_user = id_user
+        self.usuario = None  # Agregamos una variable de instancia para almacenar el tipo de usuario
+        self.verifytipoUser()  # Llamamos a la función de verificación de usuario
         self.cargarPacientes()
         self.filtro = self.findChild(QtWidgets.QComboBox, "filtro")
         self.filtro.addItem("Seleccione una opción para filtrar")
-        self.filtro.addItems(["Dentista","Cedula", "Nombre", "Edad", "Sexo","Direccion" , "Fecha_Diagnotico"])
+        self.filtro.addItems(["Dentista", "Cedula", "Nombre", "Edad", "Sexo", "Direccion", "Fecha_Diagnotico"])
         self.in_buscar.textChanged.connect(self.buscar)
+
+    def verifytipoUser(self):
+        conexion = sqlite3.connect("./interfaces/database.db")
+        cursor = conexion.cursor()
+        cursor.execute("SELECT Tipo FROM Users WHERE ID=?", (self.id_user,))
+        resultado = cursor.fetchone()
+        if resultado:
+            tipoUser = resultado[0]
+            if tipoUser == "Doctor":
+                self.usuario = "Doctor"
+            elif tipoUser == "Administrador":
+                self.usuario = "Administrador"
+            elif tipoUser == "Usuario":
+                self.usuario = "Usuario"
+            else:
+                print("No se encontró ningún tipo")
+                  
+    def back_menu(self):
+        conexion = sqlite3.connect('interfaces/database.db')
+        cursor= conexion.cursor()
+        cursor.execute("SELECT Username FROM Users WHERE ID = ?", (self.id_user,))
+        
+        resultado = cursor.fetchone()
+        if resultado :
+            nombre_usuario = resultado[0]
+            horaActual = datetime.datetime.now().time()
+            
+            if datetime.time(5, 0, 0) <= horaActual < datetime.time(12, 0, 0):
+                textForMenu = f"Buenos días {nombre_usuario}\n¿Qué deseas hacer hoy?"
+            elif datetime.time(12, 0, 0) <= horaActual < datetime.time(18, 0, 0):
+                textForMenu = f"Buenas tardes {nombre_usuario}\n¿Qué deseas hacer hoy?"
+            elif datetime.time(18, 0, 0) <= horaActual or horaActual < datetime.time(5, 0, 0):
+                textForMenu = f"Buenas noches {nombre_usuario}\n¿Qué deseas hacer hoy?"
+            else:
+                textForMenu = f"Hola {nombre_usuario}\n¿Qué deseas hacer hoy?"
+            menu_principal = MenuPrincipal(self.id_user)
+            menu_principal.lb_nombre.setText(textForMenu)
+          
+            # Establecer la ventana en modo de pantalla completa
+            menu_principal.showMaximized()
+
+            menu_principal.setWindowTitle("Menu Principal")
+            
+            # Asegúrate de añadir la ventana al widget después de establecerla en modo de pantalla completa
+            widget.addWidget(menu_principal)
+            widget.setCurrentIndex(widget.currentIndex() + 1)
+
+            self.close()
     
     def act_T(self):
         self.cargarPacientes()
 
     def cargarPacientes(self, filtro=None, valor=None):
         self.tabla_p.setRowCount(0)  # Limpiar la tabla actual
-        headers = ["Cedula", "Nombre", "Apellido", "Edad", "Dirección", "Sexo", "Fecha_Diagnotico"]
+        headers = ["Cedula del paciente", "Nombre del paciente", "Apellido del paciente", "Edad", "Dirección", "Sexo", "Fecha del diagnostico"]
 
         try:
             conexion = sqlite3.connect('interfaces/database.db')
             cursor = conexion.cursor()
 
             if filtro and valor:
-                cursor.execute("SELECT Cedula, Nombre, Apellido, Edad, Direccion, Sexo, Fecha_Diagnotico FROM Pacientes WHERE {} LIKE ? ORDER BY Fecha_Diagnotico ASC".format(filtro), ('%' + valor + '%',))
+                if filtro == "Dentista":
+                    # Filtrar por el dentista que agregó los pacientes
+                    cursor.execute("""
+                        SELECT 
+                            Pacientes.Cedula, 
+                            Pacientes.Nombre, 
+                            Pacientes.Apellido, 
+                            Pacientes.Edad, 
+                            Pacientes.Direccion, 
+                            Pacientes.Sexo, 
+                            Pacientes.Fecha_Diagnotico
+                        FROM 
+                            Pacientes
+                        INNER JOIN 
+                            Users ON Pacientes.ID_user = Users.ID
+                        WHERE 
+                            Users.ID = ? AND Pacientes.{} LIKE ?
+                        ORDER BY 
+                            Pacientes.Fecha_Diagnotico ASC
+                    """.format(filtro), (self.id_user, '%' + valor + '%'))
+                else:
+                    cursor.execute("""
+                        SELECT 
+                            Cedula, 
+                            Nombre, 
+                            Apellido, 
+                            Edad, 
+                            Direccion, 
+                            Sexo, 
+                            Fecha_Diagnotico
+                        FROM 
+                            Pacientes
+                        WHERE 
+                            {} LIKE ? AND Pacientes.ID_user = ?
+                        ORDER BY 
+                            Fecha_Diagnotico ASC
+                    """.format(filtro), ('%' + valor + '%', self.id_user))
             else:
-                cursor.execute("SELECT Cedula, Nombre, Apellido, Edad, Direccion, Sexo, Fecha_Diagnotico FROM Pacientes ORDER BY Fecha_Diagnotico ASC")
+                if filtro == "Dentista":
+                    # Mostrar todos los pacientes del dentista actual
+                    cursor.execute("""
+                        SELECT 
+                            Pacientes.Cedula, 
+                            Pacientes.Nombre, 
+                            Pacientes.Apellido, 
+                            Pacientes.Edad, 
+                            Pacientes.Direccion, 
+                            Pacientes.Sexo, 
+                            Pacientes.Fecha_Diagnotico
+                        FROM 
+                            Pacientes
+                        INNER JOIN 
+                            Users ON Pacientes.ID_user = Users.ID
+                        WHERE 
+                            Users.ID = ?
+                        ORDER BY 
+                            Pacientes.Fecha_Diagnotico ASC
+                    """, (self.id_user,))
+                else:
+                    # Mostrar todos los pacientes sin filtrar por dentista
+                    if self.usuario == "Doctor":
+                        # Si el usuario es un Doctor, solo mostrar sus propios pacientes
+                        cursor.execute("""
+                            SELECT 
+                                Cedula, 
+                                Nombre, 
+                                Apellido, 
+                                Edad, 
+                                Direccion, 
+                                Sexo, 
+                                Fecha_Diagnotico
+                            FROM 
+                                Pacientes
+                            WHERE 
+                                ID_user = ? 
+                            ORDER BY 
+                                Fecha_Diagnotico ASC
+                        """, (self.id_user,))
+                    else:
+                        # Mostrar todos los pacientes para Administrador y Usuario
+                        cursor.execute("""
+                            SELECT 
+                                Cedula, 
+                                Nombre, 
+                                Apellido, 
+                                Edad, 
+                                Direccion, 
+                                Sexo, 
+                                Fecha_Diagnotico
+                            FROM 
+                                Pacientes
+                            ORDER BY 
+                                Fecha_Diagnotico ASC
+                        """)
 
             pacientes = cursor.fetchall()
 
@@ -898,6 +1053,7 @@ class Ui_pacientes_view(QtWidgets.QMainWindow):
         except sqlite3.Error as e:
             QtWidgets.QMessageBox.critical(self, "Error", "Error al consultar la base de datos: " + str(e))
 
+
     def buscar(self):
         filtro = self.filtro.currentText()
         valor = self.in_buscar.text()
@@ -910,6 +1066,9 @@ class Ui_pacientes_view(QtWidgets.QMainWindow):
         elif self.tabla_p.rowCount() == 0:
             QtWidgets.QMessageBox.warning(self, "Advertencia", "No se ha encontrado ningún registro")  
         else:
+            # Modificar el filtro "Dentista" para buscar por nombre de dentista
+            if filtro == "Dentista":
+                filtro = "Nombre_usuario"
             self.cargarPacientes(filtro, valor)
         
     def salir(self):
@@ -944,7 +1103,6 @@ class EditDoctor(QMainWindow):
         self.btn_save.clicked.connect(self.modifyInfo)
         self.btn_back.clicked.connect(self.back_menu)
 
-     
     def back_menu(self):
         
         conexion = sqlite3.connect('interfaces/database.db')
@@ -1007,8 +1165,6 @@ class EditDoctor(QMainWindow):
            QMessageBox.information(self,"Realizado","Los cambios han sido guardados correctamente")
            conexion.commit()    
            conexion.close()
-        
-        
            
     def eliminarInfo(self):
         dialog = DeleteAllData(self.id_user)

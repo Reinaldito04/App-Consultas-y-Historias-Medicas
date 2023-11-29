@@ -34,7 +34,8 @@
      <widget class="QFrame" name="frame">
       <property name="styleSheet">
        <string notr="true">QFrame{
-background-color:gray;
+background-color:rgb(0, 85, 127);
+
 }</string>
       </property>
       <property name="frameShape">
@@ -89,7 +90,7 @@ background-color:gray;
              <property name="styleSheet">
               <string notr="true">QFrame{
 background-color:rgb(70, 130, 169);
-	font: 12pt &quot;Microsoft Sans Serif&quot;;
+	font: 14pt &quot;Microsoft Sans Serif&quot;;
 }
 QTableWidget{
 color:rgb(0,0,0);
@@ -99,7 +100,7 @@ font-size:12pt;
 QHeaderView::section{
 background-color:rgb(0,206,151);
 border:1px solid rgb(0,0,0);
-font-size:12pt;
+	font: 12pt &quot;Microsoft Sans Serif&quot;;
 }
 QTbaleWidget QTableCornerButton::section{
 background-color:rgb(0,0,0);
@@ -109,7 +110,7 @@ QLineEdit{
 border:2px solid rgb(0,0,0);
 border-radius:20px;
 background-color:#D0D3D4;
-	font: 12pt &quot;Microsoft Sans Serif&quot;;
+font: 12pt &quot;Microsoft Sans Serif&quot;;
 }
 QPushButton{
 border-radius:20px;
@@ -194,11 +195,37 @@ QPushButton:hover{
                </layout>
               </item>
               <item>
+               <spacer name="verticalSpacer_4">
+                <property name="orientation">
+                 <enum>Qt::Vertical</enum>
+                </property>
+                <property name="sizeHint" stdset="0">
+                 <size>
+                  <width>20</width>
+                  <height>40</height>
+                 </size>
+                </property>
+               </spacer>
+              </item>
+              <item>
                <widget class="QLabel" name="label_5">
                 <property name="text">
                  <string>Para agendar una cita, primero ingrese el ID del paciente en la barra de busqueda y luego seleccione la fecha y hora para la cita</string>
                 </property>
                </widget>
+              </item>
+              <item>
+               <spacer name="verticalSpacer_5">
+                <property name="orientation">
+                 <enum>Qt::Vertical</enum>
+                </property>
+                <property name="sizeHint" stdset="0">
+                 <size>
+                  <width>20</width>
+                  <height>40</height>
+                 </size>
+                </property>
+               </spacer>
               </item>
               <item>
                <layout class="QHBoxLayout" name="horizontalLayout_8">
@@ -309,6 +336,19 @@ QPushButton:hover{
                      <size>
                       <width>851</width>
                       <height>13</height>
+                     </size>
+                    </property>
+                   </spacer>
+                  </item>
+                  <item>
+                   <spacer name="verticalSpacer_10">
+                    <property name="orientation">
+                     <enum>Qt::Vertical</enum>
+                    </property>
+                    <property name="sizeHint" stdset="0">
+                     <size>
+                      <width>20</width>
+                      <height>40</height>
                      </size>
                     </property>
                    </spacer>
@@ -897,17 +937,17 @@ border-top:2px solid rgb(0,0,0);
                    </attribute>
                    <column>
                     <property name="text">
-                     <string>Cedula_P</string>
+                     <string>Cedula del paciente</string>
                     </property>
                    </column>
                    <column>
                     <property name="text">
-                     <string>Nombre_P</string>
+                     <string>Nombre del paciente</string>
                     </property>
                    </column>
                    <column>
                     <property name="text">
-                     <string>Apellido_P</string>
+                     <string>Apellido del paciente</string>
                     </property>
                    </column>
                    <column>

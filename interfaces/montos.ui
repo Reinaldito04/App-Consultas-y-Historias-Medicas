@@ -34,7 +34,8 @@
      <widget class="QFrame" name="frame">
       <property name="styleSheet">
        <string notr="true">QFrame{
-background-color:gray;
+background-color:rgb(0, 85, 127);
+
 }</string>
       </property>
       <property name="frameShape">
@@ -69,6 +70,12 @@ background-color:gray;
            <bold>true</bold>
            <underline>true</underline>
           </font>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">QFrame{
+background-color:rgb(0, 85, 127);
+
+}</string>
          </property>
          <property name="currentIndex">
           <number>0</number>

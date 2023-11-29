@@ -74,7 +74,7 @@ background-color:gray;
          </property>
          <widget class="QWidget" name="tab">
           <attribute name="title">
-           <string>Registro de doctores</string>
+           <string>Registro de datos basicos de usuario</string>
           </attribute>
           <layout class="QVBoxLayout" name="verticalLayout_3">
            <property name="spacing">
@@ -97,7 +97,7 @@ background-color:gray;
              <property name="styleSheet">
               <string notr="true">QFrame{
 	background-color:rgb(70, 130, 169);
-	font: 12pt &quot;Microsoft Sans Serif&quot;;
+	font: 14pt &quot;Microsoft Sans Serif&quot;;
 }
 QTableWidget{
 color:rgb(0,0,0);
@@ -146,8 +146,13 @@ QPushButton:hover{
                     </property>
                     <item>
                      <widget class="QLabel" name="label_2">
+                      <property name="styleSheet">
+                       <string notr="true">QLabel{
+	font: 18pt &quot;Microsoft Sans Serif&quot;;
+}</string>
+                      </property>
                       <property name="text">
-                       <string>Datos basicos del dentista</string>
+                       <string>Datos basicos del usuario</string>
                       </property>
                       <property name="alignment">
                        <set>Qt::AlignCenter</set>

@@ -34,7 +34,8 @@
      <widget class="QFrame" name="frame">
       <property name="styleSheet">
        <string notr="true">QFrame{
-background-color:gray;
+background-color:rgb(0, 85, 127);
+
 }</string>
       </property>
       <property name="frameShape">
@@ -97,7 +98,7 @@ background-color:gray;
              <property name="styleSheet">
               <string notr="true">QFrame{
 background-color:rgb(70, 130, 169);
-	font: 12pt &quot;Microsoft Sans Serif&quot;;
+	font: 14pt &quot;Microsoft Sans Serif&quot;;
 }
 QTableWidget{
 color:rgb(0,0,0);
@@ -117,12 +118,12 @@ QLineEdit{
 border:2px solid rgb(0,0,0);
 border-radius:20px;
 background-color:#D0D3D4;
-	font: 12pt &quot;Microsoft Sans Serif&quot;;
 }
 QPushButton{
 border-radius:20px;
 border:2px solid rgb(0,0,0);
 background-color:white;
+font: 13pt &quot;Microsoft Sans Serif&quot;;
 }
 QPushButton:hover{
 	background-color:#CB4335;
@@ -738,7 +739,11 @@ border-top:2px solid rgb(0,0,0);
                          </property>
                          <property name="font">
                           <font>
-                           <pointsize>10</pointsize>
+                           <family>Microsoft Sans Serif</family>
+                           <pointsize>13</pointsize>
+                           <weight>50</weight>
+                           <italic>false</italic>
+                           <bold>false</bold>
                           </font>
                          </property>
                          <property name="text">
@@ -785,7 +790,11 @@ border-top:2px solid rgb(0,0,0);
                          </property>
                          <property name="font">
                           <font>
-                           <pointsize>10</pointsize>
+                           <family>Microsoft Sans Serif</family>
+                           <pointsize>13</pointsize>
+                           <weight>50</weight>
+                           <italic>false</italic>
+                           <bold>false</bold>
                           </font>
                          </property>
                          <property name="text">
@@ -832,7 +841,11 @@ border-top:2px solid rgb(0,0,0);
                          </property>
                          <property name="font">
                           <font>
-                           <pointsize>10</pointsize>
+                           <family>Microsoft Sans Serif</family>
+                           <pointsize>13</pointsize>
+                           <weight>50</weight>
+                           <italic>false</italic>
+                           <bold>false</bold>
                           </font>
                          </property>
                          <property name="text">
@@ -915,7 +928,7 @@ border-top:2px solid rgb(0,0,0);
              <property name="styleSheet">
               <string notr="true">QFrame{
 background-color:rgb(70, 130, 169);
-	font: 12pt &quot;Microsoft Sans Serif&quot;;
+	font: 14pt &quot;Microsoft Sans Serif&quot;;
 }
 QTableWidget{
 color:rgb(0,0,0);
@@ -1452,6 +1465,11 @@ border: 2px solid  rgb(0,0,0);
                     <height>50</height>
                    </size>
                   </property>
+                  <property name="styleSheet">
+                   <string notr="true">QPushButton{
+	font: 13pt &quot;Microsoft Sans Serif&quot;;
+}</string>
+                  </property>
                   <property name="text">
                    <string>Limpiar</string>
                   </property>
@@ -1510,8 +1528,9 @@ border: 2px solid  rgb(0,0,0);
     <property name="title">
      <string>Menu</string>
     </property>
-    <addaction name="actionSalir"/>
     <addaction name="actionVolver_al_menu_principal"/>
+    <addaction name="separator"/>
+    <addaction name="actionSalir"/>
    </widget>
    <addaction name="menuMenu"/>
   </widget>

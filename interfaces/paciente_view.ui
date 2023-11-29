@@ -324,6 +324,36 @@ QLabel{
                   </property>
                  </spacer>
                 </item>
+                <item>
+                 <widget class="QPushButton" name="bt_preview">
+                  <property name="minimumSize">
+                   <size>
+                    <width>150</width>
+                    <height>50</height>
+                   </size>
+                  </property>
+                  <property name="maximumSize">
+                   <size>
+                    <width>150</width>
+                    <height>50</height>
+                   </size>
+                  </property>
+                  <property name="font">
+                   <font>
+                    <pointsize>9</pointsize>
+                   </font>
+                  </property>
+                  <property name="text">
+                   <string>Vista previa</string>
+                  </property>
+                  <property name="iconSize">
+                   <size>
+                    <width>30</width>
+                    <height>30</height>
+                   </size>
+                  </property>
+                 </widget>
+                </item>
                </layout>
               </item>
               <item>
@@ -439,10 +469,7 @@ QLabel{
     </property>
     <addaction name="actionVolver_al_menu_principal"/>
     <addaction name="separator"/>
-    <addaction name="actionVolver_al_registro"/>
-    <addaction name="separator"/>
     <addaction name="actionSalir"/>
-    <addaction name="separator"/>
    </widget>
    <addaction name="menuMenu"/>
   </widget>

@@ -115,17 +115,22 @@ background-color:qlineargradient(spread:pad, x1:0, y1:0.505682 , x2:1 , y2:0.477
                 <widget class="QLabel" name="label_3">
                  <property name="font">
                   <font>
-                   <pointsize>20</pointsize>
+                   <family>MS Shell Dlg 2</family>
+                   <pointsize>22</pointsize>
+                   <weight>9</weight>
+                   <italic>false</italic>
+                   <bold>false</bold>
                   </font>
                  </property>
                  <property name="styleSheet">
                   <string notr="true">QLabel{
 background-color:none;
 color:white;
+	font: 75 22pt &quot;MS Shell Dlg 2&quot;;
 }</string>
                  </property>
                  <property name="text">
-                  <string>Inicio de sesion</string>
+                  <string>Inicio de sesión</string>
                  </property>
                  <property name="alignment">
                   <set>Qt::AlignCenter</set>
@@ -349,6 +354,11 @@ background-color:qlineargradient(spread:pad, x1:0, y1:0.505682 , x2:1 , y2:0.477
                      <pointsize>14</pointsize>
                     </font>
                    </property>
+                   <property name="styleSheet">
+                    <string notr="true">QLabel{
+background-color:none;
+}</string>
+                   </property>
                    <property name="text">
                     <string/>
                    </property>
@@ -425,7 +435,7 @@ border-right:2.5px solid rgb(112, 113, 232);
                       <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
                      </property>
                      <property name="placeholderText">
-                      <string>Username</string>
+                      <string>Nombre de usuario</string>
                      </property>
                     </widget>
                    </item>
@@ -509,7 +519,7 @@ border-right:2.5px solid rgb(112, 113, 232);
                       <enum>QLineEdit::Password</enum>
                      </property>
                      <property name="placeholderText">
-                      <string>Password</string>
+                      <string>Contraseña</string>
                      </property>
                     </widget>
                    </item>
@@ -588,16 +598,16 @@ border-right:2.5px solid rgb(112, 113, 232);
                   </property>
                   <property name="font">
                    <font>
-                    <family>Hack Nerd Font</family>
-                    <pointsize>12</pointsize>
-                    <weight>50</weight>
+                    <family>MS Shell Dlg 2</family>
+                    <pointsize>14</pointsize>
+                    <weight>9</weight>
                     <italic>false</italic>
                     <bold>false</bold>
                    </font>
                   </property>
                   <property name="styleSheet">
                    <string notr="true">QPushButton{
-	font: 12pt &quot;Hack Nerd Font&quot;;
+	font: 75 14pt &quot;MS Shell Dlg 2&quot;;
 color:rgba(255,255,255,210);
 
 border-radius:20px;
@@ -657,7 +667,7 @@ background-color: qlineargradient(spread:pad, x1:0, y1:0.505682 , x2:1 , y2:0.47
                   </property>
                   <property name="styleSheet">
                    <string notr="true">QPushButton{
-	font: 12pt &quot;Hack Nerd Font&quot;;
+	font: 75 14pt &quot;MS Shell Dlg 2&quot;;
 color:rgba(255,255,255,210);
 
 border-radius:20px;
@@ -669,9 +679,7 @@ color:rgba(255,255,255,210);
 
 background-color: qlineargradient(spread:pad, x1:0, y1:0.505682 , x2:1 , y2:0.477,stop:0 rgba(128, 0, 255,219), stop:1 rgba(85,98,112,226));
 
-}
-
-</string>
+}</string>
                   </property>
                   <property name="text">
                    <string>Registrar</string>

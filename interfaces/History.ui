@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1104</width>
-    <height>800</height>
+    <width>1136</width>
+    <height>846</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -35,6 +35,7 @@
       <property name="styleSheet">
        <string notr="true">QFrame{
 background-color:rgb(0, 85, 127);
+
 }</string>
       </property>
       <property name="frameShape">
@@ -79,7 +80,7 @@ background-color:rgb(0, 85, 127);
           <enum>QTabWidget::Rounded</enum>
          </property>
          <property name="currentIndex">
-          <number>3</number>
+          <number>0</number>
          </property>
          <property name="iconSize">
           <size>
@@ -134,7 +135,7 @@ background-color:rgb(0, 85, 127);
              <property name="styleSheet">
               <string notr="true">QFrame{
 background-color:rgb(70, 130, 169);
-	font: 12pt &quot;Microsoft Sans Serif&quot;;
+	font: 14pt &quot;Microsoft Sans Serif&quot;;
 }
 QTableWidget{
 color:rgb(0,0,0);
@@ -144,7 +145,7 @@ font-size:12pt;
 QHeaderView::section{
 background-color:rgb(0,206,151);
 border:1px solid rgb(0,0,0);
-font: 75 12pt &quot;Microsoft Sans Serif&quot;;
+	font: 12pt &quot;Microsoft Sans Serif&quot;;
 }
 QTbaleWidget QTableCornerButton::section{
 background-color:rgb(0,0,0);
@@ -170,6 +171,9 @@ border-radius:20px;
 	font: 12pt &quot;Microsoft Sans Serif&quot;;
 	background-color: rgb(255, 255, 255);
 }
+QRadioButton{
+	font: 14pt &quot;Microsoft Sans Serif&quot;;
+}
 </string>
              </property>
              <property name="frameShape">
@@ -191,6 +195,11 @@ border-radius:20px;
                   </property>
                   <item>
                    <widget class="QLabel" name="title">
+                    <property name="styleSheet">
+                     <string notr="true">QLabel{
+	font: 75 14pt &quot;MS Shell Dlg 2&quot;;
+}</string>
+                    </property>
                     <property name="text">
                      <string>Registro de datos basicos del paciente</string>
                     </property>
@@ -267,7 +276,7 @@ border-radius:20px;
                 <property name="font">
                  <font>
                   <family>Microsoft Sans Serif</family>
-                  <pointsize>12</pointsize>
+                  <pointsize>14</pointsize>
                   <weight>50</weight>
                   <italic>false</italic>
                   <bold>false</bold>
@@ -344,7 +353,10 @@ border-radius:20px;
                               <property name="font">
                                <font>
                                 <family>Microsoft Sans Serif</family>
-                                <pointsize>12</pointsize>
+                                <pointsize>14</pointsize>
+                                <weight>50</weight>
+                                <italic>false</italic>
+                                <bold>false</bold>
                                </font>
                               </property>
                               <property name="styleSheet">
@@ -360,7 +372,10 @@ border-radius:20px;
                               <property name="font">
                                <font>
                                 <family>Microsoft Sans Serif</family>
-                                <pointsize>12</pointsize>
+                                <pointsize>14</pointsize>
+                                <weight>50</weight>
+                                <italic>false</italic>
+                                <bold>false</bold>
                                </font>
                               </property>
                               <property name="text">
@@ -918,12 +933,12 @@ background-color:white;
                    </column>
                    <column>
                     <property name="text">
-                     <string>Nombres</string>
+                     <string>Nombre</string>
                     </property>
                    </column>
                    <column>
                     <property name="text">
-                     <string>Apellidos</string>
+                     <string>Apellido</string>
                     </property>
                    </column>
                    <column>
@@ -1088,7 +1103,7 @@ border: 2px solid rgb(0,0,0);
              <property name="styleSheet">
               <string notr="true">QFrame{
 background-color:rgb(70, 130, 169);
-	font: 12pt &quot;Microsoft Sans Serif&quot;;
+	font: 14pt &quot;Microsoft Sans Serif&quot;;
 }
 QTableWidget{
 color:rgb(0,0,0);
@@ -1123,6 +1138,9 @@ border:4px solid rgb(0,0,0);
 border-radius:20px;
 	font: 12pt &quot;Microsoft Sans Serif&quot;;
 	background-color: rgb(255, 255, 255);
+}
+QRadioButton{
+	font: 14pt &quot;Microsoft Sans Serif&quot;;
 }
 </string>
              </property>
@@ -1214,7 +1232,10 @@ border-radius:20px;
                        <property name="font">
                         <font>
                          <family>Microsoft Sans Serif</family>
-                         <pointsize>12</pointsize>
+                         <pointsize>14</pointsize>
+                         <weight>50</weight>
+                         <italic>false</italic>
+                         <bold>false</bold>
                         </font>
                        </property>
                        <property name="styleSheet">
@@ -1236,7 +1257,10 @@ border-radius:20px;
                        <property name="font">
                         <font>
                          <family>Microsoft Sans Serif</family>
-                         <pointsize>12</pointsize>
+                         <pointsize>14</pointsize>
+                         <weight>50</weight>
+                         <italic>false</italic>
+                         <bold>false</bold>
                         </font>
                        </property>
                        <property name="text">
@@ -1329,7 +1353,10 @@ border-radius:20px;
                        <property name="font">
                         <font>
                          <family>Microsoft Sans Serif</family>
-                         <pointsize>12</pointsize>
+                         <pointsize>14</pointsize>
+                         <weight>50</weight>
+                         <italic>false</italic>
+                         <bold>false</bold>
                         </font>
                        </property>
                        <property name="styleSheet">
@@ -1351,7 +1378,10 @@ border-radius:20px;
                        <property name="font">
                         <font>
                          <family>Microsoft Sans Serif</family>
-                         <pointsize>12</pointsize>
+                         <pointsize>14</pointsize>
+                         <weight>50</weight>
+                         <italic>false</italic>
+                         <bold>false</bold>
                         </font>
                        </property>
                        <property name="text">
@@ -1444,7 +1474,10 @@ border-radius:20px;
                        <property name="font">
                         <font>
                          <family>Microsoft Sans Serif</family>
-                         <pointsize>12</pointsize>
+                         <pointsize>14</pointsize>
+                         <weight>50</weight>
+                         <italic>false</italic>
+                         <bold>false</bold>
                         </font>
                        </property>
                        <property name="styleSheet">
@@ -1466,7 +1499,10 @@ border-radius:20px;
                        <property name="font">
                         <font>
                          <family>Microsoft Sans Serif</family>
-                         <pointsize>12</pointsize>
+                         <pointsize>14</pointsize>
+                         <weight>50</weight>
+                         <italic>false</italic>
+                         <bold>false</bold>
                         </font>
                        </property>
                        <property name="text">
@@ -1909,7 +1945,7 @@ border-top:2px solid rgb(0,0,0);
              <property name="styleSheet">
               <string notr="true">QFrame{
 background-color:rgb(70, 130, 169);
-	font: 12pt &quot;Microsoft Sans Serif&quot;;
+	font: 14pt &quot;Microsoft Sans Serif&quot;;
 }
 QTableWidget{
 color:rgb(0,0,0);
@@ -2445,7 +2481,7 @@ border-top:2px solid rgb(0,0,0);
              <property name="font">
               <font>
                <family>Microsoft Sans Serif</family>
-               <pointsize>12</pointsize>
+               <pointsize>14</pointsize>
                <weight>50</weight>
                <italic>false</italic>
                <bold>false</bold>
@@ -2454,7 +2490,7 @@ border-top:2px solid rgb(0,0,0);
              <property name="styleSheet">
               <string notr="true">QFrame{
 background-color:rgb(70, 130, 169);
-	font: 12pt &quot;Microsoft Sans Serif&quot;;
+	font: 14pt &quot;Microsoft Sans Serif&quot;;
 }
 QTableWidget{
 color:rgb(0,0,0);
@@ -2731,7 +2767,7 @@ QDateEdit{
                      <property name="font">
                       <font>
                        <family>Microsoft Sans Serif</family>
-                       <pointsize>12</pointsize>
+                       <pointsize>14</pointsize>
                        <weight>50</weight>
                        <italic>false</italic>
                        <bold>false</bold>
@@ -4175,7 +4211,7 @@ QDateEdit{
                        <property name="font">
                         <font>
                          <family>Microsoft Sans Serif</family>
-                         <pointsize>12</pointsize>
+                         <pointsize>14</pointsize>
                          <weight>50</weight>
                          <italic>false</italic>
                          <bold>false</bold>
@@ -4536,7 +4572,7 @@ border-top:2px solid rgb(0,0,0);
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1104</width>
+     <width>1136</width>
      <height>22</height>
     </rect>
    </property>
