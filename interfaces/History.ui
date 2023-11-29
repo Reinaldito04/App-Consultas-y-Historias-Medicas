@@ -921,24 +921,24 @@ background-color:white;
                     <string notr="true"/>
                    </property>
                    <attribute name="horizontalHeaderDefaultSectionSize">
-                    <number>140</number>
+                    <number>170</number>
                    </attribute>
                    <attribute name="horizontalHeaderStretchLastSection">
                     <bool>true</bool>
                    </attribute>
                    <column>
                     <property name="text">
-                     <string>Cedula</string>
+                     <string>Cedula del paciente</string>
                     </property>
                    </column>
                    <column>
                     <property name="text">
-                     <string>Nombre</string>
+                     <string>Nombre del paciente</string>
                     </property>
                    </column>
                    <column>
                     <property name="text">
-                     <string>Apellido</string>
+                     <string>Apellido del paciente</string>
                     </property>
                    </column>
                    <column>
@@ -966,104 +966,6 @@ background-color:white;
                      <string>E-mail</string>
                     </property>
                    </column>
-                  </widget>
-                 </item>
-                 <item>
-                  <widget class="QFrame" name="frame_3">
-                   <property name="minimumSize">
-                    <size>
-                     <width>200</width>
-                     <height>0</height>
-                    </size>
-                   </property>
-                   <property name="maximumSize">
-                    <size>
-                     <width>200</width>
-                     <height>16777215</height>
-                    </size>
-                   </property>
-                   <property name="styleSheet">
-                    <string notr="true">QFrame{
-background-color:#707B7C;
-border-radius: 0px;
-border: 2px solid rgb(0,0,0);
-}</string>
-                   </property>
-                   <property name="frameShape">
-                    <enum>QFrame::StyledPanel</enum>
-                   </property>
-                   <property name="frameShadow">
-                    <enum>QFrame::Raised</enum>
-                   </property>
-                   <layout class="QVBoxLayout" name="verticalLayout_12">
-                    <item>
-                     <layout class="QVBoxLayout" name="verticalLayout_11">
-                      <item>
-                       <spacer name="verticalSpacer_2">
-                        <property name="orientation">
-                         <enum>Qt::Vertical</enum>
-                        </property>
-                        <property name="sizeHint" stdset="0">
-                         <size>
-                          <width>20</width>
-                          <height>40</height>
-                         </size>
-                        </property>
-                       </spacer>
-                      </item>
-                      <item>
-                       <widget class="QPushButton" name="btn_delete">
-                        <property name="minimumSize">
-                         <size>
-                          <width>180</width>
-                          <height>50</height>
-                         </size>
-                        </property>
-                        <property name="maximumSize">
-                         <size>
-                          <width>120</width>
-                          <height>50</height>
-                         </size>
-                        </property>
-                        <property name="font">
-                         <font>
-                          <pointsize>10</pointsize>
-                          <weight>50</weight>
-                          <bold>false</bold>
-                          <underline>false</underline>
-                         </font>
-                        </property>
-                        <property name="text">
-                         <string>Eliminar</string>
-                        </property>
-                        <property name="icon">
-                         <iconset>
-                          <normaloff>ELEMENTOS GRAFICOS/varita-magica.png</normaloff>ELEMENTOS GRAFICOS/varita-magica.png</iconset>
-                        </property>
-                        <property name="iconSize">
-                         <size>
-                          <width>25</width>
-                          <height>25</height>
-                         </size>
-                        </property>
-                       </widget>
-                      </item>
-                      <item>
-                       <spacer name="verticalSpacer_3">
-                        <property name="orientation">
-                         <enum>Qt::Vertical</enum>
-                        </property>
-                        <property name="sizeHint" stdset="0">
-                         <size>
-                          <width>20</width>
-                          <height>40</height>
-                         </size>
-                        </property>
-                       </spacer>
-                      </item>
-                     </layout>
-                    </item>
-                   </layout>
                   </widget>
                  </item>
                 </layout>

@@ -936,7 +936,7 @@ class Ui_pacientes_view(QtWidgets.QMainWindow):
 
     def cargarPacientes(self, filtro=None, valor=None):
         self.tabla_p.setRowCount(0)  # Limpiar la tabla actual
-        headers = ["Cedula del paciente", "Nombre del paciente", "Apellido del paciente", "Edad", "Dirección", "Sexo", "Fecha del diagnostico"]
+        headers = ["ID del usuario", "Nombre del usuario", "Cedula del paciente", "Nombre del paciente", "Apellido del paciente", "Edad", "Dirección", "Sexo", "Fecha del diagnostico"]
 
         try:
             conexion = sqlite3.connect('interfaces/database.db')
@@ -944,9 +944,10 @@ class Ui_pacientes_view(QtWidgets.QMainWindow):
 
             if filtro and valor:
                 if filtro == "Dentista":
-                    # Filtrar por el dentista que agregó los pacientes
                     cursor.execute("""
                         SELECT 
+                            Users.ID as ID_usuario,
+                            Users.Nombres as Nombre_usuario,
                             Pacientes.Cedula, 
                             Pacientes.Nombre, 
                             Pacientes.Apellido, 
@@ -966,25 +967,30 @@ class Ui_pacientes_view(QtWidgets.QMainWindow):
                 else:
                     cursor.execute("""
                         SELECT 
-                            Cedula, 
-                            Nombre, 
-                            Apellido, 
-                            Edad, 
-                            Direccion, 
-                            Sexo, 
-                            Fecha_Diagnotico
+                            Users.ID as ID_usuario,
+                            Users.Nombres as Nombre_usuario,
+                            Pacientes.Cedula, 
+                            Pacientes.Nombre, 
+                            Pacientes.Apellido, 
+                            Pacientes.Edad, 
+                            Pacientes.Direccion, 
+                            Pacientes.Sexo, 
+                            Pacientes.Fecha_Diagnotico
                         FROM 
                             Pacientes
+                        INNER JOIN 
+                            Users ON Pacientes.ID_user = Users.ID
                         WHERE 
                             {} LIKE ? AND Pacientes.ID_user = ?
                         ORDER BY 
-                            Fecha_Diagnotico ASC
+                            Pacientes.Fecha_Diagnotico ASC
                     """.format(filtro), ('%' + valor + '%', self.id_user))
             else:
                 if filtro == "Dentista":
-                    # Mostrar todos los pacientes del dentista actual
                     cursor.execute("""
                         SELECT 
+                            Users.ID as ID_usuario,
+                            Users.Nombres as Nombre_usuario,
                             Pacientes.Cedula, 
                             Pacientes.Nombre, 
                             Pacientes.Apellido, 
@@ -1002,41 +1008,26 @@ class Ui_pacientes_view(QtWidgets.QMainWindow):
                             Pacientes.Fecha_Diagnotico ASC
                     """, (self.id_user,))
                 else:
-                    # Mostrar todos los pacientes sin filtrar por dentista
-                    if self.usuario == "Doctor":
-                        # Si el usuario es un Doctor, solo mostrar sus propios pacientes
-                        cursor.execute("""
-                            SELECT 
-                                Cedula, 
-                                Nombre, 
-                                Apellido, 
-                                Edad, 
-                                Direccion, 
-                                Sexo, 
-                                Fecha_Diagnotico
-                            FROM 
-                                Pacientes
-                            WHERE 
-                                ID_user = ? 
-                            ORDER BY 
-                                Fecha_Diagnotico ASC
-                        """, (self.id_user,))
-                    else:
-                        # Mostrar todos los pacientes para Administrador y Usuario
-                        cursor.execute("""
-                            SELECT 
-                                Cedula, 
-                                Nombre, 
-                                Apellido, 
-                                Edad, 
-                                Direccion, 
-                                Sexo, 
-                                Fecha_Diagnotico
-                            FROM 
-                                Pacientes
-                            ORDER BY 
-                                Fecha_Diagnotico ASC
-                        """)
+                    cursor.execute("""
+                        SELECT 
+                            Users.ID as ID_usuario,
+                            Users.Nombres as Nombre_usuario,
+                            Pacientes.Cedula, 
+                            Pacientes.Nombre, 
+                            Pacientes.Apellido, 
+                            Pacientes.Edad, 
+                            Pacientes.Direccion, 
+                            Pacientes.Sexo, 
+                            Pacientes.Fecha_Diagnotico
+                        FROM 
+                            Pacientes
+                        INNER JOIN 
+                            Users ON Pacientes.ID_user = Users.ID
+                        WHERE 
+                            Pacientes.ID_user = ?
+                        ORDER BY 
+                            Pacientes.Fecha_Diagnotico ASC
+                    """, (self.id_user,))
 
             pacientes = cursor.fetchall()
 
@@ -2140,7 +2131,6 @@ class historiaMenu(QMainWindow):
         self.btn_clear.clicked.connect(self.clearInputs)
         self.btn_edit.clicked.connect(self.UpdateData)
         self.actionSalir.triggered.connect(self.salir)
-        self.btn_delete.clicked.connect(self.DeletaData)
         self.actionVolver_al_menu_principal.triggered.connect(self.back_menu)
         self.btn_agg_2.clicked.connect(self.addInformation)
         self.btn_clear_2.clicked.connect(self.clearData)
@@ -2688,33 +2678,7 @@ class historiaMenu(QMainWindow):
                     self.tabla_pacientes.setItem(row, column, item)
         except:
              QMessageBox.critical(self, "Error", "No hay ningún paciente con esa cedula.")
-    def DeletaData(self):
-        reply = QMessageBox.question(
-            self,
-            'Confirmación',
-            '¿Desea eliminar al paciente del sistema?',
-            QMessageBox.Yes | QMessageBox.No,
-            QMessageBox.Yes
-        )
-        if reply == QMessageBox.Yes:
-            try:
-                cedula = self.in_busqueda.text()
-        
-                if len(cedula) == 0:
-                    QMessageBox.critical(self, "Error", "Ingrese una cédula")
-                else:
-                    conexion = sqlite3.connect('interfaces/database.db')
-                    cursor = conexion.cursor()
-                    cursor.execute("DELETE FROM Pacientes WHERE Cedula = ?", (cedula,))
-                    conexion.commit()
-                    conexion.close()
-            
-            # Eliminación exitosa, muestra un mensaje y realiza otras acciones si es necesario
-                    QMessageBox.information(self, "Realizado", "Los datos han sido eliminados correctamente")
-                    self.clearInputs()
-                    self.clearData()
-            except sqlite3.Error as e:
-                QMessageBox.critical(self, "Error", "Error al eliminar los datos de la base de datos: " + str(e))        
+   
     def back_menu(self):
         
         conexion = sqlite3.connect('interfaces/database.db')

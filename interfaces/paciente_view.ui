@@ -404,6 +404,16 @@ QLabel{
                    </attribute>
                    <column>
                     <property name="text">
+                     <string>ID</string>
+                    </property>
+                   </column>
+                   <column>
+                    <property name="text">
+                     <string>Nombre de usuario</string>
+                    </property>
+                   </column>
+                   <column>
+                    <property name="text">
                      <string>Cedula</string>
                     </property>
                    </column>
