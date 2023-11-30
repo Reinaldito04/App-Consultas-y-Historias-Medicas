@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1149</width>
+    <width>1151</width>
     <height>874</height>
    </rect>
   </property>
@@ -40,19 +40,19 @@ background-color:rgb(70, 130, 169);
 QTableWidget{
 color:rgb(0,0,0);
 gridline-color:rgb(0,206,151);
-	font: 75 12pt &quot;MS Shell Dlg 2&quot;;
+font: 75 12pt &quot;Microsoft Sans Serif&quot;;
 }
 QHeaderView::section{
 background-color:rgb(0,206,151);
 border:1px solid rgb(0,0,0);
-	font: 75 12pt &quot;MS Shell Dlg 2&quot;;
+font: 75 12pt &quot;Microsoft Sans Serif&quot;;
 }
 QTbaleWidget QTableCornerButton::section{
 background-color:rgb(0,0,0);
 border:1px solid  rgb(0,206,151);
 }
 QPushButton{
-	font: 75 11pt &quot;MS Shell Dlg 2&quot;;
+font: 75 10pt &quot;Microsoft Sans Serif&quot;;
 }</string>
       </property>
       <property name="frameShape">
@@ -813,13 +813,13 @@ background-color:rgb(145, 200, 228);
               <property name="minimumSize">
                <size>
                 <width>0</width>
-                <height>40</height>
+                <height>60</height>
                </size>
               </property>
               <property name="maximumSize">
                <size>
                 <width>16777215</width>
-                <height>40</height>
+                <height>60</height>
                </size>
               </property>
               <property name="layoutDirection">
@@ -827,7 +827,10 @@ background-color:rgb(145, 200, 228);
               </property>
               <property name="styleSheet">
                <string notr="true">QLabel{
-	font: 75 14pt &quot;MS Shell Dlg 2&quot;;
+background-color:white;
+font: 75 14pt &quot;MS Shell Dlg 2&quot;;
+border:4px solid rgb(0, 85, 127);
+border-radius:10px;
 }</string>
               </property>
               <property name="text">
@@ -1271,8 +1274,8 @@ color:white;
                        </property>
                        <property name="font">
                         <font>
-                         <family>MS Shell Dlg 2</family>
-                         <pointsize>11</pointsize>
+                         <family>Microsoft Sans Serif</family>
+                         <pointsize>10</pointsize>
                          <weight>9</weight>
                          <italic>false</italic>
                          <bold>false</bold>
@@ -1341,7 +1344,7 @@ color:white;
                        <widget class="QTableWidget" name="tabla_cita">
                         <property name="font">
                          <font>
-                          <family>MS Shell Dlg 2</family>
+                          <family>Microsoft Sans Serif</family>
                           <pointsize>12</pointsize>
                           <weight>9</weight>
                           <italic>false</italic>

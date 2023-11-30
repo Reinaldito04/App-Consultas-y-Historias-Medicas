@@ -587,7 +587,7 @@ class MenuPrincipal(QMainWindow):
         self.frame_opciones.hide()
         self.bt_info.clicked.connect(self.informacionView)
         self.bt_menu.clicked.connect(self.toggle_sidebar)
-        self.bt_salir.clicked.connect(self.close)
+        self.bt_salir.clicked.connect(self.closesesion)
         self.bt_home.clicked.connect(lambda: self.tabWidget.setCurrentWidget(self.principal_tab))
         self.bt_historial.clicked.connect(self.historiaView)
         self.bt_registro.clicked.connect(self.Historyviews)
@@ -835,22 +835,25 @@ class MenuPrincipal(QMainWindow):
     def toggle_sidebar(self):
         self.frame_opciones.setHidden(not self.frame_opciones.isHidden())
 
-    def close(self):
+    def closesesion(self):
         reply = QMessageBox.question(
             self,
             'Confirmación',
-            '¿Desea Salir ?',
+            '¿Desea volver al menu de inicio de sesión?',
             QMessageBox.Yes | QMessageBox.No,
             QMessageBox.Yes
         )
         if reply == QMessageBox.Yes:
-            QApplication.quit() 
+            login = IngresoUsuario()
+            widget.addWidget(login)
+            widget.setCurrentIndex(widget.currentIndex() + 1)
+            login.show()
             
     def eliminar_datos_acceso(self):
         reply = QMessageBox.question(
             self,
             'Confirmación',
-            '¿Desea Eliminar tu Sesion Actual y Salir ?',
+            '¿Desea eliminar su sesión actual y salir del sistema?',
             QMessageBox.Yes | QMessageBox.No,
             QMessageBox.Yes
         )
@@ -1092,7 +1095,7 @@ class EditDoctor(QMainWindow):
         self.btn_passwordChange.clicked.connect(self.PasswordView)
         self.bt_delete.clicked.connect(self.eliminarInfo)
         self.btn_save.clicked.connect(self.modifyInfo)
-        self.btn_back.clicked.connect(self.back_menu)
+        self.actionBack.triggered.connect(self.back_menu)
 
     def back_menu(self):
         
@@ -1126,6 +1129,7 @@ class EditDoctor(QMainWindow):
             widget.setCurrentIndex(widget.currentIndex() + 1)
 
             self.close()
+            
     def modifyInfo(self):
         reply = QMessageBox.question(
             self,
@@ -1158,9 +1162,17 @@ class EditDoctor(QMainWindow):
            conexion.close()
            
     def eliminarInfo(self):
-        dialog = DeleteAllData(self.id_user)
-        dialog.exec_()
-        
+        reply = QMessageBox.question(
+            self,
+            'Confirmación',
+            '¿Deseas ir al formulario para eliminar su usuario?',
+            QMessageBox.Yes | QMessageBox.No,
+            QMessageBox.Yes
+        )
+        if reply ==QMessageBox.Yes:
+            dialog = DeleteAllData(self.id_user)
+            dialog.exec_()
+            
             
     def PasswordView(self):
         reply = QMessageBox.question(
@@ -2140,7 +2152,9 @@ class historiaMenu(QMainWindow):
         self.btn_clear_3.clicked.connect(self.clearDiag)
         self.btn_clear_4.clicked.connect(self.clearTrata)
         self.fecha_hora_actualizadas = False
+        self.fecha_actualizada = False
         self.tabWidget.currentChanged.connect(self.actualizar_fecha_hora_diagnostico)
+        self.tabWidget.currentChanged.connect(self.actualizar_fecha)
         self.showMaximized()
         
         self.usuario =None
@@ -2214,7 +2228,17 @@ class historiaMenu(QMainWindow):
 
             # Marca que los campos se han actualizado
             self.fecha_hora_actualizadas = True
+            
+    def actualizar_fecha(self):
+        # Solo actualiza los campos de fecha y hora si no se han actualizado previamente
+        if not self.fecha_actualizada:
+            fecha_actual = QDate.currentDate()
 
+            self.fecha_2.setDate(fecha_actual)
+
+            # Marca que los campos se han actualizado
+            self.fecha_actualizada = True
+            
     def clearTrata(self):
         self.in_name_4.clear()
         self.in_apell_4.clear()
