@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>1202</width>
-    <height>693</height>
+    <height>696</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -855,7 +855,7 @@ border-top:2px solid rgb(0,0,0);
     <property name="title">
      <string>Menu</string>
     </property>
-    <addaction name="actionLogin"/>
+    <addaction name="actionvolver_edit"/>
     <addaction name="separator"/>
     <addaction name="actionSalir"/>
    </widget>
@@ -866,9 +866,9 @@ border-top:2px solid rgb(0,0,0);
     <string>Salir</string>
    </property>
   </action>
-  <action name="actionLogin">
+  <action name="actionvolver_edit">
    <property name="text">
-    <string>Login</string>
+    <string>Volver a la edicion de usuario</string>
    </property>
   </action>
  </widget>

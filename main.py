@@ -27,7 +27,7 @@ class IngresoUsuario(QMainWindow):
         loadUi("./interfaces/loggin.ui", self)
         self.setWindowTitle("Login")
         self.btn_login.clicked.connect(self.ingreso)
-        self.btn_adduser.clicked.connect(self.ingresoRegistro)
+        
         self.bt_salir.clicked.connect(self.salida)
         self.ingresoAnterior()
         
@@ -51,12 +51,7 @@ class IngresoUsuario(QMainWindow):
         if reply == QMessageBox.Yes:
             QApplication.quit()
             
-    def ingresoRegistro(self):
-        registroview = Registro()
-        widget.addWidget(registroview)
-        widget.setCurrentIndex(widget.currentIndex() + 1)
-        registroview.show()
-        self.hide()
+    
     def guardar_datos_acceso(self,usuario, contrasena):
         datos_acceso = {"usuario": usuario, "contrasena": contrasena}
         with open("datos_acceso.json", "w") as archivo:
@@ -136,34 +131,59 @@ class IngresoUsuario(QMainWindow):
         self.guardar_datos_acceso(nombre, password)
         print("Datos de acceso guardados exitosamente.")
    
-class Registro(QtWidgets.QMainWindow):
-    def __init__(self):
+class Registro(QMainWindow):
+    def __init__(self, id_user):
         super(Registro, self).__init__()
         loadUi("interfaces/dogtores.ui", self)
+        self.id_user = id_user  # Nuevo atributo para almacenar el id_user
         self.btn_agg.clicked.connect(self.registrarUsuario)
         self.btn_clear.clicked.connect(self.clearInputs)
         self.actionSalir.triggered.connect(self.close)
-        self.actionLogin.triggered.connect(self.backLogin)
+        self.actionvolver_edit.triggered.connect(self.backLogin)
         self.bt_photo.clicked.connect(self.addPhoto)
         self.in_cedula.textChanged.connect(self.verificar_existencia_cedula)
         self.in_mail.editingFinished.connect(self.mostrar_mensaje_mail)
         self.in_number.textChanged.connect(self.mostrar_mensaje_telefono)
         self.users_dialog = None  # Definir users_dialog como un atributo de la clase
         
+    def ingresoRegistro(self):
+        if self.id_user is not None:
+            # Verificar el tipo de usuario antes de permitir el acceso al registro
+            if self.validar_tipo_usuario(self.id_user, ["Administrador", "Doctor"]):
+                registroview = Registro(self.id_user)
+                widget.addWidget(registroview)
+                widget.setCurrentIndex(widget.currentIndex() + 1)
+                registroview.show()
+                self.hide()
+            else:
+                QMessageBox.warning(self, "Acceso denegado", "Solo Administradores y Doctores pueden acceder al registro.")
+        else:
+            QMessageBox.warning(self, "Error", "ID de usuario no válido. Inicie sesión primero.")
+
+    def validar_tipo_usuario(self, id_user, tipos_permitidos):
+        # Función para validar si el tipo de usuario es permitido
+        conexion = sqlite3.connect('interfaces/database.db')
+        cursor = conexion.cursor()
+        cursor.execute("SELECT Tipo FROM Users WHERE Id_User = ?", (id_user,))
+        tipo_usuario = cursor.fetchone()
+        conexion.close()
+
+        return tipo_usuario[0] in tipos_permitidos if tipo_usuario else False
     def backLogin(self):
         reply = QMessageBox.question(
             self,
             'Confirmación',
-            '¿Desea volver al menú de incio de sesión?',
+            '¿Desea volver al menú de edición de usuario?',
             QMessageBox.Yes | QMessageBox.No,
             QMessageBox.Yes
         )
         if reply == QMessageBox.Yes:
-            login = IngresoUsuario()
-            widget.addWidget(login)
+            edicion = EditDoctor(self.id_user)
+            widget.addWidget(edicion)
             widget.setCurrentIndex(widget.currentIndex() + 1)
-            login.show()
-
+            edicion.show()
+            self.hide()
+            
     def addPhoto(self):
         filenames, _ = QFileDialog.getOpenFileNames(self, "Seleccionar imágenes", "", "Archivos de imagen (*.png *.jpg *.bmp)")
 
@@ -301,7 +321,7 @@ class Registro(QtWidgets.QMainWindow):
         direccion = self.in_dir.text()
         especialidad = self.in_espec.text()
         foto = self.foto.pixmap()
-        tipoUser= None
+        tipoUser = None
         if self.users_dialog.tipo_admin.isChecked():
             tipoUser = "Administrador"
         elif self.users_dialog.tipo_doc.isChecked():
@@ -316,9 +336,9 @@ class Registro(QtWidgets.QMainWindow):
             return
 
         if len(username) < 6:
-            QMessageBox.critical(self, "Error", "Su nombre de ususario debe tener minimo 6 caracteres")
+            QMessageBox.critical(self, "Error", "Su nombre de usuario debe tener mínimo 6 caracteres")
             return
-        
+
         if len(password) < 8:
             QMessageBox.critical(self, "Error", "La contraseña debe tener mínimo 8 caracteres.")
             return
@@ -360,9 +380,9 @@ class Registro(QtWidgets.QMainWindow):
         cursor = conexion.cursor()
         # Insertar datos en la tabla Users
         cursor.execute(
-            'INSERT INTO Users (Username, Password, Cedula, Nombres, Apellidos, Sexo, Edad, Direccion, Telefono, Mail, Especialidad, Imagen,Tipo) VALUES (?,?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
+            'INSERT INTO Users (Username, Password, Cedula, Nombres, Apellidos, Sexo, Edad, Direccion, Telefono, Mail, Especialidad, Imagen, Tipo) VALUES (?,?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
             (username, contrasenia_cifrada, cedula, nombre, apellido, valor_sexo, edad, direccion, telefono, mail,
-             especialidad, foto_bytes,tipoUser))
+            especialidad, foto_bytes, tipoUser))
         # Confirmar la transacción
         conexion.commit()
         # Cerrar la conexión
@@ -939,7 +959,7 @@ class Ui_pacientes_view(QtWidgets.QMainWindow):
 
     def cargarPacientes(self, filtro=None, valor=None):
         self.tabla_p.setRowCount(0)  # Limpiar la tabla actual
-        headers = ["ID del usuario", "Nombre del usuario", "Cedula del paciente", "Nombre del paciente", "Apellido del paciente", "Edad", "Dirección", "Sexo", "Fecha del diagnostico"]
+        headers = ["ID del usuario", "Nombre del usuario", "Cedula del paciente", "Nombre del paciente", "Apellido del paciente", "Edad", "Dirección", "Sexo", "Fecha del diagnóstico"]
 
         try:
             conexion = sqlite3.connect('interfaces/database.db')
@@ -947,26 +967,48 @@ class Ui_pacientes_view(QtWidgets.QMainWindow):
 
             if filtro and valor:
                 if filtro == "Dentista":
-                    cursor.execute("""
-                        SELECT 
-                            Users.ID as ID_usuario,
-                            Users.Nombres as Nombre_usuario,
-                            Pacientes.Cedula, 
-                            Pacientes.Nombre, 
-                            Pacientes.Apellido, 
-                            Pacientes.Edad, 
-                            Pacientes.Direccion, 
-                            Pacientes.Sexo, 
-                            Pacientes.Fecha_Diagnotico
-                        FROM 
-                            Pacientes
-                        INNER JOIN 
-                            Users ON Pacientes.ID_user = Users.ID
-                        WHERE 
-                            Users.ID = ? AND Pacientes.{} LIKE ?
-                        ORDER BY 
-                            Pacientes.Fecha_Diagnotico ASC
-                    """.format(filtro), (self.id_user, '%' + valor + '%'))
+                    if self.usuario == "Doctor":
+                        cursor.execute("""
+                            SELECT 
+                                Users.ID as ID_usuario,
+                                Users.Nombres as Nombre_usuario,
+                                Pacientes.Cedula, 
+                                Pacientes.Nombre, 
+                                Pacientes.Apellido, 
+                                Pacientes.Edad, 
+                                Pacientes.Direccion, 
+                                Pacientes.Sexo, 
+                                Pacientes.Fecha_Diagnotico
+                            FROM 
+                                Pacientes
+                            INNER JOIN 
+                                Users ON Pacientes.ID_user = Users.ID
+                            WHERE 
+                                {} LIKE ? AND Pacientes.ID_user = ? 
+                            ORDER BY 
+                                Pacientes.Fecha_Diagnotico ASC
+                        """.format(filtro), ('%' + valor + '%', self.id_user))
+                    else:
+                        cursor.execute("""
+                            SELECT 
+                                Users.ID as ID_usuario,
+                                Users.Nombres as Nombre_usuario,
+                                Pacientes.Cedula, 
+                                Pacientes.Nombre, 
+                                Pacientes.Apellido, 
+                                Pacientes.Edad, 
+                                Pacientes.Direccion, 
+                                Pacientes.Sexo, 
+                                Pacientes.Fecha_Diagnotico
+                            FROM 
+                                Pacientes
+                            INNER JOIN 
+                                Users ON Pacientes.ID_user = Users.ID
+                            WHERE 
+                                {} LIKE ?
+                            ORDER BY 
+                                Pacientes.Fecha_Diagnotico ASC
+                        """.format(filtro), ('%' + valor + '%',))
                 else:
                     cursor.execute("""
                         SELECT 
@@ -990,47 +1032,87 @@ class Ui_pacientes_view(QtWidgets.QMainWindow):
                     """.format(filtro), ('%' + valor + '%', self.id_user))
             else:
                 if filtro == "Dentista":
-                    cursor.execute("""
-                        SELECT 
-                            Users.ID as ID_usuario,
-                            Users.Nombres as Nombre_usuario,
-                            Pacientes.Cedula, 
-                            Pacientes.Nombre, 
-                            Pacientes.Apellido, 
-                            Pacientes.Edad, 
-                            Pacientes.Direccion, 
-                            Pacientes.Sexo, 
-                            Pacientes.Fecha_Diagnotico
-                        FROM 
-                            Pacientes
-                        INNER JOIN 
-                            Users ON Pacientes.ID_user = Users.ID
-                        WHERE 
-                            Users.ID = ?
-                        ORDER BY 
-                            Pacientes.Fecha_Diagnotico ASC
-                    """, (self.id_user,))
+                    if self.usuario == "Doctor":
+                        cursor.execute("""
+                            SELECT 
+                                Users.ID as ID_usuario,
+                                Users.Nombres as Nombre_usuario,
+                                Pacientes.Cedula, 
+                                Pacientes.Nombre, 
+                                Pacientes.Apellido, 
+                                Pacientes.Edad, 
+                                Pacientes.Direccion, 
+                                Pacientes.Sexo, 
+                                Pacientes.Fecha_Diagnotico
+                            FROM 
+                                Pacientes
+                            INNER JOIN 
+                                Users ON Pacientes.ID_user = Users.ID
+                            WHERE 
+                                Users.ID = ?
+                            ORDER BY 
+                                Pacientes.Fecha_Diagnotico ASC
+                        """, (self.id_user,))
+                    elif self.usuario in ["Administrador", "Usuario"]:
+                        cursor.execute("""
+                            SELECT 
+                                Users.ID as ID_usuario,
+                                Users.Nombres as Nombre_usuario,
+                                Pacientes.Cedula, 
+                                Pacientes.Nombre, 
+                                Pacientes.Apellido, 
+                                Pacientes.Edad, 
+                                Pacientes.Direccion, 
+                                Pacientes.Sexo, 
+                                Pacientes.Fecha_Diagnotico
+                            FROM 
+                                Pacientes
+                            INNER JOIN 
+                                Users ON Pacientes.ID_user = Users.ID
+                            ORDER BY 
+                                Pacientes.Fecha_Diagnotico ASC
+                        """)
                 else:
-                    cursor.execute("""
-                        SELECT 
-                            Users.ID as ID_usuario,
-                            Users.Nombres as Nombre_usuario,
-                            Pacientes.Cedula, 
-                            Pacientes.Nombre, 
-                            Pacientes.Apellido, 
-                            Pacientes.Edad, 
-                            Pacientes.Direccion, 
-                            Pacientes.Sexo, 
-                            Pacientes.Fecha_Diagnotico
-                        FROM 
-                            Pacientes
-                        INNER JOIN 
-                            Users ON Pacientes.ID_user = Users.ID
-                        WHERE 
-                            Pacientes.ID_user = ?
-                        ORDER BY 
-                            Pacientes.Fecha_Diagnotico ASC
-                    """, (self.id_user,))
+                    if self.usuario in ["Administrador", "Usuario"]:
+                        cursor.execute("""
+                            SELECT 
+                                Users.ID as ID_usuario,
+                                Users.Nombres as Nombre_usuario,
+                                Pacientes.Cedula, 
+                                Pacientes.Nombre, 
+                                Pacientes.Apellido, 
+                                Pacientes.Edad, 
+                                Pacientes.Direccion, 
+                                Pacientes.Sexo, 
+                                Pacientes.Fecha_Diagnotico
+                            FROM 
+                                Pacientes
+                            INNER JOIN 
+                                Users ON Pacientes.ID_user = Users.ID
+                            ORDER BY 
+                                Pacientes.Fecha_Diagnotico ASC
+                        """)
+                    elif self.usuario == "Doctor":
+                        cursor.execute("""
+                            SELECT 
+                                Users.ID as ID_usuario,
+                                Users.Nombres as Nombre_usuario,
+                                Pacientes.Cedula, 
+                                Pacientes.Nombre, 
+                                Pacientes.Apellido, 
+                                Pacientes.Edad, 
+                                Pacientes.Direccion, 
+                                Pacientes.Sexo, 
+                                Pacientes.Fecha_Diagnotico
+                            FROM 
+                                Pacientes
+                            INNER JOIN 
+                                Users ON Pacientes.ID_user = Users.ID
+                            WHERE 
+                                Users.ID = ?
+                            ORDER BY 
+                                Pacientes.Fecha_Diagnotico ASC
+                        """, (self.id_user,))
 
             pacientes = cursor.fetchall()
 
@@ -1046,8 +1128,6 @@ class Ui_pacientes_view(QtWidgets.QMainWindow):
             conexion.close()
         except sqlite3.Error as e:
             QtWidgets.QMessageBox.critical(self, "Error", "Error al consultar la base de datos: " + str(e))
-
-
     def buscar(self):
         filtro = self.filtro.currentText()
         valor = self.in_buscar.text()
@@ -1096,7 +1176,20 @@ class EditDoctor(QMainWindow):
         self.bt_delete.clicked.connect(self.eliminarInfo)
         self.btn_save.clicked.connect(self.modifyInfo)
         self.actionBack.triggered.connect(self.back_menu)
-
+        self.btn_adduser.clicked.connect(self.ingresoRegistro)
+        
+    def ingresoRegistro(self):
+        reply = QtWidgets.QMessageBox.question(
+            self, 'Confirmación', '¿Desea ir al formulario para añadir usuarios al sistema?',
+            QtWidgets.QMessageBox.Yes | QtWidgets.QMessageBox.No, QtWidgets.QMessageBox.Yes
+        )
+        if reply == QtWidgets.QMessageBox.Yes:
+            registroview = Registro(self.id_user)
+            widget.addWidget(registroview)
+            widget.setCurrentIndex(widget.currentIndex() + 1)
+            registroview.show()
+            self.hide()
+        
     def back_menu(self):
         
         conexion = sqlite3.connect('interfaces/database.db')

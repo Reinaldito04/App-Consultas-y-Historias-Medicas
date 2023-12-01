@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>844</width>
-    <height>786</height>
+    <width>988</width>
+    <height>719</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -391,7 +391,7 @@ QLabel{
                     <number>100</number>
                    </attribute>
                    <attribute name="horizontalHeaderDefaultSectionSize">
-                    <number>160</number>
+                    <number>170</number>
                    </attribute>
                    <attribute name="horizontalHeaderShowSortIndicator" stdset="0">
                     <bool>false</bool>
@@ -469,7 +469,7 @@ QLabel{
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>844</width>
+     <width>988</width>
      <height>21</height>
     </rect>
    </property>
