@@ -14,7 +14,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
-        MainWindow.resize(1149, 874)
+        MainWindow.resize(1151, 874)
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")
         self.verticalLayout = QtWidgets.QVBoxLayout(self.centralwidget)
@@ -29,16 +29,19 @@ class Ui_MainWindow(object):
 "QTableWidget{\n"
 "color:rgb(0,0,0);\n"
 "gridline-color:rgb(0,206,151);\n"
-"    font: 75 12pt \"MS Shell Dlg 2\";\n"
+"font: 75 12pt \"Microsoft Sans Serif\";\n"
 "}\n"
 "QHeaderView::section{\n"
 "background-color:rgb(0,206,151);\n"
 "border:1px solid rgb(0,0,0);\n"
-"    font: 75 12pt \"MS Shell Dlg 2\";\n"
+"font: 75 12pt \"Microsoft Sans Serif\";\n"
 "}\n"
 "QTbaleWidget QTableCornerButton::section{\n"
 "background-color:rgb(0,0,0);\n"
 "border:1px solid  rgb(0,206,151);\n"
+"}\n"
+"QPushButton{\n"
+"font: 75 10pt \"Microsoft Sans Serif\";\n"
 "}")
         self.frame.setFrameShape(QtWidgets.QFrame.StyledPanel)
         self.frame.setFrameShadow(QtWidgets.QFrame.Raised)
@@ -101,7 +104,10 @@ class Ui_MainWindow(object):
         spacerItem = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
         self.horizontalLayout_2.addItem(spacerItem)
         self.label_10 = QtWidgets.QLabel(self.frame_superior)
-        self.label_10.setStyleSheet("font: 26pt \"MS Reference Sans Serif\";")
+        self.label_10.setStyleSheet("QLabel{\n"
+"    font: 75 26pt \"MS Shell Dlg 2\";\n"
+"color:white;\n"
+"}")
         self.label_10.setObjectName("label_10")
         self.horizontalLayout_2.addWidget(self.label_10)
         spacerItem1 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
@@ -194,6 +200,7 @@ class Ui_MainWindow(object):
         self.frame_opciones.setStyleSheet("QFrame{\n"
 "background-color:rgb(246, 244, 235);\n"
 "border-radius:25px;\n"
+"    font: 75 12pt \"MS Shell Dlg 2\";\n"
 "}\n"
 "")
         self.frame_opciones.setFrameShape(QtWidgets.QFrame.StyledPanel)
@@ -207,11 +214,11 @@ class Ui_MainWindow(object):
         self.verticalLayout_3.addItem(spacerItem2)
         self.label = QtWidgets.QLabel(self.frame_opciones)
         font = QtGui.QFont()
-        font.setFamily("Verdana")
-        font.setPointSize(10)
-        font.setBold(True)
+        font.setFamily("MS Shell Dlg 2")
+        font.setPointSize(12)
+        font.setBold(False)
         font.setItalic(False)
-        font.setWeight(75)
+        font.setWeight(9)
         self.label.setFont(font)
         self.label.setAlignment(QtCore.Qt.AlignCenter)
         self.label.setObjectName("label")
@@ -238,11 +245,11 @@ class Ui_MainWindow(object):
         self.verticalLayout_3.addItem(spacerItem3)
         self.label_6 = QtWidgets.QLabel(self.frame_opciones)
         font = QtGui.QFont()
-        font.setFamily("Verdana")
-        font.setPointSize(10)
-        font.setBold(True)
+        font.setFamily("MS Shell Dlg 2")
+        font.setPointSize(12)
+        font.setBold(False)
         font.setItalic(False)
-        font.setWeight(75)
+        font.setWeight(9)
         self.label_6.setFont(font)
         self.label_6.setAlignment(QtCore.Qt.AlignCenter)
         self.label_6.setObjectName("label_6")
@@ -270,11 +277,11 @@ class Ui_MainWindow(object):
         self.verticalLayout_3.addItem(spacerItem4)
         self.label_7 = QtWidgets.QLabel(self.frame_opciones)
         font = QtGui.QFont()
-        font.setFamily("Verdana")
-        font.setPointSize(10)
-        font.setBold(True)
+        font.setFamily("MS Shell Dlg 2")
+        font.setPointSize(12)
+        font.setBold(False)
         font.setItalic(False)
-        font.setWeight(75)
+        font.setWeight(9)
         self.label_7.setFont(font)
         self.label_7.setAlignment(QtCore.Qt.AlignCenter)
         self.label_7.setObjectName("label_7")
@@ -303,11 +310,11 @@ class Ui_MainWindow(object):
         self.verticalLayout_3.addItem(spacerItem5)
         self.label_8 = QtWidgets.QLabel(self.frame_opciones)
         font = QtGui.QFont()
-        font.setFamily("Verdana")
-        font.setPointSize(10)
-        font.setBold(True)
+        font.setFamily("MS Shell Dlg 2")
+        font.setPointSize(12)
+        font.setBold(False)
         font.setItalic(False)
-        font.setWeight(75)
+        font.setWeight(9)
         self.label_8.setFont(font)
         self.label_8.setAlignment(QtCore.Qt.AlignCenter)
         self.label_8.setObjectName("label_8")
@@ -335,11 +342,11 @@ class Ui_MainWindow(object):
         self.verticalLayout_3.addItem(spacerItem6)
         self.label_9 = QtWidgets.QLabel(self.frame_opciones)
         font = QtGui.QFont()
-        font.setFamily("Verdana")
-        font.setPointSize(10)
-        font.setBold(True)
+        font.setFamily("MS Shell Dlg 2")
+        font.setPointSize(12)
+        font.setBold(False)
         font.setItalic(False)
-        font.setWeight(75)
+        font.setWeight(9)
         self.label_9.setFont(font)
         self.label_9.setAlignment(QtCore.Qt.AlignCenter)
         self.label_9.setObjectName("label_9")
@@ -368,11 +375,11 @@ class Ui_MainWindow(object):
         self.verticalLayout_3.addItem(spacerItem7)
         self.label_15 = QtWidgets.QLabel(self.frame_opciones)
         font = QtGui.QFont()
-        font.setFamily("Verdana")
-        font.setPointSize(10)
-        font.setBold(True)
+        font.setFamily("MS Shell Dlg 2")
+        font.setPointSize(12)
+        font.setBold(False)
         font.setItalic(False)
-        font.setWeight(75)
+        font.setWeight(9)
         self.label_15.setFont(font)
         self.label_15.setAlignment(QtCore.Qt.AlignCenter)
         self.label_15.setWordWrap(True)
@@ -405,11 +412,14 @@ class Ui_MainWindow(object):
         self.verticalLayout_4 = QtWidgets.QVBoxLayout()
         self.verticalLayout_4.setObjectName("verticalLayout_4")
         self.lb_nombre = QtWidgets.QLabel(self.frame_contenido)
-        self.lb_nombre.setMinimumSize(QtCore.QSize(0, 40))
-        self.lb_nombre.setMaximumSize(QtCore.QSize(16777215, 40))
+        self.lb_nombre.setMinimumSize(QtCore.QSize(0, 60))
+        self.lb_nombre.setMaximumSize(QtCore.QSize(16777215, 60))
         self.lb_nombre.setLayoutDirection(QtCore.Qt.LeftToRight)
         self.lb_nombre.setStyleSheet("QLabel{\n"
-"font: 75 italic 18px \"Hack Nerd Font\";\n"
+"background-color:white;\n"
+"font: 75 14pt \"MS Shell Dlg 2\";\n"
+"border:4px solid rgb(0, 85, 127);\n"
+"border-radius:10px;\n"
 "}")
         self.lb_nombre.setText("")
         self.lb_nombre.setTextFormat(QtCore.Qt.AutoText)
@@ -548,6 +558,10 @@ class Ui_MainWindow(object):
         self.horizontalLayout_5 = QtWidgets.QHBoxLayout()
         self.horizontalLayout_5.setObjectName("horizontalLayout_5")
         self.label_2 = QtWidgets.QLabel(self.frame_fondo)
+        self.label_2.setStyleSheet("QLabel{\n"
+"    font: 75 14pt \"MS Shell Dlg 2\";\n"
+"color:white;\n"
+"}")
         self.label_2.setAlignment(QtCore.Qt.AlignCenter)
         self.label_2.setObjectName("label_2")
         self.horizontalLayout_5.addWidget(self.label_2)
@@ -595,7 +609,11 @@ class Ui_MainWindow(object):
         self.bt_act.setMinimumSize(QtCore.QSize(150, 50))
         self.bt_act.setMaximumSize(QtCore.QSize(150, 50))
         font = QtGui.QFont()
-        font.setPointSize(9)
+        font.setFamily("Microsoft Sans Serif")
+        font.setPointSize(10)
+        font.setBold(False)
+        font.setItalic(False)
+        font.setWeight(9)
         self.bt_act.setFont(font)
         icon13 = QtGui.QIcon()
         icon13.addPixmap(QtGui.QPixmap("/home/reinaldo/Documentos/dev/App-Consultas-y-Historias-Medicas/interfaces/ELEMENTOS GRAFICOS/actualizar.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
@@ -619,7 +637,7 @@ class Ui_MainWindow(object):
         self.verticalLayout_9.setObjectName("verticalLayout_9")
         self.tabla_cita = QtWidgets.QTableWidget(self.frame_tabla)
         font = QtGui.QFont()
-        font.setFamily("MS Shell Dlg 2")
+        font.setFamily("Microsoft Sans Serif")
         font.setPointSize(12)
         font.setBold(False)
         font.setItalic(False)
@@ -660,14 +678,14 @@ class Ui_MainWindow(object):
         MainWindow.setCentralWidget(self.centralwidget)
 
         self.retranslateUi(MainWindow)
-        self.tabWidget.setCurrentIndex(1)
+        self.tabWidget.setCurrentIndex(0)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
         self.label_10.setText(_translate("MainWindow", "Menu principal"))
-        self.label.setText(_translate("MainWindow", "Home"))
+        self.label.setText(_translate("MainWindow", "Inicio"))
         self.label_6.setText(_translate("MainWindow", "Registro de pacientes"))
         self.label_7.setText(_translate("MainWindow", "Placas dentales"))
         self.label_8.setText(_translate("MainWindow", "Agendar citas"))

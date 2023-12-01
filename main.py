@@ -596,10 +596,13 @@ class MenuPrincipal(QMainWindow):
             tipoUser = resultado[0]
             if tipoUser == "Doctor":
                 self.usuario = "Doctor"
+                self.cargarCitas()
             elif tipoUser == "Administrador":
                 self.usuario = "Administrador"
+                self.cargarCitasSecretaria()
             elif tipoUser == "Usuario":
                 self.usuario = "Usuario"
+                self.cargarCitasSecretaria()
             else:
                 print("No se encontró ningún tipo")
 
@@ -618,7 +621,6 @@ class MenuPrincipal(QMainWindow):
         self.bt_help.clicked.connect(self.ayuda)
         self.bt_act.clicked.connect(self.act_T)
         self.bt_buscar.clicked.connect(self.buscar)
-        self.cargarCitas()
         self.filtro = self.findChild(QtWidgets.QComboBox, "filtro")
         self.filtro.addItem("Seleccione una opción para filtrar")
         self.filtro.addItems(["Dentista","Fecha_Cita", "Hora_Cita", "Estatus_Cita"])
@@ -666,8 +668,12 @@ class MenuPrincipal(QMainWindow):
                 self.hide()
              
     def act_T(self):
-        self.cargarCitas()
-
+        if self.usuario=="Usuario":
+            self.cargarCitasSecretaria()
+        elif self.usuario =="Administrador":
+            self.cargarCitasSecretaria()
+        else: 
+            self.cargarCitas()
     def buscar(self):
         filtro = self.filtro.currentText()
         valor = self.in_buscar.text()
@@ -686,7 +692,98 @@ class MenuPrincipal(QMainWindow):
             # Modificar el filtro "Dentista" para buscar por nombre de dentista
             if filtro == "Dentista":
                 filtro = "Nombre_usuario"
-            self.cargarCitas(filtro, valor)
+            if self.usuario=="Usuario":
+                self.cargarCitasSecretaria(filtro,valor)
+            else:
+                self.cargarCitas(filtro, valor)
+    def cargarCitasSecretaria(self,filtro=None,valor=None):
+        self.tabla_cita.setRowCount(0)  # Limpiar la tabla actual
+        headers = ["ID del Dentista", "Nombre del Dentista", "Cedula del paciente", "Nombre del paciente", "Apellido del paciente", "Fecha de la cita", "Hora de la cita", "Estatus de la cita"]
+        try:
+            conexion = sqlite3.connect('interfaces/database.db')
+            cursor = conexion.cursor()
+
+            if filtro and valor:
+                # Modificar la consulta para manejar el filtro "Dentista"
+                if filtro == "Nombre_usuario":
+                   cursor.execute("""
+                        SELECT 
+                            Users.ID as ID_usuario,
+                            Users.Nombres as Nombre_usuario,
+                            Pacientes.Cedula, 
+                            Pacientes.Nombre, 
+                            Pacientes.Apellido, 
+                            Cita.Fecha_Cita, 
+                            Cita.Hora_Cita, 
+                            Cita.Estatus_Cita
+                        FROM 
+                            Pacientes
+                        INNER JOIN 
+                            Cita ON Pacientes.Cedula = Cita.Cedula
+                        INNER JOIN
+                            Users ON Pacientes.ID_user = Users.ID
+                        WHERE 
+                            {} LIKE ? 
+                        ORDER BY 
+                            Cita.Fecha_Cita ASC
+                        """.format(filtro), ('%' + valor + '%'))
+                else:
+                    cursor.execute("""
+                        SELECT 
+                            Users.ID as ID_usuario,
+                            Users.Nombres as Nombre_usuario,
+                            Pacientes.Cedula, 
+                            Pacientes.Nombre, 
+                            Pacientes.Apellido, 
+                            Cita.Fecha_Cita, 
+                            Cita.Hora_Cita, 
+                            Cita.Estatus_Cita
+                        FROM 
+                            Pacientes
+                        INNER JOIN 
+                            Cita ON Pacientes.Cedula = Cita.Cedula
+                        INNER JOIN
+                            Users ON Pacientes.ID_user = Users.ID
+                        WHERE 
+                            {} LIKE ? AND 
+                        ORDER BY 
+                            Cita.Fecha_Cita ASC
+                        """.format(filtro), ('%' + valor + '%'))
+            else:
+                cursor.execute("""
+                    SELECT 
+                        Users.ID as ID_usuario,
+                        Users.Nombres as Nombre_usuario,
+                        Pacientes.Cedula, 
+                        Pacientes.Nombre, 
+                        Pacientes.Apellido, 
+                        Cita.Fecha_Cita, 
+                        Cita.Hora_Cita, 
+                        Cita.Estatus_Cita
+                    FROM 
+                        Pacientes
+                    INNER JOIN 
+                        Cita ON Pacientes.Cedula = Cita.Cedula
+                    INNER JOIN
+                        Users ON Pacientes.ID_user = Users.ID
+                    ORDER BY 
+                        Cita.Fecha_Cita ASC
+                    """)
+            citas = cursor.fetchall() 
+
+            self.tabla_cita.setColumnCount(len(headers))
+            self.tabla_cita.setHorizontalHeaderLabels(headers)
+
+            for row, cita in enumerate(citas):
+                self.tabla_cita.insertRow(row)
+                for column, value in enumerate(cita):
+                    item = QtWidgets.QTableWidgetItem(str(value))
+                    self.tabla_cita.setItem(row, column, item)
+
+            conexion.close()
+                    
+        except sqlite3.Error as e:
+            QtWidgets.QMessageBox.critical(self, "Error", "Error al consultar la base de datos: " + str(e))
 
     def cargarCitas(self, filtro=None, valor=None):
         self.tabla_cita.setRowCount(0)  # Limpiar la tabla actual

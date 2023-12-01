@@ -14,7 +14,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
-        MainWindow.resize(1202, 693)
+        MainWindow.resize(1202, 696)
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")
         self.verticalLayout = QtWidgets.QVBoxLayout(self.centralwidget)
@@ -48,8 +48,8 @@ class Ui_MainWindow(object):
         self.verticalLayout_3.setObjectName("verticalLayout_3")
         self.frame_2 = QtWidgets.QFrame(self.tab)
         self.frame_2.setStyleSheet("QFrame{\n"
-"    background-color:rgb(70, 130, 169);\n"
-"    font: 12pt \"Microsoft Sans Serif\";\n"
+"background-color:rgb(70, 130, 169);\n"
+"font: 14pt \"Microsoft Sans Serif\";\n"
 "}\n"
 "QTableWidget{\n"
 "color:rgb(0,0,0);\n"
@@ -69,7 +69,7 @@ class Ui_MainWindow(object):
 "border:2px solid rgb(0,0,0);\n"
 "border-radius:20px;\n"
 "background-color:#D0D3D4;\n"
-"    font: 12pt \"Microsoft Sans Serif\";\n"
+"font: 12pt \"Microsoft Sans Serif\";\n"
 "}\n"
 "QPushButton{\n"
 "border-radius:20px;\n"
@@ -77,21 +77,25 @@ class Ui_MainWindow(object):
 "background-color:white;\n"
 "}\n"
 "QPushButton:hover{\n"
-"    background-color:#CB4335;\n"
-"}")
+"background-color:#CB4335;\n"
+"}\n"
+"")
         self.frame_2.setFrameShape(QtWidgets.QFrame.StyledPanel)
         self.frame_2.setFrameShadow(QtWidgets.QFrame.Raised)
         self.frame_2.setObjectName("frame_2")
         self.verticalLayout_10 = QtWidgets.QVBoxLayout(self.frame_2)
         self.verticalLayout_10.setObjectName("verticalLayout_10")
-        self.horizontalLayout_11 = QtWidgets.QHBoxLayout()
-        self.horizontalLayout_11.setObjectName("horizontalLayout_11")
+        self.horizontalLayout_18 = QtWidgets.QHBoxLayout()
+        self.horizontalLayout_18.setObjectName("horizontalLayout_18")
         self.verticalLayout_7 = QtWidgets.QVBoxLayout()
         self.verticalLayout_7.setObjectName("verticalLayout_7")
         self.verticalLayout_4 = QtWidgets.QVBoxLayout()
         self.verticalLayout_4.setSpacing(0)
         self.verticalLayout_4.setObjectName("verticalLayout_4")
         self.label_2 = QtWidgets.QLabel(self.frame_2)
+        self.label_2.setStyleSheet("QLabel{\n"
+"    font: 18pt \"Microsoft Sans Serif\";\n"
+"}")
         self.label_2.setAlignment(QtCore.Qt.AlignCenter)
         self.label_2.setObjectName("label_2")
         self.verticalLayout_4.addWidget(self.label_2)
@@ -101,6 +105,8 @@ class Ui_MainWindow(object):
         self.line.setObjectName("line")
         self.verticalLayout_4.addWidget(self.line)
         self.verticalLayout_7.addLayout(self.verticalLayout_4)
+        self.horizontalLayout_11 = QtWidgets.QHBoxLayout()
+        self.horizontalLayout_11.setObjectName("horizontalLayout_11")
         self.horizontalLayout_17 = QtWidgets.QHBoxLayout()
         self.horizontalLayout_17.setObjectName("horizontalLayout_17")
         self.verticalLayout_2 = QtWidgets.QVBoxLayout()
@@ -200,6 +206,8 @@ class Ui_MainWindow(object):
         self.in_age.setClearButtonEnabled(False)
         self.in_age.setObjectName("in_age")
         self.horizontalLayout_7.addWidget(self.in_age)
+        spacerItem5 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
+        self.horizontalLayout_7.addItem(spacerItem5)
         self.horizontalLayout_14.addLayout(self.horizontalLayout_7)
         self.horizontalLayout_6 = QtWidgets.QHBoxLayout()
         self.horizontalLayout_6.setObjectName("horizontalLayout_6")
@@ -211,6 +219,8 @@ class Ui_MainWindow(object):
         font = QtGui.QFont()
         font.setFamily("Microsoft Sans Serif")
         font.setPointSize(12)
+        font.setBold(True)
+        font.setWeight(75)
         self.btn_m.setFont(font)
         self.btn_m.setStyleSheet("")
         self.btn_m.setObjectName("btn_m")
@@ -219,6 +229,8 @@ class Ui_MainWindow(object):
         font = QtGui.QFont()
         font.setFamily("Microsoft Sans Serif")
         font.setPointSize(12)
+        font.setBold(True)
+        font.setWeight(75)
         self.btn_f.setFont(font)
         self.btn_f.setObjectName("btn_f")
         self.horizontalLayout_6.addWidget(self.btn_f)
@@ -278,10 +290,11 @@ class Ui_MainWindow(object):
         self.horizontalLayout_16.addLayout(self.horizontalLayout_9)
         self.verticalLayout_6.addLayout(self.horizontalLayout_16)
         self.horizontalLayout_17.addLayout(self.verticalLayout_6)
-        self.verticalLayout_7.addLayout(self.horizontalLayout_17)
-        self.horizontalLayout_11.addLayout(self.verticalLayout_7)
-        spacerItem5 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
-        self.horizontalLayout_11.addItem(spacerItem5)
+        self.horizontalLayout_11.addLayout(self.horizontalLayout_17)
+        spacerItem6 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
+        self.horizontalLayout_11.addItem(spacerItem6)
+        self.verticalLayout_7.addLayout(self.horizontalLayout_11)
+        self.horizontalLayout_18.addLayout(self.verticalLayout_7)
         self.verticalLayout_5 = QtWidgets.QVBoxLayout()
         self.verticalLayout_5.setSpacing(0)
         self.verticalLayout_5.setObjectName("verticalLayout_5")
@@ -310,8 +323,8 @@ class Ui_MainWindow(object):
         self.verticalLayout_9.setObjectName("verticalLayout_9")
         self.verticalLayout_8 = QtWidgets.QVBoxLayout()
         self.verticalLayout_8.setObjectName("verticalLayout_8")
-        spacerItem6 = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
-        self.verticalLayout_8.addItem(spacerItem6)
+        spacerItem7 = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
+        self.verticalLayout_8.addItem(spacerItem7)
         self.btn_agg = QtWidgets.QPushButton(self.frame_4)
         self.btn_agg.setMinimumSize(QtCore.QSize(150, 50))
         self.btn_agg.setMaximumSize(QtCore.QSize(150, 50))
@@ -324,8 +337,8 @@ class Ui_MainWindow(object):
         self.btn_agg.setIconSize(QtCore.QSize(25, 25))
         self.btn_agg.setObjectName("btn_agg")
         self.verticalLayout_8.addWidget(self.btn_agg)
-        spacerItem7 = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
-        self.verticalLayout_8.addItem(spacerItem7)
+        spacerItem8 = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
+        self.verticalLayout_8.addItem(spacerItem8)
         self.btn_clear = QtWidgets.QPushButton(self.frame_4)
         self.btn_clear.setMinimumSize(QtCore.QSize(150, 50))
         self.btn_clear.setMaximumSize(QtCore.QSize(150, 50))
@@ -338,14 +351,14 @@ class Ui_MainWindow(object):
         self.btn_clear.setIconSize(QtCore.QSize(25, 25))
         self.btn_clear.setObjectName("btn_clear")
         self.verticalLayout_8.addWidget(self.btn_clear)
-        spacerItem8 = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
-        self.verticalLayout_8.addItem(spacerItem8)
+        spacerItem9 = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
+        self.verticalLayout_8.addItem(spacerItem9)
         self.verticalLayout_9.addLayout(self.verticalLayout_8)
         self.verticalLayout_5.addWidget(self.frame_4)
-        self.horizontalLayout_11.addLayout(self.verticalLayout_5)
-        self.verticalLayout_10.addLayout(self.horizontalLayout_11)
-        spacerItem9 = QtWidgets.QSpacerItem(20, 279, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
-        self.verticalLayout_10.addItem(spacerItem9)
+        self.horizontalLayout_18.addLayout(self.verticalLayout_5)
+        self.verticalLayout_10.addLayout(self.horizontalLayout_18)
+        spacerItem10 = QtWidgets.QSpacerItem(20, 264, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
+        self.verticalLayout_10.addItem(spacerItem10)
         self.verticalLayout_3.addWidget(self.frame_2)
         self.tabWidget.addTab(self.tab, "")
         self.horizontalLayout_13.addWidget(self.tabWidget)
@@ -359,10 +372,11 @@ class Ui_MainWindow(object):
         MainWindow.setMenuBar(self.menubar)
         self.actionSalir = QtWidgets.QAction(MainWindow)
         self.actionSalir.setObjectName("actionSalir")
-        self.actionLogin = QtWidgets.QAction(MainWindow)
-        self.actionLogin.setObjectName("actionLogin")
+        self.actionvolver_edit = QtWidgets.QAction(MainWindow)
+        self.actionvolver_edit.setObjectName("actionvolver_edit")
+        self.menuMenu.addAction(self.actionvolver_edit)
+        self.menuMenu.addSeparator()
         self.menuMenu.addAction(self.actionSalir)
-        self.menuMenu.addAction(self.actionLogin)
         self.menubar.addAction(self.menuMenu.menuAction())
 
         self.retranslateUi(MainWindow)
@@ -372,25 +386,25 @@ class Ui_MainWindow(object):
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
-        self.label_2.setText(_translate("MainWindow", "Datos basicos del dentista"))
+        self.label_2.setText(_translate("MainWindow", "Datos basicos del usuario"))
         self.lbl_foto.setText(_translate("MainWindow", "Cargue una foto para su usuario"))
         self.foto.setText(_translate("MainWindow", "Foto"))
         self.bt_photo.setText(_translate("MainWindow", "Importar"))
         self.lbl_cedul.setText(_translate("MainWindow", "Cedula:"))
         self.lbl_espec.setText(_translate("MainWindow", "Especialidad:"))
-        self.lbl_name.setText(_translate("MainWindow", "Nombres:"))
+        self.lbl_name.setText(_translate("MainWindow", "Nombre:"))
         self.lbl_age.setText(_translate("MainWindow", "Edad:"))
         self.lbl_gen.setText(_translate("MainWindow", "Sexo:"))
         self.btn_m.setText(_translate("MainWindow", "M"))
         self.btn_f.setText(_translate("MainWindow", "F"))
-        self.lbl_apell.setText(_translate("MainWindow", "Apellidos:"))
+        self.lbl_apell.setText(_translate("MainWindow", "Apellido:"))
         self.lbl_number.setText(_translate("MainWindow", "Telefono:"))
-        self.lbl_dir.setText(_translate("MainWindow", "Direccion:"))
+        self.lbl_dir.setText(_translate("MainWindow", "Dirección:"))
         self.lbl_mail.setText(_translate("MainWindow", "E-mail:"))
         self.label.setText(_translate("MainWindow", "Controles"))
         self.btn_agg.setText(_translate("MainWindow", "Agregar"))
         self.btn_clear.setText(_translate("MainWindow", "Limpiar"))
-        self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab), _translate("MainWindow", "Registro de doctores"))
+        self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab), _translate("MainWindow", "Registro de datos basicos de usuario"))
         self.menuMenu.setTitle(_translate("MainWindow", "Menu"))
         self.actionSalir.setText(_translate("MainWindow", "Salir"))
-        self.actionLogin.setText(_translate("MainWindow", "Login"))
+        self.actionvolver_edit.setText(_translate("MainWindow", "Volver a la edicion de usuario"))

@@ -65,11 +65,16 @@ class Ui_MainWindow(object):
         self.horizontalLayout_3.addItem(spacerItem)
         self.label_3 = QtWidgets.QLabel(self.frame_2)
         font = QtGui.QFont()
-        font.setPointSize(20)
+        font.setFamily("MS Shell Dlg 2")
+        font.setPointSize(22)
+        font.setBold(False)
+        font.setItalic(False)
+        font.setWeight(9)
         self.label_3.setFont(font)
         self.label_3.setStyleSheet("QLabel{\n"
 "background-color:none;\n"
 "color:white;\n"
+"    font: 75 22pt \"MS Shell Dlg 2\";\n"
 "}")
         self.label_3.setAlignment(QtCore.Qt.AlignCenter)
         self.label_3.setObjectName("label_3")
@@ -150,6 +155,9 @@ class Ui_MainWindow(object):
         font.setFamily("AnjaliOldLipi")
         font.setPointSize(14)
         self.label_2.setFont(font)
+        self.label_2.setStyleSheet("QLabel{\n"
+"background-color:none;\n"
+"}")
         self.label_2.setText("")
         self.label_2.setTextFormat(QtCore.Qt.AutoText)
         self.label_2.setAlignment(QtCore.Qt.AlignCenter)
@@ -228,14 +236,14 @@ class Ui_MainWindow(object):
         self.btn_login.setMinimumSize(QtCore.QSize(150, 50))
         self.btn_login.setMaximumSize(QtCore.QSize(150, 16777215))
         font = QtGui.QFont()
-        font.setFamily("Hack Nerd Font")
-        font.setPointSize(12)
+        font.setFamily("MS Shell Dlg 2")
+        font.setPointSize(14)
         font.setBold(False)
         font.setItalic(False)
-        font.setWeight(50)
+        font.setWeight(9)
         self.btn_login.setFont(font)
         self.btn_login.setStyleSheet("QPushButton{\n"
-"    font: 12pt \"Hack Nerd Font\";\n"
+"    font: 75 14pt \"MS Shell Dlg 2\";\n"
 "color:rgba(255,255,255,210);\n"
 "\n"
 "border-radius:20px;\n"
@@ -258,35 +266,12 @@ class Ui_MainWindow(object):
         self.horizontalLayout_2.addWidget(self.btn_login)
         spacerItem15 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
         self.horizontalLayout_2.addItem(spacerItem15)
-        self.btn_adduser = QtWidgets.QPushButton(self.frame)
-        self.btn_adduser.setMinimumSize(QtCore.QSize(150, 50))
-        self.btn_adduser.setMaximumSize(QtCore.QSize(150, 16777215))
-        self.btn_adduser.setStyleSheet("QPushButton{\n"
-"    font: 12pt \"Hack Nerd Font\";\n"
-"color:rgba(255,255,255,210);\n"
-"\n"
-"border-radius:20px;\n"
-"background-color: qlineargradient(spread:pad, x1:0, y1:0.505682 , x2:1 , y2:0.477,stop:0 rgba(20,47,78,219), stop:1 rgba(85,98,112,226));\n"
-"}\n"
-"QPushButton:hover{\n"
-"\n"
-"color:rgba(255,255,255,210);\n"
-"\n"
-"background-color: qlineargradient(spread:pad, x1:0, y1:0.505682 , x2:1 , y2:0.477,stop:0 rgba(128, 0, 255,219), stop:1 rgba(85,98,112,226));\n"
-"\n"
-"}\n"
-"\n"
-"")
-        self.btn_adduser.setObjectName("btn_adduser")
-        self.horizontalLayout_2.addWidget(self.btn_adduser)
-        spacerItem16 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
-        self.horizontalLayout_2.addItem(spacerItem16)
         self.verticalLayout_6.addLayout(self.horizontalLayout_2)
-        spacerItem17 = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
-        self.verticalLayout_6.addItem(spacerItem17)
+        spacerItem16 = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
+        self.verticalLayout_6.addItem(spacerItem16)
         self.horizontalLayout_6.addLayout(self.verticalLayout_6)
-        spacerItem18 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
-        self.horizontalLayout_6.addItem(spacerItem18)
+        spacerItem17 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
+        self.horizontalLayout_6.addItem(spacerItem17)
         self.verticalLayout_5.addLayout(self.horizontalLayout_6)
         self.verticalLayout_2.addWidget(self.frame)
         self.horizontalLayout.addWidget(self.contenedorP)
@@ -298,8 +283,7 @@ class Ui_MainWindow(object):
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
-        self.label_3.setText(_translate("MainWindow", "Inicio de sesion"))
-        self.txt_username.setPlaceholderText(_translate("MainWindow", "Username"))
-        self.txt_password.setPlaceholderText(_translate("MainWindow", "Password"))
+        self.label_3.setText(_translate("MainWindow", "Inicio de sesión"))
+        self.txt_username.setPlaceholderText(_translate("MainWindow", "Nombre de usuario"))
+        self.txt_password.setPlaceholderText(_translate("MainWindow", "Contraseña"))
         self.btn_login.setText(_translate("MainWindow", "Ingresar"))
-        self.btn_adduser.setText(_translate("MainWindow", "Registrar"))
