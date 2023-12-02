@@ -1002,7 +1002,7 @@ class Ui_pacientes_view(QtWidgets.QMainWindow):
         self.filtro.addItem("Seleccione una opción para filtrar")
         self.filtro.addItems(["Dentista", "Cedula", "Nombre", "Edad", "Sexo", "Direccion", "Fecha_Diagnotico"])
         self.in_buscar.textChanged.connect(self.buscar)
-
+        self.bt_preview.clicked.connect(self.guardarPDF)
     def verifytipoUser(self):
         conexion = sqlite3.connect("./interfaces/database.db")
         cursor = conexion.cursor()
@@ -1018,7 +1018,32 @@ class Ui_pacientes_view(QtWidgets.QMainWindow):
                 self.usuario = "Usuario"
             else:
                 print("No se encontró ningún tipo")
-                  
+    def guardarPDF(self):
+        try:
+            from interfaces.pdfReportegeneral import recuperardatos_Doctor,recuperar_datos_bd,crear_pdf
+            
+            if self.usuario == "Usuario" or self.usuario == "Administrador":
+                ruta_salida, _ = QFileDialog.getSaveFileName(self, 'Guardar PDF', '', 'Archivos PDF (*.pdf)')
+                if not ruta_salida:
+                    return
+                else:
+                    datos = recuperar_datos_bd()
+                    crear_pdf(ruta_salida=ruta_salida, datos=datos)  # Pasa los datos a la función crear_pdf
+                    QMessageBox.information(self,"Guardado correctamente",f"Fue guardado en {ruta_salida}")
+                    if datos:
+                        return ruta_salida
+            elif self.usuario == "Doctor":
+                ruta_salida, _ = QFileDialog.getSaveFileName(self, 'Guardar PDF', '', 'Archivos PDF (*.pdf)')
+                if not ruta_salida:
+                    return
+                else:
+                    datos = recuperardatos_Doctor(self.id_user)
+                    crear_pdf(ruta_salida=ruta_salida, datos=datos)  # Pasa los datos a la función crear_pdf
+                    QMessageBox.information(self,"Guardado correctamente",f"Fue guardado en {ruta_salida}")
+                    if datos:
+                        return ruta_salida
+        except Exception as e:
+            print(f"Error en vistaPrevia: {e}")           
     def back_menu(self):
         conexion = sqlite3.connect('interfaces/database.db')
         cursor= conexion.cursor()
