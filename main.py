@@ -997,7 +997,7 @@ class Ui_pacientes_view(QtWidgets.QMainWindow):
         self.id_user = id_user
         self.usuario = None  # Agregamos una variable de instancia para almacenar el tipo de usuario
         self.verifytipoUser()  # Llamamos a la función de verificación de usuario
-        self.cargarPacientes()
+        self.act_T()
         self.filtro = self.findChild(QtWidgets.QComboBox, "filtro")
         self.filtro.addItem("Seleccione una opción para filtrar")
         self.filtro.addItems(["Dentista", "Cedula", "Nombre", "Edad", "Sexo", "Direccion", "Fecha_Diagnotico"])
@@ -1077,9 +1077,102 @@ class Ui_pacientes_view(QtWidgets.QMainWindow):
             self.close()
     
     def act_T(self):
-        self.cargarPacientes()
+        if self.usuario=="Usuario":
+            self.cargarCitasSecretaria()
+        elif self.usuario =="Administrador":
+            self.cargarCitasSecretaria()
+        else: 
+            self.cargarCitas()
+    
+    def cargarCitasSecretaria(self,filtro=None,valor=None):
+        self.tabla_p.setRowCount(0)  # Limpiar la tabla actual
+        headers = ["ID del usuario", "Nombre del usuario", "Cedula del paciente", "Nombre del paciente", "Apellido del paciente", "Edad", "Dirección", "Sexo", "Fecha del diagnóstico"]
+        try:
+            conexion = sqlite3.connect('interfaces/database.db')
+            cursor = conexion.cursor()
 
-    def cargarPacientes(self, filtro=None, valor=None):
+            if filtro and valor:
+                # Modificar la consulta para manejar el filtro "Dentista"
+                if filtro == "Nombre_usuario":
+                   cursor.execute("""
+                         SELECT 
+                Users.ID as ID_usuario,
+                Users.Nombres as Nombre_usuario,
+                Pacientes.Cedula, 
+                Pacientes.Nombre, 
+                Pacientes.Apellido, 
+                Pacientes.Edad, 
+                Pacientes.Direccion, 
+                Pacientes.Sexo, 
+                Pacientes.Fecha_Diagnotico
+            FROM 
+                Pacientes
+            INNER JOIN
+                Users ON Pacientes.ID_user = Users.ID
+            WHERE 
+                Users.{} LIKE ? 
+            ORDER BY 
+                Pacientes.Fecha_Diagnotico ASC
+                        """.format(filtro), ('%' + valor + '%',))
+                else:
+                    cursor.execute("""
+                       SELECT 
+                Users.ID as ID_usuario,
+                Users.Nombres as Nombre_usuario,
+                Pacientes.Cedula, 
+                Pacientes.Nombre, 
+                Pacientes.Apellido, 
+                Pacientes.Edad, 
+                Pacientes.Direccion, 
+                Pacientes.Sexo, 
+                Pacientes.Fecha_Diagnotico
+            FROM 
+                Pacientes
+            INNER JOIN
+                Users ON Pacientes.ID_user = Users.ID
+            WHERE 
+                Pacientes.{} LIKE ?
+            ORDER BY 
+                Pacientes.Fecha_Diagnotico ASC
+                        """.format(filtro), ('%' + valor + '%',))
+            else:
+                cursor.execute("""
+                     SELECT 
+            Users.ID as ID_usuario,
+            Users.Nombres as Nombre_usuario,
+            Pacientes.Cedula, 
+            Pacientes.Nombre, 
+            Pacientes.Apellido, 
+            Pacientes.Edad, 
+            Pacientes.Direccion, 
+            Pacientes.Sexo, 
+            Pacientes.Fecha_Diagnotico
+        FROM 
+            Pacientes
+       
+        INNER JOIN
+            Users ON Pacientes.ID_user = Users.ID
+        
+        ORDER BY 
+            Pacientes.Fecha_Diagnotico ASC
+                    """)
+            citas = cursor.fetchall() 
+
+            self.tabla_p.setColumnCount(len(headers))
+            self.tabla_p.setHorizontalHeaderLabels(headers)
+
+            for row, cita in enumerate(citas):
+                self.tabla_p.insertRow(row)
+                for column, value in enumerate(cita):
+                    item = QtWidgets.QTableWidgetItem(str(value))
+                    self.tabla_p.setItem(row, column, item)
+
+            conexion.close()
+                    
+        except sqlite3.Error as e:
+            QtWidgets.QMessageBox.critical(self, "Error", "Error al consultar la base de datos: " + str(e))
+
+    def cargarCitas(self, filtro=None, valor=None):
         self.tabla_p.setRowCount(0)  # Limpiar la tabla actual
         headers = ["ID del usuario", "Nombre del usuario", "Cedula del paciente", "Nombre del paciente", "Apellido del paciente", "Edad", "Dirección", "Sexo", "Fecha del diagnóstico"]
 
@@ -1088,168 +1181,90 @@ class Ui_pacientes_view(QtWidgets.QMainWindow):
             cursor = conexion.cursor()
 
             if filtro and valor:
-                if filtro == "Dentista":
-                    if self.usuario == "Doctor":
-                        cursor.execute("""
-                            SELECT 
-                                Users.ID as ID_usuario,
-                                Users.Nombres as Nombre_usuario,
-                                Pacientes.Cedula, 
-                                Pacientes.Nombre, 
-                                Pacientes.Apellido, 
-                                Pacientes.Edad, 
-                                Pacientes.Direccion, 
-                                Pacientes.Sexo, 
-                                Pacientes.Fecha_Diagnotico
-                            FROM 
-                                Pacientes
-                            INNER JOIN 
-                                Users ON Pacientes.ID_user = Users.ID
-                            WHERE 
-                                {} LIKE ? AND Pacientes.ID_user = ? 
-                            ORDER BY 
-                                Pacientes.Fecha_Diagnotico ASC
-                        """.format(filtro), ('%' + valor + '%', self.id_user))
-                    else:
-                        cursor.execute("""
-                            SELECT 
-                                Users.ID as ID_usuario,
-                                Users.Nombres as Nombre_usuario,
-                                Pacientes.Cedula, 
-                                Pacientes.Nombre, 
-                                Pacientes.Apellido, 
-                                Pacientes.Edad, 
-                                Pacientes.Direccion, 
-                                Pacientes.Sexo, 
-                                Pacientes.Fecha_Diagnotico
-                            FROM 
-                                Pacientes
-                            INNER JOIN 
-                                Users ON Pacientes.ID_user = Users.ID
-                            WHERE 
-                                {} LIKE ?
-                            ORDER BY 
-                                Pacientes.Fecha_Diagnotico ASC
-                        """.format(filtro), ('%' + valor + '%',))
-                else:
+                # Modificar la consulta para manejar el filtro "Dentista"
+                if filtro == "Nombre_usuario":
                     cursor.execute("""
                         SELECT 
-                            Users.ID as ID_usuario,
-                            Users.Nombres as Nombre_usuario,
-                            Pacientes.Cedula, 
-                            Pacientes.Nombre, 
-                            Pacientes.Apellido, 
-                            Pacientes.Edad, 
-                            Pacientes.Direccion, 
-                            Pacientes.Sexo, 
-                            Pacientes.Fecha_Diagnotico
-                        FROM 
-                            Pacientes
-                        INNER JOIN 
-                            Users ON Pacientes.ID_user = Users.ID
-                        WHERE 
-                            {} LIKE ? AND Pacientes.ID_user = ?
-                        ORDER BY 
-                            Pacientes.Fecha_Diagnotico ASC
-                    """.format(filtro), ('%' + valor + '%', self.id_user))
-            else:
-                if filtro == "Dentista":
-                    if self.usuario == "Doctor":
-                        cursor.execute("""
-                            SELECT 
-                                Users.ID as ID_usuario,
-                                Users.Nombres as Nombre_usuario,
-                                Pacientes.Cedula, 
-                                Pacientes.Nombre, 
-                                Pacientes.Apellido, 
-                                Pacientes.Edad, 
-                                Pacientes.Direccion, 
-                                Pacientes.Sexo, 
-                                Pacientes.Fecha_Diagnotico
-                            FROM 
-                                Pacientes
-                            INNER JOIN 
-                                Users ON Pacientes.ID_user = Users.ID
-                            WHERE 
-                                Users.ID = ?
-                            ORDER BY 
-                                Pacientes.Fecha_Diagnotico ASC
-                        """, (self.id_user,))
-                    elif self.usuario in ["Administrador", "Usuario"]:
-                        cursor.execute("""
-                            SELECT 
-                                Users.ID as ID_usuario,
-                                Users.Nombres as Nombre_usuario,
-                                Pacientes.Cedula, 
-                                Pacientes.Nombre, 
-                                Pacientes.Apellido, 
-                                Pacientes.Edad, 
-                                Pacientes.Direccion, 
-                                Pacientes.Sexo, 
-                                Pacientes.Fecha_Diagnotico
-                            FROM 
-                                Pacientes
-                            INNER JOIN 
-                                Users ON Pacientes.ID_user = Users.ID
-                            ORDER BY 
-                                Pacientes.Fecha_Diagnotico ASC
-                        """)
+                Users.ID as ID_usuario,
+                Users.Nombres as Nombre_usuario,
+                Pacientes.Cedula, 
+                Pacientes.Nombre, 
+                Pacientes.Apellido, 
+                Pacientes.Edad, 
+                Pacientes.Direccion, 
+                Pacientes.Sexo, 
+                Pacientes.Fecha_Diagnotico
+            FROM 
+                Pacientes
+            
+            INNER JOIN
+                Users ON Pacientes.ID_user = Users.ID
+            WHERE 
+                Users.{} LIKE ? AND Pacientes.ID_user = ? 
+            ORDER BY 
+                Pacientes.Fecha_Diagnotico ASC
+                        """.format(filtro), ('%' + valor + '%', self.id_user))
                 else:
-                    if self.usuario in ["Administrador", "Usuario"]:
-                        cursor.execute("""
-                            SELECT 
-                                Users.ID as ID_usuario,
-                                Users.Nombres as Nombre_usuario,
-                                Pacientes.Cedula, 
-                                Pacientes.Nombre, 
-                                Pacientes.Apellido, 
-                                Pacientes.Edad, 
-                                Pacientes.Direccion, 
-                                Pacientes.Sexo, 
-                                Pacientes.Fecha_Diagnotico
-                            FROM 
-                                Pacientes
-                            INNER JOIN 
-                                Users ON Pacientes.ID_user = Users.ID
-                            ORDER BY 
-                                Pacientes.Fecha_Diagnotico ASC
-                        """)
-                    elif self.usuario == "Doctor":
-                        cursor.execute("""
-                            SELECT 
-                                Users.ID as ID_usuario,
-                                Users.Nombres as Nombre_usuario,
-                                Pacientes.Cedula, 
-                                Pacientes.Nombre, 
-                                Pacientes.Apellido, 
-                                Pacientes.Edad, 
-                                Pacientes.Direccion, 
-                                Pacientes.Sexo, 
-                                Pacientes.Fecha_Diagnotico
-                            FROM 
-                                Pacientes
-                            INNER JOIN 
-                                Users ON Pacientes.ID_user = Users.ID
-                            WHERE 
-                                Users.ID = ?
-                            ORDER BY 
-                                Pacientes.Fecha_Diagnotico ASC
-                        """, (self.id_user,))
-
-            pacientes = cursor.fetchall()
+                    cursor.execute("""
+                         SELECT 
+                Users.ID as ID_usuario,
+                Users.Nombres as Nombre_usuario,
+                Pacientes.Cedula, 
+                Pacientes.Nombre, 
+                Pacientes.Apellido, 
+                Pacientes.Edad, 
+                Pacientes.Direccion, 
+                Pacientes.Sexo, 
+                Pacientes.Fecha_Diagnotico
+            FROM 
+                Pacientes
+           
+            INNER JOIN
+                Users ON Pacientes.ID_user = Users.ID
+            WHERE 
+                Pacientes.{} LIKE ? AND Pacientes.ID_user = ? 
+            ORDER BY 
+                Pacientes.Fecha_Diagnotico ASC
+                        """.format(filtro), ('%' + valor + '%', self.id_user))
+            else:
+                cursor.execute("""
+                      SELECT 
+            Users.ID as ID_usuario,
+            Users.Nombres as Nombre_usuario,
+            Pacientes.Cedula, 
+            Pacientes.Nombre, 
+            Pacientes.Apellido, 
+            Pacientes.Edad, 
+            Pacientes.Direccion, 
+            Pacientes.Sexo, 
+            Pacientes.Fecha_Diagnotico
+        FROM 
+            Pacientes
+        
+        INNER JOIN
+            Users ON Pacientes.ID_user = Users.ID
+        WHERE 
+            Pacientes.ID_user = ? 
+        ORDER BY 
+            Pacientes.Fecha_Diagnotico ASC
+                    """, (self.id_user,))
+            citas = cursor.fetchall() 
 
             self.tabla_p.setColumnCount(len(headers))
             self.tabla_p.setHorizontalHeaderLabels(headers)
 
-            for row, paciente in enumerate(pacientes):
+            for row, cita in enumerate(citas):
                 self.tabla_p.insertRow(row)
-                for column, value in enumerate(paciente):
+                for column, value in enumerate(cita):
                     item = QtWidgets.QTableWidgetItem(str(value))
                     self.tabla_p.setItem(row, column, item)
 
             conexion.close()
         except sqlite3.Error as e:
             QtWidgets.QMessageBox.critical(self, "Error", "Error al consultar la base de datos: " + str(e))
+
+
+    
     def buscar(self):
         filtro = self.filtro.currentText()
         valor = self.in_buscar.text()
@@ -1265,7 +1280,10 @@ class Ui_pacientes_view(QtWidgets.QMainWindow):
             # Modificar el filtro "Dentista" para buscar por nombre de dentista
             if filtro == "Dentista":
                 filtro = "Nombre_usuario"
-            self.cargarPacientes(filtro, valor)
+            if self.usuario=="Usuario":
+                self.cargarCitasSecretaria(filtro,valor)
+            else:
+                self.cargarCitas(filtro, valor)
         
     def salir(self):
         reply = QtWidgets.QMessageBox.question(
