@@ -726,7 +726,7 @@ class MenuPrincipal(QMainWindow):
                             {} LIKE ? 
                         ORDER BY 
                             Cita.Fecha_Cita ASC
-                        """.format(filtro), ('%' + valor + '%'))
+                        """.format(filtro), ('%' + valor + '%',))
                 else:
                     cursor.execute("""
                         SELECT 
@@ -745,10 +745,10 @@ class MenuPrincipal(QMainWindow):
                         INNER JOIN
                             Users ON Pacientes.ID_user = Users.ID
                         WHERE 
-                            {} LIKE ? AND 
+                            {} LIKE ? 
                         ORDER BY 
                             Cita.Fecha_Cita ASC
-                        """.format(filtro), ('%' + valor + '%'))
+                        """.format(filtro), ('%' + valor + '%',))
             else:
                 cursor.execute("""
                     SELECT 
