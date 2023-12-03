@@ -14,7 +14,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
-        MainWindow.resize(1151, 874)
+        MainWindow.resize(1191, 876)
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")
         self.verticalLayout = QtWidgets.QVBoxLayout(self.centralwidget)
@@ -400,7 +400,7 @@ class Ui_MainWindow(object):
 "")
         self.bt_montos.setText("")
         icon11 = QtGui.QIcon()
-        icon11.addPixmap(QtGui.QPixmap("/home/reinaldo/Documentos/dev/App-Consultas-y-Historias-Medicas/interfaces/ELEMENTOS GRAFICOS/cesar.jpg"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        icon11.addPixmap(QtGui.QPixmap("/home/reinaldo/Documentos/dev/App-Consultas-y-Historias-Medicas/interfaces/ELEMENTOS GRAFICOS/cash-register.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.bt_montos.setIcon(icon11)
         self.bt_montos.setIconSize(QtCore.QSize(45, 45))
         self.bt_montos.setObjectName("bt_montos")
@@ -436,6 +436,7 @@ class Ui_MainWindow(object):
         self.tabWidget.setFont(font)
         self.tabWidget.setFocusPolicy(QtCore.Qt.ClickFocus)
         self.tabWidget.setAutoFillBackground(False)
+        self.tabWidget.setStyleSheet("background-color:rgb(145, 200, 228);")
         self.tabWidget.setTabPosition(QtWidgets.QTabWidget.North)
         self.tabWidget.setUsesScrollButtons(True)
         self.tabWidget.setDocumentMode(True)
@@ -468,11 +469,19 @@ class Ui_MainWindow(object):
         self.verticalLayout_12.addWidget(self.line_2)
         self.label_3 = QtWidgets.QLabel(self.frmae_fondo)
         self.label_3.setMinimumSize(QtCore.QSize(625, 200))
-        self.label_3.setMaximumSize(QtCore.QSize(625, 200))
+        self.label_3.setMaximumSize(QtCore.QSize(1000, 500))
+        self.label_3.setStyleSheet("QLabel:hover{\n"
+"    border:2px solid rgb(145, 200, 228);\n"
+"    border-radius:100%;\n"
+"}")
+        self.label_3.setText("")
+        self.label_3.setPixmap(QtGui.QPixmap("/home/reinaldo/Documentos/dev/App-Consultas-y-Historias-Medicas/interfaces/ELEMENTOS GRAFICOS/_b42554de-1e95-47e5-b3fe-abc4cd3e47b5-removebg-preview.png"))
+        self.label_3.setScaledContents(True)
         self.label_3.setAlignment(QtCore.Qt.AlignCenter)
+        self.label_3.setWordWrap(False)
         self.label_3.setObjectName("label_3")
         self.verticalLayout_12.addWidget(self.label_3)
-        spacerItem9 = QtWidgets.QSpacerItem(20, 213, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
+        spacerItem9 = QtWidgets.QSpacerItem(20, 50, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
         self.verticalLayout_12.addItem(spacerItem9)
         self.line_6 = QtWidgets.QFrame(self.frmae_fondo)
         self.line_6.setFrameShape(QtWidgets.QFrame.HLine)
@@ -581,6 +590,15 @@ class Ui_MainWindow(object):
         self.in_buscar = QtWidgets.QLineEdit(self.frame_fondo)
         self.in_buscar.setMinimumSize(QtCore.QSize(200, 40))
         self.in_buscar.setMaximumSize(QtCore.QSize(200, 40))
+        self.in_buscar.setStyleSheet("QLineEdit{\n"
+"background-color:white;\n"
+"}\n"
+"QLineEdit:focus{\n"
+"  \n"
+"border-bottom:5px solid :rgb(145, 200, 228);\n"
+"border-right:5px solid :rgb(145, 200, 228);\n"
+"\n"
+"}")
         self.in_buscar.setInputMask("")
         self.in_buscar.setText("")
         self.in_buscar.setMaxLength(20)
@@ -643,6 +661,8 @@ class Ui_MainWindow(object):
         font.setItalic(False)
         font.setWeight(9)
         self.tabla_cita.setFont(font)
+        self.tabla_cita.setStyleSheet("")
+        self.tabla_cita.setGridStyle(QtCore.Qt.SolidLine)
         self.tabla_cita.setObjectName("tabla_cita")
         self.tabla_cita.setColumnCount(6)
         self.tabla_cita.setRowCount(0)
@@ -678,7 +698,7 @@ class Ui_MainWindow(object):
         MainWindow.setCentralWidget(self.centralwidget)
 
         self.retranslateUi(MainWindow)
-        self.tabWidget.setCurrentIndex(0)
+        self.tabWidget.setCurrentIndex(1)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
     def retranslateUi(self, MainWindow):
@@ -691,11 +711,10 @@ class Ui_MainWindow(object):
         self.label_8.setText(_translate("MainWindow", "Agendar citas"))
         self.label_9.setText(_translate("MainWindow", "Generar historias"))
         self.label_15.setText(_translate("MainWindow", "Cambiar montos de tratamientos"))
-        self.label_3.setText(_translate("MainWindow", "Logo del consultorio"))
-        self.label_4.setText(_translate("MainWindow", "Direccion"))
-        self.label_12.setText(_translate("MainWindow", "Direccion"))
+        self.label_4.setText(_translate("MainWindow", "Dirección"))
+        self.label_12.setText(_translate("MainWindow", "Puerto La Cruz"))
         self.label_5.setText(_translate("MainWindow", "Numero de contacto"))
-        self.label_13.setText(_translate("MainWindow", "Numero de contacto"))
+        self.label_13.setText(_translate("MainWindow", "0000-0000-000"))
         self.label_11.setText(_translate("MainWindow", "X"))
         self.label_14.setText(_translate("MainWindow", "X"))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.principal_tab), _translate("MainWindow", "Pagina principal"))
