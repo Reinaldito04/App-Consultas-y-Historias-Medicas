@@ -1109,7 +1109,7 @@ class Ui_pacientes_view(QtWidgets.QMainWindow):
                    cursor.execute("""
                          SELECT 
                 Users.ID as ID_usuario,
-                Users.Nombres as Nombre_usuario,
+                Users.Nombres || ' ' || Users.Apellidos as Nombre_completo,
                 Pacientes.Cedula, 
                 Pacientes.Nombre, 
                 Pacientes.Apellido, 
@@ -1122,15 +1122,16 @@ class Ui_pacientes_view(QtWidgets.QMainWindow):
             INNER JOIN
                 Users ON Pacientes.ID_user = Users.ID
             WHERE 
-                Users.{} LIKE ? 
+                Users.Nombres || ' ' || Users.Apellidos LIKE ?
             ORDER BY 
                 Pacientes.Fecha_Diagnotico ASC
                         """.format(filtro), ('%' + valor + '%',))
+               
                 else:
                     cursor.execute("""
                        SELECT 
                 Users.ID as ID_usuario,
-                Users.Nombres as Nombre_usuario,
+               Users.Nombres || ' ' || Users.Apellidos as Nombre_completo,
                 Pacientes.Cedula, 
                 Pacientes.Nombre, 
                 Pacientes.Apellido, 
@@ -1151,7 +1152,7 @@ class Ui_pacientes_view(QtWidgets.QMainWindow):
                 cursor.execute("""
                      SELECT 
             Users.ID as ID_usuario,
-            Users.Nombres as Nombre_usuario,
+            Users.Nombres || ' ' || Users.Apellidos as Nombre_completo,
             Pacientes.Cedula, 
             Pacientes.Nombre, 
             Pacientes.Apellido, 
@@ -1198,7 +1199,7 @@ class Ui_pacientes_view(QtWidgets.QMainWindow):
                     cursor.execute("""
                         SELECT 
                 Users.ID as ID_usuario,
-                Users.Nombres as Nombre_usuario,
+                Users.Nombres || ' ' || Users.Apellidos as Nombre_completo,
                 Pacientes.Cedula, 
                 Pacientes.Nombre, 
                 Pacientes.Apellido, 
@@ -1212,7 +1213,7 @@ class Ui_pacientes_view(QtWidgets.QMainWindow):
             INNER JOIN
                 Users ON Pacientes.ID_user = Users.ID
             WHERE 
-                Users.{} LIKE ? AND Pacientes.ID_user = ? 
+                Users.Nombres || ' ' || Users.Apellidos LIKE ? AND Pacientes.ID_user = ? 
             ORDER BY 
                 Pacientes.Fecha_Diagnotico ASC
                         """.format(filtro), ('%' + valor + '%', self.id_user))
@@ -1220,7 +1221,7 @@ class Ui_pacientes_view(QtWidgets.QMainWindow):
                     cursor.execute("""
                          SELECT 
                 Users.ID as ID_usuario,
-                Users.Nombres as Nombre_usuario,
+                Users.Nombres || ' ' || Users.Apellidos as Nombre_completo,
                 Pacientes.Cedula, 
                 Pacientes.Nombre, 
                 Pacientes.Apellido, 
@@ -1242,7 +1243,7 @@ class Ui_pacientes_view(QtWidgets.QMainWindow):
                 cursor.execute("""
                       SELECT 
             Users.ID as ID_usuario,
-            Users.Nombres as Nombre_usuario,
+            Users.Nombres || ' ' || Users.Apellidos as Nombre_completo,
             Pacientes.Cedula, 
             Pacientes.Nombre, 
             Pacientes.Apellido, 
@@ -1292,6 +1293,7 @@ class Ui_pacientes_view(QtWidgets.QMainWindow):
             # Modificar el filtro "Dentista" para buscar por nombre de dentista
             if filtro == "Dentista":
                 filtro = "Nombre_usuario"
+            
             if self.usuario=="Usuario":
                 self.cargarCitasSecretaria(filtro,valor)
             else:
