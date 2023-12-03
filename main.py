@@ -1018,32 +1018,44 @@ class Ui_pacientes_view(QtWidgets.QMainWindow):
                 self.usuario = "Usuario"
             else:
                 print("No se encontró ningún tipo")
+                
     def guardarPDF(self):
+        from interfaces.pdfReportegeneral import recuperardatos_Doctor,recuperar_datos_bd,crear_pdf
         try:
-            from interfaces.pdfReportegeneral import recuperardatos_Doctor,recuperar_datos_bd,crear_pdf
-            
+            # Selecciona la función de recuperación de datos según el tipo de usuario
             if self.usuario == "Usuario" or self.usuario == "Administrador":
-                ruta_salida, _ = QFileDialog.getSaveFileName(self, 'Guardar PDF', '', 'Archivos PDF (*.pdf)')
-                if not ruta_salida:
-                    return
-                else:
-                    datos = recuperar_datos_bd()
-                    crear_pdf(ruta_salida=ruta_salida, datos=datos)  # Pasa los datos a la función crear_pdf
-                    QMessageBox.information(self,"Guardado correctamente",f"Fue guardado en {ruta_salida}")
-                    if datos:
-                        return ruta_salida
+                datos = recuperar_datos_bd()
             elif self.usuario == "Doctor":
-                ruta_salida, _ = QFileDialog.getSaveFileName(self, 'Guardar PDF', '', 'Archivos PDF (*.pdf)')
-                if not ruta_salida:
-                    return
-                else:
-                    datos = recuperardatos_Doctor(self.id_user)
-                    crear_pdf(ruta_salida=ruta_salida, datos=datos)  # Pasa los datos a la función crear_pdf
-                    QMessageBox.information(self,"Guardado correctamente",f"Fue guardado en {ruta_salida}")
-                    if datos:
-                        return ruta_salida
+                datos = recuperardatos_Doctor(self.id_user)
+            else:
+                datos = None
+
+            if not datos:
+                QMessageBox.warning(self, "Advertencia", "No hay datos para generar el informe.")
+                return
+
+            # Filtra los datos según la opción seleccionada en el combo de filtro
+            filtro = self.filtro.currentText()
+            valor = self.in_buscar.text()
+
+            if filtro != "Seleccione una opción para filtrar" and valor:
+                # Filtra los datos según la opción seleccionada y el valor ingresado
+                datos = [dato for dato in datos if valor.lower() in str(dato).lower()]
+
+            # Abre el diálogo para seleccionar la ubicación de guardado del PDF
+            ruta_salida, _ = QFileDialog.getSaveFileName(self, 'Guardar PDF', '', 'Archivos PDF (*.pdf)')
+
+            if not ruta_salida:
+                return
+
+            # Crea y guarda el PDF con los datos filtrados
+            crear_pdf(ruta_salida=ruta_salida, datos=datos)
+
+            QMessageBox.information(self, "Guardado correctamente", f"Fue guardado en {ruta_salida}")
+
         except Exception as e:
-            print(f"Error en vistaPrevia: {e}")           
+            print(f"Error en guardarPDF: {e}")
+                   
     def back_menu(self):
         conexion = sqlite3.connect('interfaces/database.db')
         cursor= conexion.cursor()
