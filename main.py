@@ -2396,6 +2396,8 @@ class historiaMenu(QMainWindow):
         self.btn_agg_3.clicked.connect(self.addDiagnostico)
         self.btn_edit_2.clicked.connect(self.addInformation)
         self.btn_edit_3.clicked.connect(self.addDiagnostico)
+        self.btn_agg_4.clicked.connect(self.aggTrata)
+        self.btn_edit_4.clicked.connect(self.editTrata)
         self.btn_clear_3.clicked.connect(self.clearDiag)
         self.btn_clear_4.clicked.connect(self.clearTrata)
         self.fecha_hora_actualizadas = False
@@ -2408,17 +2410,17 @@ class historiaMenu(QMainWindow):
         self.verifytipoUser()
         self.verifyUsuario()
         self.tratamientos = {
-            "Triaje": ["Seleccione el tipo de honorario", "Consulta e Historia Clínica sin informe", "Consulta e Historia Clínica con informe"],
-            "Periodoncia": ["Tartectomía y pulido simple (1 sesión)", "Tartectomía y pulido simple (2-3 sesiones)","Aplicación tópica de fluór","Cirguia periodontal (por cuadrante)"],
-            "Blanqueamiento": ["Blanqueamiento intrapulpar", "Blanquemaineto maxilar superior e inferior (2 sesiones de 20 min c/u)"],
-            "Operatoria": ["Obturaciones provisionales","Obturaciones con Amalgama","Obturaciones con vidrio ionomerico pequeña","Obturaciones con vidrio ionomerico grande","Obturaciones con resina fotocurada"],
-            "Endodoncia": ["Pulpotomías formocreasoladas","Emergencias Endodontica","Tratamiento endodontico monoradicular","Tratamiento endodontico biradicular","Tratamiento endodontico multiradicular","Desobturación conductos"],
-            "Radiografias Periaciales": ["Adultos e infantes"],
-            "Cirugias": ["Exodoncia simple","Exodoncia quirurgica","Exodoncia de dientes temporales","Exodoncia de corales erupcionadas/incluidas"],
-            "Protesis": ["Coronas provisionales por unidad","Muñon artificial monoradicular","Muñon artificial multiradicular","Incrustacion resina/metálica","Unidad de corona meta-porcelana","Cementado de protesis fija"],
-            "Protesis removibles metalicas y/o acrilicas": ["1 a 3 unidades","4 a 6 unidades","7 a 12 unidades","Unidadad adicional","Ganchos contorneados retentativas acrilicas c/u","Reparaciones protesis acrilicas y/oo agregar un diente a la protesis"],
-            "Protesis totales": ["Dentadura superior o inferior (incluye controles post-inatalción) c/u"],
-            "Implantes dentales": ["Honorarios cirujano por implante","Implante y aditamientos","Injertos óseos (1cc)","PRF (incluye bionalista y extraccion de sangre + centrifugado)","Corona metal porcelana sobre implante","DPR acrilica"],
+            "Triaje": ["Seleccione el tipo de tratamiento", "Consulta e Historia Clínica sin informe", "Consulta e Historia Clínica con informe"],
+            "Periodoncia": ["Seleccione el tipo de tratamiento","Tartectomía y pulido simple (1 sesión)", "Tartectomía y pulido simple (2-3 sesiones)","Aplicación tópica de fluór","Cirguia periodontal (por cuadrante)"],
+            "Blanqueamiento": ["Seleccione el tipo de tratamiento","Blanqueamiento intrapulpar", "Blanquemaineto maxilar superior e inferior (2 sesiones de 20 min c/u)"],
+            "Operatoria": ["Seleccione el tipo de tratamiento","Obturaciones provisionales","Obturaciones con Amalgama","Obturaciones con vidrio ionomerico pequeña","Obturaciones con vidrio ionomerico grande","Obturaciones con resina fotocurada"],
+            "Endodoncia": ["Seleccione el tipo de tratamiento","Pulpotomías formocreasoladas","Emergencias Endodontica","Tratamiento endodontico monoradicular","Tratamiento endodontico biradicular","Tratamiento endodontico multiradicular","Desobturación conductos"],
+            "Radiografias Periaciales": ["Seleccione el tipo de tratamiento","Adultos e infantes"],
+            "Cirugias": ["Seleccione el tipo de tratamiento","Exodoncia simple","Exodoncia quirurgica","Exodoncia de dientes temporales","Exodoncia de corales erupcionadas/incluidas"],
+            "Protesis": ["Seleccione el tipo de tratamiento","Coronas provisionales por unidad","Muñon artificial monoradicular","Muñon artificial multiradicular","Incrustacion resina/metálica","Unidad de corona meta-porcelana","Cementado de protesis fija"],
+            "Protesis removibles metalicas y/o acrilicas": ["Seleccione el tipo de tratamiento","1 a 3 unidades","4 a 6 unidades","7 a 12 unidades","Unidadad adicional","Ganchos contorneados retentativas acrilicas c/u","Reparaciones protesis acrilicas y/oo agregar un diente a la protesis"],
+            "Protesis totales": ["Seleccione el tipo de tratamiento","Dentadura superior o inferior (incluye controles post-inatalción) c/u"],
+            "Implantes dentales": ["Seleccione el tipo de tratamiento","Honorarios cirujano por implante","Implante y aditamientos","Injertos óseos (1cc)","PRF (incluye bionalista y extraccion de sangre + centrifugado)","Corona metal porcelana sobre implante","DPR acrilica"],
         }
 
         self.combo_honorario = [self.findChild(QtWidgets.QComboBox, f"c_{i}") for i in range(6)]
@@ -2432,7 +2434,160 @@ class historiaMenu(QMainWindow):
 
         for i, combo in enumerate(self.combo_tratamiento):
             combo.currentTextChanged.connect(lambda _, index=i: self.update_monto(index))
-    
+            
+    def editTrata(self):
+        cedula = self.in_busqueda.text()
+        self.checkTratamientosExisten()
+
+        # Verificar si la cédula está presente
+        if not cedula:
+            QMessageBox.warning(self, "Error", "Por favor ingrese la cédula en el menú de registro ")
+            return
+
+        try:
+            conexion = sqlite3.connect('interfaces/database.db')
+            cursor = conexion.cursor()
+
+            # Verificar si ya existe un registro para el paciente
+            cursor.execute("SELECT ID_Trata FROM PTrata WHERE Cedula = ?", (cedula,))
+            row = cursor.fetchone()
+
+            if not row:
+                QMessageBox.warning(self, "Error", "No hay tratamientos registrados para este paciente.")
+                return
+
+            # Si existe, obtener el ID existente
+            id_trata = row[0]
+
+            # Obtener los tratamientos existentes del paciente
+            cursor.execute(f"SELECT * FROM PTrata WHERE ID_Trata = ?", (id_trata,))
+            tratamientos = cursor.fetchone()
+
+            # Obtener los nombres de las columnas
+            column_names = [description[0] for description in cursor.description]
+
+            # Actualizar los tratamientos existentes con los valores seleccionados en las QComboBox
+            for i in range(6):
+                tipo_trata_column = f"Tipo_Trata{i + 1}"
+                trata_column = f"Tratamiento{i + 1}"
+
+                tipo_tratamiento = self.combo_honorario[i].currentText()
+                tratamiento = self.combo_tratamiento[i].currentText()
+
+                if tipo_tratamiento and tratamiento:
+                    cursor.execute(f"""
+                        UPDATE PTrata
+                        SET {tipo_trata_column} = ?, {trata_column} = ?
+                        WHERE ID_Trata = ?
+                    """, (tipo_tratamiento, tratamiento, id_trata))
+
+            # Confirmar los cambios en la base de datos
+            conexion.commit()
+            QMessageBox.information(self, "Éxito", "Tratamientos editados correctamente.")
+
+        except sqlite3.Error as error:
+            QMessageBox.critical(self, "Error", f"Error al editar los tratamientos: {str(error)}")
+
+        finally:
+            # Cierra la conexión con la base de datos
+            conexion.close()
+                    
+    def checkTratamientosExisten(self):
+        cedula = self.in_busqueda.text()
+
+        # Verificar si la cédula está presente
+        if not cedula:
+            QMessageBox.warning(self, "Error", "Por favor ingrese la cédula en el menú de registro ")
+            return
+
+        try:
+            conexion = sqlite3.connect('interfaces/database.db')
+            cursor = conexion.cursor()
+
+            # Verificar si ya existe un registro para el paciente
+            cursor.execute("SELECT ID_Trata FROM PTrata WHERE Cedula = ?", (cedula,))
+            row = cursor.fetchone()
+
+            if row:
+                # Si el paciente tiene tratamientos registrados, deshabilitar el botón de agregar
+                self.btn_agg_4.setEnabled(False)
+            else:
+                # Si no tiene tratamientos registrados, habilitar el botón de agregar
+                self.btn_agg_4.setEnabled(True)
+
+        except sqlite3.Error as error:
+            QMessageBox.critical(self, "Error", f"Error al verificar los tratamientos: {str(error)}")
+
+        finally:
+            # Cierra la conexión con la base de datos
+            conexion.close()
+
+    def aggTrata(self):
+        # Obtener información del paciente
+        cedula = self.in_busqueda.text()
+        fecha_tratamiento = self.fecha_2.date().toString('yyyy-MM-dd')
+
+        # Verificar si la cédula está presente
+        if not cedula:
+            QMessageBox.warning(self, "Error", "Por favor ingrese la cédula en el menú de registro ")
+            return
+
+        try:
+            conexion = sqlite3.connect('interfaces/database.db')
+            cursor = conexion.cursor()
+
+            # Verificar si ya existe un registro para el paciente
+            cursor.execute("SELECT ID_Trata FROM PTrata WHERE Cedula = ?", (cedula,))
+            row = cursor.fetchone()
+
+            if row:
+                # Si existe, obtener el ID existente
+                id_trata = row[0]
+            else:
+                # Si no existe, insertar un nuevo registro y obtener el ID asignado
+                cursor.execute("INSERT INTO PTrata (Cedula) VALUES (?)", (cedula,))
+                id_trata = cursor.lastrowid
+
+            # Recorrer las combobox y obtener los tratamientos
+            for i in range(6):
+                honorario = self.combo_honorario[i].currentText()
+                tratamiento = self.combo_tratamiento[i].currentText()
+
+                # Verificar si se seleccionó un tratamiento
+                if honorario != "Seleccione el tipo de honorario" and tratamiento:
+                    # Crear los nombres de las columnas según el tipo de tratamiento
+                    tipo_trata_column = f"Tipo_Trata{i + 1}"
+                    trata_column = f"Tratamiento{i + 1}"
+                    fecha_trata_column = "Fecha_Trata"
+
+                    # Verificar si ya existe un tratamiento para esa columna
+                    cursor.execute(f"SELECT {tipo_trata_column}, {trata_column} FROM PTrata WHERE ID_Trata = ?", (id_trata,))
+                    existing_data = cursor.fetchone()
+
+                    if existing_data[0] is None and existing_data[1] is None:
+                        # Si no existe, actualizar la columna correspondiente
+                        cursor.execute(f"""
+                            UPDATE PTrata
+                            SET {tipo_trata_column} = ?, {trata_column} = ?, {fecha_trata_column} = ?
+                            WHERE ID_Trata = ?
+                        """, (honorario, tratamiento, fecha_tratamiento, id_trata))
+                    else:
+                        # Si ya existe, insertar un nuevo registro
+                        cursor.execute(f"""
+                            INSERT INTO PTrata (ID_Trata, Cedula, {tipo_trata_column}, {trata_column}, {fecha_trata_column})
+                            VALUES (?, ?, ?, ?, ?)
+                        """, (id_trata, cedula, honorario, tratamiento, fecha_tratamiento))
+
+            # Confirmar los cambios en la base de datos
+            conexion.commit()
+            QMessageBox.information(self, "Éxito", "Tratamientos registrados correctamente.")
+
+            # Cierra la conexión con la base de datos
+            conexion.close()
+
+        except sqlite3.Error as error:
+            QMessageBox.critical(self, "Error", f"Error al registrar los tratamientos: {str(error)}")
+            
     def verifytipoUser(self):
         conexion = sqlite3.connect("./interfaces/database.db")
         cursor = conexion.cursor()
@@ -2503,6 +2658,29 @@ class historiaMenu(QMainWindow):
         self.monto_bs_6.clear()
         self.totalBs.clear()
         self.totaldola.clear()
+
+    def loadTratamientos(self):
+        sender = self.sender()
+        selected_honorario = sender.currentText()
+
+        if selected_honorario == "Seleccione el tipo de honorario":
+            return
+
+        conexion = sqlite3.connect('interfaces/database.db')
+        cursor = conexion.cursor()
+
+        index = self.combo_honorario.index(sender)
+
+        tratamientos_honorario = self.tratamientos.get(selected_honorario, [])
+        linked_combo = self.combo_tratamiento[index]
+        linked_combo.clear()
+
+        for tratamiento in tratamientos_honorario:
+            cursor.execute("SELECT monto FROM Trata WHERE tipo_tratamiento = ? AND tratamiento = ?", (selected_honorario, tratamiento))
+            monto = cursor.fetchone()
+            if monto:
+                linked_combo.addItem(tratamiento)
+                
     def calcularDivisa(self, dolar):
         requests.packages.urllib3.disable_warnings(InsecureRequestWarning)
 
@@ -2530,28 +2708,6 @@ class historiaMenu(QMainWindow):
 
         # Retorna el valor calculado
         return suma_formateada, operacion
-
-    def loadTratamientos(self):
-        sender = self.sender()
-        selected_honorario = sender.currentText()
-
-        if selected_honorario == "Seleccione el tipo de honorario":
-            return
-
-        conexion = sqlite3.connect('interfaces/database.db')
-        cursor = conexion.cursor()
-
-        index = self.combo_honorario.index(sender)
-
-        tratamientos_honorario = self.tratamientos.get(selected_honorario, [])
-        linked_combo = self.combo_tratamiento[index]
-        linked_combo.clear()
-
-        for tratamiento in tratamientos_honorario:
-            cursor.execute("SELECT monto FROM Trata WHERE tipo_tratamiento = ? AND tratamiento = ?", (selected_honorario, tratamiento))
-            monto = cursor.fetchone()
-            if monto:
-                linked_combo.addItem(tratamiento)
 
     def update_monto(self, index):
         selected_honorario = self.combo_honorario[index].currentText()
@@ -2823,8 +2979,8 @@ class historiaMenu(QMainWindow):
 
             if resultado:
                 (Cedula, Nombre, Apellido, Edad, Direccion, Sexo, 
-                    Telefono, Mail, Context ,Hipertension, Diabates, Coagualcion, Otros, Alergias, 
-                    Diabate_Data , Hipertension_Data , Coagualcion_Data, Diagnotico, Fecha_Diagnotico, Hora_Diagnostico) = resultado
+                Telefono, Mail, Context ,Hipertension, Diabates, Coagualcion, Otros, Alergias, 
+                Diabate_Data , Hipertension_Data , Coagualcion_Data, Diagnotico, Fecha_Diagnotico, Hora_Diagnostico) = resultado
 
                 self.in_cedula.setText(Cedula)
                 self.in_name.setText(Nombre)
@@ -2844,16 +3000,16 @@ class historiaMenu(QMainWindow):
                 self.diag.setText(Diagnotico)
                 self.in_name_4.setText(Nombre)
                 self.in_apell_4.setText(Apellido)
-                
+
                 if Hipertension == "Si":
                     self.btn_si.setChecked(True)
                 else:
                     self.btn_no.setChecked(True)
-                if Diabates =="Si":
+                if Diabates == "Si":
                     self.btn_si_4.setChecked(True)
                 else:
                     self.btn_no_4.setChecked(True)
-                if Coagualcion =="Si":
+                if Coagualcion == "Si":
                     self.btn_si_3.setChecked(True)
                 else:
                     self.btn_no_3.setChecked(True)
@@ -2871,7 +3027,7 @@ class historiaMenu(QMainWindow):
                 if Hora_Diagnostico is not None:
                     hora_cita = QTime.fromString(Hora_Diagnostico, 'hh:mm:ss')
                     self.hora.setTime(hora_cita)
-                
+
                 self.tabla_pacientes.clearContents()
                 self.tabla_pacientes.setRowCount(1)
                 self.tabla_pacientes.setColumnCount(8)
@@ -2879,6 +3035,27 @@ class historiaMenu(QMainWindow):
                 for column, value in enumerate(data):
                     item = QTableWidgetItem(value)
                     self.tabla_pacientes.setItem(0, column, item)
+
+                # Cargar los tratamientos existentes en las QComboBox
+                cursor.execute("SELECT ID_Trata FROM PTrata WHERE Cedula = ?", (busqueda,))
+                id_trata = cursor.fetchone()
+
+                if id_trata:
+                    cursor.execute(f"SELECT * FROM PTrata WHERE ID_Trata = ?", (id_trata[0],))
+                    tratamientos = cursor.fetchone()
+
+                    column_names = [description[0] for description in cursor.description]
+
+                    for i in range(6):
+                        tipo_trata_column = f"Tipo_Trata{i + 1}"
+                        trata_column = f"Tratamiento{i + 1}"
+
+                        tipo_tratamiento = tratamientos[column_names.index(tipo_trata_column)]
+                        tratamiento = tratamientos[column_names.index(trata_column)]
+
+                        self.combo_honorario[i].setCurrentText(tipo_tratamiento)
+                        self.combo_tratamiento[i].setCurrentText(tratamiento)
+
             else:
                 # Limpiar la tabla existente si no se encuentra ningún registro
                 self.tabla_pacientes.clearContents()
