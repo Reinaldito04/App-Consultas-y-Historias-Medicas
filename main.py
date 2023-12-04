@@ -1643,15 +1643,15 @@ class Ui_CitasMenu(QMainWindow):
                 conexion = sqlite3.connect('interfaces/database.db')
                 cursor = conexion.cursor()
                 
-                # Verificar si existe un paciente con la cédula proporcionada
-                cursor.execute("SELECT COUNT(*) FROM Cita WHERE Cedula = ?", (cedula,))
-                existe_paciente = cursor.fetchone()[0] > 0
+                # Verificar si existe una cita para la misma fecha y hora
+                cursor.execute("SELECT COUNT(*) FROM Cita WHERE Fecha_Cita = ? AND Hora_Cita = ?", (fechaToString, horaToString))
+                existe_cita = cursor.fetchone()[0] > 0
                 
-                if existe_paciente:
-                    QMessageBox.information(self,"Cita","Ya el paciente tiene una cita registrada")
+                if existe_cita:
+                    QMessageBox.warning(self, "Advertencia", "Ya existe una cita programada para la misma fecha y hora.")
                     return
-                elif not existe_paciente:
-                    # Si el paciente no existe, proceder a insertar la nueva cita
+                else:
+                    # Si no existe una cita, proceder a insertar la nueva cita
                     cursor.execute("""
                         INSERT INTO Cita (Cedula, Fecha_Cita, Hora_Cita, Estatus_Cita, ID_user)
                         VALUES (?, ?, ?, ?, ?)
@@ -1662,9 +1662,6 @@ class Ui_CitasMenu(QMainWindow):
                     
                     # Mostrar un mensaje de éxito
                     QMessageBox.information(self, "Información", "Cita agregada con éxito.")
-                else:
-                    # Si el paciente ya tiene una cita, mostrar un mensaje de error
-                    QMessageBox.warning(self, "Advertencia", "No se encontró un paciente con la cédula proporcionada.")
                 
                 # Cerrar la conexión con la base de datos
                 conexion.close()
@@ -1672,6 +1669,7 @@ class Ui_CitasMenu(QMainWindow):
         except sqlite3.Error as error:
             # En caso de error, mostrar un mensaje de error
             QMessageBox.critical(self, "Error", f"Error al agregar la cita: {str(error)}")
+
 
     def searchdata(self):
         idUser = self.id_user
@@ -2681,7 +2679,7 @@ class historiaMenu(QMainWindow):
             if monto:
                 linked_combo.addItem(tratamiento)
                 
-    def calcularDivisa(self, dolar):
+    def  calcularDivisa(self, dolar):
         requests.packages.urllib3.disable_warnings(InsecureRequestWarning)
 
         url = 'https://www.bcv.org.ve'
