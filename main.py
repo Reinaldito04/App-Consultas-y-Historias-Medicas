@@ -2603,7 +2603,6 @@ class historiaMenu(QMainWindow):
                 print("No se encontro ningun tipo")
     def verifyUsuario(self):
         if self.usuario== "Usuario":
-            self.btn_delete.setEnabled(False)
             
             self.btn_agg_2.setEnabled(False)
             self.btn_edit_2.setEnabled(False)
