@@ -1644,13 +1644,13 @@ class Ui_CitasMenu(QMainWindow):
                 cursor = conexion.cursor()
                 
                 # Verificar si existe un paciente con la cédula proporcionada
-                cursor.execute("SELECT COUNT(*) FROM Cita WHERE Cedula = ?", (cedula,))
-                existe_paciente = cursor.fetchone()[0] > 0
+                cursor.execute("SELECT COUNT(*) FROM Cita WHERE Fecha_Cita = ? AND Hora_Cita = ?", (fechaToString, horaToString))
+                existe_cita = cursor.fetchone()[0] > 0
                 
-                if existe_paciente:
-                    QMessageBox.information(self,"Cita","Ya el paciente tiene una cita registrada")
+                if existe_cita:
+                    QMessageBox.information(self,"Cita","Ya existe una cita programada para la misma fecha y hora.")
                     return
-                elif not existe_paciente:
+                elif not existe_cita:
                     # Si el paciente no existe, proceder a insertar la nueva cita
                     cursor.execute("""
                         INSERT INTO Cita (Cedula, Fecha_Cita, Hora_Cita, Estatus_Cita, ID_user)
@@ -2850,7 +2850,7 @@ class historiaMenu(QMainWindow):
                 (Cedula, Nombre, Apellido, Edad, Direccion, Sexo, 
                     Telefono, Mail, Context ,Hipertension, Diabates, Coagualcion, Otros, Alergias, 
                     Diabate_Data , Hipertension_Data , Coagualcion_Data, Diagnotico, Fecha_Diagnotico, Hora_Diagnostico) = resultado
-
+               
                 self.in_cedula.setText(Cedula)
                 self.in_name.setText(Nombre)
                 self.in_apell.setText(Apellido)
@@ -2904,6 +2904,26 @@ class historiaMenu(QMainWindow):
                 for column, value in enumerate(data):
                     item = QTableWidgetItem(value)
                     self.tabla_pacientes.setItem(0, column, item)
+                    
+                  # Cargar los tratamientos existentes en las QComboBox
+                cursor.execute("SELECT ID_Trata FROM PTrata WHERE Cedula = ?", (busqueda,))
+                id_trata = cursor.fetchone()
+
+                if id_trata:
+                    cursor.execute(f"SELECT * FROM PTrata WHERE ID_Trata = ?", (id_trata[0],))
+                    tratamientos = cursor.fetchone()
+
+                    column_names = [description[0] for description in cursor.description]
+
+                    for i in range(6):
+                        tipo_trata_column = f"Tipo_Trata{i + 1}"
+                        trata_column = f"Tratamiento{i + 1}"
+
+                        tipo_tratamiento = tratamientos[column_names.index(tipo_trata_column)]
+                        tratamiento = tratamientos[column_names.index(trata_column)]
+
+                        self.combo_honorario[i].setCurrentText(tipo_tratamiento)
+                        self.combo_tratamiento[i].setCurrentText(tratamiento)
             else:
                 # Limpiar la tabla existente si no se encuentra ningún registro
                 self.tabla_pacientes.clearContents()
@@ -2947,6 +2967,159 @@ class historiaMenu(QMainWindow):
             self.Searchdata()
         except sqlite3.Error as e:
             QMessageBox.critical(self, "Error", "Error al actualizar los datos en la base de datos: " + str(e))
+    
+    def editTrata(self):
+        cedula = self.in_busqueda.text()
+        self.checkTratamientosExisten()
+
+        # Verificar si la cédula está presente
+        if not cedula:
+            QMessageBox.warning(self, "Error", "Por favor ingrese la cédula en el menú de registro ")
+            return
+
+        try:
+            conexion = sqlite3.connect('interfaces/database.db')
+            cursor = conexion.cursor()
+
+            # Verificar si ya existe un registro para el paciente
+            cursor.execute("SELECT ID_Trata FROM PTrata WHERE Cedula = ?", (cedula,))
+            row = cursor.fetchone()
+
+            if not row:
+                QMessageBox.warning(self, "Error", "No hay tratamientos registrados para este paciente.")
+                return
+
+            # Si existe, obtener el ID existente
+            id_trata = row[0]
+
+            # Obtener los tratamientos existentes del paciente
+            cursor.execute(f"SELECT * FROM PTrata WHERE ID_Trata = ?", (id_trata,))
+            tratamientos = cursor.fetchone()
+
+            # Obtener los nombres de las columnas
+            column_names = [description[0] for description in cursor.description]
+
+            # Actualizar los tratamientos existentes con los valores seleccionados en las QComboBox
+            for i in range(6):
+                tipo_trata_column = f"Tipo_Trata{i + 1}"
+                trata_column = f"Tratamiento{i + 1}"
+
+                tipo_tratamiento = self.combo_honorario[i].currentText()
+                tratamiento = self.combo_tratamiento[i].currentText()
+
+                if tipo_tratamiento and tratamiento:
+                    cursor.execute(f"""
+                        UPDATE PTrata
+                        SET {tipo_trata_column} = ?, {trata_column} = ?
+                        WHERE ID_Trata = ?
+                    """, (tipo_tratamiento, tratamiento, id_trata))
+
+            # Confirmar los cambios en la base de datos
+            conexion.commit()
+            QMessageBox.information(self, "Éxito", "Tratamientos editados correctamente.")
+
+        except sqlite3.Error as error:
+            QMessageBox.critical(self, "Error", f"Error al editar los tratamientos: {str(error)}")
+
+        finally:
+            # Cierra la conexión con la base de datos
+            conexion.close()
+
+    def checkTratamientosExisten(self):
+        cedula = self.in_busqueda.text()
+
+        # Verificar si la cédula está presente
+        if not cedula:
+            QMessageBox.warning(self, "Error", "Por favor ingrese la cédula en el menú de registro ")
+            return
+
+        try:
+            conexion = sqlite3.connect('interfaces/database.db')
+            cursor = conexion.cursor()
+
+            # Verificar si ya existe un registro para el paciente
+            cursor.execute("SELECT ID_Trata FROM PTrata WHERE Cedula = ?", (cedula,))
+            row = cursor.fetchone()
+
+            if row:
+                # Si el paciente tiene tratamientos registrados, deshabilitar el botón de agregar
+                self.btn_agg_4.setEnabled(False)
+            else:
+                # Si no tiene tratamientos registrados, habilitar el botón de agregar
+                self.btn_agg_4.setEnabled(True)
+
+        except sqlite3.Error as error:
+            QMessageBox.critical(self, "Error", f"Error al verificar los tratamientos: {str(error)}")
+
+        finally:
+            # Cierra la conexión con la base de datos
+            conexion.close()
+
+    def aggTrata(self):
+        # Obtener información del paciente
+        cedula = self.in_busqueda.text()
+        fecha_tratamiento = self.fecha_2.date().toString('yyyy-MM-dd')
+
+        # Verificar si la cédula está presente
+        if not cedula:
+            QMessageBox.warning(self, "Error", "Por favor ingrese la cédula en el menú de registro ")
+            return
+
+        try:
+            conexion = sqlite3.connect('interfaces/database.db')
+            cursor = conexion.cursor()
+
+            # Verificar si ya existe un registro para el paciente
+            cursor.execute("SELECT ID_Trata FROM PTrata WHERE Cedula = ?", (cedula,))
+            row = cursor.fetchone()
+
+            if row:
+                # Si existe, obtener el ID existente
+                id_trata = row[0]
+            else:
+                # Si no existe, insertar un nuevo registro y obtener el ID asignado
+                cursor.execute("INSERT INTO PTrata (Cedula) VALUES (?)", (cedula,))
+                id_trata = cursor.lastrowid
+
+            # Recorrer las combobox y obtener los tratamientos
+            for i in range(6):
+                honorario = self.combo_honorario[i].currentText()
+                tratamiento = self.combo_tratamiento[i].currentText()
+
+                # Verificar si se seleccionó un tratamiento
+                if honorario != "Seleccione el tipo de honorario" and tratamiento:
+                    # Crear los nombres de las columnas según el tipo de tratamiento
+                    tipo_trata_column = f"Tipo_Trata{i + 1}"
+                    trata_column = f"Tratamiento{i + 1}"
+                    fecha_trata_column = "Fecha_Trata"
+
+                    # Verificar si ya existe un tratamiento para esa columna
+                    cursor.execute(f"SELECT {tipo_trata_column}, {trata_column} FROM PTrata WHERE ID_Trata = ?", (id_trata,))
+                    existing_data = cursor.fetchone()
+
+                    if existing_data[0] is None and existing_data[1] is None:
+                        # Si no existe, actualizar la columna correspondiente
+                        cursor.execute(f"""
+                            UPDATE PTrata
+                            SET {tipo_trata_column} = ?, {trata_column} = ?, {fecha_trata_column} = ?
+                            WHERE ID_Trata = ?
+                        """, (honorario, tratamiento, fecha_tratamiento, id_trata))
+                    else:
+                        # Si ya existe, insertar un nuevo registro
+                        cursor.execute(f"""
+                            INSERT INTO PTrata (ID_Trata, Cedula, {tipo_trata_column}, {trata_column}, {fecha_trata_column})
+                            VALUES (?, ?, ?, ?, ?)
+                        """, (id_trata, cedula, honorario, tratamiento, fecha_tratamiento))
+
+            # Confirmar los cambios en la base de datos
+            conexion.commit()
+            QMessageBox.information(self, "Éxito", "Tratamientos registrados correctamente.")
+
+            # Cierra la conexión con la base de datos
+            conexion.close()
+
+        except sqlite3.Error as error:
+            QMessageBox.critical(self, "Error", f"Error al registrar los tratamientos: {str(error)}")
     def searchDataForDelete(self):
         try:
             conexion = sqlite3.connect('interfaces/database.db')
@@ -3008,6 +3181,7 @@ class historiaMenu(QMainWindow):
 
             self.close()
        
+    
 if __name__ == "__main__":
     app = QApplication(sys.argv)
     app.setApplicationName("Clinica")  # Establecer el nombre de la aplicación
