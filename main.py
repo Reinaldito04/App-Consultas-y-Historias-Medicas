@@ -409,7 +409,7 @@ class Registro(QMainWindow):
         self.users_dialog.tipo_admin = self.users_dialog.findChild(QtWidgets.QRadioButton, 'bt_admin')
         self.users_dialog.tipo_doc = self.users_dialog.findChild(QtWidgets.QRadioButton, 'bt_doc')
         self.users_dialog.tipo_user = self.users_dialog.findChild(QtWidgets.QRadioButton, 'bt_user')
-
+        
         self.users_dialog.exec_()
 class Ui_montos(QMainWindow):
     def __init__(self, id_user):
@@ -1807,7 +1807,6 @@ class PasswordMenu(QDialog):
         super(PasswordMenu, self).__init__()
         self.id_user = id_user
         loadUi("interfaces/password.ui", self)
-        self.bt_salir.clicked.connect(lambda : QApplication.quit())
         self.bt_menu.clicked.connect(self.returnMenu)
         self.bt_passwordChange.clicked.connect(self.cambiarPassword)
         self.setWindowTitle("Cambiar Contraseña")
@@ -2080,6 +2079,7 @@ class Ui_placas(QMainWindow):
         self.img3.clear()
         self.img4.clear()
         self.img5.clear()
+        
     def clearInputs_2(self):
         self.in_busqueda_2.clear()
         self.in_apell_2.clear()
@@ -2092,81 +2092,76 @@ class Ui_placas(QMainWindow):
         
     def addplacas(self):
         cedula = self.in_busqueda.text()
-        foto_pixmap1  =self.img1.pixmap()
-        foto_pixmap2  =self.img2.pixmap()
-        foto_pixmap3  =self.img3.pixmap()
-        foto_pixmap4  =self.img4.pixmap()
-        foto_pixmap5  =self.img5.pixmap()
+        foto_pixmap1 = self.img1.pixmap()
+        foto_pixmap2 = self.img2.pixmap()
+        foto_pixmap3 = self.img3.pixmap()
+        foto_pixmap4 = self.img4.pixmap()
+        foto_pixmap5 = self.img5.pixmap()
+
         if foto_pixmap1 is None or foto_pixmap2 is None or foto_pixmap3 is None or foto_pixmap4 is None or foto_pixmap5 is None:
-            QMessageBox.warning(self,"Advertencia","Debes importar 5 imagenes antes de guardar")
+            QMessageBox.warning(self, "Advertencia", "Debes importar 5 imágenes antes de guardar")
             return
-        if len(cedula) <=0 :
-             QMessageBox.warning(self,"Advertencia","Debes ingresar la cedula para almacenar las placas")
-             return
-        else:
-            try:
-                foto1_image = foto_pixmap1.toImage()
-                foto2_image = foto_pixmap2.toImage()
-                foto3_image = foto_pixmap3.toImage()
-                foto4_image = foto_pixmap4.toImage()
-                foto5_image = foto_pixmap5.toImage()
+
+        if len(cedula) <= 0:
+            QMessageBox.warning(self, "Advertencia", "Debes ingresar la cédula para almacenar las placas")
+            return
+
+        try:
+            conexion = sqlite3.connect('interfaces/database.db')
+            cursor = conexion.cursor()
+
+            cursor.execute("SELECT Placa1, Placa2, Placa3, Placa4, Placa5 FROM Pacientes WHERE Cedula = ?", (cedula,))
+            placas_actuales = cursor.fetchone()
+
+            if any(placa is not None for placa in placas_actuales):
+                QMessageBox.critical(self, "Error", "El paciente ya tiene placas registradas.")
+            else:
                 # Convierte cada imagen a un formato de bytes (por ejemplo, PNG)
                 foto1_bytes = QByteArray()
                 buffer1 = QBuffer(foto1_bytes)
                 buffer1.open(QIODevice.WriteOnly)
-                foto1_image.save(buffer1, "PNG")
+                foto_pixmap1.toImage().save(buffer1, "PNG")
                 foto1_byte = buffer1.data()
                 buffer1.close()
 
                 foto2_bytes = QByteArray()
                 buffer2 = QBuffer(foto2_bytes)
                 buffer2.open(QIODevice.WriteOnly)
-                foto2_image.save(buffer2, "PNG")
+                foto_pixmap2.toImage().save(buffer2, "PNG")
                 foto2_byte = buffer2.data()
                 buffer2.close()
 
                 foto3_bytes = QByteArray()
                 buffer3 = QBuffer(foto3_bytes)
                 buffer3.open(QIODevice.WriteOnly)
-                foto3_image.save(buffer3, "PNG")
+                foto_pixmap3.toImage().save(buffer3, "PNG")
                 foto3_byte = buffer3.data()
                 buffer3.close()
-                
+
                 foto4_bytes = QByteArray()
                 buffer4 = QBuffer(foto4_bytes)
                 buffer4.open(QIODevice.WriteOnly)
-                foto4_image.save(buffer4, "PNG")
+                foto_pixmap4.toImage().save(buffer4, "PNG")
                 foto4_byte = buffer4.data()
                 buffer4.close()
-                
+
                 foto5_bytes = QByteArray()
                 buffer5 = QBuffer(foto5_bytes)
                 buffer5.open(QIODevice.WriteOnly)
-                foto5_image.save(buffer5, "PNG")
+                foto_pixmap5.toImage().save(buffer5, "PNG")
                 foto5_byte = buffer5.data()
                 buffer5.close()
-                
-                conexion = sqlite3.connect('interfaces/database.db')
-                cursor = conexion.cursor()
-                
-                cursor.execute("SELECT COUNT(*) FROM Pacientes WHERE Cedula = ?", (cedula,))
-                existe_paciente = cursor.fetchone()[0]
 
-                if existe_paciente > 0:
-                    QMessageBox.critical(self, "Error", "El paciente ya tiene placas registradas.")
-                    
-                #limpia los campos luego de denegar el ingreso
-                self.clearInputs()
-                
-                if existe_paciente < 0:
-                    cursor.execute("UPDATE Pacientes SET Placa1 = ?, Placa2 = ? ,Placa3 = ?, Placa4 = ?, Placa5 = ? WHERE Cedula = ?",
-                    (foto1_byte, foto2_byte, foto3_byte, foto4_byte, foto5_byte ,cedula ))
-                    QMessageBox.information(self, "Exito", "Datos Guardados Correctamente ")
+                cursor.execute("UPDATE Pacientes SET Placa1 = ?, Placa2 = ?, Placa3 = ?, Placa4 = ?, Placa5 = ? WHERE Cedula = ?",
+                            (foto1_byte, foto2_byte, foto3_byte, foto4_byte, foto5_byte, cedula))
+                QMessageBox.information(self, "Éxito", "Datos Guardados Correctamente ")
                 conexion.commit()
-                conexion.close()
-            except sqlite3.Error as e:
-                QMessageBox.critical(self, "Error", "Error al actualizar los datos en la base de datos: " + str(e))
-        
+
+            conexion.close()
+
+        except sqlite3.Error as e:
+            QMessageBox.critical(self, "Error", "Error al actualizar los datos en la base de datos: " + str(e))
+
     def searchData(self):
         idUser = self.id_user
         cedula =self.in_busqueda.text()
@@ -2445,7 +2440,7 @@ class historiaMenu(QMainWindow):
         self.verifytipoUser()
         self.verifyUsuario()
         self.tratamientos = {
-            "Triaje": ["Seleccione el tipo de honorario", "Consulta e Historia Clínica sin informe", "Consulta e Historia Clínica con informe"],
+            "Triaje": ["Consulta e Historia Clínica sin informe", "Consulta e Historia Clínica con informe"],
             "Periodoncia": ["Tartectomía y pulido simple (1 sesión)", "Tartectomía y pulido simple (2-3 sesiones)","Aplicación tópica de fluór","Cirguia periodontal (por cuadrante)"],
             "Blanqueamiento": ["Blanqueamiento intrapulpar", "Blanquemaineto maxilar superior e inferior (2 sesiones de 20 min c/u)"],
             "Operatoria": ["Obturaciones provisionales","Obturaciones con Amalgama","Obturaciones con vidrio ionomerico pequeña","Obturaciones con vidrio ionomerico grande","Obturaciones con resina fotocurada"],
@@ -2468,6 +2463,7 @@ class historiaMenu(QMainWindow):
             combo.currentTextChanged.connect(self.loadTratamientos)
 
         for i, combo in enumerate(self.combo_tratamiento):
+            combo.addItem("Seleccione el tipo de tratamiento")
             combo.currentTextChanged.connect(lambda _, index=i: self.update_monto(index))
             
             
@@ -2502,7 +2498,6 @@ class historiaMenu(QMainWindow):
                 print("No se encontro ningun tipo")
     def verifyUsuario(self):
         if self.usuario== "Usuario":
-            self.btn_delete.setEnabled(False)
             
             self.btn_agg_2.setEnabled(False)
             self.btn_edit_2.setEnabled(False)

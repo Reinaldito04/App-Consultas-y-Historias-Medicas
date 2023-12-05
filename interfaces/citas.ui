@@ -62,10 +62,31 @@ background-color:rgb(0, 85, 127);
        </property>
        <item>
         <widget class="QTabWidget" name="tabWidget">
+         <property name="font">
+          <font>
+           <pointsize>10</pointsize>
+           <weight>75</weight>
+           <bold>true</bold>
+           <underline>true</underline>
+          </font>
+         </property>
          <property name="currentIndex">
           <number>0</number>
          </property>
+         <property name="iconSize">
+          <size>
+           <width>30</width>
+           <height>30</height>
+          </size>
+         </property>
+         <property name="documentMode">
+          <bool>true</bool>
+         </property>
          <widget class="QWidget" name="agg_citas">
+          <attribute name="icon">
+           <iconset>
+            <normaloff>ELEMENTOS GRAFICOS/cita-dental.png</normaloff>ELEMENTOS GRAFICOS/cita-dental.png</iconset>
+          </attribute>
           <attribute name="title">
            <string>Agendar citas</string>
           </attribute>
@@ -91,6 +112,7 @@ background-color:rgb(0, 85, 127);
               <string notr="true">QFrame{
 background-color:rgb(70, 130, 169);
 	font: 14pt &quot;Microsoft Sans Serif&quot;;
+
 }
 QTableWidget{
 color:rgb(0,0,0);
@@ -109,8 +131,8 @@ border:1px solid  rgb(0,206,151);
 QLineEdit{
 border:2px solid rgb(0,0,0);
 border-radius:20px;
-background-color:#D0D3D4;
-font: 12pt &quot;Microsoft Sans Serif&quot;;
+	font: 12pt &quot;Microsoft Sans Serif&quot;;
+	background-color: rgb(255, 255, 255);
 }
 QPushButton{
 border-radius:20px;
@@ -118,8 +140,21 @@ border:2px solid rgb(0,0,0);
 background-color:white;
 }
 QPushButton:hover{
-	background-color:#CB4335;
-}</string>
+	background-color:#5DADE2;
+}
+QTextEdit{
+border:4px solid rgb(0,0,0);
+border-radius:20px;
+	font: 12pt &quot;Microsoft Sans Serif&quot;;
+	background-color: rgb(255, 255, 255);
+}
+QLineEdit::hover{
+	background-color:#5DADE2;
+}
+QRadioButton{
+	font: 14pt &quot;Microsoft Sans Serif&quot;;
+}
+</string>
              </property>
              <property name="frameShape">
               <enum>QFrame::StyledPanel</enum>
@@ -262,6 +297,9 @@ QPushButton:hover{
                           <height>40</height>
                          </size>
                         </property>
+                        <property name="readOnly">
+                         <bool>true</bool>
+                        </property>
                        </widget>
                       </item>
                       <item>
@@ -307,6 +345,9 @@ QPushButton:hover{
                           <width>200</width>
                           <height>40</height>
                          </size>
+                        </property>
+                        <property name="readOnly">
+                         <bool>true</bool>
                         </property>
                        </widget>
                       </item>
@@ -512,9 +553,6 @@ QPushButton:hover{
                               <day>1</day>
                              </datetime>
                             </property>
-                            <property name="currentSection">
-                             <enum>QDateTimeEdit::HourSection</enum>
-                            </property>
                             <property name="calendarPopup">
                              <bool>false</bool>
                             </property>
@@ -579,9 +617,11 @@ QPushButton:hover{
                              <widget class="QRadioButton" name="bt_act">
                               <property name="font">
                                <font>
-                                <pointsize>12</pointsize>
-                                <weight>75</weight>
-                                <bold>true</bold>
+                                <family>Microsoft Sans Serif</family>
+                                <pointsize>14</pointsize>
+                                <weight>50</weight>
+                                <italic>false</italic>
+                                <bold>false</bold>
                                 <underline>true</underline>
                                </font>
                               </property>
@@ -610,9 +650,11 @@ QPushButton:hover{
                              <widget class="QRadioButton" name="bt_cancel">
                               <property name="font">
                                <font>
-                                <pointsize>12</pointsize>
-                                <weight>75</weight>
-                                <bold>true</bold>
+                                <family>Microsoft Sans Serif</family>
+                                <pointsize>14</pointsize>
+                                <weight>50</weight>
+                                <italic>false</italic>
+                                <bold>false</bold>
                                 <underline>true</underline>
                                </font>
                               </property>
@@ -996,8 +1038,7 @@ border-top:2px solid rgb(0,0,0);
      <string>Menu principal</string>
     </property>
     <addaction name="actionVolver_al_menu_principal"/>
-    <addaction name="actionRegistrar_pacientes"/>
-    <addaction name="actionImportar_placas"/>
+    <addaction name="separator"/>
     <addaction name="actionSalir"/>
    </widget>
    <addaction name="menuMenu_principal"/>

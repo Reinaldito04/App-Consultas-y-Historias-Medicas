@@ -118,7 +118,7 @@ background-color:rgb(0, 85, 127);
              <property name="styleSheet">
               <string notr="true">QFrame{
 background-color:rgb(70, 130, 169);
-	font: 12pt &quot;Microsoft Sans Serif&quot;;
+	font: 14pt &quot;Microsoft Sans Serif&quot;;
 }
 QTableWidget{
 color:rgb(0,0,0);
@@ -128,25 +128,26 @@ font-size:12pt;
 QHeaderView::section{
 background-color:rgb(0,206,151);
 border:1px solid rgb(0,0,0);
-font-size:12pt;
+	font: 12pt &quot;Microsoft Sans Serif&quot;;
 }
 QTbaleWidget QTableCornerButton::section{
 background-color:rgb(0,0,0);
 border:1px solid  rgb(0,206,151);
 }
 QLineEdit{
-border-radius:19px;
 border:2px solid rgb(0,0,0);
-	background-color: rgb(255, 255, 255);
+border-radius:20px;
 	font: 12pt &quot;Microsoft Sans Serif&quot;;
+	background-color: rgb(255, 255, 255);
 }
 QPushButton{
 border-radius:20px;
 border:2px solid rgb(0,0,0);
 background-color:white;
+	font: 11pt &quot;Microsoft Sans Serif&quot;;
 }
 QPushButton:hover{
-	background-color:#CB4335;
+	background-color:#5DADE2;
 }
 QTextEdit{
 border:4px solid rgb(0,0,0);
@@ -154,11 +155,13 @@ border-radius:20px;
 	font: 12pt &quot;Microsoft Sans Serif&quot;;
 	background-color: rgb(255, 255, 255);
 }
-QComboBox{
-border:2px solid rgb(0,0,0);
-	font: 12pt &quot;Microsoft Sans Serif&quot;;
-	background-color: rgb(255, 255, 255);
-}</string>
+QLineEdit::hover{
+	background-color:#5DADE2;
+}
+QRadioButton{
+	font: 14pt &quot;Microsoft Sans Serif&quot;;
+}
+</string>
              </property>
              <property name="frameShape">
               <enum>QFrame::StyledPanel</enum>
@@ -171,87 +174,6 @@ border:2px solid rgb(0,0,0);
                <layout class="QHBoxLayout" name="horizontalLayout_9">
                 <item>
                  <layout class="QVBoxLayout" name="verticalLayout_16">
-                  <item>
-                   <layout class="QVBoxLayout" name="verticalLayout_14">
-                    <item>
-                     <widget class="QLabel" name="label">
-                      <property name="text">
-                       <string>Ingrese el monto del dolar al dia:</string>
-                      </property>
-                      <property name="alignment">
-                       <set>Qt::AlignCenter</set>
-                      </property>
-                     </widget>
-                    </item>
-                    <item>
-                     <layout class="QHBoxLayout" name="horizontalLayout_10">
-                      <item>
-                       <spacer name="horizontalSpacer_17">
-                        <property name="orientation">
-                         <enum>Qt::Horizontal</enum>
-                        </property>
-                        <property name="sizeHint" stdset="0">
-                         <size>
-                          <width>40</width>
-                          <height>20</height>
-                         </size>
-                        </property>
-                       </spacer>
-                      </item>
-                      <item>
-                       <widget class="QLineEdit" name="precio_dola">
-                        <property name="minimumSize">
-                         <size>
-                          <width>200</width>
-                          <height>40</height>
-                         </size>
-                        </property>
-                        <property name="maximumSize">
-                         <size>
-                          <width>200</width>
-                          <height>40</height>
-                         </size>
-                        </property>
-                        <property name="font">
-                         <font>
-                          <family>Microsoft Sans Serif</family>
-                          <pointsize>12</pointsize>
-                          <weight>50</weight>
-                          <italic>false</italic>
-                          <bold>false</bold>
-                         </font>
-                        </property>
-                        <property name="maxLength">
-                         <number>8</number>
-                        </property>
-                        <property name="alignment">
-                         <set>Qt::AlignCenter</set>
-                        </property>
-                        <property name="readOnly">
-                         <bool>false</bool>
-                        </property>
-                        <property name="placeholderText">
-                         <string>Precio del dolar</string>
-                        </property>
-                       </widget>
-                      </item>
-                      <item>
-                       <spacer name="horizontalSpacer_18">
-                        <property name="orientation">
-                         <enum>Qt::Horizontal</enum>
-                        </property>
-                        <property name="sizeHint" stdset="0">
-                         <size>
-                          <width>40</width>
-                          <height>20</height>
-                         </size>
-                        </property>
-                       </spacer>
-                      </item>
-                     </layout>
-                    </item>
-                   </layout>
-                  </item>
                   <item>
                    <layout class="QVBoxLayout" name="verticalLayout_15">
                     <item>
@@ -1164,7 +1086,11 @@ border-top:2px solid rgb(0,0,0);
                            </property>
                            <property name="font">
                             <font>
-                             <pointsize>10</pointsize>
+                             <family>Microsoft Sans Serif</family>
+                             <pointsize>11</pointsize>
+                             <weight>50</weight>
+                             <italic>false</italic>
+                             <bold>false</bold>
                             </font>
                            </property>
                            <property name="text">
@@ -1211,7 +1137,11 @@ border-top:2px solid rgb(0,0,0);
                            </property>
                            <property name="font">
                             <font>
-                             <pointsize>10</pointsize>
+                             <family>Microsoft Sans Serif</family>
+                             <pointsize>11</pointsize>
+                             <weight>50</weight>
+                             <italic>false</italic>
+                             <bold>false</bold>
                             </font>
                            </property>
                            <property name="text">
@@ -1317,7 +1247,7 @@ border-top:2px solid rgb(0,0,0);
   </action>
   <action name="actionRegresar_al_menu_prinicipal">
    <property name="text">
-    <string>Regresar al menu prinicipal</string>
+    <string>Regresar al menú prinicipal</string>
    </property>
   </action>
  </widget>
