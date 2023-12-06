@@ -575,6 +575,12 @@ class Ui_montos(QMainWindow):
         )
         if reply == QMessageBox.Yes:
             QApplication.quit()
+            
+class Ui_Salida(QMainWindow):
+    def __init__(self,id_user):
+        super(Ui_Salida, self).__init__()
+        loadUi("./interfaces/salida.ui", self)
+        self.id_user=id_user
 class MenuPrincipal(QMainWindow):
     def __init__(self, id_user):
         super(MenuPrincipal, self).__init__()
@@ -639,7 +645,7 @@ class MenuPrincipal(QMainWindow):
     def historiaView(self):
         reply = self.showConfirmation("¿Deseas ir al formulario para la creacion/visualización de las historias?")
         if reply == QMessageBox.Yes:
-            historia = Ui_pacientes_view(self.id_user)
+            historia = Ui_Salida(self.id_user)
             widget.addWidget(historia)
             widget.setCurrentIndex(widget.currentIndex() + 1)
             historia.show()
@@ -1802,6 +1808,7 @@ class Ui_CitasMenu(QMainWindow):
         )
         if reply == QMessageBox.Yes:
             QApplication.quit()
+            
 class PasswordMenu(QDialog):
     def __init__(self,id_user ):
         super(PasswordMenu, self).__init__()

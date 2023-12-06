@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>Historia</class>
- <widget class="QMainWindow" name="Historia">
+ <class>Salida</class>
+ <widget class="QMainWindow" name="Salida">
   <property name="geometry">
    <rect>
     <x>0</x>

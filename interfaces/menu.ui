@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1191</width>
-    <height>876</height>
+    <width>1830</width>
+    <height>883</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -941,10 +941,10 @@ QFrame{
                       <string/>
                      </property>
                      <property name="pixmap">
-                      <pixmap>ELEMENTOS GRAFICOS/_b42554de-1e95-47e5-b3fe-abc4cd3e47b5-removebg-preview.png</pixmap>
+                      <pixmap>ELEMENTOS GRAFICOS/odontologia.png</pixmap>
                      </property>
                      <property name="scaledContents">
-                      <bool>true</bool>
+                      <bool>false</bool>
                      </property>
                      <property name="alignment">
                       <set>Qt::AlignCenter</set>

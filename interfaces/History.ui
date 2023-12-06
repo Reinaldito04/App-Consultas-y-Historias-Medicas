@@ -1916,7 +1916,15 @@ QLineEdit::hover{
 QRadioButton{
 	font: 14pt &quot;Microsoft Sans Serif&quot;;
 }
-</string>
+
+QTimeEdit{
+font: 12pt &quot;Microsoft Sans Serif&quot;;
+border-radius:20px;
+}
+QDateEdit{
+font: 12pt &quot;Microsoft Sans Serif&quot;;
+border-radius:20px
+}</string>
              </property>
              <property name="frameShape">
               <enum>QFrame::StyledPanel</enum>
@@ -2008,6 +2016,12 @@ QRadioButton{
                           <height>16777215</height>
                          </size>
                         </property>
+                        <property name="alignment">
+                         <set>Qt::AlignCenter</set>
+                        </property>
+                        <property name="buttonSymbols">
+                         <enum>QAbstractSpinBox::NoButtons</enum>
+                        </property>
                        </widget>
                       </item>
                       <item>
@@ -2017,6 +2031,12 @@ QRadioButton{
                           <width>120</width>
                           <height>40</height>
                          </size>
+                        </property>
+                        <property name="alignment">
+                         <set>Qt::AlignCenter</set>
+                        </property>
+                        <property name="buttonSymbols">
+                         <enum>QAbstractSpinBox::NoButtons</enum>
                         </property>
                        </widget>
                       </item>
