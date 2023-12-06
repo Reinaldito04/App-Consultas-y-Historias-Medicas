@@ -581,6 +581,51 @@ class Ui_Salida(QMainWindow):
         super(Ui_Salida, self).__init__()
         loadUi("./interfaces/salida.ui", self)
         self.id_user=id_user
+        self.actionVolver_al_menu_principal.triggered.connect(self.backmenu)
+        self.actionSalir.triggered.connect(self.salir)
+        
+    def salir(self):
+        reply = QMessageBox.question(
+            self,
+            'Confirmación',
+            '¿Desea Salir ?',
+            QMessageBox.Yes | QMessageBox.No,
+            QMessageBox.Yes
+        )
+        if reply == QMessageBox.Yes:
+            QApplication.quit()   
+             
+    def backmenu(self):        
+        conexion = sqlite3.connect('interfaces/database.db')
+        cursor= conexion.cursor()
+        cursor.execute("SELECT Username FROM Users WHERE ID = ?", (self.id_user,))
+        
+        resultado = cursor.fetchone()
+        if resultado :
+            nombre_usuario = resultado[0]
+            horaActual = datetime.datetime.now().time()
+            
+            if datetime.time(5, 0, 0) <= horaActual < datetime.time(12, 0, 0):
+                textForMenu = f"Buenos días {nombre_usuario}\n¿Qué deseas hacer hoy?"
+            elif datetime.time(12, 0, 0) <= horaActual < datetime.time(18, 0, 0):
+                textForMenu = f"Buenas tardes {nombre_usuario}\n¿Qué deseas hacer hoy?"
+            elif datetime.time(18, 0, 0) <= horaActual or horaActual < datetime.time(5, 0, 0):
+                textForMenu = f"Buenas noches {nombre_usuario}\n¿Qué deseas hacer hoy?"
+            else:
+                textForMenu = f"Hola {nombre_usuario}\n¿Qué deseas hacer hoy?"
+            menu_principal = MenuPrincipal(self.id_user)
+            menu_principal.lb_nombre.setText(textForMenu)
+
+            # Establecer la ventana en modo de pantalla completa
+            menu_principal.showMaximized()
+
+            menu_principal.setWindowTitle("Menu Principal")
+
+            # Asegúrate de añadir la ventana al widget después de establecerla en modo de pantalla completa
+            widget.addWidget(menu_principal)
+            widget.setCurrentIndex(widget.currentIndex() + 1)
+
+            self.close()
 class MenuPrincipal(QMainWindow):
     def __init__(self, id_user):
         from plyer import notification

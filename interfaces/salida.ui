@@ -1030,7 +1030,7 @@ font: 63 16pt &quot;Yu Gothic UI Semibold&quot;;
                               <string/>
                              </property>
                              <property name="pixmap">
-                              <pixmap>../../OCLUSAL.jpg</pixmap>
+                              <pixmap>ELEMENTOS GRAFICOS/OCLUSAL.jpg</pixmap>
                              </property>
                              <property name="scaledContents">
                               <bool>true</bool>
@@ -2333,7 +2333,26 @@ border-top:2px solid rgb(0,0,0);
      <height>21</height>
     </rect>
    </property>
+   <widget class="QMenu" name="menuMen">
+    <property name="title">
+     <string>Menú</string>
+    </property>
+    <addaction name="actionVolver_al_menu_principal"/>
+    <addaction name="separator"/>
+    <addaction name="actionSalir"/>
+   </widget>
+   <addaction name="menuMen"/>
   </widget>
+  <action name="actionVolver_al_menu_principal">
+   <property name="text">
+    <string>Volver al menú principal</string>
+   </property>
+  </action>
+  <action name="actionSalir">
+   <property name="text">
+    <string>Salir</string>
+   </property>
+  </action>
  </widget>
  <resources/>
  <connections/>
