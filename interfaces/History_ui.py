@@ -862,7 +862,15 @@ class Ui_Paciente_Historias(object):
 "QRadioButton{\n"
 "    font: 14pt \"Microsoft Sans Serif\";\n"
 "}\n"
-"")
+"\n"
+"QTimeEdit{\n"
+"font: 12pt \"Microsoft Sans Serif\";\n"
+"border-radius:20px;\n"
+"}\n"
+"QDateEdit{\n"
+"font: 12pt \"Microsoft Sans Serif\";\n"
+"border-radius:20px\n"
+"}")
         self.frame_7.setFrameShape(QtWidgets.QFrame.StyledPanel)
         self.frame_7.setFrameShadow(QtWidgets.QFrame.Raised)
         self.frame_7.setObjectName("frame_7")
@@ -902,10 +910,14 @@ class Ui_Paciente_Historias(object):
         self.fecha = QtWidgets.QDateEdit(self.frame_7)
         self.fecha.setMinimumSize(QtCore.QSize(120, 40))
         self.fecha.setMaximumSize(QtCore.QSize(120, 16777215))
+        self.fecha.setAlignment(QtCore.Qt.AlignCenter)
+        self.fecha.setButtonSymbols(QtWidgets.QAbstractSpinBox.NoButtons)
         self.fecha.setObjectName("fecha")
         self.horizontalLayout_53.addWidget(self.fecha)
         self.hora = QtWidgets.QTimeEdit(self.frame_7)
         self.hora.setMinimumSize(QtCore.QSize(120, 40))
+        self.hora.setAlignment(QtCore.Qt.AlignCenter)
+        self.hora.setButtonSymbols(QtWidgets.QAbstractSpinBox.NoButtons)
         self.hora.setObjectName("hora")
         self.horizontalLayout_53.addWidget(self.hora)
         self.verticalLayout_20.addLayout(self.horizontalLayout_53)
