@@ -66,26 +66,6 @@ class Ui_Dialog(object):
         self.label_3.setAlignment(QtCore.Qt.AlignCenter)
         self.label_3.setObjectName("label_3")
         self.horizontalLayout.addWidget(self.label_3)
-        self.bt_salir = QtWidgets.QPushButton(self.frame)
-        self.bt_salir.setMinimumSize(QtCore.QSize(60, 60))
-        self.bt_salir.setMaximumSize(QtCore.QSize(60, 60))
-        self.bt_salir.setStyleSheet("QPushButton{\n"
-"border-radius:25px;\n"
-"}\n"
-"\n"
-"QPushButton:hover{\n"
-"color:white;\n"
-"background-color:rgb(145, 200, 228);\n"
-"\n"
-"}\n"
-"")
-        self.bt_salir.setText("")
-        icon1 = QtGui.QIcon()
-        icon1.addPixmap(QtGui.QPixmap("/home/reinaldo/Documentos/dev/App-Consultas-y-Historias-Medicas/interfaces/ELEMENTOS GRAFICOS/exit-fill.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
-        self.bt_salir.setIcon(icon1)
-        self.bt_salir.setIconSize(QtCore.QSize(38, 38))
-        self.bt_salir.setObjectName("bt_salir")
-        self.horizontalLayout.addWidget(self.bt_salir)
         self.verticalLayout_2.addLayout(self.horizontalLayout)
         self.horizontalLayout_3 = QtWidgets.QHBoxLayout()
         self.horizontalLayout_3.setObjectName("horizontalLayout_3")

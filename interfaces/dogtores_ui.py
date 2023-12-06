@@ -23,7 +23,8 @@ class Ui_MainWindow(object):
         self.verticalLayout.setObjectName("verticalLayout")
         self.frame = QtWidgets.QFrame(self.centralwidget)
         self.frame.setStyleSheet("QFrame{\n"
-"background-color:gray;\n"
+"background-color:rgb(0, 85, 127);\n"
+"\n"
 "}")
         self.frame.setFrameShape(QtWidgets.QFrame.StyledPanel)
         self.frame.setFrameShadow(QtWidgets.QFrame.Raised)
@@ -49,7 +50,7 @@ class Ui_MainWindow(object):
         self.frame_2 = QtWidgets.QFrame(self.tab)
         self.frame_2.setStyleSheet("QFrame{\n"
 "background-color:rgb(70, 130, 169);\n"
-"font: 14pt \"Microsoft Sans Serif\";\n"
+"    font: 14pt \"Microsoft Sans Serif\";\n"
 "}\n"
 "QTableWidget{\n"
 "color:rgb(0,0,0);\n"
@@ -59,7 +60,7 @@ class Ui_MainWindow(object):
 "QHeaderView::section{\n"
 "background-color:rgb(0,206,151);\n"
 "border:1px solid rgb(0,0,0);\n"
-"font-size:12pt;\n"
+"    font: 12pt \"Microsoft Sans Serif\";\n"
 "}\n"
 "QTbaleWidget QTableCornerButton::section{\n"
 "background-color:rgb(0,0,0);\n"
@@ -68,16 +69,29 @@ class Ui_MainWindow(object):
 "QLineEdit{\n"
 "border:2px solid rgb(0,0,0);\n"
 "border-radius:20px;\n"
-"background-color:#D0D3D4;\n"
-"font: 12pt \"Microsoft Sans Serif\";\n"
+"    font: 12pt \"Microsoft Sans Serif\";\n"
+"    background-color: rgb(255, 255, 255);\n"
 "}\n"
 "QPushButton{\n"
 "border-radius:20px;\n"
 "border:2px solid rgb(0,0,0);\n"
 "background-color:white;\n"
+"    font: 11pt \"Microsoft Sans Serif\";\n"
 "}\n"
 "QPushButton:hover{\n"
-"background-color:#CB4335;\n"
+"    background-color:#5DADE2;\n"
+"}\n"
+"QTextEdit{\n"
+"border:4px solid rgb(0,0,0);\n"
+"border-radius:20px;\n"
+"    font: 12pt \"Microsoft Sans Serif\";\n"
+"    background-color: rgb(255, 255, 255);\n"
+"}\n"
+"QLineEdit::hover{\n"
+"    background-color:#5DADE2;\n"
+"}\n"
+"QRadioButton{\n"
+"    font: 14pt \"Microsoft Sans Serif\";\n"
 "}\n"
 "")
         self.frame_2.setFrameShape(QtWidgets.QFrame.StyledPanel)
@@ -218,9 +232,10 @@ class Ui_MainWindow(object):
         self.btn_m = QtWidgets.QRadioButton(self.frame_2)
         font = QtGui.QFont()
         font.setFamily("Microsoft Sans Serif")
-        font.setPointSize(12)
-        font.setBold(True)
-        font.setWeight(75)
+        font.setPointSize(14)
+        font.setBold(False)
+        font.setItalic(False)
+        font.setWeight(50)
         self.btn_m.setFont(font)
         self.btn_m.setStyleSheet("")
         self.btn_m.setObjectName("btn_m")
@@ -228,9 +243,10 @@ class Ui_MainWindow(object):
         self.btn_f = QtWidgets.QRadioButton(self.frame_2)
         font = QtGui.QFont()
         font.setFamily("Microsoft Sans Serif")
-        font.setPointSize(12)
-        font.setBold(True)
-        font.setWeight(75)
+        font.setPointSize(14)
+        font.setBold(False)
+        font.setItalic(False)
+        font.setWeight(50)
         self.btn_f.setFont(font)
         self.btn_f.setObjectName("btn_f")
         self.horizontalLayout_6.addWidget(self.btn_f)
@@ -329,7 +345,11 @@ class Ui_MainWindow(object):
         self.btn_agg.setMinimumSize(QtCore.QSize(150, 50))
         self.btn_agg.setMaximumSize(QtCore.QSize(150, 50))
         font = QtGui.QFont()
-        font.setPointSize(10)
+        font.setFamily("Microsoft Sans Serif")
+        font.setPointSize(11)
+        font.setBold(False)
+        font.setItalic(False)
+        font.setWeight(50)
         self.btn_agg.setFont(font)
         icon = QtGui.QIcon()
         icon.addPixmap(QtGui.QPixmap("/home/reinaldo/Documentos/dev/App-Consultas-y-Historias-Medicas/interfaces/ELEMENTOS GRAFICOS/save.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
@@ -343,7 +363,11 @@ class Ui_MainWindow(object):
         self.btn_clear.setMinimumSize(QtCore.QSize(150, 50))
         self.btn_clear.setMaximumSize(QtCore.QSize(150, 50))
         font = QtGui.QFont()
-        font.setPointSize(10)
+        font.setFamily("Microsoft Sans Serif")
+        font.setPointSize(11)
+        font.setBold(False)
+        font.setItalic(False)
+        font.setWeight(50)
         self.btn_clear.setFont(font)
         icon1 = QtGui.QIcon()
         icon1.addPixmap(QtGui.QPixmap("/home/reinaldo/Documentos/dev/App-Consultas-y-Historias-Medicas/interfaces/ELEMENTOS GRAFICOS/limpiar.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)

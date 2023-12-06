@@ -23,7 +23,8 @@ class Ui_placas(object):
         self.verticalLayout.setObjectName("verticalLayout")
         self.frame = QtWidgets.QFrame(self.centralwidget)
         self.frame.setStyleSheet("QFrame{\n"
-"background-color:gray;\n"
+"background-color:rgb(0, 85, 127);\n"
+"\n"
 "}")
         self.frame.setFrameShape(QtWidgets.QFrame.StyledPanel)
         self.frame.setFrameShadow(QtWidgets.QFrame.Raised)
@@ -39,6 +40,7 @@ class Ui_placas(object):
         font.setUnderline(True)
         font.setWeight(75)
         self.tabWidget.setFont(font)
+        self.tabWidget.setDocumentMode(True)
         self.tabWidget.setObjectName("tabWidget")
         self.tab = QtWidgets.QWidget()
         self.tab.setObjectName("tab")
@@ -49,7 +51,7 @@ class Ui_placas(object):
         self.frame_7 = QtWidgets.QFrame(self.tab)
         self.frame_7.setStyleSheet("QFrame{\n"
 "background-color:rgb(70, 130, 169);\n"
-"    font: 12pt \"Microsoft Sans Serif\";\n"
+"    font: 14pt \"Microsoft Sans Serif\";\n"
 "}\n"
 "QTableWidget{\n"
 "color:rgb(0,0,0);\n"
@@ -59,7 +61,7 @@ class Ui_placas(object):
 "QHeaderView::section{\n"
 "background-color:rgb(0,206,151);\n"
 "border:1px solid rgb(0,0,0);\n"
-"font-size:12pt;\n"
+"    font: 12pt \"Microsoft Sans Serif\";\n"
 "}\n"
 "QTbaleWidget QTableCornerButton::section{\n"
 "background-color:rgb(0,0,0);\n"
@@ -68,8 +70,8 @@ class Ui_placas(object):
 "QLineEdit{\n"
 "border:2px solid rgb(0,0,0);\n"
 "border-radius:20px;\n"
-"background-color:#D0D3D4;\n"
 "    font: 12pt \"Microsoft Sans Serif\";\n"
+"    background-color: rgb(255, 255, 255);\n"
 "}\n"
 "QPushButton{\n"
 "border-radius:20px;\n"
@@ -77,8 +79,21 @@ class Ui_placas(object):
 "background-color:white;\n"
 "}\n"
 "QPushButton:hover{\n"
-"    background-color:#CB4335;\n"
-"}")
+"    background-color:#5DADE2;\n"
+"}\n"
+"QTextEdit{\n"
+"border:4px solid rgb(0,0,0);\n"
+"border-radius:20px;\n"
+"    font: 12pt \"Microsoft Sans Serif\";\n"
+"    background-color: rgb(255, 255, 255);\n"
+"}\n"
+"QLineEdit::hover{\n"
+"    background-color:#5DADE2;\n"
+"}\n"
+"QRadioButton{\n"
+"    font: 14pt \"Microsoft Sans Serif\";\n"
+"}\n"
+"")
         self.frame_7.setFrameShape(QtWidgets.QFrame.StyledPanel)
         self.frame_7.setFrameShadow(QtWidgets.QFrame.Raised)
         self.frame_7.setObjectName("frame_7")
@@ -120,6 +135,7 @@ class Ui_placas(object):
         self.in_name = QtWidgets.QLineEdit(self.frame_7)
         self.in_name.setMinimumSize(QtCore.QSize(200, 40))
         self.in_name.setMaximumSize(QtCore.QSize(200, 40))
+        self.in_name.setReadOnly(True)
         self.in_name.setObjectName("in_name")
         self.horizontalLayout_21.addWidget(self.in_name)
         spacerItem1 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
@@ -134,6 +150,7 @@ class Ui_placas(object):
         self.in_apell = QtWidgets.QLineEdit(self.frame_7)
         self.in_apell.setMinimumSize(QtCore.QSize(200, 40))
         self.in_apell.setMaximumSize(QtCore.QSize(200, 40))
+        self.in_apell.setReadOnly(True)
         self.in_apell.setObjectName("in_apell")
         self.horizontalLayout_22.addWidget(self.in_apell)
         spacerItem2 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
@@ -278,7 +295,11 @@ class Ui_placas(object):
         self.btn_agg.setMinimumSize(QtCore.QSize(150, 50))
         self.btn_agg.setMaximumSize(QtCore.QSize(150, 50))
         font = QtGui.QFont()
-        font.setPointSize(10)
+        font.setFamily("Microsoft Sans Serif")
+        font.setPointSize(13)
+        font.setBold(False)
+        font.setItalic(False)
+        font.setWeight(50)
         self.btn_agg.setFont(font)
         icon1 = QtGui.QIcon()
         icon1.addPixmap(QtGui.QPixmap("/home/reinaldo/Documentos/dev/App-Consultas-y-Historias-Medicas/interfaces/ELEMENTOS GRAFICOS/save.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
@@ -292,7 +313,11 @@ class Ui_placas(object):
         self.btn_edit.setMinimumSize(QtCore.QSize(150, 50))
         self.btn_edit.setMaximumSize(QtCore.QSize(150, 50))
         font = QtGui.QFont()
-        font.setPointSize(10)
+        font.setFamily("Microsoft Sans Serif")
+        font.setPointSize(13)
+        font.setBold(False)
+        font.setItalic(False)
+        font.setWeight(50)
         self.btn_edit.setFont(font)
         icon2 = QtGui.QIcon()
         icon2.addPixmap(QtGui.QPixmap("/home/reinaldo/Documentos/dev/App-Consultas-y-Historias-Medicas/interfaces/ELEMENTOS GRAFICOS/editar-codigo.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
@@ -306,7 +331,11 @@ class Ui_placas(object):
         self.btn_clear.setMinimumSize(QtCore.QSize(150, 50))
         self.btn_clear.setMaximumSize(QtCore.QSize(150, 50))
         font = QtGui.QFont()
-        font.setPointSize(10)
+        font.setFamily("Microsoft Sans Serif")
+        font.setPointSize(13)
+        font.setBold(False)
+        font.setItalic(False)
+        font.setWeight(50)
         self.btn_clear.setFont(font)
         icon3 = QtGui.QIcon()
         icon3.addPixmap(QtGui.QPixmap("/home/reinaldo/Documentos/dev/App-Consultas-y-Historias-Medicas/interfaces/ELEMENTOS GRAFICOS/limpiar.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
@@ -333,7 +362,7 @@ class Ui_placas(object):
         self.frame_3 = QtWidgets.QFrame(self.tab_2)
         self.frame_3.setStyleSheet("QFrame{\n"
 "background-color:rgb(70, 130, 169);\n"
-"    font: 12pt \"Microsoft Sans Serif\";\n"
+"    font: 14pt \"Microsoft Sans Serif\";\n"
 "}\n"
 "QTableWidget{\n"
 "color:rgb(0,0,0);\n"
@@ -343,7 +372,7 @@ class Ui_placas(object):
 "QHeaderView::section{\n"
 "background-color:rgb(0,206,151);\n"
 "border:1px solid rgb(0,0,0);\n"
-"font-size:12pt;\n"
+"    font: 12pt \"Microsoft Sans Serif\";\n"
 "}\n"
 "QTbaleWidget QTableCornerButton::section{\n"
 "background-color:rgb(0,0,0);\n"
@@ -352,8 +381,8 @@ class Ui_placas(object):
 "QLineEdit{\n"
 "border:2px solid rgb(0,0,0);\n"
 "border-radius:20px;\n"
-"background-color:#D0D3D4;\n"
 "    font: 12pt \"Microsoft Sans Serif\";\n"
+"    background-color: rgb(255, 255, 255);\n"
 "}\n"
 "QPushButton{\n"
 "border-radius:20px;\n"
@@ -361,8 +390,21 @@ class Ui_placas(object):
 "background-color:white;\n"
 "}\n"
 "QPushButton:hover{\n"
-"    background-color:#CB4335;\n"
-"}")
+"    background-color:#5DADE2;\n"
+"}\n"
+"QTextEdit{\n"
+"border:4px solid rgb(0,0,0);\n"
+"border-radius:20px;\n"
+"    font: 12pt \"Microsoft Sans Serif\";\n"
+"    background-color: rgb(255, 255, 255);\n"
+"}\n"
+"QLineEdit::hover{\n"
+"    background-color:#5DADE2;\n"
+"}\n"
+"QRadioButton{\n"
+"    font: 14pt \"Microsoft Sans Serif\";\n"
+"}\n"
+"")
         self.frame_3.setFrameShape(QtWidgets.QFrame.StyledPanel)
         self.frame_3.setFrameShadow(QtWidgets.QFrame.Raised)
         self.frame_3.setObjectName("frame_3")
@@ -405,6 +447,7 @@ class Ui_placas(object):
         self.in_name_2 = QtWidgets.QLineEdit(self.frame_3)
         self.in_name_2.setMinimumSize(QtCore.QSize(200, 40))
         self.in_name_2.setMaximumSize(QtCore.QSize(200, 40))
+        self.in_name_2.setReadOnly(True)
         self.in_name_2.setObjectName("in_name_2")
         self.horizontalLayout_5.addWidget(self.in_name_2)
         spacerItem22 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
@@ -419,6 +462,7 @@ class Ui_placas(object):
         self.in_apell_2 = QtWidgets.QLineEdit(self.frame_3)
         self.in_apell_2.setMinimumSize(QtCore.QSize(200, 40))
         self.in_apell_2.setMaximumSize(QtCore.QSize(200, 40))
+        self.in_apell_2.setReadOnly(True)
         self.in_apell_2.setObjectName("in_apell_2")
         self.horizontalLayout_13.addWidget(self.in_apell_2)
         spacerItem23 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
@@ -517,6 +561,9 @@ class Ui_placas(object):
         self.btn_clear_2 = QtWidgets.QPushButton(self.frame_3)
         self.btn_clear_2.setMinimumSize(QtCore.QSize(150, 50))
         self.btn_clear_2.setMaximumSize(QtCore.QSize(150, 50))
+        self.btn_clear_2.setStyleSheet("QPushButton{\n"
+"    font: 13pt \"Microsoft Sans Serif\";\n"
+"}")
         self.btn_clear_2.setObjectName("btn_clear_2")
         self.horizontalLayout_4.addWidget(self.btn_clear_2)
         spacerItem35 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
@@ -539,12 +586,13 @@ class Ui_placas(object):
         self.actionSalir.setObjectName("actionSalir")
         self.actionVolver_al_menu_principal = QtWidgets.QAction(placas)
         self.actionVolver_al_menu_principal.setObjectName("actionVolver_al_menu_principal")
-        self.menuMenu.addAction(self.actionSalir)
         self.menuMenu.addAction(self.actionVolver_al_menu_principal)
+        self.menuMenu.addSeparator()
+        self.menuMenu.addAction(self.actionSalir)
         self.menubar.addAction(self.menuMenu.menuAction())
 
         self.retranslateUi(placas)
-        self.tabWidget.setCurrentIndex(1)
+        self.tabWidget.setCurrentIndex(0)
         QtCore.QMetaObject.connectSlotsByName(placas)
 
     def retranslateUi(self, placas):
@@ -553,11 +601,11 @@ class Ui_placas(object):
         self.title_3.setText(_translate("placas", "Importar placas dentales"))
         self.lbl_name_3.setText(_translate("placas", "Nombre:"))
         self.lbl_apell_3.setText(_translate("placas", "Apellido:"))
-        self.img1.setText(_translate("placas", "Placa"))
-        self.img2.setText(_translate("placas", "Placa"))
-        self.img3.setText(_translate("placas", "Placa"))
-        self.img4.setText(_translate("placas", "Placa"))
-        self.img5.setText(_translate("placas", "Placa"))
+        self.img1.setText(_translate("placas", "Radiografia dental"))
+        self.img2.setText(_translate("placas", "Radiografia dental"))
+        self.img3.setText(_translate("placas", "Radiografia dental"))
+        self.img4.setText(_translate("placas", "Radiografia dental"))
+        self.img5.setText(_translate("placas", "Radiografia dental"))
         self.btn_import.setText(_translate("placas", "Importar"))
         self.label_12.setText(_translate("placas", "Controles"))
         self.btn_agg.setText(_translate("placas", "Agregar"))
@@ -568,11 +616,11 @@ class Ui_placas(object):
         self.label_8.setText(_translate("placas", "Las placas dentales del paciente:"))
         self.lbl_name_2.setText(_translate("placas", "Nombre:"))
         self.lbl_apell_2.setText(_translate("placas", "Apellido:"))
-        self.img6.setText(_translate("placas", "Placa"))
-        self.img7.setText(_translate("placas", "Placa"))
-        self.img8.setText(_translate("placas", "Placa"))
-        self.img9.setText(_translate("placas", "Placa"))
-        self.img10.setText(_translate("placas", "Placa"))
+        self.img6.setText(_translate("placas", "Radiografia dental"))
+        self.img7.setText(_translate("placas", "Radiografia dental"))
+        self.img8.setText(_translate("placas", "Radiografia dental"))
+        self.img9.setText(_translate("placas", "Radiografia dental"))
+        self.img10.setText(_translate("placas", "Radiografia dental"))
         self.btn_clear_2.setText(_translate("placas", "Limpiar"))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_2), _translate("placas", "Visualizar Placas"))
         self.menuMenu.setTitle(_translate("placas", "Menu"))
