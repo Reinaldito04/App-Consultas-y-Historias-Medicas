@@ -583,7 +583,40 @@ class Ui_Salida(QMainWindow):
         self.id_user=id_user
         self.actionVolver_al_menu_principal.triggered.connect(self.backmenu)
         self.actionSalir.triggered.connect(self.salir)
-        
+        self.btn_buscar.clicked.connect(self.busqueda)
+    def busqueda(self):
+        busqueda = self.in_busqueda.text()
+        if not busqueda:
+            QMessageBox.information(self,"Falta la cedula","Por favor digite la cedula a buscar")
+            return
+        conexion = sqlite3.connect('interfaces/database.db')
+        cursor= conexion.cursor()
+        cursor.execute("SELECT Cedula,Telefono,Nombre,Apellido,Direccion,Hipertension,Coagualcion,Diabates,hipertension_Data,diabate_Data,Alergias FROM Pacientes WHERE Cedula =?",(busqueda,))
+        resultado = cursor.fetchone()
+        if resultado:
+            self.lineEdit_4.setText(resultado[0])
+            self.lineEdit_6.setText(resultado[1])
+            self.lineEdit_2.setText(resultado[2])
+            self.lineEdit_3.setText(resultado[3])
+            self.lineEdit_5.setText(resultado[4])
+            Hipertenso = resultado[5]
+            if Hipertenso =="No":
+                self.btn_no.setChecked(True)
+            if Hipertenso =="Si":
+                self.btn_si.setChecked(True)
+            Coalugacion = resultado[6]
+            if Coalugacion =="No":
+                self.btn_no_2.setChecked(True)
+            if Coalugacion =="Si":
+                self.btn_si_2.setChecked(True)
+            Diabetes = resultado[7]
+            if Diabetes =="No":
+                self.btn_no_3.setChecked(True)
+            if Diabetes =="Si":
+                self.btn_si_3.setChecked(True)
+            self.lineEdit_7.setText(resultado[8])
+            self.lineEdit_8.setText(resultado[9])
+            self.textEdit.setText(resultado[10])
     def salir(self):
         reply = QMessageBox.question(
             self,

@@ -40,6 +40,7 @@ class Ui_MainWindow(object):
         font.setUnderline(True)
         font.setWeight(75)
         self.tabWidget.setFont(font)
+        self.tabWidget.setDocumentMode(True)
         self.tabWidget.setObjectName("tabWidget")
         self.tab = QtWidgets.QWidget()
         self.tab.setObjectName("tab")

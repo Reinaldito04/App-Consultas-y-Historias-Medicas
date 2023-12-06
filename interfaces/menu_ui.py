@@ -14,7 +14,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
-        MainWindow.resize(1191, 876)
+        MainWindow.resize(1830, 883)
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")
         self.verticalLayout = QtWidgets.QVBoxLayout(self.centralwidget)
@@ -473,8 +473,8 @@ class Ui_MainWindow(object):
 "    border-radius:100%;\n"
 "}")
         self.label_3.setText("")
-        self.label_3.setPixmap(QtGui.QPixmap("/home/reinaldo/Documentos/dev/App-Consultas-y-Historias-Medicas/interfaces/ELEMENTOS GRAFICOS/_b42554de-1e95-47e5-b3fe-abc4cd3e47b5-removebg-preview.png"))
-        self.label_3.setScaledContents(True)
+        self.label_3.setPixmap(QtGui.QPixmap("/home/reinaldo/Documentos/dev/App-Consultas-y-Historias-Medicas/interfaces/ELEMENTOS GRAFICOS/odontologia.png"))
+        self.label_3.setScaledContents(False)
         self.label_3.setAlignment(QtCore.Qt.AlignCenter)
         self.label_3.setWordWrap(False)
         self.label_3.setObjectName("label_3")
