@@ -23,7 +23,8 @@ class Ui_MainWindow(object):
         self.verticalLayout_5.setObjectName("verticalLayout_5")
         self.frame = QtWidgets.QFrame(self.centralwidget)
         self.frame.setStyleSheet("QFrame{\n"
-"background-color:gray;\n"
+"background-color:rgb(0, 85, 127);\n"
+"\n"
 "}")
         self.frame.setFrameShape(QtWidgets.QFrame.StyledPanel)
         self.frame.setFrameShadow(QtWidgets.QFrame.Raised)
@@ -59,7 +60,7 @@ class Ui_MainWindow(object):
 "QHeaderView::section{\n"
 "background-color:rgb(0,206,151);\n"
 "border:1px solid rgb(0,0,0);\n"
-"font-size:12pt;\n"
+"    font: 12pt \"Microsoft Sans Serif\";\n"
 "}\n"
 "QTbaleWidget QTableCornerButton::section{\n"
 "background-color:rgb(0,0,0);\n"
@@ -68,26 +69,36 @@ class Ui_MainWindow(object):
 "QLineEdit{\n"
 "border:2px solid rgb(0,0,0);\n"
 "border-radius:20px;\n"
-"background-color:#D0D3D4;\n"
 "    font: 12pt \"Microsoft Sans Serif\";\n"
+"    background-color: rgb(255, 255, 255);\n"
 "}\n"
 "QPushButton{\n"
 "border-radius:20px;\n"
 "border:2px solid rgb(0,0,0);\n"
 "background-color:white;\n"
-"    font: 10pt \"Microsoft Sans Serif\";\n"
+"    font: 11pt \"Microsoft Sans Serif\";\n"
 "}\n"
 "QPushButton:hover{\n"
-"    background-color:#CB4335;\n"
-"}")
+"    background-color:#5DADE2;\n"
+"}\n"
+"QTextEdit{\n"
+"border:4px solid rgb(0,0,0);\n"
+"border-radius:20px;\n"
+"    font: 12pt \"Microsoft Sans Serif\";\n"
+"    background-color: rgb(255, 255, 255);\n"
+"}\n"
+"QLineEdit::hover{\n"
+"    background-color:#5DADE2;\n"
+"}\n"
+"QRadioButton{\n"
+"    font: 14pt \"Microsoft Sans Serif\";\n"
+"}\n"
+"")
         self.frame_3.setFrameShape(QtWidgets.QFrame.StyledPanel)
         self.frame_3.setFrameShadow(QtWidgets.QFrame.Raised)
         self.frame_3.setObjectName("frame_3")
-        self.verticalLayout_22 = QtWidgets.QVBoxLayout(self.frame_3)
-        self.verticalLayout_22.setObjectName("verticalLayout_22")
-        self.horizontalLayout_17 = QtWidgets.QHBoxLayout()
-        self.horizontalLayout_17.setObjectName("horizontalLayout_17")
-        self.verticalLayout_22.addLayout(self.horizontalLayout_17)
+        self.verticalLayout_10 = QtWidgets.QVBoxLayout(self.frame_3)
+        self.verticalLayout_10.setObjectName("verticalLayout_10")
         self.horizontalLayout_14 = QtWidgets.QHBoxLayout()
         self.horizontalLayout_14.setObjectName("horizontalLayout_14")
         self.verticalLayout_9 = QtWidgets.QVBoxLayout()
@@ -211,9 +222,10 @@ class Ui_MainWindow(object):
         self.btn_m_2 = QtWidgets.QRadioButton(self.frame_3)
         font = QtGui.QFont()
         font.setFamily("Microsoft Sans Serif")
-        font.setPointSize(12)
-        font.setBold(True)
-        font.setWeight(75)
+        font.setPointSize(14)
+        font.setBold(False)
+        font.setItalic(False)
+        font.setWeight(50)
         self.btn_m_2.setFont(font)
         self.btn_m_2.setStyleSheet("")
         self.btn_m_2.setObjectName("btn_m_2")
@@ -221,9 +233,10 @@ class Ui_MainWindow(object):
         self.btn_f_2 = QtWidgets.QRadioButton(self.frame_3)
         font = QtGui.QFont()
         font.setFamily("Microsoft Sans Serif")
-        font.setPointSize(12)
-        font.setBold(True)
-        font.setWeight(75)
+        font.setPointSize(14)
+        font.setBold(False)
+        font.setItalic(False)
+        font.setWeight(50)
         self.btn_f_2.setFont(font)
         self.btn_f_2.setObjectName("btn_f_2")
         self.horizontalLayout.addWidget(self.btn_f_2)
@@ -303,7 +316,7 @@ class Ui_MainWindow(object):
         self.btn_save.setMaximumSize(QtCore.QSize(150, 50))
         font = QtGui.QFont()
         font.setFamily("Microsoft Sans Serif")
-        font.setPointSize(10)
+        font.setPointSize(11)
         font.setBold(False)
         font.setItalic(False)
         font.setWeight(50)
@@ -331,6 +344,10 @@ class Ui_MainWindow(object):
         self.verticalLayout_3.addItem(spacerItem14)
         self.btn_adduser = QtWidgets.QPushButton(self.frame_5)
         self.btn_adduser.setMinimumSize(QtCore.QSize(150, 50))
+        icon1 = QtGui.QIcon()
+        icon1.addPixmap(QtGui.QPixmap("/home/reinaldo/Documentos/dev/App-Consultas-y-Historias-Medicas/interfaces/ELEMENTOS GRAFICOS/agregar-usuario.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.btn_adduser.setIcon(icon1)
+        self.btn_adduser.setIconSize(QtCore.QSize(25, 25))
         self.btn_adduser.setObjectName("btn_adduser")
         self.verticalLayout_3.addWidget(self.btn_adduser)
         spacerItem15 = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
@@ -340,9 +357,9 @@ class Ui_MainWindow(object):
         spacerItem16 = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
         self.verticalLayout_6.addItem(spacerItem16)
         self.horizontalLayout_14.addLayout(self.verticalLayout_6)
-        self.verticalLayout_22.addLayout(self.horizontalLayout_14)
+        self.verticalLayout_10.addLayout(self.horizontalLayout_14)
         spacerItem17 = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
-        self.verticalLayout_22.addItem(spacerItem17)
+        self.verticalLayout_10.addItem(spacerItem17)
         self.verticalLayout_2.addWidget(self.frame_3)
         self.tabWidget.addTab(self.tab, "")
         self.verticalLayout.addWidget(self.tabWidget)
@@ -381,9 +398,9 @@ class Ui_MainWindow(object):
         self.lbl_mail_2.setText(_translate("MainWindow", "E-mail:"))
         self.label_2.setText(_translate("MainWindow", "Controles"))
         self.btn_save.setText(_translate("MainWindow", "Modificar"))
-        self.btn_passwordChange.setText(_translate("MainWindow", "Cambiar Contraseña"))
-        self.bt_delete.setText(_translate("MainWindow", "Eliminar"))
+        self.btn_passwordChange.setText(_translate("MainWindow", "Cambiar contraseña"))
+        self.bt_delete.setText(_translate("MainWindow", "Eliminar usuario"))
         self.btn_adduser.setText(_translate("MainWindow", "Añadir usuarios"))
-        self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab), _translate("MainWindow", "Edicion de datos del Dentista"))
+        self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab), _translate("MainWindow", "Edicion de datos del usuario"))
         self.menuMen.setTitle(_translate("MainWindow", "Menú"))
         self.actionBack.setText(_translate("MainWindow", "Volver al menú prinicpal"))

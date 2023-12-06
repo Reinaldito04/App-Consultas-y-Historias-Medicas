@@ -23,7 +23,8 @@ class Ui_CitasMenu(object):
         self.verticalLayout.setObjectName("verticalLayout")
         self.frame = QtWidgets.QFrame(self.centralwidget)
         self.frame.setStyleSheet("QFrame{\n"
-"background-color:gray;\n"
+"background-color:rgb(0, 85, 127);\n"
+"\n"
 "}")
         self.frame.setFrameShape(QtWidgets.QFrame.StyledPanel)
         self.frame.setFrameShadow(QtWidgets.QFrame.Raised)
@@ -33,6 +34,14 @@ class Ui_CitasMenu(object):
         self.verticalLayout_2.setSpacing(0)
         self.verticalLayout_2.setObjectName("verticalLayout_2")
         self.tabWidget = QtWidgets.QTabWidget(self.frame)
+        font = QtGui.QFont()
+        font.setPointSize(10)
+        font.setBold(True)
+        font.setUnderline(True)
+        font.setWeight(75)
+        self.tabWidget.setFont(font)
+        self.tabWidget.setIconSize(QtCore.QSize(30, 30))
+        self.tabWidget.setDocumentMode(True)
         self.tabWidget.setObjectName("tabWidget")
         self.agg_citas = QtWidgets.QWidget()
         self.agg_citas.setObjectName("agg_citas")
@@ -43,7 +52,8 @@ class Ui_CitasMenu(object):
         self.frame_2 = QtWidgets.QFrame(self.agg_citas)
         self.frame_2.setStyleSheet("QFrame{\n"
 "background-color:rgb(70, 130, 169);\n"
-"    font: 12pt \"Microsoft Sans Serif\";\n"
+"    font: 14pt \"Microsoft Sans Serif\";\n"
+"\n"
 "}\n"
 "QTableWidget{\n"
 "color:rgb(0,0,0);\n"
@@ -53,7 +63,7 @@ class Ui_CitasMenu(object):
 "QHeaderView::section{\n"
 "background-color:rgb(0,206,151);\n"
 "border:1px solid rgb(0,0,0);\n"
-"font-size:12pt;\n"
+"    font: 12pt \"Microsoft Sans Serif\";\n"
 "}\n"
 "QTbaleWidget QTableCornerButton::section{\n"
 "background-color:rgb(0,0,0);\n"
@@ -62,8 +72,8 @@ class Ui_CitasMenu(object):
 "QLineEdit{\n"
 "border:2px solid rgb(0,0,0);\n"
 "border-radius:20px;\n"
-"background-color:#D0D3D4;\n"
 "    font: 12pt \"Microsoft Sans Serif\";\n"
+"    background-color: rgb(255, 255, 255);\n"
 "}\n"
 "QPushButton{\n"
 "border-radius:20px;\n"
@@ -71,8 +81,21 @@ class Ui_CitasMenu(object):
 "background-color:white;\n"
 "}\n"
 "QPushButton:hover{\n"
-"    background-color:#CB4335;\n"
-"}")
+"    background-color:#5DADE2;\n"
+"}\n"
+"QTextEdit{\n"
+"border:4px solid rgb(0,0,0);\n"
+"border-radius:20px;\n"
+"    font: 12pt \"Microsoft Sans Serif\";\n"
+"    background-color: rgb(255, 255, 255);\n"
+"}\n"
+"QLineEdit::hover{\n"
+"    background-color:#5DADE2;\n"
+"}\n"
+"QRadioButton{\n"
+"    font: 14pt \"Microsoft Sans Serif\";\n"
+"}\n"
+"")
         self.frame_2.setFrameShape(QtWidgets.QFrame.StyledPanel)
         self.frame_2.setFrameShadow(QtWidgets.QFrame.Raised)
         self.frame_2.setObjectName("frame_2")
@@ -101,9 +124,13 @@ class Ui_CitasMenu(object):
         self.btn_buscar.setObjectName("btn_buscar")
         self.horizontalLayout_6.addWidget(self.btn_buscar)
         self.verticalLayout_14.addLayout(self.horizontalLayout_6)
+        spacerItem1 = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
+        self.verticalLayout_14.addItem(spacerItem1)
         self.label_5 = QtWidgets.QLabel(self.frame_2)
         self.label_5.setObjectName("label_5")
         self.verticalLayout_14.addWidget(self.label_5)
+        spacerItem2 = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
+        self.verticalLayout_14.addItem(spacerItem2)
         self.horizontalLayout_8 = QtWidgets.QHBoxLayout()
         self.horizontalLayout_8.setObjectName("horizontalLayout_8")
         self.verticalLayout_13 = QtWidgets.QVBoxLayout()
@@ -119,10 +146,11 @@ class Ui_CitasMenu(object):
         self.txt_name = QtWidgets.QLineEdit(self.frame_2)
         self.txt_name.setMinimumSize(QtCore.QSize(200, 40))
         self.txt_name.setMaximumSize(QtCore.QSize(200, 40))
+        self.txt_name.setReadOnly(True)
         self.txt_name.setObjectName("txt_name")
         self.horizontalLayout_4.addWidget(self.txt_name)
-        spacerItem1 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
-        self.horizontalLayout_4.addItem(spacerItem1)
+        spacerItem3 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
+        self.horizontalLayout_4.addItem(spacerItem3)
         self.horizontalLayout_7.addLayout(self.horizontalLayout_4)
         self.horizontalLayout = QtWidgets.QHBoxLayout()
         self.horizontalLayout.setObjectName("horizontalLayout")
@@ -133,14 +161,17 @@ class Ui_CitasMenu(object):
         self.txt_apell = QtWidgets.QLineEdit(self.frame_2)
         self.txt_apell.setMinimumSize(QtCore.QSize(200, 40))
         self.txt_apell.setMaximumSize(QtCore.QSize(200, 40))
+        self.txt_apell.setReadOnly(True)
         self.txt_apell.setObjectName("txt_apell")
         self.horizontalLayout.addWidget(self.txt_apell)
-        spacerItem2 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
-        self.horizontalLayout.addItem(spacerItem2)
+        spacerItem4 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
+        self.horizontalLayout.addItem(spacerItem4)
         self.horizontalLayout_7.addLayout(self.horizontalLayout)
         self.verticalLayout_13.addLayout(self.horizontalLayout_7)
-        spacerItem3 = QtWidgets.QSpacerItem(851, 13, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
-        self.verticalLayout_13.addItem(spacerItem3)
+        spacerItem5 = QtWidgets.QSpacerItem(851, 13, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
+        self.verticalLayout_13.addItem(spacerItem5)
+        spacerItem6 = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
+        self.verticalLayout_13.addItem(spacerItem6)
         self.horizontalLayout_5 = QtWidgets.QHBoxLayout()
         self.horizontalLayout_5.setObjectName("horizontalLayout_5")
         self.verticalLayout_8 = QtWidgets.QVBoxLayout()
@@ -170,8 +201,8 @@ class Ui_CitasMenu(object):
         self.verticalLayout_5.addWidget(self.fecha)
         self.verticalLayout_8.addWidget(self.frame_5)
         self.horizontalLayout_5.addLayout(self.verticalLayout_8)
-        spacerItem4 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
-        self.horizontalLayout_5.addItem(spacerItem4)
+        spacerItem7 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
+        self.horizontalLayout_5.addItem(spacerItem7)
         self.verticalLayout_9 = QtWidgets.QVBoxLayout()
         self.verticalLayout_9.setObjectName("verticalLayout_9")
         self.verticalLayout_7 = QtWidgets.QVBoxLayout()
@@ -182,8 +213,8 @@ class Ui_CitasMenu(object):
         self.verticalLayout_7.addWidget(self.label_6)
         self.horizontalLayout_3 = QtWidgets.QHBoxLayout()
         self.horizontalLayout_3.setObjectName("horizontalLayout_3")
-        spacerItem5 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
-        self.horizontalLayout_3.addItem(spacerItem5)
+        spacerItem8 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
+        self.horizontalLayout_3.addItem(spacerItem8)
         self.hora = QtWidgets.QTimeEdit(self.frame_2)
         self.hora.setMinimumSize(QtCore.QSize(200, 40))
         self.hora.setMaximumSize(QtCore.QSize(200, 40))
@@ -196,15 +227,14 @@ class Ui_CitasMenu(object):
         self.hora.setAccelerated(True)
         self.hora.setProperty("showGroupSeparator", False)
         self.hora.setMaximumDateTime(QtCore.QDateTime(QtCore.QDate(2000, 1, 1), QtCore.QTime(23, 59, 59)))
-        self.hora.setCurrentSection(QtWidgets.QDateTimeEdit.HourSection)
         self.hora.setCalendarPopup(False)
         self.hora.setObjectName("hora")
         self.horizontalLayout_3.addWidget(self.hora)
-        spacerItem6 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
-        self.horizontalLayout_3.addItem(spacerItem6)
+        spacerItem9 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
+        self.horizontalLayout_3.addItem(spacerItem9)
         self.verticalLayout_7.addLayout(self.horizontalLayout_3)
-        spacerItem7 = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
-        self.verticalLayout_7.addItem(spacerItem7)
+        spacerItem10 = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
+        self.verticalLayout_7.addItem(spacerItem10)
         self.verticalLayout_6 = QtWidgets.QVBoxLayout()
         self.verticalLayout_6.setObjectName("verticalLayout_6")
         self.label_2 = QtWidgets.QLabel(self.frame_2)
@@ -213,41 +243,45 @@ class Ui_CitasMenu(object):
         self.verticalLayout_6.addWidget(self.label_2)
         self.horizontalLayout_2 = QtWidgets.QHBoxLayout()
         self.horizontalLayout_2.setObjectName("horizontalLayout_2")
-        spacerItem8 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
-        self.horizontalLayout_2.addItem(spacerItem8)
+        spacerItem11 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
+        self.horizontalLayout_2.addItem(spacerItem11)
         self.bt_act = QtWidgets.QRadioButton(self.frame_2)
         font = QtGui.QFont()
-        font.setPointSize(12)
-        font.setBold(True)
+        font.setFamily("Microsoft Sans Serif")
+        font.setPointSize(14)
+        font.setBold(False)
+        font.setItalic(False)
         font.setUnderline(True)
-        font.setWeight(75)
+        font.setWeight(50)
         self.bt_act.setFont(font)
         self.bt_act.setFocusPolicy(QtCore.Qt.NoFocus)
         self.bt_act.setObjectName("bt_act")
         self.horizontalLayout_2.addWidget(self.bt_act)
-        spacerItem9 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
-        self.horizontalLayout_2.addItem(spacerItem9)
+        spacerItem12 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
+        self.horizontalLayout_2.addItem(spacerItem12)
         self.bt_cancel = QtWidgets.QRadioButton(self.frame_2)
         font = QtGui.QFont()
-        font.setPointSize(12)
-        font.setBold(True)
+        font.setFamily("Microsoft Sans Serif")
+        font.setPointSize(14)
+        font.setBold(False)
+        font.setItalic(False)
         font.setUnderline(True)
-        font.setWeight(75)
+        font.setWeight(50)
         self.bt_cancel.setFont(font)
         self.bt_cancel.setObjectName("bt_cancel")
         self.horizontalLayout_2.addWidget(self.bt_cancel)
-        spacerItem10 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
-        self.horizontalLayout_2.addItem(spacerItem10)
+        spacerItem13 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
+        self.horizontalLayout_2.addItem(spacerItem13)
         self.verticalLayout_6.addLayout(self.horizontalLayout_2)
         self.verticalLayout_7.addLayout(self.verticalLayout_6)
         self.verticalLayout_9.addLayout(self.verticalLayout_7)
-        spacerItem11 = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
-        self.verticalLayout_9.addItem(spacerItem11)
+        spacerItem14 = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
+        self.verticalLayout_9.addItem(spacerItem14)
         self.horizontalLayout_5.addLayout(self.verticalLayout_9)
         self.verticalLayout_13.addLayout(self.horizontalLayout_5)
         self.horizontalLayout_8.addLayout(self.verticalLayout_13)
-        spacerItem12 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
-        self.horizontalLayout_8.addItem(spacerItem12)
+        spacerItem15 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
+        self.horizontalLayout_8.addItem(spacerItem15)
         self.verticalLayout_10 = QtWidgets.QVBoxLayout()
         self.verticalLayout_10.setSpacing(0)
         self.verticalLayout_10.setObjectName("verticalLayout_10")
@@ -276,8 +310,8 @@ class Ui_CitasMenu(object):
         self.verticalLayout_11.setObjectName("verticalLayout_11")
         self.verticalLayout_12 = QtWidgets.QVBoxLayout()
         self.verticalLayout_12.setObjectName("verticalLayout_12")
-        spacerItem13 = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
-        self.verticalLayout_12.addItem(spacerItem13)
+        spacerItem16 = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
+        self.verticalLayout_12.addItem(spacerItem16)
         self.btn_agg = QtWidgets.QPushButton(self.frame_4)
         self.btn_agg.setMinimumSize(QtCore.QSize(150, 50))
         self.btn_agg.setMaximumSize(QtCore.QSize(150, 50))
@@ -290,8 +324,8 @@ class Ui_CitasMenu(object):
         self.btn_agg.setIconSize(QtCore.QSize(25, 25))
         self.btn_agg.setObjectName("btn_agg")
         self.verticalLayout_12.addWidget(self.btn_agg)
-        spacerItem14 = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
-        self.verticalLayout_12.addItem(spacerItem14)
+        spacerItem17 = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
+        self.verticalLayout_12.addItem(spacerItem17)
         self.btn_edit = QtWidgets.QPushButton(self.frame_4)
         self.btn_edit.setMinimumSize(QtCore.QSize(150, 50))
         self.btn_edit.setMaximumSize(QtCore.QSize(150, 50))
@@ -304,8 +338,8 @@ class Ui_CitasMenu(object):
         self.btn_edit.setIconSize(QtCore.QSize(25, 25))
         self.btn_edit.setObjectName("btn_edit")
         self.verticalLayout_12.addWidget(self.btn_edit)
-        spacerItem15 = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
-        self.verticalLayout_12.addItem(spacerItem15)
+        spacerItem18 = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
+        self.verticalLayout_12.addItem(spacerItem18)
         self.btn_clear = QtWidgets.QPushButton(self.frame_4)
         self.btn_clear.setMinimumSize(QtCore.QSize(150, 50))
         self.btn_clear.setMaximumSize(QtCore.QSize(150, 50))
@@ -318,14 +352,14 @@ class Ui_CitasMenu(object):
         self.btn_clear.setIconSize(QtCore.QSize(25, 25))
         self.btn_clear.setObjectName("btn_clear")
         self.verticalLayout_12.addWidget(self.btn_clear)
-        spacerItem16 = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
-        self.verticalLayout_12.addItem(spacerItem16)
+        spacerItem19 = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
+        self.verticalLayout_12.addItem(spacerItem19)
         self.verticalLayout_11.addLayout(self.verticalLayout_12)
         self.verticalLayout_10.addWidget(self.frame_4)
         self.horizontalLayout_8.addLayout(self.verticalLayout_10)
         self.verticalLayout_14.addLayout(self.horizontalLayout_8)
-        spacerItem17 = QtWidgets.QSpacerItem(20, 88, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
-        self.verticalLayout_14.addItem(spacerItem17)
+        spacerItem20 = QtWidgets.QSpacerItem(20, 88, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
+        self.verticalLayout_14.addItem(spacerItem20)
         self.frame_3 = QtWidgets.QFrame(self.frame_2)
         self.frame_3.setStyleSheet("QFrame{\n"
 "    background-color: rgb(255, 255, 255);\n"
@@ -361,7 +395,9 @@ class Ui_CitasMenu(object):
         self.verticalLayout_4.addWidget(self.tableWidget)
         self.verticalLayout_14.addWidget(self.frame_3)
         self.verticalLayout_3.addWidget(self.frame_2)
-        self.tabWidget.addTab(self.agg_citas, "")
+        icon4 = QtGui.QIcon()
+        icon4.addPixmap(QtGui.QPixmap("/home/reinaldo/Documentos/dev/App-Consultas-y-Historias-Medicas/interfaces/ELEMENTOS GRAFICOS/cita-dental.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.tabWidget.addTab(self.agg_citas, icon4, "")
         self.verticalLayout_2.addWidget(self.tabWidget)
         self.verticalLayout.addWidget(self.frame)
         CitasMenu.setCentralWidget(self.centralwidget)
@@ -380,8 +416,7 @@ class Ui_CitasMenu(object):
         self.actionSalir = QtWidgets.QAction(CitasMenu)
         self.actionSalir.setObjectName("actionSalir")
         self.menuMenu_principal.addAction(self.actionVolver_al_menu_principal)
-        self.menuMenu_principal.addAction(self.actionRegistrar_pacientes)
-        self.menuMenu_principal.addAction(self.actionImportar_placas)
+        self.menuMenu_principal.addSeparator()
         self.menuMenu_principal.addAction(self.actionSalir)
         self.menubar.addAction(self.menuMenu_principal.menuAction())
 
@@ -406,11 +441,11 @@ class Ui_CitasMenu(object):
         self.btn_edit.setText(_translate("CitasMenu", "Editar"))
         self.btn_clear.setText(_translate("CitasMenu", "Limpiar"))
         item = self.tableWidget.horizontalHeaderItem(0)
-        item.setText(_translate("CitasMenu", "Cedula_P"))
+        item.setText(_translate("CitasMenu", "Cedula del paciente"))
         item = self.tableWidget.horizontalHeaderItem(1)
-        item.setText(_translate("CitasMenu", "Nombre_P"))
+        item.setText(_translate("CitasMenu", "Nombre del paciente"))
         item = self.tableWidget.horizontalHeaderItem(2)
-        item.setText(_translate("CitasMenu", "Apellido_P"))
+        item.setText(_translate("CitasMenu", "Apellido del paciente"))
         item = self.tableWidget.horizontalHeaderItem(3)
         item.setText(_translate("CitasMenu", "Fecha de la cita"))
         item = self.tableWidget.horizontalHeaderItem(4)

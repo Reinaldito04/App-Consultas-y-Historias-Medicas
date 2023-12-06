@@ -21,7 +21,7 @@ class Ui_Dialog(object):
         self.verticalLayout.setObjectName("verticalLayout")
         self.frame = QtWidgets.QFrame(Dialog)
         self.frame.setStyleSheet("QFrame{\n"
-"    background-color:#707B7C;\n"
+"background-color:rgb(0, 85, 127);\n"
 "\n"
 "}")
         self.frame.setFrameShape(QtWidgets.QFrame.StyledPanel)
@@ -48,7 +48,8 @@ class Ui_Dialog(object):
         self.verticalLayout_21.setObjectName("verticalLayout_21")
         self.frame_5 = QtWidgets.QFrame(self.tab_3)
         self.frame_5.setStyleSheet("QFrame{\n"
-"    background-color:rgb(70, 130, 169);\n"
+"background-color:rgb(70, 130, 169);\n"
+"    font: 14pt \"Microsoft Sans Serif\";\n"
 "}\n"
 "QTableWidget{\n"
 "color:rgb(0,0,0);\n"
@@ -58,7 +59,7 @@ class Ui_Dialog(object):
 "QHeaderView::section{\n"
 "background-color:rgb(0,206,151);\n"
 "border:1px solid rgb(0,0,0);\n"
-"font-size:12pt;\n"
+"    font: 12pt \"Microsoft Sans Serif\";\n"
 "}\n"
 "QTbaleWidget QTableCornerButton::section{\n"
 "background-color:rgb(0,0,0);\n"
@@ -67,17 +68,31 @@ class Ui_Dialog(object):
 "QLineEdit{\n"
 "border:2px solid rgb(0,0,0);\n"
 "border-radius:20px;\n"
-"background-color:white;\n"
 "    font: 12pt \"Microsoft Sans Serif\";\n"
+"    background-color: rgb(255, 255, 255);\n"
 "}\n"
 "QPushButton{\n"
 "border-radius:20px;\n"
 "border:2px solid rgb(0,0,0);\n"
 "background-color:white;\n"
+"    font: 11pt \"Microsoft Sans Serif\";\n"
 "}\n"
 "QPushButton:hover{\n"
-"    background-color:#CB4335;\n"
-"}")
+"    background-color:#5DADE2;\n"
+"}\n"
+"QTextEdit{\n"
+"border:4px solid rgb(0,0,0);\n"
+"border-radius:20px;\n"
+"    font: 12pt \"Microsoft Sans Serif\";\n"
+"    background-color: rgb(255, 255, 255);\n"
+"}\n"
+"QLineEdit::hover{\n"
+"    background-color:#5DADE2;\n"
+"}\n"
+"QRadioButton{\n"
+"    font: 14pt \"Microsoft Sans Serif\";\n"
+"}\n"
+"")
         self.frame_5.setFrameShape(QtWidgets.QFrame.StyledPanel)
         self.frame_5.setFrameShadow(QtWidgets.QFrame.Raised)
         self.frame_5.setObjectName("frame_5")
@@ -85,17 +100,59 @@ class Ui_Dialog(object):
         self.verticalLayout_7.setObjectName("verticalLayout_7")
         self.label = QtWidgets.QLabel(self.frame_5)
         font = QtGui.QFont()
-        font.setFamily("MS Shell Dlg 2")
-        font.setPointSize(20)
+        font.setFamily("Microsoft Sans Serif")
+        font.setPointSize(14)
         font.setBold(False)
         font.setItalic(False)
         font.setUnderline(True)
-        font.setWeight(9)
+        font.setWeight(50)
         self.label.setFont(font)
-        self.label.setStyleSheet("QLabel{\n"
-"    font: 75 20pt \"MS Shell Dlg 2\";\n"
-"    text-decoration: underline;\n"
-"}")
+        self.label.setStyleSheet("QFrame{\n"
+"background-color:rgb(70, 130, 169);\n"
+"    font: 14pt \"Microsoft Sans Serif\";\n"
+"}\n"
+"QTableWidget{\n"
+"color:rgb(0,0,0);\n"
+"gridline-color:rgb(0,206,151);\n"
+"font-size:12pt;\n"
+"}\n"
+"QHeaderView::section{\n"
+"background-color:rgb(0,206,151);\n"
+"border:1px solid rgb(0,0,0);\n"
+"    font: 12pt \"Microsoft Sans Serif\";\n"
+"}\n"
+"QTbaleWidget QTableCornerButton::section{\n"
+"background-color:rgb(0,0,0);\n"
+"border:1px solid  rgb(0,206,151);\n"
+"}\n"
+"QLineEdit{\n"
+"border:2px solid rgb(0,0,0);\n"
+"border-radius:20px;\n"
+"    font: 12pt \"Microsoft Sans Serif\";\n"
+"    background-color: rgb(255, 255, 255);\n"
+"}\n"
+"QPushButton{\n"
+"border-radius:20px;\n"
+"border:2px solid rgb(0,0,0);\n"
+"background-color:white;\n"
+"    font: 11pt \"Microsoft Sans Serif\";\n"
+"}\n"
+"QPushButton:hover{\n"
+"    background-color:#5DADE2;\n"
+"}\n"
+"QTextEdit{\n"
+"border:4px solid rgb(0,0,0);\n"
+"border-radius:20px;\n"
+"    font: 12pt \"Microsoft Sans Serif\";\n"
+"    background-color: rgb(255, 255, 255);\n"
+"}\n"
+"QLineEdit::hover{\n"
+"    background-color:#5DADE2;\n"
+"}\n"
+"QRadioButton{\n"
+"    font: 14pt \"Microsoft Sans Serif\";\n"
+"}\n"
+"")
         self.label.setAlignment(QtCore.Qt.AlignCenter)
         self.label.setObjectName("label")
         self.verticalLayout_7.addWidget(self.label)
@@ -115,10 +172,10 @@ class Ui_Dialog(object):
         self.lbl_username = QtWidgets.QLabel(self.frame_5)
         font = QtGui.QFont()
         font.setFamily("Microsoft Sans Serif")
-        font.setPointSize(12)
-        font.setBold(True)
+        font.setPointSize(14)
+        font.setBold(False)
         font.setItalic(False)
-        font.setWeight(75)
+        font.setWeight(50)
         self.lbl_username.setFont(font)
         self.lbl_username.setObjectName("lbl_username")
         self.horizontalLayout_11.addWidget(self.lbl_username)
@@ -137,10 +194,10 @@ class Ui_Dialog(object):
         self.lbl_password = QtWidgets.QLabel(self.frame_5)
         font = QtGui.QFont()
         font.setFamily("Microsoft Sans Serif")
-        font.setPointSize(12)
-        font.setBold(True)
+        font.setPointSize(14)
+        font.setBold(False)
         font.setItalic(False)
-        font.setWeight(75)
+        font.setWeight(50)
         self.lbl_password.setFont(font)
         self.lbl_password.setObjectName("lbl_password")
         self.horizontalLayout_20.addWidget(self.lbl_password)
@@ -159,10 +216,10 @@ class Ui_Dialog(object):
         self.lbl_password_2 = QtWidgets.QLabel(self.frame_5)
         font = QtGui.QFont()
         font.setFamily("Microsoft Sans Serif")
-        font.setPointSize(12)
-        font.setBold(True)
+        font.setPointSize(14)
+        font.setBold(False)
         font.setItalic(False)
-        font.setWeight(75)
+        font.setWeight(50)
         self.lbl_password_2.setFont(font)
         self.lbl_password_2.setObjectName("lbl_password_2")
         self.horizontalLayout_23.addWidget(self.lbl_password_2)
@@ -186,7 +243,7 @@ class Ui_Dialog(object):
         self.lbl_level = QtWidgets.QLabel(self.frame_5)
         font = QtGui.QFont()
         font.setFamily("Microsoft Sans Serif")
-        font.setPointSize(12)
+        font.setPointSize(14)
         font.setBold(False)
         font.setItalic(False)
         font.setWeight(50)
@@ -199,28 +256,34 @@ class Ui_Dialog(object):
         self.verticalLayout_3.setObjectName("verticalLayout_3")
         self.bt_admin = QtWidgets.QRadioButton(self.frame_5)
         font = QtGui.QFont()
-        font.setPointSize(12)
-        font.setBold(True)
+        font.setFamily("Microsoft Sans Serif")
+        font.setPointSize(14)
+        font.setBold(False)
+        font.setItalic(False)
         font.setUnderline(True)
-        font.setWeight(75)
+        font.setWeight(50)
         self.bt_admin.setFont(font)
         self.bt_admin.setObjectName("bt_admin")
         self.verticalLayout_3.addWidget(self.bt_admin)
         self.bt_doc = QtWidgets.QRadioButton(self.frame_5)
         font = QtGui.QFont()
-        font.setPointSize(12)
-        font.setBold(True)
+        font.setFamily("Microsoft Sans Serif")
+        font.setPointSize(14)
+        font.setBold(False)
+        font.setItalic(False)
         font.setUnderline(True)
-        font.setWeight(75)
+        font.setWeight(50)
         self.bt_doc.setFont(font)
         self.bt_doc.setObjectName("bt_doc")
         self.verticalLayout_3.addWidget(self.bt_doc)
         self.bt_user = QtWidgets.QRadioButton(self.frame_5)
         font = QtGui.QFont()
-        font.setPointSize(12)
-        font.setBold(True)
+        font.setFamily("Microsoft Sans Serif")
+        font.setPointSize(14)
+        font.setBold(False)
+        font.setItalic(False)
         font.setUnderline(True)
-        font.setWeight(75)
+        font.setWeight(50)
         self.bt_user.setFont(font)
         self.bt_user.setObjectName("bt_user")
         self.verticalLayout_3.addWidget(self.bt_user)
@@ -267,7 +330,11 @@ class Ui_Dialog(object):
         self.btn_agg.setMinimumSize(QtCore.QSize(150, 50))
         self.btn_agg.setMaximumSize(QtCore.QSize(150, 50))
         font = QtGui.QFont()
-        font.setPointSize(10)
+        font.setFamily("Microsoft Sans Serif")
+        font.setPointSize(11)
+        font.setBold(False)
+        font.setItalic(False)
+        font.setWeight(50)
         self.btn_agg.setFont(font)
         icon = QtGui.QIcon()
         icon.addPixmap(QtGui.QPixmap("/home/reinaldo/Documentos/dev/App-Consultas-y-Historias-Medicas/interfaces/ELEMENTOS GRAFICOS/save.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
@@ -281,7 +348,11 @@ class Ui_Dialog(object):
         self.btn_clear.setMinimumSize(QtCore.QSize(150, 50))
         self.btn_clear.setMaximumSize(QtCore.QSize(150, 50))
         font = QtGui.QFont()
-        font.setPointSize(10)
+        font.setFamily("Microsoft Sans Serif")
+        font.setPointSize(11)
+        font.setBold(False)
+        font.setItalic(False)
+        font.setWeight(50)
         self.btn_clear.setFont(font)
         icon1 = QtGui.QIcon()
         icon1.addPixmap(QtGui.QPixmap("/home/reinaldo/Documentos/dev/App-Consultas-y-Historias-Medicas/interfaces/ELEMENTOS GRAFICOS/limpiar.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
@@ -323,4 +394,4 @@ class Ui_Dialog(object):
         self.label_2.setText(_translate("Dialog", "Controles"))
         self.btn_agg.setText(_translate("Dialog", "Agregar"))
         self.btn_clear.setText(_translate("Dialog", "Limpiar"))
-        self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_3), _translate("Dialog", "Usuario"))
+        self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_3), _translate("Dialog", "Registro de datos de usuario"))

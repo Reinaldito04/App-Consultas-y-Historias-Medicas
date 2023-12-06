@@ -14,7 +14,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_pacientes_view(object):
     def setupUi(self, pacientes_view):
         pacientes_view.setObjectName("pacientes_view")
-        pacientes_view.resize(988, 719)
+        pacientes_view.resize(988, 718)
         self.centralwidget = QtWidgets.QWidget(pacientes_view)
         self.centralwidget.setObjectName("centralwidget")
         self.verticalLayout = QtWidgets.QVBoxLayout(self.centralwidget)
@@ -23,7 +23,8 @@ class Ui_pacientes_view(object):
         self.verticalLayout.setObjectName("verticalLayout")
         self.frame = QtWidgets.QFrame(self.centralwidget)
         self.frame.setStyleSheet("QFrame{\n"
-"background-color:gray;\n"
+"background-color:rgb(0, 85, 127);\n"
+"\n"
 "}")
         self.frame.setFrameShape(QtWidgets.QFrame.StyledPanel)
         self.frame.setFrameShadow(QtWidgets.QFrame.Raised)
@@ -52,7 +53,7 @@ class Ui_pacientes_view(object):
         self.frame_2.setAutoFillBackground(False)
         self.frame_2.setStyleSheet("QFrame{\n"
 "background-color:rgb(70, 130, 169);\n"
-"    font: 12pt \"Microsoft Sans Serif\";\n"
+"    font: 14pt \"Microsoft Sans Serif\";\n"
 "}\n"
 "QTableWidget{\n"
 "color:rgb(0,0,0);\n"
@@ -62,7 +63,7 @@ class Ui_pacientes_view(object):
 "QHeaderView::section{\n"
 "background-color:rgb(0,206,151);\n"
 "border:1px solid rgb(0,0,0);\n"
-"font-size:12pt;\n"
+"    font: 12pt \"Microsoft Sans Serif\";\n"
 "}\n"
 "QTbaleWidget QTableCornerButton::section{\n"
 "background-color:rgb(0,0,0);\n"
@@ -80,7 +81,7 @@ class Ui_pacientes_view(object):
 "background-color:white;\n"
 "}\n"
 "QPushButton:hover{\n"
-"    background-color:#CB4335;\n"
+"    background-color:#5DADE2;\n"
 "}\n"
 "QTextEdit{\n"
 "border:4px solid rgb(0,0,0);\n"
@@ -88,9 +89,11 @@ class Ui_pacientes_view(object):
 "    font: 12pt \"Microsoft Sans Serif\";\n"
 "    background-color: rgb(255, 255, 255);\n"
 "}\n"
-"QLabel{\n"
-"    \n"
-"    font: 12pt \"Microsoft Sans Serif\";\n"
+"QLineEdit::hover{\n"
+"    background-color:#5DADE2;\n"
+"}\n"
+"QRadioButton{\n"
+"    font: 14pt \"Microsoft Sans Serif\";\n"
 "}\n"
 "")
         self.frame_2.setFrameShape(QtWidgets.QFrame.StyledPanel)
@@ -212,7 +215,7 @@ class Ui_pacientes_view(object):
         self.verticalLayout.addWidget(self.frame)
         pacientes_view.setCentralWidget(self.centralwidget)
         self.menubar = QtWidgets.QMenuBar(pacientes_view)
-        self.menubar.setGeometry(QtCore.QRect(0, 0, 988, 22))
+        self.menubar.setGeometry(QtCore.QRect(0, 0, 988, 21))
         self.menubar.setObjectName("menubar")
         self.menuMenu = QtWidgets.QMenu(self.menubar)
         self.menuMenu.setObjectName("menuMenu")

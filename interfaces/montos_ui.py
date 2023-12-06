@@ -14,7 +14,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_montos(object):
     def setupUi(self, montos):
         montos.setObjectName("montos")
-        montos.resize(1246, 586)
+        montos.resize(1468, 727)
         self.centralwidget = QtWidgets.QWidget(montos)
         self.centralwidget.setObjectName("centralwidget")
         self.verticalLayout = QtWidgets.QVBoxLayout(self.centralwidget)
@@ -23,7 +23,8 @@ class Ui_montos(object):
         self.verticalLayout.setObjectName("verticalLayout")
         self.frame = QtWidgets.QFrame(self.centralwidget)
         self.frame.setStyleSheet("QFrame{\n"
-"background-color:gray;\n"
+"background-color:rgb(0, 85, 127);\n"
+"\n"
 "}")
         self.frame.setFrameShape(QtWidgets.QFrame.StyledPanel)
         self.frame.setFrameShadow(QtWidgets.QFrame.Raised)
@@ -40,6 +41,10 @@ class Ui_montos(object):
         font.setUnderline(True)
         font.setWeight(75)
         self.tabWidget.setFont(font)
+        self.tabWidget.setStyleSheet("QFrame{\n"
+"background-color:rgb(0, 85, 127);\n"
+"\n"
+"}")
         self.tabWidget.setIconSize(QtCore.QSize(25, 25))
         self.tabWidget.setDocumentMode(True)
         self.tabWidget.setObjectName("tabWidget")
@@ -52,7 +57,7 @@ class Ui_montos(object):
         self.frame_2 = QtWidgets.QFrame(self.tab)
         self.frame_2.setStyleSheet("QFrame{\n"
 "background-color:rgb(70, 130, 169);\n"
-"    font: 12pt \"Microsoft Sans Serif\";\n"
+"    font: 14pt \"Microsoft Sans Serif\";\n"
 "}\n"
 "QTableWidget{\n"
 "color:rgb(0,0,0);\n"
@@ -62,25 +67,26 @@ class Ui_montos(object):
 "QHeaderView::section{\n"
 "background-color:rgb(0,206,151);\n"
 "border:1px solid rgb(0,0,0);\n"
-"font-size:12pt;\n"
+"    font: 12pt \"Microsoft Sans Serif\";\n"
 "}\n"
 "QTbaleWidget QTableCornerButton::section{\n"
 "background-color:rgb(0,0,0);\n"
 "border:1px solid  rgb(0,206,151);\n"
 "}\n"
 "QLineEdit{\n"
-"border-radius:19px;\n"
 "border:2px solid rgb(0,0,0);\n"
-"    background-color: rgb(255, 255, 255);\n"
+"border-radius:20px;\n"
 "    font: 12pt \"Microsoft Sans Serif\";\n"
+"    background-color: rgb(255, 255, 255);\n"
 "}\n"
 "QPushButton{\n"
 "border-radius:20px;\n"
 "border:2px solid rgb(0,0,0);\n"
 "background-color:white;\n"
+"    font: 11pt \"Microsoft Sans Serif\";\n"
 "}\n"
 "QPushButton:hover{\n"
-"    background-color:#CB4335;\n"
+"    background-color:#5DADE2;\n"
 "}\n"
 "QTextEdit{\n"
 "border:4px solid rgb(0,0,0);\n"
@@ -88,20 +94,29 @@ class Ui_montos(object):
 "    font: 12pt \"Microsoft Sans Serif\";\n"
 "    background-color: rgb(255, 255, 255);\n"
 "}\n"
-"QComboBox{\n"
-"border:2px solid rgb(0,0,0);\n"
-"    font: 12pt \"Microsoft Sans Serif\";\n"
-"    background-color: rgb(255, 255, 255);\n"
-"}")
+"QLineEdit::hover{\n"
+"    background-color:#5DADE2;\n"
+"}\n"
+"QRadioButton{\n"
+"    font: 14pt \"Microsoft Sans Serif\";\n"
+"}\n"
+"")
         self.frame_2.setFrameShape(QtWidgets.QFrame.StyledPanel)
         self.frame_2.setFrameShadow(QtWidgets.QFrame.Raised)
         self.frame_2.setObjectName("frame_2")
-        self.horizontalLayout_10 = QtWidgets.QHBoxLayout(self.frame_2)
-        self.horizontalLayout_10.setObjectName("horizontalLayout_10")
-        self.verticalLayout_14 = QtWidgets.QVBoxLayout()
-        self.verticalLayout_14.setObjectName("verticalLayout_14")
+        self.verticalLayout_17 = QtWidgets.QVBoxLayout(self.frame_2)
+        self.verticalLayout_17.setObjectName("verticalLayout_17")
         self.horizontalLayout_9 = QtWidgets.QHBoxLayout()
         self.horizontalLayout_9.setObjectName("horizontalLayout_9")
+        self.verticalLayout_16 = QtWidgets.QVBoxLayout()
+        self.verticalLayout_16.setObjectName("verticalLayout_16")
+        self.verticalLayout_15 = QtWidgets.QVBoxLayout()
+        self.verticalLayout_15.setObjectName("verticalLayout_15")
+        self.line = QtWidgets.QFrame(self.frame_2)
+        self.line.setFrameShape(QtWidgets.QFrame.HLine)
+        self.line.setFrameShadow(QtWidgets.QFrame.Sunken)
+        self.line.setObjectName("line")
+        self.verticalLayout_15.addWidget(self.line)
         self.verticalLayout_12 = QtWidgets.QVBoxLayout()
         self.verticalLayout_12.setObjectName("verticalLayout_12")
         self.horizontalLayout_7 = QtWidgets.QHBoxLayout()
@@ -389,7 +404,9 @@ class Ui_montos(object):
         self.verticalLayout_11.addLayout(self.verticalLayout_10)
         self.horizontalLayout_8.addLayout(self.verticalLayout_11)
         self.verticalLayout_12.addLayout(self.horizontalLayout_8)
-        self.horizontalLayout_9.addLayout(self.verticalLayout_12)
+        self.verticalLayout_15.addLayout(self.verticalLayout_12)
+        self.verticalLayout_16.addLayout(self.verticalLayout_15)
+        self.horizontalLayout_9.addLayout(self.verticalLayout_16)
         spacerItem20 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
         self.horizontalLayout_9.addItem(spacerItem20)
         self.verticalLayout_13 = QtWidgets.QVBoxLayout()
@@ -428,7 +445,11 @@ class Ui_montos(object):
         self.btn_agg.setMinimumSize(QtCore.QSize(150, 50))
         self.btn_agg.setMaximumSize(QtCore.QSize(150, 50))
         font = QtGui.QFont()
-        font.setPointSize(10)
+        font.setFamily("Microsoft Sans Serif")
+        font.setPointSize(11)
+        font.setBold(False)
+        font.setItalic(False)
+        font.setWeight(50)
         self.btn_agg.setFont(font)
         icon = QtGui.QIcon()
         icon.addPixmap(QtGui.QPixmap("/home/reinaldo/Documentos/dev/App-Consultas-y-Historias-Medicas/interfaces/ELEMENTOS GRAFICOS/save.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
@@ -442,7 +463,11 @@ class Ui_montos(object):
         self.btn_clear.setMinimumSize(QtCore.QSize(150, 50))
         self.btn_clear.setMaximumSize(QtCore.QSize(150, 50))
         font = QtGui.QFont()
-        font.setPointSize(10)
+        font.setFamily("Microsoft Sans Serif")
+        font.setPointSize(11)
+        font.setBold(False)
+        font.setItalic(False)
+        font.setWeight(50)
         self.btn_clear.setFont(font)
         icon1 = QtGui.QIcon()
         icon1.addPixmap(QtGui.QPixmap("/home/reinaldo/Documentos/dev/App-Consultas-y-Historias-Medicas/interfaces/ELEMENTOS GRAFICOS/limpiar.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
@@ -458,10 +483,9 @@ class Ui_montos(object):
         spacerItem24 = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
         self.verticalLayout_13.addItem(spacerItem24)
         self.horizontalLayout_9.addLayout(self.verticalLayout_13)
-        self.verticalLayout_14.addLayout(self.horizontalLayout_9)
-        spacerItem25 = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
-        self.verticalLayout_14.addItem(spacerItem25)
-        self.horizontalLayout_10.addLayout(self.verticalLayout_14)
+        self.verticalLayout_17.addLayout(self.horizontalLayout_9)
+        spacerItem25 = QtWidgets.QSpacerItem(20, 77, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
+        self.verticalLayout_17.addItem(spacerItem25)
         self.verticalLayout_3.addWidget(self.frame_2)
         icon2 = QtGui.QIcon()
         icon2.addPixmap(QtGui.QPixmap("/home/reinaldo/Documentos/dev/App-Consultas-y-Historias-Medicas/interfaces/ELEMENTOS GRAFICOS/metodo-de-pago.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
@@ -470,7 +494,7 @@ class Ui_montos(object):
         self.verticalLayout.addWidget(self.frame)
         montos.setCentralWidget(self.centralwidget)
         self.menubar = QtWidgets.QMenuBar(montos)
-        self.menubar.setGeometry(QtCore.QRect(0, 0, 1246, 21))
+        self.menubar.setGeometry(QtCore.QRect(0, 0, 1468, 21))
         self.menubar.setObjectName("menubar")
         self.menuMenu = QtWidgets.QMenu(self.menubar)
         self.menuMenu.setObjectName("menuMenu")
@@ -509,4 +533,4 @@ class Ui_montos(object):
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab), _translate("montos", "Montos de tratamientos"))
         self.menuMenu.setTitle(_translate("montos", "Menu"))
         self.actionSalir.setText(_translate("montos", "Salir"))
-        self.actionRegresar_al_menu_prinicipal.setText(_translate("montos", "Regresar al menu prinicipal"))
+        self.actionRegresar_al_menu_prinicipal.setText(_translate("montos", "Regresar al menú prinicipal"))
