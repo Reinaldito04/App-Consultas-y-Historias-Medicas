@@ -27,7 +27,6 @@ class IngresoUsuario(QMainWindow):
         loadUi("./interfaces/loggin.ui", self)
         self.setWindowTitle("Login")
         self.btn_login.clicked.connect(self.ingreso)
-        
         self.bt_salir.clicked.connect(self.salida)
         self.ingresoAnterior()
         
@@ -1671,6 +1670,25 @@ class Ui_CitasMenu(QMainWindow):
         #self.btn_delete.clicked.connect(self.eliminarCita)
         self.setWindowTitle("Menu de Citas")
         self.showMaximized()
+        self.usuario =None
+        self.verifytipoUser()
+    
+    def verifytipoUser(self):
+        conexion = sqlite3.connect("./interfaces/database.db")
+        cursor = conexion.cursor()
+        cursor.execute("SELECT Tipo FROM Users WHERE ID=?",(self.id_user,))
+        resultado = cursor.fetchone()
+        if resultado:
+            tipoUser = resultado[0]
+            if tipoUser == "Doctor":
+                self.usuario = "Doctor"
+            elif tipoUser =="Administrador":
+                self.usuario = "Administrador"
+            elif tipoUser=="Usuario":
+                self.usuario = "Usuario"
+            else:
+                print("No se encontro ningun tipo")
+                
     def eliminarCita(self):
         try:
             cedula = self.in_busqueda.text()
@@ -1817,45 +1835,63 @@ class Ui_CitasMenu(QMainWindow):
             QMessageBox.critical(self, "Error", f"Error al agregar la cita: {str(error)}")
 
     def searchdata(self):
-        idUser = self.id_user
-        cedula = self.in_busqueda.text()
-        
-        if len(cedula) <= 0:
-            QMessageBox.warning(self, "Error", "Ingrese una cedula")
-            return  # Salir de la función si no hay cédula
-
         try:
+            busqueda = self.in_busqueda.text()
+            idUser = self.id_user
+
             conexion = sqlite3.connect('interfaces/database.db')
             cursor = conexion.cursor()
-            cursor.execute("""
-                            SELECT 
-                            Pacientes.Cedula, 
-                            Pacientes.Nombre, 
-                            Pacientes.Apellido, 
-                            Cita.Fecha_Cita, 
-                            Cita.Hora_Cita, 
-                            Cita.Estatus_Cita
-                        FROM 
-                            Pacientes
-                        INNER JOIN 
-                            Cita ON Pacientes.Cedula = Cita.Cedula
-                        WHERE 
-                            Pacientes.Cedula = ? AND Pacientes.ID_user = ?"""
-                           
-                           , (cedula, idUser))
+
+            if self.usuario == "Administrador" or self.usuario == "Usuario":
+                # Si es un administrador o usuario, puede buscar cualquier cita
+                cursor.execute("""
+                    SELECT 
+                        Pacientes.Cedula, 
+                        Pacientes.Nombre, 
+                        Pacientes.Apellido, 
+                        Cita.Fecha_Cita, 
+                        Cita.Hora_Cita, 
+                        Cita.Estatus_Cita
+                    FROM 
+                        Pacientes
+                    INNER JOIN 
+                        Cita ON Pacientes.Cedula = Cita.Cedula
+                    WHERE 
+                        Pacientes.Cedula = ?
+                """, (busqueda,))
+            elif self.usuario == "Doctor":
+                # Si es un doctor, solo puede buscar citas asociadas a su ID de usuario
+                cursor.execute("""
+                    SELECT 
+                        Pacientes.Cedula, 
+                        Pacientes.Nombre, 
+                        Pacientes.Apellido, 
+                        Cita.Fecha_Cita, 
+                        Cita.Hora_Cita, 
+                        Cita.Estatus_Cita
+                    FROM 
+                        Pacientes
+                    INNER JOIN 
+                        Cita ON Pacientes.Cedula = Cita.Cedula
+                    WHERE 
+                        Pacientes.Cedula = ? AND Pacientes.ID_user = ?
+                """, (busqueda, idUser))
+            else:
+                # Manejar el caso en el que el tipo de usuario no sea reconocido
+                QMessageBox.critical(self, "Error", "Rol de usuario no reconocido")
+                return
+
             tabla_cita = cursor.fetchall()
 
-            # Filtrar los resultados para eliminar las filas con None
-        
             if tabla_cita:
                 for cita in tabla_cita:
-                  
                     cedula = cita[0]
                     nombre = cita[1]
                     apellido = cita[2]
                     fecha = cita[3]
                     hora = cita[4]
                     estatus = cita[5]
+
                     # Limpiar la tabla existente si es necesario
                     self.tableWidget.clearContents()
 
@@ -1872,35 +1908,37 @@ class Ui_CitasMenu(QMainWindow):
                     self.txt_name.setText(nombre)
                     self.txt_apell.setText(apellido)
                     fecha_cita = fecha
-                  
+
                     self.fecha.setSelectedDate(QDate.fromString(fecha_cita, 'yyyy-MM-dd'))
                     hora_cita = QTime.fromString(hora, 'hh:mm:ss')
-                    
-                    if estatus =='Activa':
+
+                    if estatus == 'Activa':
                         self.bt_act.setChecked(True)
                     if estatus == 'Cancelada':
                         self.bt_cancel.setChecked(True)
-                    
-                    self.hora.setTime(hora_cita)
-                    
-            else:
-                    # Manejar el caso en el que no se encontraron resultados, por ejemplo, mostrar un mensaje de error
-                QMessageBox.warning(self, "Sin resultados", "El paciente no tiene citas actualmente")
 
-                    # Si deseas mostrar el nombre y apellido incluso si no hay cita, puedes hacerlo aquí
-                cursor.execute("SELECT Nombre, Apellido FROM Pacientes WHERE Cedula = ? AND ID_user = ?", (cedula, idUser))
+                    self.hora.setTime(hora_cita)
+
+            else:
+                # Manejar el caso en el que no se encontraron resultados
+                QMessageBox.warning(self, "Sin resultados", "No se encontraron citas para el paciente")
+
+                # Si deseas mostrar el nombre y apellido incluso si no hay cita, puedes hacerlo aquí
+                cursor.execute("SELECT Nombre, Apellido FROM Pacientes WHERE Cedula = ? AND ID_user = ?", (busqueda, idUser))
                 datos_paciente = cursor.fetchone()
-                    
+
                 if datos_paciente:
                     nombre_paciente, apellido_paciente = datos_paciente
                     self.txt_name.setText(nombre_paciente)
                     self.txt_apell.setText(apellido_paciente)
                 else:
                     QMessageBox.warning(self, "Sin resultados", "No se encontró al paciente")
+
         except sqlite3.Error as error:
             QMessageBox.critical(self, "Error", f"Error al buscar paciente: {str(error)}")
         finally:
             conexion.close()
+
 
     def back(self):
         
@@ -2309,6 +2347,7 @@ class Ui_placas(QMainWindow):
     def searchData(self):
         idUser = self.id_user
         cedula =self.in_busqueda.text()
+
         if len(cedula) <=0:
             QMessageBox.warning(self,"Error","Ingrese una cedula")
         else:
@@ -2634,7 +2673,7 @@ class historiaMenu(QMainWindow):
         if resultado:
             tipoUser = resultado[0]
             if tipoUser == "Doctor":
-                self.usuario == "Doctor"
+                self.usuario = "Doctor"
             elif tipoUser =="Administrador":
                 self.usuario = "Administrador"
             elif tipoUser=="Usuario":
@@ -2985,14 +3024,24 @@ class historiaMenu(QMainWindow):
             cursor = conexion.cursor()
             idUser = self.id_user
             busqueda = self.in_busqueda.text()
-            cursor.execute("SELECT Cedula, Nombre, Apellido, Edad, Direccion, Sexo, Telefono, Mail, Context, Hipertension, Diabates, Coagualcion, Otros, Alergias, Diabate_Data, Hipertension_Data, Coagualcion_Data, Diagnotico, Fecha_Diagnotico, Hora_Diagnostico FROM Pacientes WHERE Cedula = ? AND ID_user = ?", (busqueda, idUser))
+
+            # Verificar el rol del usuario
+            if self.usuario == "Administrador"or self.usuario == "Usuario":
+                # Si es un administrador, puede buscar cualquier usuario
+                cursor.execute("SELECT Cedula, Nombre, Apellido, Edad, Direccion, Sexo, Telefono, Mail, Context, Hipertension, Diabates, Coagualcion, Otros, Alergias, Diabate_Data, Hipertension_Data, Coagualcion_Data, Diagnotico, Fecha_Diagnotico, Hora_Diagnostico FROM Pacientes WHERE Cedula = ?", (busqueda,))
+            elif self.usuario == "Doctor":
+                cursor.execute("SELECT Cedula, Nombre, Apellido, Edad, Direccion, Sexo, Telefono, Mail, Context, Hipertension, Diabates, Coagualcion, Otros, Alergias, Diabate_Data, Hipertension_Data, Coagualcion_Data, Diagnotico, Fecha_Diagnotico, Hora_Diagnostico FROM Pacientes WHERE Cedula = ? AND ID_user = ?", (busqueda, idUser))
+            else:
+                # Manejar el caso en el que el tipo de usuario no sea reconocido
+                QMessageBox.critical(self, "Error", "Rol de usuario no reconocido")
+
             resultado = cursor.fetchone()
 
             if resultado:
                 (Cedula, Nombre, Apellido, Edad, Direccion, Sexo, 
                     Telefono, Mail, Context ,Hipertension, Diabates, Coagualcion, Otros, Alergias, 
                     Diabate_Data , Hipertension_Data , Coagualcion_Data, Diagnotico, Fecha_Diagnotico, Hora_Diagnostico) = resultado
-               
+            
                 self.in_cedula.setText(Cedula)
                 self.in_name.setText(Nombre)
                 self.in_apell.setText(Apellido)
@@ -3047,7 +3096,7 @@ class historiaMenu(QMainWindow):
                     item = QTableWidgetItem(value)
                     self.tabla_pacientes.setItem(0, column, item)
                     
-                  # Cargar los tratamientos existentes en las QComboBox
+                # Cargar los tratamientos existentes en las QComboBox
                 cursor.execute("SELECT ID_Trata FROM PTrata WHERE Cedula = ?", (busqueda,))
                 id_trata = cursor.fetchone()
 
