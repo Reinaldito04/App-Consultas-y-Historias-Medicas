@@ -599,6 +599,25 @@ class Ui_Salida(QMainWindow):
         self.lineEdit_56.textChanged.connect(lambda : self.convertir_divisa(self.lineEdit_56,self.lineEdit_55,self.valor_numerico))
         self.total = 0
         self.totalDolar=0
+        self.verifytipoUser()
+        self.usuario =None
+        
+    def verifytipoUser(self):
+        conexion = sqlite3.connect("./interfaces/database.db")
+        cursor = conexion.cursor()
+        cursor.execute("SELECT Tipo FROM Users WHERE ID=?", (self.id_user,))
+        resultado = cursor.fetchone()
+        if resultado:
+            tipoUser = resultado[0]
+            if tipoUser == "Doctor":
+                self.usuario = "Doctor"
+            elif tipoUser == "Administrador":
+                self.usuario = "Administrador"
+            elif tipoUser == "Usuario":
+                self.usuario = "Usuario"
+            else:
+                print("No se encontró ningún tipo")
+                
     def totalDolares(self):
         total_formateado = "{:,.0f}".format(self.totalDolar).replace(',', '.')
         self.lineEdit_58.setText(total_formateado)
@@ -797,21 +816,18 @@ class MenuPrincipal(QMainWindow):
     def verifytipoUser(self):
         conexion = sqlite3.connect("./interfaces/database.db")
         cursor = conexion.cursor()
-        cursor.execute("SELECT Tipo FROM Users WHERE ID=?", (self.id_user,))
+        cursor.execute("SELECT Tipo FROM Users WHERE ID=?",(self.id_user,))
         resultado = cursor.fetchone()
         if resultado:
             tipoUser = resultado[0]
             if tipoUser == "Doctor":
                 self.usuario = "Doctor"
-                self.cargarCitas()
-            elif tipoUser == "Administrador":
+            elif tipoUser =="Administrador":
                 self.usuario = "Administrador"
-                self.cargarCitasSecretaria()
-            elif tipoUser == "Usuario":
+            elif tipoUser=="Usuario":
                 self.usuario = "Usuario"
-                self.cargarCitasSecretaria()
             else:
-                print("No se encontró ningún tipo")
+                print("No se encontro ningun tipo")
 
     def setupUi(self):
         self.frame_opciones.hide()
@@ -844,6 +860,9 @@ class MenuPrincipal(QMainWindow):
             self.tabla_cita.setColumnHidden(1, False)
        
     def historiaView(self):
+        if self.usuario =="Usuario":
+            QMessageBox.information(self,"Permiso Denegado","No tienes permisos para entrar")
+            return
         reply = self.showConfirmation("¿Deseas ir al formulario para la creacion/visualización de las historias?")
         if reply == QMessageBox.Yes:
             historia = Ui_Salida(self.id_user)
