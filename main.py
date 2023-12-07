@@ -602,6 +602,7 @@ class Ui_Salida(QMainWindow):
         self.verifytipoUser()
         self.usuario =None
         
+             
     def verifytipoUser(self):
         conexion = sqlite3.connect("./interfaces/database.db")
         cursor = conexion.cursor()

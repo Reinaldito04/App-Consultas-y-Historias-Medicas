@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>926</width>
+    <width>986</width>
     <height>875</height>
    </rect>
   </property>
@@ -312,7 +312,7 @@ font: 63 12pt &quot;Yu Gothic UI Semibold&quot;;
                                 <font>
                                  <family>Yu Gothic UI Semibold</family>
                                  <pointsize>16</pointsize>
-                                 <weight>8</weight>
+                                 <weight>7</weight>
                                  <italic>false</italic>
                                  <bold>false</bold>
                                  <underline>true</underline>
@@ -373,12 +373,12 @@ font: 63 16pt &quot;Yu Gothic UI Semibold&quot;;
                                 </widget>
                                </item>
                                <item>
-                                <widget class="QDateEdit" name="dateEdit">
+                                <widget class="QDateEdit" name="fecha">
                                  <property name="font">
                                   <font>
                                    <family>Yu Gothic UI Semibold</family>
                                    <pointsize>12</pointsize>
-                                   <weight>8</weight>
+                                   <weight>7</weight>
                                    <italic>false</italic>
                                    <bold>false</bold>
                                   </font>
@@ -445,7 +445,7 @@ font: 63 16pt &quot;Yu Gothic UI Semibold&quot;;
                               <font>
                                <family>Yu Gothic UI Semibold</family>
                                <pointsize>12</pointsize>
-                               <weight>8</weight>
+                               <weight>7</weight>
                                <italic>false</italic>
                                <bold>false</bold>
                                <underline>true</underline>
@@ -476,7 +476,7 @@ font: 63 16pt &quot;Yu Gothic UI Semibold&quot;;
                                       <font>
                                        <family>Yu Gothic UI Semibold</family>
                                        <pointsize>12</pointsize>
-                                       <weight>8</weight>
+                                       <weight>7</weight>
                                        <italic>false</italic>
                                        <bold>false</bold>
                                        <underline>false</underline>
@@ -615,7 +615,7 @@ font: 63 16pt &quot;Yu Gothic UI Semibold&quot;;
                                   <font>
                                    <family>Yu Gothic UI Semibold</family>
                                    <pointsize>12</pointsize>
-                                   <weight>8</weight>
+                                   <weight>7</weight>
                                    <italic>false</italic>
                                    <bold>false</bold>
                                    <underline>true</underline>
@@ -683,7 +683,7 @@ font: 63 16pt &quot;Yu Gothic UI Semibold&quot;;
                                              <font>
                                               <family>Yu Gothic UI Semibold</family>
                                               <pointsize>12</pointsize>
-                                              <weight>8</weight>
+                                              <weight>7</weight>
                                               <italic>false</italic>
                                               <bold>false</bold>
                                              </font>
@@ -702,7 +702,7 @@ font: 63 16pt &quot;Yu Gothic UI Semibold&quot;;
                                              <font>
                                               <family>Yu Gothic UI Semibold</family>
                                               <pointsize>12</pointsize>
-                                              <weight>8</weight>
+                                              <weight>7</weight>
                                               <italic>false</italic>
                                               <bold>false</bold>
                                              </font>
@@ -800,7 +800,7 @@ font: 63 16pt &quot;Yu Gothic UI Semibold&quot;;
                                              <font>
                                               <family>Yu Gothic UI Semibold</family>
                                               <pointsize>12</pointsize>
-                                              <weight>8</weight>
+                                              <weight>7</weight>
                                               <italic>false</italic>
                                               <bold>false</bold>
                                              </font>
@@ -819,7 +819,7 @@ font: 63 16pt &quot;Yu Gothic UI Semibold&quot;;
                                              <font>
                                               <family>Yu Gothic UI Semibold</family>
                                               <pointsize>12</pointsize>
-                                              <weight>8</weight>
+                                              <weight>7</weight>
                                               <italic>false</italic>
                                               <bold>false</bold>
                                              </font>
@@ -912,7 +912,7 @@ font: 63 16pt &quot;Yu Gothic UI Semibold&quot;;
                                              <font>
                                               <family>Yu Gothic UI Semibold</family>
                                               <pointsize>12</pointsize>
-                                              <weight>8</weight>
+                                              <weight>7</weight>
                                               <italic>false</italic>
                                               <bold>false</bold>
                                              </font>
@@ -931,7 +931,7 @@ font: 63 16pt &quot;Yu Gothic UI Semibold&quot;;
                                              <font>
                                               <family>Yu Gothic UI Semibold</family>
                                               <pointsize>12</pointsize>
-                                              <weight>8</weight>
+                                              <weight>7</weight>
                                               <italic>false</italic>
                                               <bold>false</bold>
                                              </font>
@@ -992,7 +992,7 @@ font: 63 16pt &quot;Yu Gothic UI Semibold&quot;;
                                       <font>
                                        <family>Yu Gothic UI Semibold</family>
                                        <pointsize>12</pointsize>
-                                       <weight>8</weight>
+                                       <weight>7</weight>
                                        <italic>false</italic>
                                        <bold>false</bold>
                                        <underline>false</underline>
@@ -1100,7 +1100,7 @@ border:2px solid rgb(0,0,0);
                               <font>
                                <family>Yu Gothic UI Semibold</family>
                                <pointsize>12</pointsize>
-                               <weight>8</weight>
+                               <weight>7</weight>
                                <italic>false</italic>
                                <bold>false</bold>
                                <underline>true</underline>
@@ -1156,7 +1156,7 @@ border:2px solid rgb(0,0,0);
                               <font>
                                <family>Yu Gothic UI Semibold</family>
                                <pointsize>12</pointsize>
-                               <weight>8</weight>
+                               <weight>7</weight>
                                <italic>false</italic>
                                <bold>false</bold>
                                <underline>true</underline>
@@ -1554,7 +1554,7 @@ border:2px solid rgb(0,0,0);
                               <font>
                                <family>Yu Gothic UI Semibold</family>
                                <pointsize>12</pointsize>
-                               <weight>8</weight>
+                               <weight>7</weight>
                                <italic>false</italic>
                                <bold>false</bold>
                                <underline>true</underline>
@@ -1905,18 +1905,18 @@ font:9pt &quot;Yu Gothic UI Semibold&quot;;
                      <widget class="QLineEdit" name="in_busqueda">
                       <property name="minimumSize">
                        <size>
-                        <width>160</width>
+                        <width>220</width>
                         <height>40</height>
                        </size>
                       </property>
                       <property name="maximumSize">
                        <size>
-                        <width>160</width>
+                        <width>220</width>
                         <height>16777215</height>
                        </size>
                       </property>
                       <property name="placeholderText">
-                       <string>Cedula del paciente</string>
+                       <string>Ingrese la cedula del paciente</string>
                       </property>
                      </widget>
                     </item>
@@ -2014,100 +2014,6 @@ border-top:2px solid rgb(0,0,0);
                           <layout class="QVBoxLayout" name="verticalLayout_9">
                            <item>
                             <layout class="QVBoxLayout" name="verticalLayout_8">
-                             <item>
-                              <spacer name="verticalSpacer_12">
-                               <property name="orientation">
-                                <enum>Qt::Vertical</enum>
-                               </property>
-                               <property name="sizeHint" stdset="0">
-                                <size>
-                                 <width>20</width>
-                                 <height>40</height>
-                                </size>
-                               </property>
-                              </spacer>
-                             </item>
-                             <item>
-                              <widget class="QPushButton" name="btn_agg">
-                               <property name="minimumSize">
-                                <size>
-                                 <width>150</width>
-                                 <height>50</height>
-                                </size>
-                               </property>
-                               <property name="maximumSize">
-                                <size>
-                                 <width>150</width>
-                                 <height>50</height>
-                                </size>
-                               </property>
-                               <property name="font">
-                                <font>
-                                 <pointsize>10</pointsize>
-                                </font>
-                               </property>
-                               <property name="text">
-                                <string>Agregar</string>
-                               </property>
-                               <property name="icon">
-                                <iconset>
-                                 <normaloff>ELEMENTOS GRAFICOS/save.png</normaloff>ELEMENTOS GRAFICOS/save.png</iconset>
-                               </property>
-                               <property name="iconSize">
-                                <size>
-                                 <width>25</width>
-                                 <height>25</height>
-                                </size>
-                               </property>
-                              </widget>
-                             </item>
-                             <item>
-                              <spacer name="verticalSpacer_9">
-                               <property name="orientation">
-                                <enum>Qt::Vertical</enum>
-                               </property>
-                               <property name="sizeHint" stdset="0">
-                                <size>
-                                 <width>20</width>
-                                 <height>40</height>
-                                </size>
-                               </property>
-                              </spacer>
-                             </item>
-                             <item>
-                              <widget class="QPushButton" name="btn_edit">
-                               <property name="minimumSize">
-                                <size>
-                                 <width>150</width>
-                                 <height>50</height>
-                                </size>
-                               </property>
-                               <property name="maximumSize">
-                                <size>
-                                 <width>150</width>
-                                 <height>50</height>
-                                </size>
-                               </property>
-                               <property name="font">
-                                <font>
-                                 <pointsize>10</pointsize>
-                                </font>
-                               </property>
-                               <property name="text">
-                                <string>Editar</string>
-                               </property>
-                               <property name="icon">
-                                <iconset>
-                                 <normaloff>ELEMENTOS GRAFICOS/editar-codigo.png</normaloff>ELEMENTOS GRAFICOS/editar-codigo.png</iconset>
-                               </property>
-                               <property name="iconSize">
-                                <size>
-                                 <width>25</width>
-                                 <height>25</height>
-                                </size>
-                               </property>
-                              </widget>
-                             </item>
                              <item>
                               <spacer name="verticalSpacer_7">
                                <property name="orientation">
@@ -2329,8 +2235,8 @@ border-top:2px solid rgb(0,0,0);
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>926</width>
-     <height>22</height>
+     <width>986</width>
+     <height>21</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuMen">
