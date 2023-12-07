@@ -1,3 +1,2 @@
 # App-Consultas-y-Historias-Medicas
-#Si xd
-#Hola , es reinaldo
+<img src="./interfaces//ELEMENTOS GRAFICOS/loginimg.png">
