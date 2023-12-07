@@ -810,9 +810,10 @@ class MenuPrincipal(QMainWindow):
         self.setWindowTitle("MenuPrincipal")
         self.showMaximized()
         self.usuario = None
-        self.setupUi()
         self.verifytipoUser()
        
+        self.setupUi()
+        
    
     def verifytipoUser(self):
         conexion = sqlite3.connect("./interfaces/database.db")
@@ -844,7 +845,9 @@ class MenuPrincipal(QMainWindow):
         self.bt_montos.clicked.connect(self.MontosView)
         self.bt_help.clicked.connect(self.ayuda)
         self.bt_act.clicked.connect(self.act_T)
+        
         self.bt_buscar.clicked.connect(self.buscar)
+        
         self.filtro = self.findChild(QtWidgets.QComboBox, "filtro")
         self.filtro.addItem("Seleccione una opción para filtrar")
         self.filtro.addItems(["Dentista","Fecha_Cita", "Hora_Cita", "Estatus_Cita"])
@@ -859,7 +862,15 @@ class MenuPrincipal(QMainWindow):
         # Para otros roles, mostrar todas las columnas
             self.tabla_cita.setColumnHidden(0, False)
             self.tabla_cita.setColumnHidden(1, False)
-       
+        
+        self.act_T()
+    def cargardatos(self):
+        if self.usuario=="Usuario":
+            self.buscar()
+        elif self.usuario =="Administrador":
+            self.buscar()
+        elif self.usuario =="Doctor":
+            self.buscar()
     def historiaView(self):
         if self.usuario =="Usuario":
             QMessageBox.information(self,"Permiso Denegado","No tienes permisos para entrar")
@@ -899,7 +910,7 @@ class MenuPrincipal(QMainWindow):
             self.cargarCitasSecretaria()
         elif self.usuario =="Administrador":
             self.cargarCitasSecretaria()
-        else: 
+        elif self.usuario =="Doctor": 
             self.cargarCitas()
     def buscar(self):
         filtro = self.filtro.currentText()
@@ -920,8 +931,10 @@ class MenuPrincipal(QMainWindow):
             if filtro == "Dentista":
                 filtro = "Nombre_usuario"
             if self.usuario=="Usuario":
+                self.act_T()
                 self.cargarCitasSecretaria(filtro,valor)
             else:
+                self.act_T()
                 self.cargarCitas(filtro, valor)
    
 
@@ -1141,6 +1154,7 @@ class MenuPrincipal(QMainWindow):
                 )
                 
             else:
+                title = 'Cita má cercana'
                 notification.notify(
                     title=title,
                     message="No hay citas actualmente",
