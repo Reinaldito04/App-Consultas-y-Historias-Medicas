@@ -488,6 +488,9 @@ QRadioButton{
                        <property name="text">
                         <string>Admin</string>
                        </property>
+                       <property name="checkable">
+                        <bool>false</bool>
+                       </property>
                       </widget>
                      </item>
                      <item>
