@@ -583,15 +583,129 @@ class Ui_Salida(QMainWindow):
         self.actionVolver_al_menu_principal.triggered.connect(self.backmenu)
         self.actionSalir.triggered.connect(self.salir)
         self.btn_buscar.clicked.connect(self.busqueda)
+        self.btn_xd.clicked.connect(self.cambiarPage)
+        self.btn_print.clicked.connect(self.guardarPDF)
+        self.paginaInicia = True
+        self.btn_clear.clicked.connect(self.limpiar)
+        self.valor_numerico = None
+        self.calculo_divisa_thread = CalculoDivisaThread()
+        self.calculo_divisa_thread.finished.connect(self.on_calculo_divisa_finished)
+        self.calculo_divisa_thread.start()
+        self.lineEdit_13.textChanged.connect(lambda : self.convertir_divisa(self.lineEdit_13,self.lineEdit_14,self.valor_numerico))
+        self.lineEdit_44.textChanged.connect(lambda : self.convertir_divisa(self.lineEdit_44,self.lineEdit_43,self.valor_numerico))
+        self.lineEdit_47.textChanged.connect(lambda : self.convertir_divisa(self.lineEdit_47,self.lineEdit_46,self.valor_numerico))
+        self.lineEdit_50.textChanged.connect(lambda : self.convertir_divisa(self.lineEdit_50,self.lineEdit_49,self.valor_numerico))
+        self.lineEdit_53.textChanged.connect(lambda : self.convertir_divisa(self.lineEdit_53,self.lineEdit_52,self.valor_numerico))
+        self.lineEdit_56.textChanged.connect(lambda : self.convertir_divisa(self.lineEdit_56,self.lineEdit_55,self.valor_numerico))
+        self.total = 0
+        self.totalDolar=0
+    def totalDolares(self):
+        total_formateado = "{:,.0f}".format(self.totalDolar).replace(',', '.')
+        self.lineEdit_58.setText(total_formateado)
+    def totalBs(self):
+        total_formateado = "{:,.0f}".format(self.total).replace(',', '.')
+        self.lineEdit_57.setText(total_formateado)
+    def verificarNumeros(self,cadena):
+        patron = r'^\d+$'
+        return re.match(patron, cadena) is not None
+    
+    def convertir_divisa(self, input_line_edit, output_line_edit, valor_numerico):
+        cantidad = input_line_edit.text()
+        if self.verificarNumeros(cantidad):
+            resultado = float(cantidad) * float(valor_numerico)
+            resultado_formateado = "{:,.0f}".format(resultado).replace(',', '.')
+            output_line_edit.setText(str(resultado_formateado))
+            self.total += resultado
+            dolar = float(cantidad)
+            self.totalDolar += dolar
+            self.totalDolares()
+            self.totalBs()
+        else:
+            QMessageBox.information(self, "Error", "Solo números")
+            input_line_edit.clear()
+            output_line_edit.clear()
+   
+        
+    def on_calculo_divisa_finished(self, resultado):
+        # Este método se llama cuando el hilo ha terminado de calcular la divisa
+        self.valor_numerico = resultado
+        print(f"El valor_numerico al iniciar el programa es: {self.valor_numerico}")
+
+    def calcularDivisas(self,dolar):
+        bolivar = self.valor_numerico
+        operacion = bolivar * dolar
+        return operacion, bolivar
+    
+    def guardarPDF(self):
+        busqueda = self.in_busqueda.text()
+        tratamientos = [{self.lineEdit_9.text() : self.lineEdit_14.text(),
+                         self.lineEdit_42.text() : self.lineEdit_43.text(),
+                         self.lineEdit_45.text() : self.lineEdit_46.text(),
+                         self.lineEdit_48.text() : self.lineEdit_49.text(),
+                         self.lineEdit_51.text() : self.lineEdit_52.text(),
+                         self.lineEdit_54.text(): self.lineEdit_55.text()
+                         
+                        }
+                        ]
+        total = self.lineEdit_57.text()
+        if not busqueda:
+            QMessageBox.information(self,"Falta la cedula","Por favor digite la cedula a buscar")
+            return
+        from interfaces.crearpdf import crear_pdf
+          # Abre el diálogo para seleccionar la ubicación de guardado del PDF
+        ruta_salida, _ = QFileDialog.getSaveFileName(self, 'Guardar PDF', '', 'Archivos PDF (*.pdf)')
+
+        if not ruta_salida:
+            return
+
+            # Crea y guarda el PDF con los datos filtrados
+        crear_pdf(ruta_salida=ruta_salida, cedula=busqueda,tratamientos=tratamientos,precioTotal=total)
+
+        QMessageBox.information(self, "Guardado correctamente", f"Fue guardado en {ruta_salida}")
+
+        
+    def cambiarPage(self):
+        if self.paginaInicia:
+            self.stackedWidget.setCurrentWidget(self.page_2)
+            self.paginaInicia = False
+        else:
+            self.stackedWidget.setCurrentWidget(self.page)
+            self.paginaInicia = True
+            
+    def limpiar(self):
+        self.lineEdit_4.clear()
+        self.lineEdit_6.clear()
+        self.lineEdit_2.clear()
+        self.lineEdit_3.clear()
+        self.lineEdit_5.clear()
+        self.lineEdit_7.clear()
+        self.lineEdit_8.clear()
+        self.textEdit.clear()
+        self.textEdit_2.clear()
+        self.lineEdit_59.clear()
+        self.lineEdit_60.clear()
+        self.lineEdit_61.clear()
+        self.lineEdit_62.clear()
+        self.lineEdit_63.clear()
+        self.lineEdit_64.clear()
     def busqueda(self):
         busqueda = self.in_busqueda.text()
+       
         if not busqueda:
             QMessageBox.information(self,"Falta la cedula","Por favor digite la cedula a buscar")
             return
         conexion = sqlite3.connect('interfaces/database.db')
         cursor= conexion.cursor()
-        cursor.execute("SELECT Cedula,Telefono,Nombre,Apellido,Direccion,Hipertension,Coagualcion,Diabates,hipertension_Data,diabate_Data,Alergias FROM Pacientes WHERE Cedula =?",(busqueda,))
+        cursor.execute("SELECT Cedula,Telefono,Nombre,Apellido,Direccion,Hipertension,Coagualcion,Diabates,hipertension_Data,diabate_Data,Alergias,Diagnotico FROM Pacientes WHERE Cedula =?",(busqueda,))
+       
         resultado = cursor.fetchone()
+        
+        
+        cursor.execute ("SELECT Tratamiento1,Tratamiento2,Tratamiento3,Tratamiento4,Tratamiento5,Tratamiento5,Tratamiento6 FROM PTrata WHERE Cedula =?",(busqueda,))
+        resultado_tratamientos = cursor.fetchone()
+        if not resultado:
+            QMessageBox.warning(self,'Error','La persona no existe en el sistema')
+            return
         if resultado:
             self.lineEdit_4.setText(resultado[0])
             self.lineEdit_6.setText(resultado[1])
@@ -616,6 +730,14 @@ class Ui_Salida(QMainWindow):
             self.lineEdit_7.setText(resultado[8])
             self.lineEdit_8.setText(resultado[9])
             self.textEdit.setText(resultado[10])
+            self.textEdit_2.setText(resultado[11])
+            if resultado_tratamientos:
+                self.lineEdit_59.setText(resultado_tratamientos[0])
+                self.lineEdit_60.setText(resultado_tratamientos[1])
+                self.lineEdit_61.setText(resultado_tratamientos[2])
+                self.lineEdit_62.setText(resultado_tratamientos[3])
+                self.lineEdit_63.setText(resultado_tratamientos[4])
+                self.lineEdit_64.setText(resultado_tratamientos[5])
     def salir(self):
         reply = QMessageBox.question(
             self,

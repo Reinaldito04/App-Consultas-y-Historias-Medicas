@@ -366,7 +366,7 @@ class Ui_MainWindow(object):
 "")
         self.bt_historial.setText("")
         icon10 = QtGui.QIcon()
-        icon10.addPixmap(QtGui.QPixmap("/home/reinaldo/Documentos/dev/App-Consultas-y-Historias-Medicas/interfaces/ELEMENTOS GRAFICOS/sharp-update.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        icon10.addPixmap(QtGui.QPixmap("/home/reinaldo/Documentos/dev/App-Consultas-y-Historias-Medicas/interfaces/ELEMENTOS GRAFICOS/historia dental.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.bt_historial.setIcon(icon10)
         self.bt_historial.setIconSize(QtCore.QSize(45, 45))
         self.bt_historial.setObjectName("bt_historial")
