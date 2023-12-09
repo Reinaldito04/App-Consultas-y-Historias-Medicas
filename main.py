@@ -21,6 +21,9 @@ from PyQt5.QtCore import Qt
 import re
 from users import Ui_Dialog
 import json
+import uuid  # Importar el módulo uuid para generar identificadores únicos
+import openpyxl
+from openpyxl.drawing.image import Image
 class IngresoUsuario(QMainWindow):
     def __init__(self):
         super(IngresoUsuario, self).__init__()
@@ -1300,7 +1303,9 @@ class Ui_pacientes_view(QtWidgets.QMainWindow):
         self.filtro.addItem("Seleccione una opción para filtrar")
         self.filtro.addItems(["Dentista", "Cedula", "Nombre", "Edad", "Sexo", "Direccion", "Fecha_Diagnotico"])
         self.in_buscar.textChanged.connect(self.buscar)
+       
         self.bt_preview.clicked.connect(self.guardarPDF)
+        self.bt_backup.clicked.connect(self.exportar_a_excel)
     def verifytipoUser(self):
         conexion = sqlite3.connect("./interfaces/database.db")
         cursor = conexion.cursor()
@@ -1316,7 +1321,59 @@ class Ui_pacientes_view(QtWidgets.QMainWindow):
                 self.usuario = "Usuario"
             else:
                 print("No se encontró ningún tipo")
-                
+    def exportar_a_excel(self):
+        # Conectar a la base de datos SQLite
+        conexion = sqlite3.connect('interfaces/database.db')
+        cursor = conexion.cursor()
+
+        # Obtener datos de la base de datos
+        cursor.execute("""
+                     SELECT 
+            Users.ID as ID_usuario,
+            Users.Nombres || ' ' || Users.Apellidos as Nombre_completo,
+            Pacientes.Cedula, 
+            Pacientes.Nombre, 
+            Pacientes.Apellido, 
+            Pacientes.Edad, 
+            Pacientes.Direccion, 
+            Pacientes.Sexo, 
+            Pacientes.Fecha_Diagnotico
+        FROM 
+            Pacientes
+       
+        INNER JOIN
+            Users ON Pacientes.ID_user = Users.ID
+        
+        ORDER BY 
+            Pacientes.Fecha_Diagnotico ASC
+                    """)
+        datos = cursor.fetchall()
+
+        # Crear un nuevo archivo Excel
+        libro_excel = openpyxl.Workbook()
+        hoja_excel = libro_excel.active
+        columnas = [description[0] for description in cursor.description]
+
+    # Escribir las cabeceras en el archivo Excel
+        for columna, nombre_columna in enumerate(columnas, start=1):
+            hoja_excel.cell(row=1, column=columna, value=nombre_columna)
+
+        # Escribir datos en el archivo Excel
+        for fila, dato in enumerate(datos, start=2):
+            for columna, valor in enumerate(dato, start=1):
+                hoja_excel.cell(row=fila, column=columna, value=valor)
+
+        # Guardar el archivo Excel con el filtro específico
+        filtro = 'Archivos Excel (*.xlsx);;Todos los archivos (*)'
+        archivo_excel, _ = QFileDialog.getSaveFileName(self, 'Guardar como', '', filtro)
+
+        if archivo_excel:
+            if not archivo_excel.endswith('.xlsx'):
+                archivo_excel += '.xlsx'
+    
+        libro_excel.save(archivo_excel)
+
+        conexion.close()
     def guardarPDF(self):
         from interfaces.pdfReportegeneral import recuperardatos_Doctor,recuperar_datos_bd,crear_pdf
         try:
