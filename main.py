@@ -2271,7 +2271,25 @@ class Ui_placas(QMainWindow):
         self.img8.mousePressEvent = lambda event: self.show_image_popup(self.img8.pixmap())
         self.img9.mousePressEvent = lambda event: self.show_image_popup(self.img9.pixmap())
         self.img10.mousePressEvent = lambda event: self.show_image_popup(self.img10.pixmap())
+        self.usuario =None
+        self.verifytipoUser()   
         
+    def verifytipoUser(self):
+        conexion = sqlite3.connect("./interfaces/database.db")
+        cursor = conexion.cursor()
+        cursor.execute("SELECT Tipo FROM Users WHERE ID=?",(self.id_user,))
+        resultado = cursor.fetchone()
+        if resultado:
+            tipoUser = resultado[0]
+            if tipoUser == "Doctor":
+                self.usuario = "Doctor"
+            elif tipoUser =="Administrador":
+                self.usuario = "Administrador"
+            elif tipoUser=="Usuario":
+                self.usuario = "Usuario"
+            else:
+                print("No se encontro ningun tipo")
+                
     def editar(self):
         cedula = self.in_busqueda.text()
         foto_pixmap1  =self.img1.pixmap()
@@ -2502,22 +2520,34 @@ class Ui_placas(QMainWindow):
 
     def searchData(self):
         idUser = self.id_user
-        cedula =self.in_busqueda.text()
+        cedula = self.in_busqueda.text()
 
-        if len(cedula) <=0:
-            QMessageBox.warning(self,"Error","Ingrese una cedula")
+        if len(cedula) <= 0:
+            QMessageBox.warning(self, "Error", "Ingrese una cedula")
         else:
-            
             try:
                 conexion = sqlite3.connect('./interfaces/database.db')
                 cursor = conexion.cursor()
-                cursor.execute("SELECT Nombre , Apellido FROM Pacientes WHERE Cedula = ? AND ID_user = ?",(cedula, idUser))
+
+                # Verificar el rol del usuario
+                if self.usuario == "Administrador" or self.usuario == "Usuario":
+                    # Si es un administrador o usuario, puede buscar cualquier usuario
+                    cursor.execute("SELECT Nombre, Apellido FROM Pacientes WHERE Cedula = ?", (cedula,))
+                elif self.usuario == "Doctor":
+                    # Si es un doctor, solo puede buscar pacientes asociados a su ID de usuario
+                    cursor.execute("SELECT Nombre, Apellido FROM Pacientes WHERE Cedula = ? AND ID_user = ?", (cedula, idUser))
+                else:
+                    # Manejar el caso en el que el tipo de usuario no sea reconocido
+                    QMessageBox.critical(self, "Error", "Rol de usuario no reconocido")
+                    return
+
                 resultado = cursor.fetchone()
                 conexion.close()
                 if resultado :
                     nombre_paciente ,apellido_paciente = resultado
                     self.in_name.setText(nombre_paciente)
                     self.in_apell.setText(apellido_paciente)
+                    pass
                 else:
                     QMessageBox.critical(self,"Error","El paciente no fue encontrado")
             except sqlite3.Error as error:
@@ -2550,7 +2580,18 @@ class Ui_placas(QMainWindow):
             try:
                 conexion = sqlite3.connect('./interfaces/database.db')
                 cursor =conexion.cursor()
-                cursor.execute("SELECT Nombre , Apellido , Placa1, Placa2, Placa3, Placa4, Placa5 FROM Pacientes WHERE Cedula = ? AND ID_user = ?",(cedula, idUser))
+                # Verificar el rol del usuario
+                if self.usuario == "Administrador" or self.usuario == "Usuario":
+                    # Si es un administrador o usuario, puede buscar cualquier usuario
+                    cursor.execute("SELECT Nombre , Apellido , Placa1, Placa2, Placa3, Placa4, Placa5 FROM Pacientes WHERE Cedula = ?", (cedula,))
+                elif self.usuario == "Doctor":
+                    # Si es un doctor, solo puede buscar pacientes asociados a su ID de usuario
+                    cursor.execute("SELECT Nombre , Apellido , Placa1, Placa2, Placa3, Placa4, Placa5 FROM Pacientes WHERE Cedula = ? AND ID_user = ?", (cedula, idUser))
+                else:
+                    # Manejar el caso en el que el tipo de usuario no sea reconocido
+                    QMessageBox.critical(self, "Error", "Rol de usuario no reconocido")
+                    return
+
                 resultado = cursor.fetchone()
                 if resultado:
                     nombre_paciente , apellido_paciente ,placa1 , placa2,placa3, placa4, placa5 = resultado
@@ -2576,6 +2617,7 @@ class Ui_placas(QMainWindow):
                     pixmap5 = QPixmap()
                     pixmap5.loadFromData(placa5)
                     self.img10.setPixmap(pixmap5)
+                    
                 else:
                     QMessageBox.information(self,"Eror","No se encuentra datos")
                     return
@@ -2586,7 +2628,7 @@ class Ui_placas(QMainWindow):
             conexion = sqlite3.connect('interfaces/database.db')
             cursor = conexion.cursor()
             idUser = self.id_user
-
+            
             # Ejecuta una consulta para obtener los datos de los pacientes y ordenar por Fecha_Cita descendente
             cursor.execute("SELECT Cedula, Nombre, Apellido, Placa1 , Placa2 , Placa3, Placa4, Placa5   FROM Pacientes WHERE ID_user = ? ", (idUser,))
             tabla_placas = cursor.fetchall()
