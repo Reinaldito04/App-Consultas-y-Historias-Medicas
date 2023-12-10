@@ -18,7 +18,7 @@ def obtener_codigo_base64(ruta_imagen):
     with open(ruta_imagen, "rb") as image_file:
         codigo_base64 = base64.b64encode(image_file.read()).decode("utf-8")
     return codigo_base64
-def crear_pdf( ruta_salida,cedula,tratamientos,precioTotal):
+def crear_pdf( ruta_salida,cedula,tratamientos,precioTotal,cursoTratamiento):
    
     rutaImagen = "interfaces/ELEMENTOS GRAFICOS/logo.png"
     codigo_base64 = obtener_codigo_base64(rutaImagen)
@@ -290,7 +290,11 @@ def crear_pdf( ruta_salida,cedula,tratamientos,precioTotal):
         }}
      </style>
       <p class="plan">Plan de Tratamiento y Costo</p>
-      <div class="container-precio">
+      <table>
+      <tr>
+        <th>Tratamiento</th>
+        <th>Valor </th>
+      </tr>
        """
 
     if tratamientos:
@@ -298,14 +302,14 @@ def crear_pdf( ruta_salida,cedula,tratamientos,precioTotal):
         for trato in tratamientos:
           for clave, valor in trato.items():
               html += f"""
-              <div class="container-tratamiento">
-                  <p>{clave}</p>
-                  <p>{valor}</p>
-              </div>
+              <tr>
+                  <td>{clave}</td>
+                  <td>{valor}</td>
+              </tr>
               """
 
     html += f"""
-      </div>
+      </table>
       <div class="container-total">
         <div class="div-strong">
           <p class="total">TOTAL</p>
@@ -328,16 +332,18 @@ def crear_pdf( ruta_salida,cedula,tratamientos,precioTotal):
           </tr>
          """
 
-    for resultado in resultado_tratamientos:
-      if resultado:  # Verifica si el resultado no es None
-          for tratamiento_numero, tratamiento in enumerate(resultado, start=1):
-              html += f"""
-                  <tr>
-                      <td>{tratamiento_numero}</td>
-                      <td>{fecha_tratamiento[0]}</td>
-                      <td>{tratamiento}</td>
-                  </tr>
-              """
+    if cursoTratamiento:
+      for indice, tratamiento in enumerate(cursoTratamiento, start=1):
+          fecha = tratamiento.get('fecha', '')
+          valor = tratamiento.get('tratamiento', '')
+          if fecha and valor:
+            html += f"""
+                <tr>
+                    <td>{indice}</td>
+                    <td>{fecha_formateada}</td>
+                    <td>{valor}</td>
+                </tr>
+            """
 
     html += """
         </table>
@@ -348,7 +354,7 @@ def crear_pdf( ruta_salida,cedula,tratamientos,precioTotal):
       <footer>
       
         <p class="footer"> 
-            Av 5 de Julio Edif.Don Gregorio Piso1 Consultorio 1-3,Puerto La Cruz,Estado Anzoategui Telef 0281-9961504
+            Av 5 de Julio Edif.Virgen Del Valle Piso-3,Puerto La Cruz,Estado Anzoategui Telef 0281-9961504
         </p>
       </footer>
     </div>

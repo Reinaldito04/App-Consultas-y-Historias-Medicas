@@ -670,6 +670,18 @@ class Ui_Salida(QMainWindow):
                          
                         }
                         ]
+        
+        cursos= [
+             {'fecha': self.dateEdit_2.text(), 'tratamiento': self.lineEdit_59.text()},
+            {'fecha': self.dateEdit_8.text(), 'tratamiento': self.lineEdit_60.text()},
+            {'fecha' : self.dateEdit_9.text(), 'tratamiento' : self.lineEdit_61.text()},
+             {'fecha' : self.dateEdit_10.text(), 'tratamiento' : self.lineEdit_62.text()},
+            {'fecha' : self.dateEdit_11.text(), 'tratamiento' : self.lineEdit_63.text()},
+            {'fecha' : self.dateEdit_12.text(), 'tratamiento' : self.lineEdit_64.text()}
+
+            
+    # Otros diccionarios...
+        ]
         total = self.lineEdit_57.text()
         if not busqueda:
             QMessageBox.information(self,"Falta la cedula","Por favor digite la cedula a buscar")
@@ -682,7 +694,7 @@ class Ui_Salida(QMainWindow):
             return
 
             # Crea y guarda el PDF con los datos filtrados
-        crear_pdf(ruta_salida=ruta_salida, cedula=busqueda,tratamientos=tratamientos,precioTotal=total)
+        crear_pdf(ruta_salida=ruta_salida, cedula=busqueda,tratamientos=tratamientos,precioTotal=total,cursoTratamiento=cursos)
 
         QMessageBox.information(self, "Guardado correctamente", f"Fue guardado en {ruta_salida}")
 
@@ -724,7 +736,7 @@ class Ui_Salida(QMainWindow):
         resultado = cursor.fetchone()
         
         
-        cursor.execute ("SELECT Tratamiento1,Tratamiento2,Tratamiento3,Tratamiento4,Tratamiento5,Tratamiento5,Tratamiento6 FROM PTrata WHERE Cedula =?",(busqueda,))
+        cursor.execute ("SELECT Tratamiento1,Tratamiento2,Tratamiento3,Tratamiento4,Tratamiento5,Tratamiento6,Fecha_Trata FROM PTrata WHERE Cedula =?",(busqueda,))
         resultado_tratamientos = cursor.fetchone()
         if not resultado:
             QMessageBox.warning(self,'Error','La persona no existe en el sistema')
@@ -761,6 +773,7 @@ class Ui_Salida(QMainWindow):
                 self.lineEdit_62.setText(resultado_tratamientos[3])
                 self.lineEdit_63.setText(resultado_tratamientos[4])
                 self.lineEdit_64.setText(resultado_tratamientos[5])
+                
     def salir(self):
         reply = QMessageBox.question(
             self,
