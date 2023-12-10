@@ -209,7 +209,7 @@ QPushButton:hover{
                      <enum>QFrame::WinPanel</enum>
                     </property>
                     <property name="currentIndex">
-                     <number>0</number>
+                     <number>1</number>
                     </property>
                     <widget class="QWidget" name="page">
                      <property name="styleSheet">
@@ -312,7 +312,7 @@ font: 63 12pt &quot;Yu Gothic UI Semibold&quot;;
                                 <font>
                                  <family>Yu Gothic UI Semibold</family>
                                  <pointsize>16</pointsize>
-                                 <weight>7</weight>
+                                 <weight>8</weight>
                                  <italic>false</italic>
                                  <bold>false</bold>
                                  <underline>true</underline>
@@ -378,7 +378,7 @@ font: 63 16pt &quot;Yu Gothic UI Semibold&quot;;
                                   <font>
                                    <family>Yu Gothic UI Semibold</family>
                                    <pointsize>12</pointsize>
-                                   <weight>7</weight>
+                                   <weight>8</weight>
                                    <italic>false</italic>
                                    <bold>false</bold>
                                   </font>
@@ -445,7 +445,7 @@ font: 63 16pt &quot;Yu Gothic UI Semibold&quot;;
                               <font>
                                <family>Yu Gothic UI Semibold</family>
                                <pointsize>12</pointsize>
-                               <weight>7</weight>
+                               <weight>8</weight>
                                <italic>false</italic>
                                <bold>false</bold>
                                <underline>true</underline>
@@ -476,7 +476,7 @@ font: 63 16pt &quot;Yu Gothic UI Semibold&quot;;
                                       <font>
                                        <family>Yu Gothic UI Semibold</family>
                                        <pointsize>12</pointsize>
-                                       <weight>7</weight>
+                                       <weight>8</weight>
                                        <italic>false</italic>
                                        <bold>false</bold>
                                        <underline>false</underline>
@@ -615,7 +615,7 @@ font: 63 16pt &quot;Yu Gothic UI Semibold&quot;;
                                   <font>
                                    <family>Yu Gothic UI Semibold</family>
                                    <pointsize>12</pointsize>
-                                   <weight>7</weight>
+                                   <weight>8</weight>
                                    <italic>false</italic>
                                    <bold>false</bold>
                                    <underline>true</underline>
@@ -683,7 +683,7 @@ font: 63 16pt &quot;Yu Gothic UI Semibold&quot;;
                                              <font>
                                               <family>Yu Gothic UI Semibold</family>
                                               <pointsize>12</pointsize>
-                                              <weight>7</weight>
+                                              <weight>8</weight>
                                               <italic>false</italic>
                                               <bold>false</bold>
                                              </font>
@@ -702,7 +702,7 @@ font: 63 16pt &quot;Yu Gothic UI Semibold&quot;;
                                              <font>
                                               <family>Yu Gothic UI Semibold</family>
                                               <pointsize>12</pointsize>
-                                              <weight>7</weight>
+                                              <weight>8</weight>
                                               <italic>false</italic>
                                               <bold>false</bold>
                                              </font>
@@ -800,7 +800,7 @@ font: 63 16pt &quot;Yu Gothic UI Semibold&quot;;
                                              <font>
                                               <family>Yu Gothic UI Semibold</family>
                                               <pointsize>12</pointsize>
-                                              <weight>7</weight>
+                                              <weight>8</weight>
                                               <italic>false</italic>
                                               <bold>false</bold>
                                              </font>
@@ -819,7 +819,7 @@ font: 63 16pt &quot;Yu Gothic UI Semibold&quot;;
                                              <font>
                                               <family>Yu Gothic UI Semibold</family>
                                               <pointsize>12</pointsize>
-                                              <weight>7</weight>
+                                              <weight>8</weight>
                                               <italic>false</italic>
                                               <bold>false</bold>
                                              </font>
@@ -912,7 +912,7 @@ font: 63 16pt &quot;Yu Gothic UI Semibold&quot;;
                                              <font>
                                               <family>Yu Gothic UI Semibold</family>
                                               <pointsize>12</pointsize>
-                                              <weight>7</weight>
+                                              <weight>8</weight>
                                               <italic>false</italic>
                                               <bold>false</bold>
                                              </font>
@@ -931,7 +931,7 @@ font: 63 16pt &quot;Yu Gothic UI Semibold&quot;;
                                              <font>
                                               <family>Yu Gothic UI Semibold</family>
                                               <pointsize>12</pointsize>
-                                              <weight>7</weight>
+                                              <weight>8</weight>
                                               <italic>false</italic>
                                               <bold>false</bold>
                                              </font>
@@ -992,7 +992,7 @@ font: 63 16pt &quot;Yu Gothic UI Semibold&quot;;
                                       <font>
                                        <family>Yu Gothic UI Semibold</family>
                                        <pointsize>12</pointsize>
-                                       <weight>7</weight>
+                                       <weight>8</weight>
                                        <italic>false</italic>
                                        <bold>false</bold>
                                        <underline>false</underline>
@@ -1100,7 +1100,7 @@ border:2px solid rgb(0,0,0);
                               <font>
                                <family>Yu Gothic UI Semibold</family>
                                <pointsize>12</pointsize>
-                               <weight>7</weight>
+                               <weight>8</weight>
                                <italic>false</italic>
                                <bold>false</bold>
                                <underline>true</underline>
@@ -1156,7 +1156,7 @@ border:2px solid rgb(0,0,0);
                               <font>
                                <family>Yu Gothic UI Semibold</family>
                                <pointsize>12</pointsize>
-                               <weight>7</weight>
+                               <weight>8</weight>
                                <italic>false</italic>
                                <bold>false</bold>
                                <underline>true</underline>
@@ -1199,6 +1199,9 @@ border:2px solid rgb(0,0,0);
                                   <string notr="true">QLineEdit{
 border:2px solid rgb(0,0,0);
 }</string>
+                                 </property>
+                                 <property name="readOnly">
+                                  <bool>true</bool>
                                  </property>
                                  <property name="placeholderText">
                                   <string>Bs.</string>
@@ -1251,6 +1254,9 @@ border:2px solid rgb(0,0,0);
 border:2px solid rgb(0,0,0);
 }</string>
                                  </property>
+                                 <property name="readOnly">
+                                  <bool>true</bool>
+                                 </property>
                                  <property name="placeholderText">
                                   <string>Bs.</string>
                                  </property>
@@ -1301,6 +1307,9 @@ border:2px solid rgb(0,0,0);
                                   <string notr="true">QLineEdit{
 border:2px solid rgb(0,0,0);
 }</string>
+                                 </property>
+                                 <property name="readOnly">
+                                  <bool>true</bool>
                                  </property>
                                  <property name="placeholderText">
                                   <string>Bs.</string>
@@ -1353,6 +1362,9 @@ border:2px solid rgb(0,0,0);
 border:2px solid rgb(0,0,0);
 }</string>
                                  </property>
+                                 <property name="readOnly">
+                                  <bool>true</bool>
+                                 </property>
                                  <property name="placeholderText">
                                   <string>Bs.</string>
                                  </property>
@@ -1404,6 +1416,9 @@ border:2px solid rgb(0,0,0);
 border:2px solid rgb(0,0,0);
 }</string>
                                  </property>
+                                 <property name="readOnly">
+                                  <bool>true</bool>
+                                 </property>
                                  <property name="placeholderText">
                                   <string>Bs.</string>
                                  </property>
@@ -1454,6 +1469,9 @@ border:2px solid rgb(0,0,0);
                                   <string notr="true">QLineEdit{
 border:2px solid rgb(0,0,0);
 }</string>
+                                 </property>
+                                 <property name="readOnly">
+                                  <bool>true</bool>
                                  </property>
                                  <property name="placeholderText">
                                   <string>Bs.</string>
@@ -1510,6 +1528,9 @@ border:2px solid rgb(0,0,0);
                                  <property name="text">
                                   <string/>
                                  </property>
+                                 <property name="readOnly">
+                                  <bool>true</bool>
+                                 </property>
                                  <property name="placeholderText">
                                   <string>TOTALBs.</string>
                                  </property>
@@ -1521,6 +1542,9 @@ border:2px solid rgb(0,0,0);
                                   <string notr="true">QLineEdit{
 border:2px solid rgb(0,0,0);
 }</string>
+                                 </property>
+                                 <property name="readOnly">
+                                  <bool>true</bool>
                                  </property>
                                  <property name="placeholderText">
                                   <string>TOTAL $$$</string>
@@ -1554,7 +1578,7 @@ border:2px solid rgb(0,0,0);
                               <font>
                                <family>Yu Gothic UI Semibold</family>
                                <pointsize>12</pointsize>
-                               <weight>7</weight>
+                               <weight>8</weight>
                                <italic>false</italic>
                                <bold>false</bold>
                                <underline>true</underline>
@@ -2236,7 +2260,7 @@ border-top:2px solid rgb(0,0,0);
      <x>0</x>
      <y>0</y>
      <width>986</width>
-     <height>21</height>
+     <height>22</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuMen">

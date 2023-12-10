@@ -164,7 +164,7 @@ class Ui_Salida(object):
         font.setBold(False)
         font.setItalic(False)
         font.setUnderline(True)
-        font.setWeight(7)
+        font.setWeight(8)
         self.label_15.setFont(font)
         self.label_15.setStyleSheet("QLabel{\n"
 "font: 63 16pt \"Yu Gothic UI Semibold\";\n"
@@ -194,7 +194,7 @@ class Ui_Salida(object):
         font.setPointSize(12)
         font.setBold(False)
         font.setItalic(False)
-        font.setWeight(7)
+        font.setWeight(8)
         self.fecha.setFont(font)
         self.fecha.setFrame(False)
         self.fecha.setReadOnly(True)
@@ -227,7 +227,7 @@ class Ui_Salida(object):
         font.setBold(False)
         font.setItalic(False)
         font.setUnderline(True)
-        font.setWeight(7)
+        font.setWeight(8)
         self.label_16.setFont(font)
         self.label_16.setAlignment(QtCore.Qt.AlignCenter)
         self.label_16.setObjectName("label_16")
@@ -248,7 +248,7 @@ class Ui_Salida(object):
         font.setBold(False)
         font.setItalic(False)
         font.setUnderline(False)
-        font.setWeight(7)
+        font.setWeight(8)
         self.label_9.setFont(font)
         self.label_9.setObjectName("label_9")
         self.horizontalLayout_9.addWidget(self.label_9)
@@ -316,7 +316,7 @@ class Ui_Salida(object):
         font.setBold(False)
         font.setItalic(False)
         font.setUnderline(True)
-        font.setWeight(7)
+        font.setWeight(8)
         self.label.setFont(font)
         self.label.setAlignment(QtCore.Qt.AlignCenter)
         self.label.setObjectName("label")
@@ -348,7 +348,7 @@ class Ui_Salida(object):
         font.setPointSize(12)
         font.setBold(False)
         font.setItalic(False)
-        font.setWeight(7)
+        font.setWeight(8)
         self.btn_si.setFont(font)
         self.btn_si.setStyleSheet("")
         self.btn_si.setObjectName("btn_si")
@@ -359,7 +359,7 @@ class Ui_Salida(object):
         font.setPointSize(12)
         font.setBold(False)
         font.setItalic(False)
-        font.setWeight(7)
+        font.setWeight(8)
         self.btn_no.setFont(font)
         self.btn_no.setObjectName("btn_no")
         self.horizontalLayout_16.addWidget(self.btn_no)
@@ -401,7 +401,7 @@ class Ui_Salida(object):
         font.setPointSize(12)
         font.setBold(False)
         font.setItalic(False)
-        font.setWeight(7)
+        font.setWeight(8)
         self.btn_si_2.setFont(font)
         self.btn_si_2.setStyleSheet("")
         self.btn_si_2.setObjectName("btn_si_2")
@@ -412,7 +412,7 @@ class Ui_Salida(object):
         font.setPointSize(12)
         font.setBold(False)
         font.setItalic(False)
-        font.setWeight(7)
+        font.setWeight(8)
         self.btn_no_2.setFont(font)
         self.btn_no_2.setObjectName("btn_no_2")
         self.horizontalLayout_18.addWidget(self.btn_no_2)
@@ -446,7 +446,7 @@ class Ui_Salida(object):
         font.setPointSize(12)
         font.setBold(False)
         font.setItalic(False)
-        font.setWeight(7)
+        font.setWeight(8)
         self.btn_si_3.setFont(font)
         self.btn_si_3.setStyleSheet("")
         self.btn_si_3.setObjectName("btn_si_3")
@@ -457,7 +457,7 @@ class Ui_Salida(object):
         font.setPointSize(12)
         font.setBold(False)
         font.setItalic(False)
-        font.setWeight(7)
+        font.setWeight(8)
         self.btn_no_3.setFont(font)
         self.btn_no_3.setObjectName("btn_no_3")
         self.horizontalLayout_20.addWidget(self.btn_no_3)
@@ -487,7 +487,7 @@ class Ui_Salida(object):
         font.setBold(False)
         font.setItalic(False)
         font.setUnderline(False)
-        font.setWeight(7)
+        font.setWeight(8)
         self.lbl_11.setFont(font)
         self.lbl_11.setAlignment(QtCore.Qt.AlignLeading|QtCore.Qt.AlignLeft|QtCore.Qt.AlignVCenter)
         self.lbl_11.setObjectName("lbl_11")
@@ -553,7 +553,7 @@ class Ui_Salida(object):
         font.setBold(False)
         font.setItalic(False)
         font.setUnderline(True)
-        font.setWeight(7)
+        font.setWeight(8)
         self.label_2.setFont(font)
         self.label_2.setAlignment(QtCore.Qt.AlignCenter)
         self.label_2.setObjectName("label_2")
@@ -576,7 +576,7 @@ class Ui_Salida(object):
         font.setBold(False)
         font.setItalic(False)
         font.setUnderline(True)
-        font.setWeight(7)
+        font.setWeight(8)
         self.label_6.setFont(font)
         self.label_6.setAlignment(QtCore.Qt.AlignCenter)
         self.label_6.setObjectName("label_6")
@@ -594,6 +594,7 @@ class Ui_Salida(object):
         self.lineEdit_14.setStyleSheet("QLineEdit{\n"
 "border:2px solid rgb(0,0,0);\n"
 "}")
+        self.lineEdit_14.setReadOnly(True)
         self.lineEdit_14.setObjectName("lineEdit_14")
         self.horizontalLayout_2.addWidget(self.lineEdit_14)
         self.lineEdit_13 = QtWidgets.QLineEdit(self.frame_3)
@@ -617,6 +618,7 @@ class Ui_Salida(object):
         self.lineEdit_43.setStyleSheet("QLineEdit{\n"
 "border:2px solid rgb(0,0,0);\n"
 "}")
+        self.lineEdit_43.setReadOnly(True)
         self.lineEdit_43.setObjectName("lineEdit_43")
         self.horizontalLayout_46.addWidget(self.lineEdit_43)
         self.lineEdit_44 = QtWidgets.QLineEdit(self.frame_3)
@@ -640,6 +642,7 @@ class Ui_Salida(object):
         self.lineEdit_46.setStyleSheet("QLineEdit{\n"
 "border:2px solid rgb(0,0,0);\n"
 "}")
+        self.lineEdit_46.setReadOnly(True)
         self.lineEdit_46.setObjectName("lineEdit_46")
         self.horizontalLayout_48.addWidget(self.lineEdit_46)
         self.lineEdit_47 = QtWidgets.QLineEdit(self.frame_3)
@@ -663,6 +666,7 @@ class Ui_Salida(object):
         self.lineEdit_49.setStyleSheet("QLineEdit{\n"
 "border:2px solid rgb(0,0,0);\n"
 "}")
+        self.lineEdit_49.setReadOnly(True)
         self.lineEdit_49.setObjectName("lineEdit_49")
         self.horizontalLayout_50.addWidget(self.lineEdit_49)
         self.lineEdit_50 = QtWidgets.QLineEdit(self.frame_3)
@@ -686,6 +690,7 @@ class Ui_Salida(object):
         self.lineEdit_52.setStyleSheet("QLineEdit{\n"
 "border:2px solid rgb(0,0,0);\n"
 "}")
+        self.lineEdit_52.setReadOnly(True)
         self.lineEdit_52.setObjectName("lineEdit_52")
         self.horizontalLayout_52.addWidget(self.lineEdit_52)
         self.lineEdit_53 = QtWidgets.QLineEdit(self.frame_3)
@@ -709,6 +714,7 @@ class Ui_Salida(object):
         self.lineEdit_55.setStyleSheet("QLineEdit{\n"
 "border:2px solid rgb(0,0,0);\n"
 "}")
+        self.lineEdit_55.setReadOnly(True)
         self.lineEdit_55.setObjectName("lineEdit_55")
         self.horizontalLayout_54.addWidget(self.lineEdit_55)
         self.lineEdit_56 = QtWidgets.QLineEdit(self.frame_3)
@@ -733,12 +739,14 @@ class Ui_Salida(object):
 "border:2px solid rgb(0,0,0);\n"
 "}")
         self.lineEdit_57.setText("")
+        self.lineEdit_57.setReadOnly(True)
         self.lineEdit_57.setObjectName("lineEdit_57")
         self.horizontalLayout_55.addWidget(self.lineEdit_57)
         self.lineEdit_58 = QtWidgets.QLineEdit(self.frame_3)
         self.lineEdit_58.setStyleSheet("QLineEdit{\n"
 "border:2px solid rgb(0,0,0);\n"
 "}")
+        self.lineEdit_58.setReadOnly(True)
         self.lineEdit_58.setObjectName("lineEdit_58")
         self.horizontalLayout_55.addWidget(self.lineEdit_58)
         self.horizontalLayout_56.addLayout(self.horizontalLayout_55)
@@ -755,7 +763,7 @@ class Ui_Salida(object):
         font.setBold(False)
         font.setItalic(False)
         font.setUnderline(True)
-        font.setWeight(7)
+        font.setWeight(8)
         self.label_7.setFont(font)
         self.label_7.setAlignment(QtCore.Qt.AlignCenter)
         self.label_7.setObjectName("label_7")
@@ -995,7 +1003,7 @@ class Ui_Salida(object):
         self.verticalLayout_50.addWidget(self.frame_P)
         Salida.setCentralWidget(self.centralwidget)
         self.menubar = QtWidgets.QMenuBar(Salida)
-        self.menubar.setGeometry(QtCore.QRect(0, 0, 986, 21))
+        self.menubar.setGeometry(QtCore.QRect(0, 0, 986, 22))
         self.menubar.setObjectName("menubar")
         self.menuMen = QtWidgets.QMenu(self.menubar)
         self.menuMen.setObjectName("menuMen")
@@ -1011,7 +1019,7 @@ class Ui_Salida(object):
 
         self.retranslateUi(Salida)
         self.tabWidget.setCurrentIndex(0)
-        self.stackedWidget.setCurrentIndex(0)
+        self.stackedWidget.setCurrentIndex(1)
         QtCore.QMetaObject.connectSlotsByName(Salida)
 
     def retranslateUi(self, Salida):
