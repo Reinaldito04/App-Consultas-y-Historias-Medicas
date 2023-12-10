@@ -7,7 +7,7 @@ from PyQt5.QtGui import QIcon
 from PyQt5.QtGui import QDesktopServices
 from PyQt5.QtCore import QIODevice , QUrl
 from PyQt5.QtWidgets import QFileDialog
-from PyQt5.QtWidgets import QWidget ,QApplication ,QMainWindow,QStackedWidget,QGraphicsDropShadowEffect, QCalendarWidget , QBoxLayout
+from PyQt5.QtWidgets import QWidget ,QCompleter,QApplication ,QMainWindow,QStackedWidget,QGraphicsDropShadowEffect, QCalendarWidget , QBoxLayout
 from PyQt5.QtWidgets import QMessageBox,QLabel,QTableWidgetItem
 from PyQt5.QtWidgets import QDialog
 import hashlib
@@ -604,8 +604,14 @@ class Ui_Salida(QMainWindow):
         self.totalDolar=0
         self.verifytipoUser()
         self.usuario =None
-        
-             
+        conexion = sqlite3.connect("./interfaces/database.db")
+        cursor = conexion.cursor()
+        cursor.execute("SELECT Cedula FROM Pacientes")
+        sugerencias  = [str(row[0]) for row in cursor.fetchall()]
+        modelo_completer = QCompleter(sugerencias, self)
+        modelo_completer.setCaseSensitivity(0)
+        self.in_busqueda.setCompleter(modelo_completer)
+        conexion.close()
     def verifytipoUser(self):
         conexion = sqlite3.connect("./interfaces/database.db")
         cursor = conexion.cursor()
