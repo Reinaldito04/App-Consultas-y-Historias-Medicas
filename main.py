@@ -670,18 +670,6 @@ class Ui_Salida(QMainWindow):
                          
                         }
                         ]
-        
-        cursos= [
-             {'fecha': self.dateEdit_2.text(), 'tratamiento': self.lineEdit_59.text()},
-            {'fecha': self.dateEdit_8.text(), 'tratamiento': self.lineEdit_60.text()},
-            {'fecha' : self.dateEdit_9.text(), 'tratamiento' : self.lineEdit_61.text()},
-             {'fecha' : self.dateEdit_10.text(), 'tratamiento' : self.lineEdit_62.text()},
-            {'fecha' : self.dateEdit_11.text(), 'tratamiento' : self.lineEdit_63.text()},
-            {'fecha' : self.dateEdit_12.text(), 'tratamiento' : self.lineEdit_64.text()}
-
-            
-    # Otros diccionarios...
-        ]
         total = self.lineEdit_57.text()
         if not busqueda:
             QMessageBox.information(self,"Falta la cedula","Por favor digite la cedula a buscar")
@@ -694,7 +682,7 @@ class Ui_Salida(QMainWindow):
             return
 
             # Crea y guarda el PDF con los datos filtrados
-        crear_pdf(ruta_salida=ruta_salida, cedula=busqueda,tratamientos=tratamientos,precioTotal=total,cursoTratamiento=cursos)
+        crear_pdf(ruta_salida=ruta_salida, cedula=busqueda,tratamientos=tratamientos,precioTotal=total)
 
         QMessageBox.information(self, "Guardado correctamente", f"Fue guardado en {ruta_salida}")
 
@@ -736,7 +724,7 @@ class Ui_Salida(QMainWindow):
         resultado = cursor.fetchone()
         
         
-        cursor.execute ("SELECT Tratamiento1,Tratamiento2,Tratamiento3,Tratamiento4,Tratamiento5,Tratamiento6,Fecha_Trata FROM PTrata WHERE Cedula =?",(busqueda,))
+        cursor.execute ("SELECT Tratamiento1,Tratamiento2,Tratamiento3,Tratamiento4,Tratamiento5,Tratamiento5,Tratamiento6 FROM PTrata WHERE Cedula =?",(busqueda,))
         resultado_tratamientos = cursor.fetchone()
         if not resultado:
             QMessageBox.warning(self,'Error','La persona no existe en el sistema')
@@ -773,7 +761,6 @@ class Ui_Salida(QMainWindow):
                 self.lineEdit_62.setText(resultado_tratamientos[3])
                 self.lineEdit_63.setText(resultado_tratamientos[4])
                 self.lineEdit_64.setText(resultado_tratamientos[5])
-                
     def salir(self):
         reply = QMessageBox.question(
             self,
@@ -1319,6 +1306,7 @@ class Ui_pacientes_view(QtWidgets.QMainWindow):
        
         self.bt_preview.clicked.connect(self.guardarPDF)
         self.bt_backup.clicked.connect(self.exportar_a_excel)
+        
     def verifytipoUser(self):
         conexion = sqlite3.connect("./interfaces/database.db")
         cursor = conexion.cursor()
@@ -1334,47 +1322,77 @@ class Ui_pacientes_view(QtWidgets.QMainWindow):
                 self.usuario = "Usuario"
             else:
                 print("No se encontró ningún tipo")
+                
     def exportar_a_excel(self):
         # Conectar a la base de datos SQLite
         conexion = sqlite3.connect('interfaces/database.db')
         cursor = conexion.cursor()
 
-        # Obtener datos de la base de datos
-        cursor.execute("""
-                     SELECT 
-            Users.ID as ID_usuario,
-            Users.Nombres || ' ' || Users.Apellidos as Nombre_completo,
-            Pacientes.Cedula, 
-            Pacientes.Nombre, 
-            Pacientes.Apellido, 
-            Pacientes.Edad, 
-            Pacientes.Direccion, 
-            Pacientes.Sexo, 
-            Pacientes.Fecha_Diagnotico
-        FROM 
-            Pacientes
-       
-        INNER JOIN
-            Users ON Pacientes.ID_user = Users.ID
-        
-        ORDER BY 
-            Pacientes.Fecha_Diagnotico ASC
-                    """)
-        datos = cursor.fetchall()
-
         # Crear un nuevo archivo Excel
         libro_excel = openpyxl.Workbook()
-        hoja_excel = libro_excel.active
-        columnas = [description[0] for description in cursor.description]
 
-    # Escribir las cabeceras en el archivo Excel
-        for columna, nombre_columna in enumerate(columnas, start=1):
-            hoja_excel.cell(row=1, column=columna, value=nombre_columna)
+        # Obtener datos de la tabla Pacientes
+        cursor.execute("""
+            SELECT 
+                Cedula, 
+                Nombre, 
+                Apellido, 
+                Edad, 
+                Direccion, 
+                Sexo, 
+                Fecha_Diagnotico
+            FROM 
+                Pacientes
+            ORDER BY 
+                Fecha_Diagnotico ASC
+        """)
+        datos_pacientes = cursor.fetchall()
+        columnas_pacientes = [description[0] for description in cursor.description]
 
-        # Escribir datos en el archivo Excel
-        for fila, dato in enumerate(datos, start=2):
-            for columna, valor in enumerate(dato, start=1):
-                hoja_excel.cell(row=fila, column=columna, value=valor)
+        # Escribir datos de la tabla Pacientes en la hoja 'Pacientes'
+        hoja_pacientes = libro_excel.create_sheet('Pacientes')
+        hoja_pacientes.append(columnas_pacientes)
+        for dato in datos_pacientes:
+            hoja_pacientes.append(list(dato))
+
+        # Obtener datos de la tabla Cita
+        cursor.execute("""
+            SELECT * FROM Cita 
+        """)
+        datos_cita = cursor.fetchall()
+        columnas_cita = [description[0] for description in cursor.description]
+
+        # Escribir datos de la tabla Cita en la hoja 'Cita'
+        hoja_cita = libro_excel.create_sheet('Cita')
+        hoja_cita.append(columnas_cita)
+        for dato in datos_cita:
+            hoja_cita.append(list(dato))
+
+        # Obtener datos de la tabla Trata
+        cursor.execute("""
+            SELECT * FROM Trata
+        """)
+        datos_trata = cursor.fetchall()
+        columnas_trata = [description[0] for description in cursor.description]
+
+        # Escribir datos de la tabla Trata en la hoja 'Trata'
+        hoja_trata = libro_excel.create_sheet('Trata')
+        hoja_trata.append(columnas_trata)
+        for dato in datos_trata:
+            hoja_trata.append(list(dato))
+
+        # Obtener datos de la tabla Ptrata
+        cursor.execute("""
+            SELECT * FROM PTrata
+        """)
+        datos_ptrata = cursor.fetchall()
+        columnas_ptrata = [description[0] for description in cursor.description]
+
+        # Escribir datos de la tabla Ptrata en la hoja 'Ptrata'
+        hoja_ptrata = libro_excel.create_sheet('Ptrata')
+        hoja_ptrata.append(columnas_ptrata)
+        for dato in datos_ptrata:
+            hoja_ptrata.append(list(dato))
 
         # Guardar el archivo Excel con el filtro específico
         filtro = 'Archivos Excel (*.xlsx);;Todos los archivos (*)'
@@ -1383,10 +1401,11 @@ class Ui_pacientes_view(QtWidgets.QMainWindow):
         if archivo_excel:
             if not archivo_excel.endswith('.xlsx'):
                 archivo_excel += '.xlsx'
-    
-        libro_excel.save(archivo_excel)
+
+            libro_excel.save(archivo_excel)
 
         conexion.close()
+        
     def guardarPDF(self):
         from interfaces.pdfReportegeneral import recuperardatos_Doctor,recuperar_datos_bd,crear_pdf
         try:
