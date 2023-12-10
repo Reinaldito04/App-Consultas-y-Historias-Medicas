@@ -875,7 +875,7 @@ class MenuPrincipal(QMainWindow):
         if self.usuario =="Usuario":
             QMessageBox.information(self,"Permiso Denegado","No tienes permisos para entrar")
             return
-        reply = self.showConfirmation("¿Deseas ir al formulario para la creacion/visualización de las historias?")
+        reply = self.showConfirmation("¿Deseas ir al formulario para la creación de las historias?")
         if reply == QMessageBox.Yes:
             historia = Ui_Salida(self.id_user)
             widget.addWidget(historia)
