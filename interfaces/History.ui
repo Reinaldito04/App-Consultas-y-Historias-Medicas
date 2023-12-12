@@ -1513,7 +1513,7 @@ QRadioButton{
                         <item>
                          <widget class="QLabel" name="lbl_10">
                           <property name="text">
-                           <string>Por favor, si el paciente posee alguna otra condición medica que posea el paciente.</string>
+                           <string>Por favor, indique si el paciente posee alguna otra condición .</string>
                           </property>
                          </widget>
                         </item>
@@ -2513,7 +2513,7 @@ QDateEdit{
                   <item>
                    <widget class="QLabel" name="lbl_36">
                     <property name="text">
-                     <string>Datos del paciente</string>
+                     <string>TRATAMIENTOS REALIZADOS</string>
                     </property>
                    </widget>
                   </item>
@@ -4574,6 +4574,8 @@ border-top:2px solid rgb(0,0,0);
     <font>
      <family>Microsoft Sans Serif</family>
      <pointsize>10</pointsize>
+     <weight>75</weight>
+     <bold>true</bold>
     </font>
    </property>
    <widget class="QMenu" name="menuVolver_al_menu_principal">
@@ -4587,10 +4589,6 @@ border-top:2px solid rgb(0,0,0);
      <string>Menu principal</string>
     </property>
     <addaction name="actionVolver_al_menu_principal"/>
-    <addaction name="separator"/>
-    <addaction name="actionAgendar_citas"/>
-    <addaction name="separator"/>
-    <addaction name="actionImportar_Placas"/>
     <addaction name="separator"/>
     <addaction name="actionSalir"/>
    </widget>

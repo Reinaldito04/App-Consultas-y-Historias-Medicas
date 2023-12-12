@@ -94,7 +94,7 @@ background-color:none;
 }</string>
           </property>
           <property name="text">
-           <string>Eliminar Data</string>
+           <string>Eliminar datos de usuario</string>
           </property>
           <property name="alignment">
            <set>Qt::AlignCenter</set>
