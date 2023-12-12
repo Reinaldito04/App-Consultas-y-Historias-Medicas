@@ -394,7 +394,13 @@ class Registro(QMainWindow):
 
         # Cerrar el diálogo de usuarios
         self.users_dialog.close()
+        
+    def limpiar(self):
+        self.users_dialog.in_user.clear()
+        self.users_dialog.in_password.clear()
+        self.users_dialog.in_conf.clear()
 
+        
     def openUsersDialog(self):
         # Crear una instancia del diálogo y asignarla como un atributo de la instancia de la clase
         self.users_dialog = QDialog(self)
@@ -403,6 +409,7 @@ class Registro(QMainWindow):
 
         # Conectar la señal de aceptar en el diálogo de usuarios a una función
         ui.btn_agg.clicked.connect(self.guardarDatosUsuarios)
+        ui.btn_clear.clicked.connect(self.limpiar)
 
         # Acceder directamente a los atributos necesarios en el diálogo de usuarios
         self.users_dialog.in_user = self.users_dialog.findChild(QtWidgets.QLineEdit, 'in_user')

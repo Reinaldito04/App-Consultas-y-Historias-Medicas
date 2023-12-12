@@ -80,7 +80,7 @@ background-color:rgb(0, 85, 127);
           <enum>QTabWidget::Rounded</enum>
          </property>
          <property name="currentIndex">
-          <number>0</number>
+          <number>3</number>
          </property>
          <property name="iconSize">
           <size>
@@ -2019,6 +2019,9 @@ border-radius:20px
                         <property name="alignment">
                          <set>Qt::AlignCenter</set>
                         </property>
+                        <property name="readOnly">
+                         <bool>true</bool>
+                        </property>
                         <property name="buttonSymbols">
                          <enum>QAbstractSpinBox::NoButtons</enum>
                         </property>
@@ -2034,6 +2037,9 @@ border-radius:20px
                         </property>
                         <property name="alignment">
                          <set>Qt::AlignCenter</set>
+                        </property>
+                        <property name="readOnly">
+                         <bool>true</bool>
                         </property>
                         <property name="buttonSymbols">
                          <enum>QAbstractSpinBox::NoButtons</enum>
@@ -4583,6 +4589,8 @@ border-top:2px solid rgb(0,0,0);
      <font>
       <family>Microsoft Sans Serif</family>
       <pointsize>10</pointsize>
+      <weight>75</weight>
+      <bold>true</bold>
      </font>
     </property>
     <property name="title">
