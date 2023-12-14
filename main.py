@@ -833,6 +833,8 @@ class Ui_Salida(QMainWindow):
             widget.setCurrentIndex(widget.currentIndex() + 1)
 
             self.close()
+            
+
 class MenuPrincipal(QMainWindow):
     def __init__(self, id_user):
         from plyer import notification
@@ -843,6 +845,8 @@ class MenuPrincipal(QMainWindow):
         self.setWindowTitle("MenuPrincipal")
         self.showMaximized()
         self.usuario = None
+       
+        self.notificacion_mostrada = 0
         self.verifytipoUser()
        
         self.setupUi()
@@ -1054,9 +1058,9 @@ class MenuPrincipal(QMainWindow):
                 fecha_mas_cercana = datetime.datetime.strptime(citas[0][5], "%Y-%m-%d").date()  # Tomar la fecha de la primera cita
 
             from plyer import notification
-
+           
             # Mostrar notificación con la fecha de la primera cita
-            if fecha_mas_cercana is not None:
+            if self.notificacion_mostrada==0 and fecha_mas_cercana is not None:
                 mensaje = f"La cita más cercana es la del paciente {citas[0][3]} {citas[0][4]},\nel dia {citas[0][5]} a las {citas[0][6]}"
                 
                 # Puedes personalizar los parámetros según tus necesidades
@@ -1066,7 +1070,9 @@ class MenuPrincipal(QMainWindow):
                     app_name='Consultas Medicas',
                     timeout=10  # Duración en segundos que la notificación estará visible
                 )
-            else:
+              
+                self.notificacion_mostrada = 1
+            elif self.notificacion_mostrada==0:
                 # Puedes personalizar los parámetros según tus necesidades
                 notification.notify(
                     title=title,
@@ -1074,7 +1080,7 @@ class MenuPrincipal(QMainWindow):
                     app_name='Consultas Medicas',
                     timeout=10  # Duración en segundos que la notificación estará visible
                 )
-
+                self.notificacion_mostrada = 1
             self.tabla_cita.setColumnCount(len(headers))
             self.tabla_cita.setHorizontalHeaderLabels(headers)
 
@@ -1088,7 +1094,7 @@ class MenuPrincipal(QMainWindow):
                     
         except sqlite3.Error as e:
             QtWidgets.QMessageBox.critical(self, "Error", "Error al consultar la base de datos: " + str(e))
-
+    
     def cargarCitas(self, filtro=None, valor=None):
         self.tabla_cita.setRowCount(0)  # Limpiar la tabla actual
         headers = ["ID del Dentista", "Nombre del Dentista", "Cedula del paciente", "Nombre del paciente", "Apellido del paciente", "Fecha de la cita", "Hora de la cita", "Estatus de la cita"]
@@ -1173,7 +1179,7 @@ class MenuPrincipal(QMainWindow):
             from plyer import notification
 
             # Mostrar notificación con la fecha de la primera cita
-            if fecha_mas_cercana is not None:
+            if self.notificacion_mostrada==0 and fecha_mas_cercana is not None:
                 mensaje = f"La cita más cercana es la del paciente {citas[0][3]} {citas[0][4]},\nel dia {citas[0][5]} a las {citas[0][6]}"
                 
                 title = 'Cita má cercana'
@@ -1185,7 +1191,7 @@ class MenuPrincipal(QMainWindow):
                     app_name='Consultas Medicas',
                     timeout=10  # Duración en segundos que la notificación estará visible
                 )
-                
+                self.notificacion_mostrada= 1
             else:
                 title = 'Cita má cercana'
                 notification.notify(
@@ -1194,7 +1200,7 @@ class MenuPrincipal(QMainWindow):
                     app_name='Consultas Medicas',
                     timeout=10  # Duración en segundos que la notificación estará visible
                 )
-
+                self.notificacion_mostrada= 1
             self.tabla_cita.setColumnCount(len(headers))
             self.tabla_cita.setHorizontalHeaderLabels(headers)
 
