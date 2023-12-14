@@ -727,6 +727,14 @@ class Ui_Salida(QMainWindow):
         self.lineEdit_8.clear()
         self.textEdit.clear()
         self.textEdit_2.clear()
+        self.lineEdit_13.clear()
+        self.lineEdit_44.clear()
+        self.lineEdit_47.clear()
+        self.lineEdit_50.clear()
+        self.lineEdit_53.clear()
+        self.lineEdit_56.clear()
+        self.lineEdit_57.clear()
+        self.lineEdit_58.clear()
         self.lineEdit_59.clear()
         self.lineEdit_60.clear()
         self.lineEdit_61.clear()
@@ -955,7 +963,7 @@ class MenuPrincipal(QMainWindow):
             # Modificar el filtro "Dentista" para buscar por nombre de dentista
             if filtro == "Dentista":
                 filtro = "Nombre_usuario"
-            if self.usuario=="Usuario":
+            if self.usuario=="Usuario" or self.usuario=="Administrador":
                 self.act_T()
                 self.cargarCitasSecretaria(filtro,valor)
             else:
@@ -964,9 +972,12 @@ class MenuPrincipal(QMainWindow):
    
 
 
-    def cargarCitasSecretaria(self,filtro=None,valor=None):
+    def cargarCitasSecretaria(self, filtro=None, valor=None):
         self.tabla_cita.setRowCount(0)  # Limpiar la tabla actual
         headers = ["ID del Dentista", "Nombre del Dentista", "Cedula del paciente", "Nombre del paciente", "Apellido del paciente", "Fecha de la cita", "Hora de la cita", "Estatus de la cita"]
+        fecha_mas_cercana = None  # Inicializar la variable antes del bloque if
+        title = 'Cita más cercana'  # Inicializar la variable antes del bloque if
+        message = 'Este es un mensaje de notificación.'  # Inicializar la variable antes del bloque if
         try:
             conexion = sqlite3.connect('interfaces/database.db')
             cursor = conexion.cursor()
@@ -974,7 +985,7 @@ class MenuPrincipal(QMainWindow):
             if filtro and valor:
                 # Modificar la consulta para manejar el filtro "Dentista"
                 if filtro == "Nombre_usuario":
-                   cursor.execute("""
+                    cursor.execute("""
                         SELECT 
                             Users.ID as ID_usuario,
                             Users.Nombres as Nombre_usuario,
@@ -994,7 +1005,7 @@ class MenuPrincipal(QMainWindow):
                             {} LIKE ? 
                         ORDER BY 
                             Cita.Fecha_Cita ASC
-                        """.format(filtro), ('%' + valor + '%',))
+                    """.format(filtro), ('%' + valor + '%',))
                 else:
                     cursor.execute("""
                         SELECT 
@@ -1016,7 +1027,7 @@ class MenuPrincipal(QMainWindow):
                             {} LIKE ? 
                         ORDER BY 
                             Cita.Fecha_Cita ASC
-                        """.format(filtro), ('%' + valor + '%',))
+                    """.format(filtro), ('%' + valor + '%',))
             else:
                 cursor.execute("""
                     SELECT 
@@ -1036,19 +1047,18 @@ class MenuPrincipal(QMainWindow):
                         Users ON Pacientes.ID_user = Users.ID
                     ORDER BY 
                         Cita.Fecha_Cita ASC
-                    """)
+                """)
             citas = cursor.fetchall() 
 
             if citas:
                 fecha_mas_cercana = datetime.datetime.strptime(citas[0][5], "%Y-%m-%d").date()  # Tomar la fecha de la primera cita
+
             from plyer import notification
 
             # Mostrar notificación con la fecha de la primera cita
             if fecha_mas_cercana is not None:
                 mensaje = f"La cita más cercana es la del paciente {citas[0][3]} {citas[0][4]},\nel dia {citas[0][5]} a las {citas[0][6]}"
                 
-                title = 'Cita má cercana'
-                message = 'Este es un mensaje de notificación.'
                 # Puedes personalizar los parámetros según tus necesidades
                 notification.notify(
                     title=title,
@@ -1056,8 +1066,8 @@ class MenuPrincipal(QMainWindow):
                     app_name='Consultas Medicas',
                     timeout=10  # Duración en segundos que la notificación estará visible
                 )
-                
             else:
+                # Puedes personalizar los parámetros según tus necesidades
                 notification.notify(
                     title=title,
                     message="No hay citas actualmente",
@@ -1076,10 +1086,8 @@ class MenuPrincipal(QMainWindow):
 
             conexion.close()
                     
-        
         except sqlite3.Error as e:
             QtWidgets.QMessageBox.critical(self, "Error", "Error al consultar la base de datos: " + str(e))
-
 
     def cargarCitas(self, filtro=None, valor=None):
         self.tabla_cita.setRowCount(0)  # Limpiar la tabla actual
@@ -1498,12 +1506,13 @@ class Ui_pacientes_view(QtWidgets.QMainWindow):
             self.close()
     
     def act_T(self):
-        if self.usuario=="Usuario":
+        if self.usuario == "Usuario":
             self.cargarCitasSecretaria()
-        elif self.usuario =="Administrador":
+        elif self.usuario == "Administrador":
             self.cargarCitasSecretaria()
-        else: 
+        elif self.usuario == "Doctor":
             self.cargarCitas()
+
     
     def cargarCitasSecretaria(self,filtro=None,valor=None):
         self.tabla_p.setRowCount(0)  # Limpiar la tabla actual
@@ -1540,7 +1549,7 @@ class Ui_pacientes_view(QtWidgets.QMainWindow):
                     cursor.execute("""
                        SELECT 
                 Users.ID as ID_usuario,
-               Users.Nombres || ' ' || Users.Apellidos as Nombre_completo,
+                Users.Nombres || ' ' || Users.Apellidos as Nombre_completo,
                 Pacientes.Cedula, 
                 Pacientes.Nombre, 
                 Pacientes.Apellido, 
@@ -1703,11 +1712,11 @@ class Ui_pacientes_view(QtWidgets.QMainWindow):
             if filtro == "Dentista":
                 filtro = "Nombre_usuario"
             
-            if self.usuario=="Usuario":
-                self.cargarCitasSecretaria(filtro,valor)
-            else:
+            if self.usuario == "Usuario" or self.usuario == "Administrador":  # Corregir aquí
+                self.cargarCitasSecretaria(filtro, valor)
+            elif self.usuario == "Doctor":
                 self.cargarCitas(filtro, valor)
-        
+
     def salir(self):
         reply = QtWidgets.QMessageBox.question(
             self, 'Confirmación', '¿Desea Salir?',
@@ -1998,9 +2007,11 @@ class Ui_CitasMenu(QMainWindow):
         hora = self.hora.time()
         horaToString = hora.toString('hh:mm:ss')
         
+        conexion = None  # Inicializa la variable de conexión fuera del bloque try
+
         try:
             if not cedula:
-                QMessageBox.warning(self,"Introduzca una cedula","Debes introducir una cedula antes de editar")
+                QMessageBox.warning(self, "Introduzca una cedula", "Debes introducir una cedula antes de editar")
                 return
             reply = QMessageBox.question(
                 self,
@@ -2010,37 +2021,41 @@ class Ui_CitasMenu(QMainWindow):
                 QMessageBox.Yes
             )
             if reply == QMessageBox.Yes:
-            
                 conexion = sqlite3.connect('interfaces/database.db')
                 cursor = conexion.cursor()
                 
-                # Verificar si existe un paciente con la cédula proporcionada
-                cursor.execute("SELECT COUNT(*) FROM Pacientes WHERE Cedula = ?", (cedula,))
-                existe_paciente = cursor.fetchone()[0] > 0
-                
-                if existe_paciente:
-                    # Si el paciente existe, proceder a actualizar la cita
-                    cursor.execute("""
-                        UPDATE Cita 
-                        SET Fecha_Cita = ?, Hora_Cita = ?, Estatus_Cita = ?
-                        WHERE Cedula = ? 
-                    """, (fechaToString, horaToString, statusCita, cedula))
-        
-                    # Guardar los cambios en la base de datos
-                    conexion.commit()
-                    
-                    # Mostrar un mensaje de éxito
-                    QMessageBox.information(self, "Información", "Cita actualizada con éxito.")
-                else:
-                    # Si el paciente no existe, mostrar un mensaje de error
-                    QMessageBox.warning(self, "Advertencia", "No se encontró un paciente con la cédula proporcionada.")
-                
-                # Cerrar la conexión con la base de datos
-                conexion.close()
-            
+                cursor.execute("SELECT COUNT(*) FROM Cita WHERE Fecha_Cita = ? AND Hora_Cita = ? AND Cedula != ?", (fechaToString, horaToString, cedula))
+                existe_cita = cursor.fetchone()[0] > 0
+
+                if existe_cita:
+                    QMessageBox.information(self, "Cita", "Ya existe una cita programada para la misma fecha y hora.")
+                    return
+
+                # Si el paciente existe y no hay conflicto de citas, proceder a actualizar la cita
+                cursor.execute("""
+                    UPDATE Cita 
+                    SET Fecha_Cita = ?, Hora_Cita = ?, Estatus_Cita = ?
+                    WHERE Cedula = ? 
+                """, (fechaToString, horaToString, statusCita, cedula))
+
+                # Guardar los cambios en la base de datos
+                conexion.commit()
+
+                # Mostrar un mensaje de éxito
+                QMessageBox.information(self, "Información", "Cita actualizada con éxito.")
+            else:
+                # Si el usuario no confirma el cambio, puedes agregar código aquí si es necesario
+                pass
+
         except sqlite3.Error as error:
             # En caso de error, mostrar un mensaje de error
             QMessageBox.critical(self, "Error", f"Error al actualizar la cita: {str(error)}")
+        
+        finally:
+            # Cerrar la conexión con la base de datos en el bloque finally
+            if conexion:
+                conexion.close()
+
 
     def aggCite(self):
         cedula = self.in_busqueda.text()
@@ -2057,49 +2072,60 @@ class Ui_CitasMenu(QMainWindow):
         
         try:
             if not cedula:
-                QMessageBox.warning(self,"Introduzca una cedula","Debes introducir una cedula antes de guardar")
+                QMessageBox.warning(self, "Introduzca una cedula", "Debes introducir una cedula antes de guardar")
                 return
             reply = QMessageBox.question(
                 self,
                 'Confirmación',
-                '¿Deseas agregar la cita?',
+                '¿Deseas agregar o editar la cita?',
                 QMessageBox.Yes | QMessageBox.No,
                 QMessageBox.Yes
             )
             if reply == QMessageBox.Yes:
-            
                 conexion = sqlite3.connect('interfaces/database.db')
                 cursor = conexion.cursor()
                 
                 # Verificar si existe un paciente con la cédula proporcionada
-                cursor.execute("SELECT COUNT(*) FROM Cita WHERE Fecha_Cita = ? AND Hora_Cita = ?", (fechaToString, horaToString))
-                existe_cita = cursor.fetchone()[0] > 0
+                cursor.execute("SELECT COUNT(*) FROM Pacientes WHERE Cedula = ?", (cedula,))
+                existe_paciente = cursor.fetchone()[0] > 0
                 
-                if existe_cita:
-                    QMessageBox.information(self,"Cita","Ya existe una cita programada para la misma fecha y hora.")
-                    return
-                elif not existe_cita:
-                    # Si el paciente no existe, proceder a insertar la nueva cita
-                    cursor.execute("""
-                        INSERT INTO Cita (Cedula, Fecha_Cita, Hora_Cita, Estatus_Cita, ID_user)
-                        VALUES (?, ?, ?, ?, ?)
-                    """, (cedula, fechaToString, horaToString, statusCita, self.id_user))
+                if existe_paciente:
+                    # Verificar si el paciente ya tiene una cita registrada
+                    cursor.execute("SELECT COUNT(*) FROM Cita WHERE Cedula = ?", (cedula,))
+                    tiene_cita = cursor.fetchone()[0] > 0
                     
-                    # Guardar los cambios en la base de datos
-                    conexion.commit()
-                    
-                    # Mostrar un mensaje de éxito
-                    QMessageBox.information(self, "Información", "Cita agregada con éxito.")
+                    if tiene_cita:
+                        # Si el paciente ya tiene una cita, mostrar un mensaje informativo y sugerir editar la cita existente
+                        QMessageBox.information(self, "Información", "El paciente ya tiene una cita registrada. Por favor, edite la cita existente.")
+                    else:
+                        # Verificar si ya hay una cita programada para la misma fecha y hora y otro paciente
+                        cursor.execute("SELECT COUNT(*) FROM Cita WHERE Fecha_Cita = ? AND Hora_Cita = ? AND Cedula != ?", (fechaToString, horaToString, cedula))
+                        existe_cita = cursor.fetchone()[0] > 0
+                        
+                        if existe_cita:
+                            QMessageBox.information(self, "Cita", "Ya existe una cita programada para la misma fecha y hora.")
+                        else:
+                            # Si el paciente no tiene una cita y no hay conflicto de citas, proceder a insertar una nueva cita
+                            cursor.execute("""
+                                INSERT INTO Cita (Cedula, Fecha_Cita, Hora_Cita, Estatus_Cita, ID_user)
+                                VALUES (?, ?, ?, ?, ?)
+                            """, (cedula, fechaToString, horaToString, statusCita, self.id_user))
+
+                            # Guardar los cambios en la base de datos
+                            conexion.commit()
+                            
+                            # Mostrar un mensaje de éxito
+                            QMessageBox.information(self, "Información", "Cita agregada con éxito.")
                 else:
-                    # Si el paciente ya tiene una cita, mostrar un mensaje de error
+                    # Si el paciente no está registrado, mostrar un mensaje de error
                     QMessageBox.warning(self, "Advertencia", "No se encontró un paciente con la cédula proporcionada.")
                 
                 # Cerrar la conexión con la base de datos
                 conexion.close()
-            
+
         except sqlite3.Error as error:
             # En caso de error, mostrar un mensaje de error
-            QMessageBox.critical(self, "Error", f"Error al agregar la cita: {str(error)}")
+            QMessageBox.critical(self, "Error", f"Error al agregar o editar la cita: {str(error)}")
 
     def searchdata(self):
         try:
@@ -3206,46 +3232,59 @@ class historiaMenu(QMainWindow):
         cedula = self.in_busqueda.text()
         hipertenso_control = self.hiper_control.toPlainText()
         diabetes_control = self.diabetes_control.toPlainText()
-        coagualcion_control= self.coagualcion_control.toPlainText()
+        coagualcion_control = self.coagualcion_control.toPlainText()
+
+        if not cedula:
+            QMessageBox.warning(self, "Error", "Por favor ingrese la cedula en el menú de registro.")
+            return
+
         if self.btn_si.isChecked():
             hipertenso = "Si"
         if self.btn_no.isChecked():
             hipertenso = "No"
-        
+
         if self.btn_si_4.isChecked():
             diabetes = "Si"
         if self.btn_no_4.isChecked():
             diabetes = "No"
-            
+
         if self.btn_si_3.isChecked():
             coagulacion = "Si"
         if self.btn_no_3.isChecked():
             coagulacion = "No"
+
         Otros = self.ln_data.toPlainText()
         alergias = self.ln_alergias.toPlainText()
-        if not cedula :
-            QMessageBox.warning(self,"Error","Por favor ingrese la cedula en el menu de registro ")
-            return
+
         if not Otros:
-            Otros = None
+            QMessageBox.warning(self, "Error", "Por favor ingrese información en el campo 'Otros'.")
+            return
+
         if not alergias:
-            alergias =None
-            
+            QMessageBox.warning(self, "Error", "Por favor ingrese información en el campo 'Alergias'.")
+            return
+
         try:
             conexion = sqlite3.connect('interfaces/database.db')
             cursor = conexion.cursor()
+            
+            # Verificar si ya existe un paciente con la misma cédula
             cursor.execute("SELECT COUNT(*) FROM Pacientes WHERE Cedula = ?", (cedula,))
-            cursor.execute("UPDATE Pacientes SET Hipertension=?, Diabates=?, Coagualcion=?, Otros=? ,Alergias=? , diabate_Data=?,hipertension_Data=?,Coagualcion_Data=?  WHERE Cedula=?", (
-                hipertenso, diabetes, coagulacion, Otros, alergias,diabetes_control,hipertenso_control,coagualcion_control, cedula ))
-            conexion.commit()
-            QMessageBox.information(self, "Éxito", "Informacion registrada correctamente.")
+            existe_paciente = cursor.fetchone()[0]
+            if existe_paciente:
+                cursor.execute("UPDATE Pacientes SET Hipertension=?, Diabates=?, Coagualcion=?, Otros=?, Alergias=?, diabate_Data=?, hipertension_Data=?, Coagualcion_Data=?  WHERE Cedula=?", (
+                    hipertenso, diabetes, coagulacion, Otros, alergias, diabetes_control, hipertenso_control, coagualcion_control, cedula))
+                conexion.commit()
+                QMessageBox.information(self, "Éxito", "Información registrada correctamente.")
+            else:
+                QMessageBox.warning(self, "Advertencia", "No se encontró un paciente con la cédula proporcionada.")
 
             # Cierra la conexión con la base de datos
             conexion.close()
-    
-        # Actualizar los registros en la base de datos
+
         except sqlite3.Error as error:
-            QMessageBox.critical(self, "Error", f"Error al registrar el paciente: {str(error)}")
+            QMessageBox.critical(self, "Error", f"Error al registrar la información del paciente: {str(error)}")
+
 
     def clearInputs(self):
         self.in_cedula.clear()
@@ -3259,7 +3298,7 @@ class historiaMenu(QMainWindow):
         self.btn_f.setChecked(False)
         self.motivo.clear()
         
-    def  AddPacient(self): 
+    def AddPacient(self): 
         idUser = self.id_user
         cedula = self.in_cedula.text()
         nombre = self.in_name.text()
@@ -3290,12 +3329,16 @@ class historiaMenu(QMainWindow):
         telefono_pattern = re.compile(r'^\d{11}$')  # Asume que el número de teléfono debe tener 10 dígitos
         mail_pattern = re.compile(r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$')  # Patrón para validar correo electrónico
         cedula_pattern = re.compile(r'^\d+$')  # Asume que la cédula debe contener solo dígitos
+        edad_pattern = re.compile(r'^\d+$')  # Asume que la edad debe contener solo dígitos
         
         if not cedula_pattern.match(cedula):
             QMessageBox.warning(self, "Error", "Ingrese una cédula válida (solo números).")
             return
         if not telefono_pattern.match(telefono):
             QMessageBox.warning(self, "Error", "Ingrese un número de teléfono válido (0000-0000-000).")
+            return
+        if not edad_pattern.match(edad):
+            QMessageBox.warning(self, "Error", "Ingrese una edad válida (solo números).")
             return
 
         if not mail_pattern.match(mail):
@@ -3325,8 +3368,8 @@ class historiaMenu(QMainWindow):
 
         except sqlite3.Error as error:
             QMessageBox.critical(self, "Error", f"Error al registrar el paciente: {str(error)}")
-               
-           
+
+
     def Searchdata(self):
         try:
             conexion = sqlite3.connect('interfaces/database.db')
@@ -3435,9 +3478,10 @@ class historiaMenu(QMainWindow):
 
     def UpdateData(self):
         busqueda = self.in_busqueda.text()
-        if not busqueda :
-            QMessageBox.warning(self,"Error","Introduzca su cedula")
+        if not busqueda:
+            QMessageBox.warning(self, "Error", "Introduzca su cédula")
             return
+
         try:
             cedula = self.in_cedula.text()
             nombre = self.in_name.text()
@@ -3453,18 +3497,35 @@ class historiaMenu(QMainWindow):
                 valor_sexo = "Femenino"
             context = self.motivo.toPlainText()
 
+            telefono_pattern = re.compile(r'^\d{11}$')  # Asume que el número de teléfono debe tener 10 dígitos
+            mail_pattern = re.compile(r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$')  # Patrón para validar correo electrónico
+            edad_pattern = re.compile(r'^\d+$')  # Asume que la edad debe contener solo dígitos
+
+            if not edad_pattern.match(edad):
+                QMessageBox.warning(self, "Error", "Ingrese una edad válida (solo números).")
+                return
+
+            if not telefono_pattern.match(telefono):
+                QMessageBox.warning(self, "Error", "Ingrese un número de teléfono válido (0000-0000-000).")
+                return
+
+            if not mail_pattern.match(mail):
+                QMessageBox.warning(self, "Error", "Ingrese una dirección de correo electrónico válida.")
+                return
 
             conexion = sqlite3.connect('interfaces/database.db')
             cursor = conexion.cursor()
-    
-        # Actualizar los registros en la base de datos
-            cursor.execute("UPDATE Pacientes SET Nombre=?, Apellido=?, Edad=?, Direccion=?, Sexo=? ,Telefono=? ,Mail =? , Context=? WHERE Cedula=?", (nombre, apellido, edad, direccion, valor_sexo, telefono ,mail,  context, cedula))
+
+            # Actualizar los registros en la base de datos
+            cursor.execute("UPDATE Pacientes SET Nombre=?, Apellido=?, Edad=?, Direccion=?, Sexo=? ,Telefono=? ,Mail=? , Context=? WHERE Cedula=?", 
+                            (nombre, apellido, edad, direccion, valor_sexo, telefono, mail, context, cedula))
             conexion.commit()
-            
+
             QMessageBox.information(self, "Información", "Los datos se actualizaron correctamente")
-           
+
             conexion.close()
             self.Searchdata()
+
         except sqlite3.Error as e:
             QMessageBox.critical(self, "Error", "Error al actualizar los datos en la base de datos: " + str(e))
     
