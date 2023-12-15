@@ -281,7 +281,20 @@ class Registro(QMainWindow):
         conexion.close()
         # Si resultado es mayor que 0, significa que el usuario ya existe
         return resultado > 0
+    
+    def validar_cedula(self, cedula):
+        cedula_pattern = re.compile(r'^\d{8}$')  # Asume que la cédula debe contener 8 a 10 dígitos
+        if not cedula_pattern.match(cedula):
+            QMessageBox.warning(self, "Error", "Ingrese una cédula válida (8 numeros).")
+            return True
+        return False
 
+    def validar_edad(self, edad):
+        edad_pattern = re.compile(r'^[1-9]\d*$')  # Asume que la edad debe ser un número entero positivo
+        if not edad_pattern.match(edad):
+            QMessageBox.warning(self, "Error", "Ingrese una edad válida (solo números).")
+            return True
+        return False
     def registrarUsuario(self):
         cedula = self.in_cedula.text()
         nombre = self.in_name.text()
@@ -298,9 +311,12 @@ class Registro(QMainWindow):
         if not cedula or not nombre or not apellido or not edad or not valor_sexo or not mail:
             QMessageBox.critical(self, "Error", "Por favor, complete todos los campos básicos.")
             return
-        
+
+        if self.validar_cedula(cedula) or self.validar_edad(edad):
+            return
+
         if len(cedula) < 8:
-            QMessageBox.critical(self, "Error", "La cedula debe tener mínimo 8 caracteres.")
+            QMessageBox.critical(self, "Error", "La cédula debe tener mínimo 8 caracteres.")
             return
 
         self.datos_basicos = {
