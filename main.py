@@ -5,7 +5,7 @@ from PyQt5.QtCore import QDate , QBuffer, QByteArray , QTime
 from PyQt5.QtGui import QImage,QPixmap 
 from PyQt5.QtGui import QIcon
 from PyQt5.QtGui import QDesktopServices
-from PyQt5.QtCore import QIODevice , QUrl
+from PyQt5.QtCore import QIODevice , QUrl, QThread, pyqtSignal
 from PyQt5.QtWidgets import QFileDialog
 from PyQt5.QtWidgets import QWidget ,QCompleter,QApplication ,QMainWindow,QStackedWidget,QGraphicsDropShadowEffect, QCalendarWidget , QBoxLayout
 from PyQt5.QtWidgets import QMessageBox,QLabel,QTableWidgetItem
@@ -468,6 +468,29 @@ class Ui_montos(QMainWindow):
         self.t_0.currentTextChanged.connect(self.loadTratamientos)
 
         self.loadTratamientos()
+        self.btn_saveC.clicked.connect(self.guardarMonto)
+        
+    def guardarMonto(self):
+        texto = self.invalor_dia.text()
+        if texto and re.match(r'^-?\d*\.?\d+$', texto):
+            valor_dola = float(texto)  
+            conexion = sqlite3.connect('interfaces/database.db')
+            cursor = conexion.cursor()
+            
+            cursor.execute("SELECT ID_V FROM Valor")
+            registro_existente = cursor.fetchone()
+            
+            if registro_existente:
+                cursor.execute("UPDATE Valor SET valorDola = ? WHERE ID_V = ?", (valor_dola, registro_existente[0]))
+            else:
+                cursor.execute('INSERT INTO Valor (ID_V, valorDola) VALUES (NULL, ?)', (valor_dola,))
+            
+            conexion.commit()
+            conexion.close()
+            QMessageBox.warning(None, "Aviso", "El monto ingresado fue guardado con éxito")
+        else:
+            QMessageBox.warning(None, "Error", "Por favor, ingrese solo números en el campo de monto.")
+            self.invalor_dia.clear()
         
     def backmenu(self):        
         conexion = sqlite3.connect('interfaces/database.db')
@@ -2913,8 +2936,7 @@ class Ui_placas(QMainWindow):
             QMessageBox.critical(self, "Error", "Error al eliminar las placas  de la base de datos: " + str(e))
         pass
     
-       
-from PyQt5.QtCore import QThread, pyqtSignal
+    
 class CalculoDivisaThread(QThread):
     finished = pyqtSignal(float)
 
@@ -2926,29 +2948,31 @@ class CalculoDivisaThread(QThread):
         requests.packages.urllib3.disable_warnings(InsecureRequestWarning)
 
         url = 'https://www.bcv.org.ve'
-        response = requests.get(url, verify=False)
+        try:
+            response = requests.get(url, verify=False)
+            soup = BeautifulSoup(response.text, 'html.parser')
+            div_dolar = soup.find('div', id='dolar')
+            divisa = div_dolar.find('strong').text
+            divisa_limpia = divisa.replace(' ', '').replace(',', '.')
+            valor_numerico = float(divisa_limpia)
+        except requests.ConnectionError:
+            # Si no hay conexión a Internet, extraer el valor de la base de datos
+            valor_numerico = self.obtener_valor_bd()
 
-        soup = BeautifulSoup(response.text, 'html.parser')
-
-        div_dolar = soup.find('div', id='dolar')
-
-        divisa = div_dolar.find('strong').text
-
-        # Eliminar espacios en blanco y comas
-        divisa_limpia = divisa.replace(' ', '').replace(',', '.')
-
-        # Convertir la cadena limpia en un número decimal
-        valor_numerico = float(divisa_limpia)
-
-        # Obtener la cantidad de dólares del QLineEdit en tu interfaz gráfica
         operacion = float(self.dolar)
-
-        # Calcular la suma
         bolivares = operacion * valor_numerico
         suma_formateada = "{:.2f}".format(bolivares).replace(".", ",")
 
-        # Emitir la señal con el resultado
         self.finished.emit(float(suma_formateada.replace(',', '.')))
+
+    def obtener_valor_bd(self):
+        conexion = sqlite3.connect('interfaces/database.db')
+        cursor = conexion.cursor()
+        cursor.execute("SELECT valorDola FROM Valor")
+        valor_dolar = cursor.fetchone()[0]
+        conexion.close()
+        return valor_dolar
+        
 class historiaMenu(QMainWindow):
     def __init__(self ,id_user):
         super(historiaMenu, self).__init__()
