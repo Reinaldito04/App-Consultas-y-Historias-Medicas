@@ -1381,6 +1381,7 @@ class Ui_pacientes_view(QtWidgets.QMainWindow):
        
         self.bt_preview.clicked.connect(self.guardarPDF)
         self.bt_backup.clicked.connect(self.exportar_a_excel)
+        self.bt_import.clicked.connect(self.importarData)
         
     def verifytipoUser(self):
         conexion = sqlite3.connect("./interfaces/database.db")
@@ -1397,7 +1398,93 @@ class Ui_pacientes_view(QtWidgets.QMainWindow):
                 self.usuario = "Usuario"
             else:
                 print("No se encontró ningún tipo")
-                
+    
+    def importarData(self):
+        # Conectar a la base de datos SQLite
+        conexion = sqlite3.connect('interfaces/database.db')
+        cursor = conexion.cursor()
+
+        # Abrir el archivo Excel
+        archivo_excel, _ = QFileDialog.getOpenFileName(self, 'Seleccionar archivo Excel', '', 'Archivos Excel (*.xlsx)')
+        if not archivo_excel:
+            return  # Si no se selecciona ningún archivo, salir
+
+        # Cargar el archivo Excel
+        libro_excel = openpyxl.load_workbook(archivo_excel)
+
+        # Leer datos de la hoja 'Pacientes'
+        hoja_pacientes = libro_excel['Pacientes']
+        datos_pacientes = []
+        for fila in hoja_pacientes.iter_rows(min_row=2, values_only=True):
+            datos_pacientes.append(fila)
+
+        # Insertar datos en la tabla Pacientes, evitando duplicados
+        for dato in datos_pacientes:
+                cedula = dato[1]  # La columna Cedula es el segundo elemento en los datos
+                cursor.execute("SELECT COUNT(*) FROM Pacientes WHERE Cedula=?", (cedula,))
+                if cursor.fetchone()[0] == 0:
+                    cursor.execute("""
+                        INSERT INTO Pacientes (ID_user, Cedula, Nombre, Apellido, Edad, Direccion, Sexo, Fecha_Diagnotico)
+                        VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+                    """, dato)
+
+        # Leer datos de la hoja 'Cita'
+        hoja_cita = libro_excel['Cita']
+        datos_cita = []
+        for fila in hoja_cita.iter_rows(min_row=2, values_only=True):
+            datos_cita.append(fila)
+
+        # Insertar datos en la tabla Cita, evitando duplicados
+        for dato in datos_cita:
+            id_cita = dato[2]  # La columna ID_Cita es el tercer elemento en los datos
+            cursor.execute("SELECT COUNT(*) FROM Cita WHERE ID_Cita=?", (id_cita,))
+            if cursor.fetchone()[0] == 0:
+                cursor.execute("""
+                    INSERT INTO Cita (ID_user, Cedula, ID_Cita, Fecha_Cita, Hora_Cita, Estatus_Cita)
+                    VALUES (?, ?, ?, ?, ?, ?)
+                """, dato)
+
+        # Leer datos de la hoja 'Trata'
+        hoja_trata = libro_excel['Trata']
+        datos_trata = []
+        for fila in hoja_trata.iter_rows(min_row=2, values_only=True):
+            datos_trata.append(fila)
+
+        # Insertar datos en la tabla Trata, evitando duplicados
+        for dato in datos_trata:
+            num_trata = dato[0]  # La columna Num_trata es el primer elemento en los datos
+            cursor.execute("SELECT COUNT(*) FROM Trata WHERE Num_trata=?", (num_trata,))
+            if cursor.fetchone()[0] == 0:
+                cursor.execute("""
+                    INSERT INTO Trata (Num_trata, tipo_tratamiento, tratamiento, monto)
+                    VALUES (?, ?, ?, ?)
+                """, dato)
+
+        # Leer datos de la hoja 'Ptrata'
+        hoja_ptrata = libro_excel['Ptrata']
+        datos_ptrata = []
+        for fila in hoja_ptrata.iter_rows(min_row=2, values_only=True):
+            datos_ptrata.append(fila)
+
+        # Insertar datos en la tabla Ptrata, evitando duplicados
+        for dato in datos_ptrata:
+            id_trata = dato[0]  # La columna ID_Trata es el primer elemento en los datos
+            cursor.execute("SELECT COUNT(*) FROM Ptrata WHERE ID_Trata=?", (id_trata,))
+            if cursor.fetchone()[0] == 0:
+                cursor.execute("""
+                    INSERT INTO Ptrata (ID_Trata, Cedula, Tipo_Trata1, Tratamiento1, Tipo_Trata2, Tratamiento2,
+                    Tipo_Trata3, Tratamiento3, Tipo_Trata4, Tratamiento4, Tipo_Trata5, Tratamiento5, Tipo_Trata6, 
+                    Tratamiento6, Fecha_Trata)
+                    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                """, dato)
+
+        # Guardar cambios en la base de datos
+        conexion.commit()
+
+        # Cerrar la conexión
+        conexion.close()
+
+           
     def exportar_a_excel(self):
         # Conectar a la base de datos SQLite
         conexion = sqlite3.connect('interfaces/database.db')
@@ -1409,6 +1496,7 @@ class Ui_pacientes_view(QtWidgets.QMainWindow):
         # Obtener datos de la tabla Pacientes
         cursor.execute("""
             SELECT 
+                ID_user,
                 Cedula, 
                 Nombre, 
                 Apellido, 
