@@ -488,9 +488,14 @@ class Ui_montos(QMainWindow):
             conexion.commit()
             conexion.close()
             QMessageBox.warning(None, "Aviso", "El monto ingresado fue guardado con éxito")
+            self.invalor_dia.clear()
+        elif not texto:
+            QMessageBox.warning(None, "Error", "Por favor, rellene el campo.")
         else:
             QMessageBox.warning(None, "Error", "Por favor, ingrese solo números en el campo de monto.")
-            self.invalor_dia.clear()
+            self.invalor_dia.clear()    
+
+
         
     def backmenu(self):        
         conexion = sqlite3.connect('interfaces/database.db')
@@ -649,6 +654,7 @@ class Ui_Salida(QMainWindow):
         self.total = 0
         self.totalDolar=0
         self.verifytipoUser()
+
         self.usuario =None
         conexion = sqlite3.connect("./interfaces/database.db")
         cursor = conexion.cursor()
@@ -658,6 +664,7 @@ class Ui_Salida(QMainWindow):
         modelo_completer.setCaseSensitivity(0)
         self.in_busqueda.setCompleter(modelo_completer)
         conexion.close()
+        
     def verifytipoUser(self):
         conexion = sqlite3.connect("./interfaces/database.db")
         cursor = conexion.cursor()
@@ -673,7 +680,8 @@ class Ui_Salida(QMainWindow):
                 self.usuario = "Usuario"
             else:
                 print("No se encontró ningún tipo")
-                
+            
+                   
     def totalDolares(self):
         total_formateado = "{:,.0f}".format(self.totalDolar).replace(',', '.')
         self.lineEdit_58.setText(total_formateado)
@@ -1483,6 +1491,8 @@ class Ui_pacientes_view(QtWidgets.QMainWindow):
 
         # Cerrar la conexión
         conexion.close()
+        QMessageBox.information(self, "Información", "Se han guardado correctamente los datos importados.")
+
 
            
     def exportar_a_excel(self):
@@ -1566,6 +1576,8 @@ class Ui_pacientes_view(QtWidgets.QMainWindow):
                 archivo_excel += '.xlsx'
 
             libro_excel.save(archivo_excel)
+    
+        QMessageBox.information(self, "Información", "Se ha guardado correctamente.")
 
         conexion.close()
         

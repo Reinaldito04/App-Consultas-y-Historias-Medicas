@@ -987,7 +987,7 @@ QRadioButton{
                       <item>
                        <widget class="QLabel" name="label">
                         <property name="text">
-                         <string>Asignar tasa del dolar. Para ingresar el valor del dolar al dia debe hacerlo con &quot;.&quot; y no con &quot;,&quot;.</string>
+                         <string>Para asignar el valor del dolar debe hacerlo con &quot;.&quot;</string>
                         </property>
                         <property name="alignment">
                          <set>Qt::AlignCenter</set>
